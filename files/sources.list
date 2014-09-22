@@ -1,0 +1,203 @@
+#
+# /etc/apt/sources.list
+#
+
+# wheezy - stable #
+#   deb     http://ftp.pl.debian.org/debian/ stable main non-free contrib
+#   deb-src http://ftp.pl.debian.org/debian/ stable main non-free contrib
+#   deb     http://security.debian.org/ stable/updates main contrib non-free
+#   deb-src http://security.debian.org/ stable/updates main contrib non-free
+
+#   deb     http://mirrors.kernel.org/debian wheezy-updates main contrib
+#   deb-src http://mirrors.kernel.org/debian wheezy-updates main contrib
+
+#	deb 	ftp://ftp.deb-multimedia.org stable main non-free
+#	deb-src ftp://ftp.deb-multimedia.org stable main non-free
+
+#   deb     http://ftp.pl.debian.org/debian/ wheezy-backports main
+
+# jessie - testing #
+	deb     http://ftp.pl.debian.org/debian/ testing main non-free contrib
+#	deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
+	deb     http://security.debian.org/ testing/updates main contrib non-free
+#	deb-src http://security.debian.org/ testing/updates main contrib non-free
+
+#	deb 	ftp://ftp.deb-multimedia.org testing main non-free
+#	deb-src ftp://ftp.deb-multimedia.org testing main non-free
+
+# SID #
+	deb     http://ftp.pl.debian.org/debian/ sid main non-free contrib
+	deb-src http://ftp.pl.debian.org/debian/ sid main non-free contrib
+   
+	deb 	ftp://ftp.deb-multimedia.org sid main non-free
+#	deb-src ftp://ftp.deb-multimedia.org sid main non-free
+
+# AptoSID #
+    deb     http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
+#    deb-src http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
+
+#	deb 	ftp://ftp.spline.de/pub/aptosid/debian/ sid main fix.main
+#	deb-src ftp://ftp.spline.de/pub/aptosid/debian/ sid main fix.main
+	
+#	deb 	http://aptosid.office-vienna.at/aptosid/debian/ sid main fix.main
+#	deb-src http://aptosid.office-vienna.at/aptosid/debian/ sid main fix.main
+
+# EXPERIMENTAL #
+	deb     http://ftp.pl.debian.org/debian/ experimental main contrib non-free
+#	deb-src http://ftp.pl.debian.org/debian/ experimental main contrib non-free
+
+# INCOMING #
+	deb		http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
+#	deb-src	http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
+
+# OP #
+# Google chrome #
+#   deb     http://dl.google.com/linux/chrome/deb/ stable main
+
+# dropbox #
+#	deb		http://linux.dropbox.com/debian sid main
+	
+# Spideroak #
+#	deb		http://apt.spideroak.com/debian/ stable non-free
+
+# MEGA #
+#	deb		http://mega.co.nz/linux/MEGAsync/Debian_7.0/ ./
+
+# Gajim #
+   deb     ftp://ftp.gajim.org/debian unstable main
+
+# wine 1.7 #
+#	deb 	http://liquorix.net/debian sid main
+#	deb-src http://liquorix.net/debian sid main
+
+# Webmin #
+#   deb     http://download.webmin.com/download/repository sarge contrib
+#   deb     http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib
+
+# VirtualBox #
+#   deb     http://download.virtualbox.org/virtualbox/debian wheezy contrib non-free
+
+#  Jitsi (SIP Communicator) #
+#   deb     http://download.sip-communicator.org/deb unstable/
+
+# JonDo #
+#   deb     http://debian.anonymous-proxy-servers.net sid main
+
+# TOR #
+#   deb     http://deb.torproject.org/torproject.org testing main
+#   deb     http://deb.torproject.org/torproject.org sid main
+#   deb     http://deb.torproject.org/torproject.org experimental-sid main
+
+# getdeb #
+#   deb		http://archive.getdeb.net/ubuntu saucy-getdeb apps
+#   deb     http://archive.getdeb.net/ubuntu saucy-getdeb games
+
+# LiveUSB MultiBoot #
+#   deb     http://liveusb.info/multisystem/depot all main
+
+# Spotify music #
+#   deb     http://repository.spotify.com stable non-free
+
+# PPA #
+
+# Shutter #
+#   deb     http://ppa.launchpad.net/shutter/ppa/ubuntu utopic main
+#   deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu utopic main
+
+# Jdownloader #
+#   deb     http://ppa.launchpad.net/jd-team/jdownloader/ubuntu trusty main
+#   deb-src http://ppa.launchpad.net/jd-team/jdownloader/ubuntu trusty main
+
+# OpenShot #
+#   deb     http://ppa.launchpad.net/openshot.developers/ppa/ubuntu quantal main
+#   deb-src http://ppa.launchpad.net/openshot.developers/ppa/ubuntu quantal main
+#	deb 	http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu quantal main 
+#	deb-src http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu quantal main 
+
+# Haguichi #
+#	deb 	http://ppa.launchpad.net/webupd8team/haguichi/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu trusty main 
+
+# i2p #
+#	deb 	http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu trusty main 
+
+# Java (oracle) #
+	deb 	http://ppa.launchpad.net/webupd8team/java/ubuntu utopic main 
+#	deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu utopic main 
+
+# qBitorrent #
+	deb 	http://ppa.launchpad.net/hydr0g3n/qbittorrent-stable/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/hydr0g3n/qbittorrent-stable/ubuntu trusty main 
+#	deb 	http://ppa.launchpad.net/hydr0g3n/qbittorrent-trunk/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/hydr0g3n/qbittorrent-trunk/ubuntu trusty main 
+	deb 	http://ppa.launchpad.net/surfernsk/internet-software/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/surfernsk/internet-software/ubuntu trusty main 
+
+# Tuxboot #
+#	deb 	http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu trusty main 
+
+# Grub Customizer #
+#	deb 	http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu trusty main 
+
+# retroshare (p2p) #
+#	deb 	http://ppa.launchpad.net/csoler-users/retroshare-snapshots/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/csoler-users/retroshare-snapshots/ubuntu trusty main 
+
+# darktable graphic #
+#	deb 	http://ppa.launchpad.net/pmjdebruijn/darktable-release-plus/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/pmjdebruijn/darktable-release-plus/ubuntu trusty main 
+
+# File symc #
+#	deb		http://ppa.launchpad.net/freefilesync/ffs/ubuntu trusty main
+#	deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu trusty main
+
+# SMPlayer #
+    deb     http://ppa.launchpad.net/rvm/smplayer/ubuntu trusty main
+#   deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu trusty main
+
+# Keepass2 #
+    deb     http://ppa.launchpad.net/jtaylor/keepass/ubuntu trusty main
+#   deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu trusty main
+
+# WineHQ #
+#	deb 	http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu utopic main 
+#	deb-src http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu utopic main 
+
+# Desktop recorder #
+	deb 	http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu trusty main 
+
+# spacefm & udevil #
+   deb     http://ignorantguru.github.com/debian/ unstable main
+
+# dnscrypt-proxy #
+#	deb 	http://ppa.launchpad.net/shnatsel/dnscrypt/ubuntu utopic main 
+#	deb-src http://ppa.launchpad.net/shnatsel/dnscrypt/ubuntu utopic main 
+
+# mati #
+#	deb 	http://repozytorium.mati75.eu/debian wheezy-backports main contrib non-free
+#	deb-src http://repozytorium.mati75.eu/debian wheezy-backports main contrib non-free
+
+	deb 	http://repozytorium.mati75.eu/debian sid main contrib non-free
+#	deb-src http://repozytorium.mati75.eu/debian sid main contrib non-free
+
+#	deb 	http://repozytorium.mati75.eu/debian experimental main contrib non-free
+#	deb-src http://repozytorium.mati75.eu/debian experimental main contrib non-free
+
+# whdd #
+	deb 	http://ppa.launchpad.net/eugenesan/ppa/ubuntu trusty main 
+#	deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu trusty main 
+
+# Debian snapshot #
+#deb     http://snapshot.debian.org/archive/debian/20140609T043425Z/ testing main contrib non-free
+#deb-src http://snapshot.debian.org/archive/debian/20140609T043425Z/ testing main contrib non-free
+
+# local #
+	deb		file:/media/Server/repozytorium/debian/ sid main contrib non-free
+	deb-src	file:/media/Server/repozytorium/debian/ sid main contrib non-free
+
+#	deb		http://deb.morfikownia.lh/debian/ sid main contrib non-free
+#	deb-src	http://deb.morfikownia.lh/debian/ sid main contrib non-free
