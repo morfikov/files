@@ -13,6 +13,9 @@ export PAGER=$(find_alt less more most)
 export PATH_SCREENCAST="/home/morfik/Desktop/"
 export PATH_SCREENSHOT="/home/morfik/skriny"
 
+# mysql-workbench
+export GNOME_KEYRING_CONTROL=$(ls -d /run/user/`id -u`/keyring | head -n 1)
+
 # wallpaper path
 PATH_WALLPAPER=~/wallpapers
 
