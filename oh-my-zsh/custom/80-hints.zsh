@@ -246,3 +246,87 @@ http://linuxsig.org/files/bash_scripting.html
 " | less
 }
 # }}}
+
+hint-hardware-info() {
+echo -e " 
+dmidecode                   ram, bios, cpu, sys, bat, board info
+ethtool eth1                wire network interfaces
+iw list                     wireless network interfaces
+decode-dimms (i3c-tool)     ram
+lshw                        everything, see --help for info
+hwinfo                      everything, see --help for info
+rfkill list                 wifi, bluetooth devices
+update-pciids               utility to download the most recent version of a
+                             list (/usr/share/misc/pci.ids) of all known PCI
+                             ID's (vendors, devices, classes and subclasses)
+lspci                       list all pci devices
+  -vvv                      very verbose
+  -kk                       kernel drivers
+  -nn                       show both textual and numeric ID's (names & numbers)
+lsusb                       list usb devices
+  -vvv                      very verbose
+  -t                        physical usb device hierarchy
+tree /dev/                  list /dev/ directory
+lsmod                       list loaded modules 
+dmesq                       display kernel messages
+dmesg | egrep '
+  acx|at76|ath|b43|bcm|brcm|CX|eth|ipw|ireless|irmware|isl|lbtf|orinoco|
+  ndiswrapper|NPE|ound|p54|prism|rtl|rt2|rt3|rt5|rt6|rt7|usb|witch|wl'
+dmesg -t | grep -i 'error\|warn\|exception'
+sensors-detect              detect hardware monitoring chips
+sensors                     ąnd display them
+smartctl --all /dev/sda     disk smart raport
+cat /proc/asound/card0/codec#    sound card codecs
+cat /proc/cpuinfo           cpu info
+xrandr --verbose            screen info
+v4l2-ctl --list-devices     webcam info
+v4l2-ctl --list-formats-ex
+v4l2-ctl -L                 webcam attributes (can be customized)
+
+==================
+http://www.ideasonboard.org/uvc/
+https://wikidevi.com/wiki/Atheros
+http://www.linux-usb.org/usb.ids
+http://www.pcidatabase.com/index.php
+" | less
+}
+
+# }}}
+hint-ffmpeg() {
+echo -e "
+cut 5min from a movie starting from 05:00:000 and recompress it:
+
+        ffmpeg -i file.avi -ss 00:05:00.000 -to 00:10:00.000 \
+        -vcodec libx264 -acodec libvo_aacenc -o file_cut.avi
+
+cut 30secs from a movie starting from 5min and recompress it:
+
+        ffmpeg -i file.avi -ss 5:00 -t 30 \
+        -vcodec libx264 -acodec libvo_aacenc -o file_cut.avi
+
+save one frame as .png file:
+
+        fmpeg -i file.avi -ss 00:10:00 -frames:v 1 file.png
+
+cut 5min of a movie without recompression:
+        ffmpeg -i file.mp4 -vcodec copy -acodec copy \
+        -ss 00:05:00 -to 00:10:00 file_cut.mp4
+        
+Two pass encoding:
+	bitrate = file size / duration
+	(50 MB * 8192 [converts MB to kilobits]) / 600 seconds =
+	~683 kilobits/s total bitrate 683k - 128k (desired audio
+	bitrate) = 555k video bitrate
+
+		ffmpeg -y -i input -c:v libx264 -preset medium -b:v 555k \
+		-pass 1 -c:a libfdk_aac -b:a 128k -f mp4 /dev/null && \
+		
+		ffmpeg -i input -c:v libx264 -preset medium -b:v 555k \
+		-pass 2 -c:a libfdk_aac -b:a 128k output.mp4
+
+
+https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+https://trac.ffmpeg.org/wiki/Capture/Desktop
+https://trac.ffmpeg.org/wiki/Seeking
+" | less
+}
