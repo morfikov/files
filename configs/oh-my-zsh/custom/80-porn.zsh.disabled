@@ -1,0 +1,75 @@
+#}}}
+#-------- Internet Videos - Porn {{{
+#------------------------------------------------------
+# requirements:
+# 	1. install mplayer vim youtube-dl
+# 	2. add this to your ~/.vimrc
+# 		map <F8> :exec '!mplayer $(youtube-dl -g ' . shellescape(getline('.')) . ')' <CR><CR>
+# how to use:
+# 	1. fap-youporn ashlynn brooke
+# 		note: if it doesnt play, try hitting right arrow key
+# 	2. hit F8 on the link you want to play
+# 	3. q to quit mplayer
+# 	4. hit ZZ to quit vim
+
+fap-youporn() { 
+	grepmatch=$(echo "$@" | sed 's/ /.*/g')
+        keyword="$(echo "http://www.youporn.com/search?query=$@&type=straight" | sed 's/ /\+/g')"
+	pagenum=3
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo "$keyword&page=$num"; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/watch/ {print $2}' | cut -d\/ -f1-6 | grep -iE $grepmatch | awk '!x[$0]++' ; done)
+
+	echo $videourl | sed 's/\ /\n/g' | awk '!x[$0]++' | vim -R -
+}
+
+fap-youjizz() {
+        keyword="$(echo "http://www.youjizz.com/search/$@" | sed 's/ /\-/g')"
+	pagenum=5
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo "$keyword-$num".html""; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/\.com\/videos/ {print $2}' | awk '!x[$0]++' ; done)
+	
+	echo $videourl | sed 's/\ /\n/g' | awk '!x[$0]++' | vim -R -
+}
+
+fap-xvideos() {
+        keyword="$(echo "http://www.xvideos.com/?k=$@" | sed 's/ /\+/g')"
+	pagenum=5
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo "$keyword&p=$num"; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/xvideos\.com\/video/ {print $2}' | awk '!x[$0]++' ; done)
+
+	echo $videourl | sed 's/\ /\n/g' | awk '!x[$0]++' | vim -R -
+}
+
+fap-spankwire() {
+        keyword="$(echo "http://www.spankwire.com/search/straight/keyword/$@" | sed 's/ /\%20/g')"
+	pagenum=5
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo "$keyword?Sort=Relevance&Page=$num"; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/www\.spankwire\.com/ && /video/ {print $2}' | awk '!x[$0]++' ; done)
+
+	echo $videourl | sed 's/\ /\n/g' | vim -R -
+}
+
+fap-tnaflix() {
+        keyword="$(echo "&what=$@&category=&sb=relevance&su=anytime&sd=all&dir=desc" | sed 's/ /\%20/g')"
+	pagenum=3
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo \
+		"http://www.tnaflix.com/search.php?page=$num$keyword"; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/video[0-9]/ {print $2}' | awk '!x[$0]++' ; done)
+
+	echo $videourl | sed 's/\ /\n/g' | vim -R -
+}
+fap-empflix() {
+        keyword="$(echo "&what=$@&category=&sb=relevance&su=anytime&sd=all&dir=desc" | sed 's/ /\%20/g')"
+	pagenum=3
+	pagenum_to_url=$(for num in $(seq 1 "$pagenum"); do echo \
+		"http://www.empflix.com/search.php?page=$num$keyword"; done )
+	videourl=$(echo "$pagenum_to_url" | while read line; do lynx -dump "$line" \
+	| awk '/empflix\.com\/videos/ {print $2}' | awk '!x[$0]++' ; done)
+
+	echo $videourl | sed 's/\ /\n/g' | vim -R -
+}
