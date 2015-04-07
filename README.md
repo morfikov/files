@@ -1,2 +1,2 @@
-conffiles
+Some Debian config/script files
 =========
