@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author: Morfik
-# Version: 0.1.0
+# Version: 0.1.1
 # Date: 2015.04.12
 #
 # See: https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
@@ -18,9 +18,9 @@ update() {
 		installed_verion="$($instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 2)"
 	fi
 
-	url="http://download-origin.cdn.mozilla.net/pub/mozilla.org/$app/releases/latest/update/linux-`uname -m`/$lang/"  
-	new_version="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar" | sort -u | cut -d '-' -f 3 |cut -d '.' -f 1-3)"
+	url="http://download-origin.cdn.mozilla.net/pub/mozilla.org/$app/releases/latest/update/linux-`uname -m`/$lang/"
 	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar" | sort -u)"
+	new_version="$(echo $update_file | sort -u | cut -d '-' -f 3 |cut -d '.' -f 1-3)"
 	signature_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar.asc" | sort -u)"
 	
 	mkdir -p $tmp_dir
