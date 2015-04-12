@@ -1,11 +1,30 @@
 #!/bin/bash
 #
-# Author: Morfik
-# Version: 0.1.1
-# Date: 2015.04.12
+# Last modified: 2015.04.12
+# Version: 0.1.2
+# Source: https://github.com/morfikov/files/blob/master/scripts/ff-tb-updater.sh
+# Author: Mikhail Morfikov <mmorfikov[at]gmail.com>
+# Copyright: 2015 Mikhail Morfikov <mmorfikov[at]gmail.com>
+# License: GPL-2
 #
-# See: https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
+# This package is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
+# This package is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>
+#
+# On Debian systems, the complete text of the GNU General
+# Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+#
+
+# For more info see https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
 
 update() {
 	instalation_dir="/opt/$app"
@@ -53,7 +72,7 @@ update() {
 		exit 1
 	fi
 
-	echo -en "Running file sygnature verification... "
+	echo -en "Running file signature verification... "
 	signature_verification="$(gpg --verify $tmp_dir/update.mar.asc 2>&1)"
 
 	no_key="$(echo $signature_verification | egrep "public key not found")"
