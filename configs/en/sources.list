@@ -2,7 +2,7 @@
 # /etc/apt/sources.list
 # for https install apt-transport-https package
 
-### Wheezy - stable ###
+### Jessie - stable ###
 # deb http://ftp.pl.debian.org/debian/ stable main non-free contrib
 # deb-src http://ftp.pl.debian.org/debian/ stable main non-free contrib
 # deb http://security.debian.org/ stable/updates main contrib non-free
@@ -11,25 +11,25 @@
 # deb http://www.deb-multimedia.org stable main non-free
 # deb-src http://www.deb-multimedia.org stable main non-free
 
-# deb http://mirrors.kernel.org/debian wheezy-backports main contrib
-# deb-src http://mirrors.kernel.org/debian wheezy-backports main contrib
-# deb http://http.debian.net/debian wheezy-backports main
+# deb http://mirrors.kernel.org/debian jessie-backports main contrib
+# deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
+# deb http://http.debian.net/debian jessie-backports main
 
-### Jessie - testing ###
-deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
+### Stretch - testing ###
+#deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
 # deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
-deb http://security.debian.org/ testing/updates main contrib non-free
+#deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
 
 # deb http://www.deb-multimedia.org testing main non-free
 # deb-src http://www.deb-multimedia.org testing main non-free
 
 ### SID ###
-deb http://ftp.pl.debian.org/debian/ sid main non-free contrib
-deb-src http://ftp.pl.debian.org/debian/ sid main non-free contrib
+deb http://ftp.de.debian.org/debian/ sid main non-free contrib
+#deb-src http://ftp.de.debian.org/debian/ sid main non-free contrib
    
-deb http://www.deb-multimedia.org sid main non-free
-deb-src http://www.deb-multimedia.org sid main non-free
+#deb http://www.deb-multimedia.org sid main non-free
+#deb-src http://www.deb-multimedia.org sid main non-free
 
 ### AptoSID ###
 #deb http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
@@ -77,8 +77,8 @@ deb-src http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 #deb http://ignorantguru.github.com/debian/ unstable main 
 
 ### mati75 ###
-# deb http://repozytorium.mati75.eu/debian wheezy-backports main contrib non-free
-# deb-src http://repozytorium.mati75.eu/debian wheezy-backports main contrib non-free
+# deb http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
+# deb-src http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
 
 deb http://repozytorium.mati75.eu/debian sid main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian sid main contrib non-free
@@ -102,17 +102,17 @@ deb http://deb.opera.com/opera-beta/ stable non-free
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
-# deb http://mega.co.nz/linux/MEGAsync/Debian_7.0/ ./
+# deb http://mega.nz/linux/MEGAsync/Debian_8.0/
 
 ### Gajim ###
-deb ftp://ftp.gajim.org/debian unstable main
+#deb ftp://ftp.gajim.org/debian unstable main
 
 ### Webmin ###
 # deb http://download.webmin.com/download/repository sarge contrib
 # deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib
 
 ### VirtualBox ###
-# deb http://download.virtualbox.org/virtualbox/debian wheezy contrib non-free
+# deb http://download.virtualbox.org/virtualbox/debian jessie contrib non-free
 
 ### Jitsi (SIP Communicator) ###
 # deb http://download.sip-communicator.org/deb unstable/
@@ -188,8 +188,8 @@ deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu vivid 
 # deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu trusty main
 
 ### SMPlayer (video) ###
-deb http://ppa.launchpad.net/rvm/smplayer/ubuntu utopic main 
-# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu utopic main
+deb http://ppa.launchpad.net/rvm/smplayer/ubuntu vivid main 
+# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu vivid main
 
 ### Keepass2 (passwords) ###
 deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu utopic main 
@@ -211,6 +211,10 @@ deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu trusty main
 deb http://ppa.launchpad.net/unit193/inxi/ubuntu vivid main 
 # deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu vivid main
 
+### Spacefm ###
+deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu vivid main 
+#deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu vivid main 
+
 ### Debian snapshot ###
 # deb http://snapshot.debian.org/archive/debian/20140609T043425Z/ testing main contrib non-free
 # deb-src http://snapshot.debian.org/archive/debian/20140609T043425Z/ testing main contrib non-free
@@ -221,3 +225,7 @@ deb-src file:/media/Kabi/repozytorium/debian/ sid main contrib non-free
 
 #deb http://deb.morfikownia.lh/debian/ sid main contrib non-free
 #deb-src http://deb.morfikownia.lh/debian/ sid main contrib non-free
+
+### PacketFence ###
+#deb http://inverse.ca/downloads/PacketFence/debian wheezy wheezy
+#deb-src http://inverse.ca/downloads/PacketFence/debian wheezy wheezy
