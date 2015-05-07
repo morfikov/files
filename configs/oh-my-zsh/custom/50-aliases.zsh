@@ -50,10 +50,9 @@ bindkey -s '^Q' "fzf_killps\n"
 #------------------------------------------------------
 cfg-bash-bashrc() { $EDITOR ~/.bashrc ;}
 cfg-zsh-zshrc() { $EDITOR ~/.zshrc ;}
-cfg-zsh-config() { $EDITOR ~/.oh-my-zsh/custom/config.zsh ;}
-cfg-zsh-scripts() { $EDITOR ~/.oh-my-zsh/custom/scripts.zsh ;}
-cfg-zsh-vars() { $EDITOR ~/.oh-my-zsh/custom/vars.zsh ;}
-cfg-zsh-aliases() { $EDITOR ~/.oh-my-zsh/custom/aliases ;}
+cfg-zsh-config() { $EDITOR ~/.oh-my-zsh/custom/10-config.zsh ;}
+cfg-zsh-vars() { $EDITOR ~/.oh-my-zsh/custom/20-vars.zsh ;}
+cfg-zsh-aliases() { $EDITOR ~/.oh-my-zsh/custom/50-aliases ;}
 cfg-openbox-autostart() { $EDITOR ~/.config/openbox/autostart ;}
 cfg-openbox-environment() { $EDITOR ~/.config/openbox/environment ;}
 cfg-openbox-menu() { $EDITOR ~/.config/openbox/menu.xml ;}
@@ -89,6 +88,7 @@ cfg-vimrc() { $EDITOR /etc/vim/vimrc ;}
 cfg-wgetrc() { $EDITOR /etc/wgetrc ;}
 cfg-pyradio() { $EDITOR /opt/skrypty/pyradio-0.4/stations.csv ;}
 
+edit-hints() { $EDITOR  ~/.oh-my-zsh/custom/80-hints.zsh ;}
 #}}}
 #-------- Configurations Reload {{{
 #------------------------------------------------------
@@ -142,7 +142,7 @@ alias du='du -d1 -h'			# max depth, human readable
 alias free='free -ht'			# human readable, print total
 alias lsblk='lsblk -o "NAME,SIZE,FSTYPE,TYPE,LABEL,MOUNTPOINT,UUID"'    # combo use lsblk or lsblk -f
 alias mkdir='mkdir -p -v'		# create if not exist, verbose
-alias mount='mount | column -t'			# align in column
+#alias mount='mount | column -t'			# align in column
 alias nano='nano -c -$'			# word wrapping
 alias wget='wget -c'			# continues/resumes
 
@@ -187,7 +187,7 @@ vid2avi() { ffmpeg -i "$1" -vcodec mpeg4 -sameq "${1%.*}.vid2avi.avi" ;}
 # http://www.youtube.com/watch?v=rE7ISiKoNec
 web2png() { cutycapt --url="$1" --out=web2png_output.png ;}
 
-info-current-ip-address() { echo Current IP $(curl -s http://checkip.dyndns.org/ | grep -o "[[:digit:].]\+") ; }
+info-current-ip-address() { echo Current IP $(dig +short myip.opendns.com @resolver1.opendns.com) ; }
 info-sound() { cat /proc/asound/pcm && arecord -l ;} #List audio capture card
 info-distro() { uname -a && lsb_release -a ;}
 

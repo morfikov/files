@@ -208,6 +208,10 @@ Remotes:
   git fetch upstream master
   git remote show origin
 
+Change https <=> ssh
+  git remote set-url origin git@github.com:morfikov/conffiles.git
+  git remote set-url origin https://github.com/morfikov/conffiles.git
+  
 Logs:
   git log -p
   git log -1
@@ -224,6 +228,12 @@ Changes:
   git reset --soft HEAD~1    (revert changes, one commit)
   git revert 49f8b65ed0d2ae0c7f17fd0003af832f61c7885a
   git commit --amend
+
+Rename comments:
+  git rebase -i HEAD~7    (Displays a list of the last 7 commits on the
+                          current branch)
+  git push --force
+  
 
 ==================
 https://help.github.com/articles/set-up-git
@@ -277,7 +287,7 @@ sensors-detect              detect hardware monitoring chips
 sensors                     ąnd display them
 smartctl --all /dev/sda     disk smart raport
 cat /proc/asound/card0/codec#    sound card codecs
-cat /proc/cpuinfo           cpu info
+cat /proc/cpuinfo (lscpu)   cpu info
 xrandr --verbose            screen info
 v4l2-ctl --list-devices     webcam info
 v4l2-ctl --list-formats-ex
