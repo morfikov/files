@@ -219,7 +219,9 @@ Logs:
   git log --since=yesterday --until=\"2015-02-17 12:22:00\"
   git log --author=morfik
   git log --stat
-  git log --pretty=format:"%H - %an, %ad : %s"
+  git log --pretty=format:\"%H - %an, %ad : %s\"
+  git log --pretty=format:\"%h on %ad by %an (%G? 0x%GK): %s%d\" --graph --date=short
+  git log --tags --show-notes --simplify-by-decoration --pretty=\"format:%ai %d %s (%G? 0x%GK)\" 
   git log --oneline
 
 Changes:
@@ -233,7 +235,14 @@ Rename comments:
   git rebase -i HEAD~7    (Displays a list of the last 7 commits on the
                           current branch)
   git push --force
-  
+
+Diffs:
+git diff			show differences between your working directory and the index
+git diff -–cached 	show differences between the index and the most recent commit
+git diff HEAD 		show the differences between your working directory and the most recent commit
+
+Commits:
+git commit -S -m "some text"	create and sign a commit
 
 ==================
 https://help.github.com/articles/set-up-git
@@ -286,12 +295,14 @@ dmesg -t | grep -i 'error\|warn\|exception'
 sensors-detect              detect hardware monitoring chips
 sensors                     ąnd display them
 smartctl --all /dev/sda     disk smart raport
-cat /proc/asound/card0/codec#    sound card codecs
-cat /proc/cpuinfo (lscpu)   cpu info
+/proc/asound/card0/codec#   sound card codecs
+/proc/sys/dev/cdrom/info    cd/dvd info
+/proc/cpuinfo (lscpu)   cpu info
 xrandr --verbose            screen info
 v4l2-ctl --list-devices     webcam info
 v4l2-ctl --list-formats-ex
 v4l2-ctl -L                 webcam attributes (can be customized)
+
 
 ==================
 http://www.ideasonboard.org/uvc/

@@ -39,11 +39,15 @@ pa-swap() { /opt/skrypty/pulseaudio_toggle.sh ;}
 #}}}
 #-------- FZF {{{
 #------------------------------------------------------
+# See tmux.conf for binds
 fzf-locate() { xdg-open "$(locate "*" | fzf -e)" > /dev/null 2>&1 ;}
-bindkey -s '^\' "fzf-locate\n"
+#bindkey -s '^\' "fzf-locate\n"
 
 fzf_killps() { zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }; zle -N fzf_killps;
-bindkey -s '^Q' "fzf_killps\n"
+#bindkey -s '\C-Q' "fzf_killps\n"
+
+#bindkey -s '\C-L' "fzf-history-widget\n"
+
 #}}}
 
 #-------- Configurations {{{
@@ -52,7 +56,7 @@ cfg-bash-bashrc() { $EDITOR ~/.bashrc ;}
 cfg-zsh-zshrc() { $EDITOR ~/.zshrc ;}
 cfg-zsh-config() { $EDITOR ~/.oh-my-zsh/custom/10-config.zsh ;}
 cfg-zsh-vars() { $EDITOR ~/.oh-my-zsh/custom/20-vars.zsh ;}
-cfg-zsh-aliases() { $EDITOR ~/.oh-my-zsh/custom/50-aliases ;}
+cfg-zsh-aliases() { $EDITOR ~/.oh-my-zsh/custom/50-aliases.zsh ;}
 cfg-openbox-autostart() { $EDITOR ~/.config/openbox/autostart ;}
 cfg-openbox-environment() { $EDITOR ~/.config/openbox/environment ;}
 cfg-openbox-menu() { $EDITOR ~/.config/openbox/menu.xml ;}
@@ -284,4 +288,10 @@ wget-ext-url() {
 	# -A.mp3        download only mp3s
 	# -erobots=off  execute "robots.off" as if it were a part of .wgetrc
 	wget -r -l1 -H -t1 -nd -N -np -A "$1" -erobots=off "$2"
+}
+
+genpasswd() {
+   local l=$1
+   [ "$l" == "" ] && l=32
+   tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
