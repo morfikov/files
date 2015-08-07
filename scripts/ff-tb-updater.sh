@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Last modified: 2015.04.12
-# Version: 0.1.2
+# Last modified: 2015.08.07
+# Version: 0.2.1
 # Source: https://github.com/morfikov/files/blob/master/scripts/ff-tb-updater.sh
 # Author: Mikhail Morfikov <mmorfikov[at]gmail.com>
 # Copyright: 2015 Mikhail Morfikov <mmorfikov[at]gmail.com>
@@ -31,16 +31,14 @@ update() {
 	tmp_dir="/tmp/$app/out"
 	lang="en-US"
 
-	if [ "$app" == "firefox" ]; then
-		installed_verion="$($instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 3)"
-	elif [ "$app" == "thunderbird" ]; then
-		installed_verion="$($instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 2)"
-	fi
+	installed_verion="$($instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 3)"
 
 	url="http://download-origin.cdn.mozilla.net/pub/mozilla.org/$app/releases/latest/update/linux-`uname -m`/$lang/"
-	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar" | sort -u)"
+#	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar" | sort -u)"
+	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[\.0-9]*partial\.mar" | sort -u)"
 	new_version="$(echo $update_file | sort -u | cut -d '-' -f 3 |cut -d '.' -f 1-3)"
-	signature_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar.asc" | sort -u)"
+#	signature_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar.asc" | sort -u)"
+	signature_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[\.0-9]*partial\.mar.asc" | sort -u)"
 
 	mkdir -p $tmp_dir
 	
@@ -75,15 +73,15 @@ update() {
 	echo -en "Running file signature verification... "
 	signature_verification="$(gpg --verify $tmp_dir/update.mar.asc 2>&1)"
 
-	no_key="$(echo $signature_verification | egrep "public key not found")"
+	no_key="$(echo "$signature_verification" | egrep "public key not found")"
 
 	if [ ! -z "$no_key" ]; then
-		signature_key="$(echo $signature_verification | egrep "using RSA key" | cut -d ' ' -f 21)"
+		signature_key="$(echo "$signature_verification" | egrep "using RSA key" | cut -d ' ' -f 20)"
 		gpg --recv-keys $signature_key > /dev/null 2>&1
 		signature_verification="$(gpg --verify $tmp_dir/update.mar.asc 2>&1)"
 	fi
 
-	good_signature="$(echo $signature_verification | egrep "Good signature")"
+	good_signature="$(echo "$signature_verification" | egrep "Good signature")"
 
 	if [ -z "$good_signature" ]; then
 		echo -e "\033[01;31mbad signature\033[0m, file can't be verified, aborting..."
