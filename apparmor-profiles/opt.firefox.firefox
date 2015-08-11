@@ -105,15 +105,10 @@
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 #	owner @{HOME}/.mozilla/plugins/** mr,
 
-	/sys/devices/virtual/dmi/** r,
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/present r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
-	
-	/sys/bus/ r,
-	/sys/class/ r,
-	/dev/bus/usb/ r,
 
 	owner @{HOME}/.cache/gstreamer-1.0/**  rw,
 	owner @{HOME}/.gstreamer-0.10/registry.x86_64.bin r,
