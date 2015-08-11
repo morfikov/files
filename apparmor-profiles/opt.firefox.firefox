@@ -1,0 +1,144 @@
+# Last Modified: Mon Aug 10 21:04:55 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2009-2011 Canonical Ltd.
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+@{MOZ_LIBDIR}=/opt/firefox
+
+/opt/firefox/firefox {
+
+	#include <abstractions/base>
+	#include <abstractions/private-files>
+	#include <abstractions/gnome>
+	#include <abstractions/audio>
+	#include <abstractions/nvidia>
+	#include <abstractions/ssl_certs>
+	#include <abstractions/dconf>
+	#include <abstractions/kde>
+	#include <abstractions/nameservice>
+	#include <abstractions/user-download>
+	#include <abstractions/dbus-session>
+	#include <abstractions/gstreamer>
+	# #include <abstractions/python>
+	# #include <abstractions/cups-client>
+
+	# potentially extremely sensitive files
+	audit deny @{HOME}/.gnupg/** mrwkl,
+	audit deny @{HOME}/.ssh/** mrwkl,
+	audit deny @{HOME}/.gnome2_private/** mrwkl,
+	audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
+	audit deny @{HOME}/.config/chromium/** mrwkl,
+	audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
+	audit deny @{HOME}/.evolution/** mrwkl,
+	audit deny @{HOME}/.config/evolution/** mrwkl,
+	audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
+	audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
+
+	# don't allow access to any gnome-keyring modules
+	audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
+
+	# Firefox files
+	@{MOZ_LIBDIR}/ r,
+	@{MOZ_LIBDIR}/**  mixr,
+	#@{MOZ_LIBDIR}/plugin-container PUx,
+	@{MOZ_LIBDIR}/plugin-container pux,
+	@{MOZ_LIBDIR}/update.test w,
+
+	# Proc files
+	#owner @{PROC}/@{pid}/cmdline r,
+	owner @{PROC}/@{pid}/fd/ r,
+	owner @{PROC}/@{pid}/fd/* r,
+	#owner @{PROC}/@{pid}/maps r,
+	owner @{PROC}/@{pid}/smaps r,
+	owner @{PROC}/@{pid}/mountinfo r,
+	owner @{PROC}/@{pid}/stat r,
+	owner @{PROC}/@{pid}/statm r,
+	owner @{PROC}/@{pid}/status r,
+	owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	audit deny owner @{PROC}/uptime r,
+
+	deny /bin/bash x,
+	deny /bin/dash x,
+	deny /usr/bin/which x,
+
+	# Firefox plugins
+	#/usr/lib/mozilla/plugins/** mr,
+	/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
+	#/usr/lib/mozilla/plugins/flash-mozilla.so mr,
+	/usr/lib/mozilla/plugins/libvlcplugin.so mr,
+	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+	/opt/google/chrome/PepperFlash/manifest.json r,
+
+	# Flash config files
+	/etc/adobe/mms.cfg  r,
+	owner @{HOME}/mm.cfg rw,
+
+	# webcam
+	deny /dev/video0 rw,
+	deny /dev/v4l/by-path/ r,
+	
+	# mic
+	deny /dev/snd/pcmC0D0c rw,
+
+	# Firefox files
+	owner @{HOME}/.cache/mozilla/ rw,
+	owner @{HOME}/.cache/mozilla/** rw,
+	owner @{HOME}/.mozilla/ r,
+	owner @{HOME}/.mozilla/** r,
+	owner @{HOME}/.mozilla/firefox/** rwk,
+	owner @{HOME}/.mozilla/**/*.sqlite* k,
+	owner @{HOME}/.mozilla/**/stylish.sqlite* rw,
+	owner @{HOME}/.mozilla/**/cookies.sqlite* rw,
+	owner @{HOME}/.mozilla/**/.parentlock k,
+	owner @{HOME}/.mozilla/**/extensions/** mrix,
+#	owner @{HOME}/.mozilla/**/plugins/** mr,
+	owner @{HOME}/.mozilla/firefox/profiles.ini r,
+#	owner @{HOME}/.mozilla/plugins/** mr,
+
+	/sys/devices/virtual/dmi/** r,
+	/sys/devices/system/cpu/ r,
+	/sys/devices/system/cpu/present r,
+	/sys/devices/system/node/ r,
+	/sys/devices/system/node/node0/meminfo r,
+	
+	/sys/bus/ r,
+	/sys/class/ r,
+	/dev/bus/usb/ r,
+
+	owner @{HOME}/.cache/gstreamer-1.0/**  rw,
+	owner @{HOME}/.gstreamer-0.10/registry.x86_64.bin r,
+	/usr/lib/x86_64-linux-gnu/gstreamer0.10/gstreamer-0.10/gst-plugin-scanner rix,
+
+	/usr/share/glib-2.0/schemas/gschemas.compiled r,
+	
+	/run/user/*/dconf/user w,
+
+	owner @{HOME}/.config/gtk-3.0/bookmarks r,
+
+	/etc/mailcap r,
+
+	/etc/mime.types r,
+
+	/usr/share/applications/kde4/ r,
+	/usr/share/applications/kde4/** r,
+
+	# Launch external apps
+	/usr/bin/vlc rPUx,
+	/usr/bin/qbittorrent rPUx,
+	/usr/bin/exo-open rPUx,
+	/usr/bin/smplayer rPUx,
+	/usr/bin/geany rPUx,
+	/usr/bin/okular rPUx,
+	/usr/bin/spacefm rPUx,
+
+}

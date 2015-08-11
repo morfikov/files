@@ -1,0 +1,86 @@
+# Last Modified: Mon Aug 10 21:04:55 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2009-2011 Canonical Ltd.
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+@{MOZ_LIBDIR}=/opt/firefox
+
+/opt/firefox/plugin-container {
+
+	#include <abstractions/base>
+	#include <abstractions/private-files-strict>
+	#include <abstractions/gnome>
+	#include <abstractions/audio>
+	#include <abstractions/nvidia>
+	# #include <abstractions/nameservice>
+	# #include <abstractions/consoles>
+	#include <abstractions/dbus-session-strict>
+	#include <abstractions/gstreamer>
+
+	# Firefox files
+	@{MOZ_LIBDIR}/ r,
+	@{MOZ_LIBDIR}/**  mixr,
+
+	# Proc files
+	owner @{PROC}/@{pid}/cmdline r,
+	#owner @{PROC}/@{pid}/fd/ r,
+	#owner @{PROC}/@{pid}/fd/* r,
+	#owner @{PROC}/@{pid}/maps r,
+	#owner @{PROC}/@{pid}/smaps r,
+	#owner @{PROC}/@{pid}/mountinfo r,
+	#owner @{PROC}/@{pid}/stat r,
+	#owner @{PROC}/@{pid}/statm r,
+	owner @{PROC}/@{pid}/status r,
+	#owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	audit deny owner @{PROC}/uptime r,
+
+	deny /bin/bash x,
+	deny /bin/dash x,
+	deny /usr/bin/which x,
+
+	audit deny /etc/passwd r,
+
+	# Firefox plugins
+	#/usr/lib/mozilla/plugins/** mr,
+	/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
+	#/usr/lib/mozilla/plugins/flash-mozilla.so mr,
+	/usr/lib/mozilla/plugins/libvlcplugin.so mr,
+	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+	/opt/google/chrome/PepperFlash/manifest.json r,
+
+	# Flash dirs
+	#owner @{HOME}/.adobe/ r,
+	#owner @{HOME}/.adobe/** r,
+	#owner @{HOME}/.macromedia/ r,
+	#owner @{HOME}/.macromedia/** r,
+	owner @{HOME}/.config/freshwrapper-data/ r,
+	owner @{HOME}/.config/freshwrapper-data/** r,
+	deny owner @{HOME}/.config/freshwrapper-data/** w,
+
+	# Flash config files
+	/etc/adobe/mms.cfg  r,
+	owner @{HOME}/mm.cfg rw,
+
+	# webcam
+	deny /dev/video0 rw,
+	deny /dev/v4l/by-path/ r,
+	
+	# mic
+	deny /dev/snd/pcmC0D0c rw,
+
+	/sys/devices/virtual/dmi/** r,
+	/sys/devices/system/cpu/ r,
+	/sys/devices/system/node/ r,
+	/sys/devices/system/node/node0/meminfo r,
+
+}
