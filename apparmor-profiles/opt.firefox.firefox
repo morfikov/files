@@ -29,8 +29,6 @@
 	#include <abstractions/user-download>
 	#include <abstractions/dbus-session>
 	#include <abstractions/gstreamer>
-	# #include <abstractions/python>
-	# #include <abstractions/cups-client>
 
 	# potentially extremely sensitive files
 	audit deny @{HOME}/.gnupg/** mrwkl,
@@ -135,5 +133,6 @@
 	/usr/bin/geany rPUx,
 	/usr/bin/okular rPUx,
 	/usr/bin/spacefm rPUx,
-
+	/usr/bin/viewnior rPUx,
+	
 }
