@@ -22,8 +22,6 @@
 	#include <abstractions/gnome>
 	#include <abstractions/audio>
 	#include <abstractions/nvidia>
-	# #include <abstractions/nameservice>
-	# #include <abstractions/consoles>
 	#include <abstractions/dbus-session-strict>
 	#include <abstractions/gstreamer>
 
@@ -78,7 +76,6 @@
 	# mic
 	deny /dev/snd/pcmC0D0c rw,
 
-	/sys/devices/virtual/dmi/** r,
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
