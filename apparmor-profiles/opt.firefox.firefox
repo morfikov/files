@@ -50,7 +50,9 @@
 	@{MOZ_LIBDIR}/**  mixr,
 	#@{MOZ_LIBDIR}/plugin-container PUx,
 	@{MOZ_LIBDIR}/plugin-container pux,
-	@{MOZ_LIBDIR}/update.test w,
+	@{MOZ_LIBDIR}/update.test/ rw,
+	@{MOZ_LIBDIR}/update.test/** rw,
+	@{MOZ_LIBDIR}/update.test rw,
 
 	# Proc files
 	#owner @{PROC}/@{pid}/cmdline r,
@@ -102,6 +104,8 @@
 #	owner @{HOME}/.mozilla/**/plugins/** mr,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 #	owner @{HOME}/.mozilla/plugins/** mr,
+	owner /media/Kabi/skriny/ r,
+	owner /media/Kabi/skriny/** rw,
 
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/present r,
@@ -134,5 +138,5 @@
 	/usr/bin/okular rPUx,
 	/usr/bin/spacefm rPUx,
 	/usr/bin/viewnior rPUx,
-	
+	/opt/thunderbird/thunderbird rPUx,
 }
