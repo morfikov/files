@@ -1,0 +1,31 @@
+# Last Modified: Wed Sep  2 17:31:27 2015
+#include <tunables/global>
+
+/usr/bin/qbittorrent-nox {
+
+	#include <abstractions/base>
+	#include <abstractions/nameservice>
+	#include <abstractions/private-files-strict>
+
+	# Qbittorrent dirs/files
+	/usr/bin/qbittorrent-nox mr,
+	/tmp/qtsingleapp-qBitto-1809-3e8 w,
+	/tmp/qtsingleapp-qBitto-1809-3e8-lockfile rwk,
+  
+	# Qbittorrent home dirs
+	owner @{HOME}/.config/qBittorrent/** rwk,
+	owner @{HOME}/.local/share/data/qBittorrent/** rw,
+
+	# Torrent dirs/files
+	owner /media/ r,
+	owner /media/Kabi/ r,
+	owner /media/Kabi/torrent/ r,
+	owner /media/Kabi/torrent/** rw,
+	owner /media/Grafi/ r,
+	owner /media/Grafi/torrent/ r,
+	owner /media/Grafi/torrent/** rw,
+
+	# Custom cache dir (~/.cache/)
+	/tmp/morfik_cache/.cache/qBittorrent/** rw,
+
+}

@@ -1,0 +1,69 @@
+# Last Modified: Wed Sep  2 15:28:19 2015
+#include <tunables/global>
+
+/usr/bin/qbittorrent {
+
+	#include <abstractions/base>
+	#include <abstractions/gnome>
+	#include <abstractions/nameservice>
+	#include <abstractions/private-files-strict>
+
+	deny /bin/dash r,
+	deny /bin/bash r,
+	deny /bin/which r,
+
+	# Qbittorrent dirs/files
+	/usr/bin/qbittorrent mr,
+	/tmp/qtsingleapp-qBitto-1809-3e8 w,
+	/tmp/qtsingleapp-qBitto-1809-3e8-lockfile rwk,
+
+	# Qbittorrent home dirs
+	owner @{HOME}/.config/qBittorrent/** rwk,
+	owner @{HOME}/.local/share/data/qBittorrent/** rw,
+
+	# Torrent dirs/files
+	owner /media/ r,
+	owner /media/Kabi/ r,
+	owner /media/Kabi/torrent/ r,
+	owner /media/Kabi/torrent/** rw,
+	owner /media/Grafi/ r,
+	owner /media/Grafi/torrent/ r,
+	owner /media/Grafi/torrent/** rw,
+
+	#
+	owner @{HOME}/.config/Trolltech.conf rk,
+	owner @{HOME}/.config/gtk-3.0/bookmarks r,
+	/usr/share/icons/**/index.theme k,
+
+	# Custom cache dir (~/.cache/)
+	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
+
+	# GeoIP setting
+	/usr/share/GeoIP/GeoIP.dat r,
+
+	# Proc files
+	owner @{PROC}/@{pid}/cmdline r,
+	#owner @{PROC}/@{pid}/fd/ r,
+	#owner @{PROC}/@{pid}/fd/* r,
+	#owner @{PROC}/@{pid}/maps r,
+	#owner @{PROC}/@{pid}/smaps r,
+	#owner @{PROC}/@{pid}/mountinfo r,
+	owner @{PROC}/@{pid}/mounts r,
+	#owner @{PROC}/@{pid}/stat r,
+	#owner @{PROC}/@{pid}/statm r,
+	#owner @{PROC}/@{pid}/status r,
+	#owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	audit deny owner @{PROC}/uptime r,
+
+	# Launch external apps
+	/usr/bin/python* Px,
+	/usr/bin/exo-open rPUx,
+	/usr/bin/xdg-open rPUx,
+	/usr/bin/smplayer rPUx,
+	/usr/bin/vlc rPUx,
+	/usr/bin/geany rPUx,
+	/usr/bin/okular rPUx,
+	/usr/bin/spacefm rPUx,
+	/usr/bin/viewnior rPUx,
+
+}

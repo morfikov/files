@@ -43,6 +43,9 @@
 	# Thunderbird files
 	@{MOZ_LIBDIR}/ r,
 	@{MOZ_LIBDIR}/**  mixr,
+	@{MOZ_LIBDIR}/update.test/ rw,
+	@{MOZ_LIBDIR}/update.test/** rw,
+	@{MOZ_LIBDIR}/update.test rw,
 
 	# Profile files
 	@{MOZ_PROFILE}/** rwk,
