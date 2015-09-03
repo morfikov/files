@@ -11,7 +11,7 @@
 	/usr/bin/qbittorrent-nox mr,
 	/tmp/qtsingleapp-qBitto-1809-3e8 w,
 	/tmp/qtsingleapp-qBitto-1809-3e8-lockfile rwk,
-  
+
 	# Qbittorrent home dirs
 	owner @{HOME}/.config/qBittorrent/** rwk,
 	owner @{HOME}/.local/share/data/qBittorrent/** rw,
@@ -26,6 +26,7 @@
 	owner /media/Grafi/torrent/** rw,
 
 	# Custom cache dir (~/.cache/)
-	/tmp/morfik_cache/.cache/qBittorrent/** rw,
+	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
+	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
 }

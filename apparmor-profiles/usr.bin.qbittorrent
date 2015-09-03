@@ -36,6 +36,7 @@
 	/usr/share/icons/**/index.theme k,
 
 	# Custom cache dir (~/.cache/)
+	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
 	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
 	# GeoIP setting
@@ -56,7 +57,7 @@
 	audit deny owner @{PROC}/uptime r,
 
 	# Launch external apps
-	/usr/bin/python* Px,
+	/usr/bin/python* rPUx,
 	/usr/bin/exo-open rPUx,
 	/usr/bin/xdg-open rPUx,
 	/usr/bin/smplayer rPUx,
