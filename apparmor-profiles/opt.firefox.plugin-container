@@ -36,10 +36,10 @@
 	#owner @{PROC}/@{pid}/maps r,
 	#owner @{PROC}/@{pid}/smaps r,
 	#owner @{PROC}/@{pid}/mountinfo r,
-	#owner @{PROC}/@{pid}/stat r,
+	owner @{PROC}/@{pid}/stat r,
 	#owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	#owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	owner @{PROC}/@{pid}/task/@{pid}/stat r,
 	audit deny owner @{PROC}/uptime r,
 
 	deny /bin/bash x,
