@@ -229,7 +229,7 @@ Changes:
   git log --format=oneline    (in order to get hash)
   git reset --soft HEAD~1    (revert changes, one commit)
   git revert 49f8b65ed0d2ae0c7f17fd0003af832f61c7885a
-  git commit --amend
+  git commit --amend -S -m 'new message'	(Rename the last comment message)
 
 Rename comments:
   git rebase -i HEAD~7    (Displays a list of the last 7 commits on the

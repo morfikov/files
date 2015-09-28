@@ -58,3 +58,22 @@ export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 #	Cyan	    36	      46
 #	White	    37	      47
 export GREP_COLOR='1;32'
+
+#if [ "$PS1" ]; then
+    # Setup information required by GnuPG and ssh.  We use the
+    # standard socket in GnuPG's homedir, thus there is no need for an
+    # environment variable.  We reset any left over envvar.
+    # SSH_AGENT_PID should not be set because it is only used
+    # to kill ssh-agent (option -k) but we don't want this to kill
+    # gpg-agent.  Because ssh does not know about GnuPG's homedir we
+    # need to set its envvar to the standard of gpg-agent.  GPG_TTY needs
+    # to be set to the current TTY.  The extra test is used to avoid
+    # setting SSH_AUTH_SOCK if gpg-agent has been started with the
+    # shell on the command line (often used for testing).
+#    unset GPG_AGENT_INFO
+#    unset SSH_AGENT_PID
+#    if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+#      export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+#    fi
+#fi
+#export GPG_TTY=`tty`
