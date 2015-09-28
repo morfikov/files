@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Last modified: 2015.08.07
-# Version: 0.2.1
+# Last modified: 2015.09.20
+# Version: 0.2.2
 # Source: https://github.com/morfikov/files/blob/master/scripts/ff-tb-updater.sh
 # Author: Mikhail Morfikov <mmorfikov[at]gmail.com>
 # Copyright: 2015 Mikhail Morfikov <mmorfikov[at]gmail.com>
@@ -26,12 +26,14 @@
 
 # For more info see https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
 
+user="morfik"
+
 update() {
 	instalation_dir="/opt/$app"
 	tmp_dir="/tmp/$app/out"
 	lang="en-US"
 
-	installed_verion="$($instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 3)"
+	installed_verion="$(su - $user -s /bin/bash -c "$instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 3")"
 
 	url="http://download-origin.cdn.mozilla.net/pub/mozilla.org/$app/releases/latest/update/linux-`uname -m`/$lang/"
 #	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[0-9]*\.[0-9]*\.[0-9]*\.partial\.mar" | sort -u)"
