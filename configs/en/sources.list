@@ -18,7 +18,7 @@
 ### Stretch - testing ###
 deb http://ftp.de.debian.org/debian/ testing main non-free contrib
 # deb-src http://ftp.de.debian.org/debian/ testing main non-free contrib
-deb http://security.debian.org/ testing/updates main contrib non-free
+#deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
 
 # deb http://www.deb-multimedia.org testing main non-free
@@ -26,7 +26,7 @@ deb http://security.debian.org/ testing/updates main contrib non-free
 
 ### SID ###
 deb http://ftp.de.debian.org/debian/ sid main non-free contrib
-deb-src http://ftp.de.debian.org/debian/ sid main non-free contrib
+#deb-src http://ftp.de.debian.org/debian/ sid main non-free contrib
    
 deb ftp://ftp.deb-multimedia.org sid main non-free
 #deb-src ftp://ftp.deb-multimedia.org sid main non-free
@@ -80,7 +80,7 @@ deb http://ftp.de.debian.org/debian/ experimental main contrib non-free
 # deb http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
 
-deb http://repozytorium.mati75.eu/debian sid main contrib non-free
+#deb http://repozytorium.mati75.eu/debian sid main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian sid main contrib non-free
 
 #deb http://repozytorium.mati75.eu/debian experimental main contrib non-free
@@ -98,7 +98,6 @@ deb http://deb.opera.com/opera-beta/ stable non-free
 
 ### Spideroak (cloud storage) ###
 # deb http://apt.spideroak.com/debian/ stable non-free
-
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
@@ -149,11 +148,11 @@ deb http://ppa.launchpad.net/openshot.developers/ppa/ubuntu quantal main
 # deb-src http://ppa.launchpad.net/openshot.developers/ppa/ubuntu quantal main
 
 ### Haguichi ###
-deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu utopic main 
+#deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu utopic main 
 # deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu utopic main 
 
 ### i2p (anonymity) ###
-deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu vivid main 
+#deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu vivid main 
 # deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu vivid main 
 
 ### Java (oracle) ###
@@ -161,10 +160,10 @@ deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu vivid main
 # deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu vivid main 
 
 ### qBitorrent (p2p) ###
-deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu vivid main 
+#deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu vivid main 
 #deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu vivid main
 
-deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu vivid main 
+#deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu vivid main 
 #deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu vivid main 
 
 ### Tuxboot ###
@@ -196,19 +195,19 @@ deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu utopic main
 # deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu utopic main 
 
 ### Desktop recorder ###
-deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu vivid main 
-deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu vivid main 
+#deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu vivid main 
+#deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu vivid main 
 
 ### whdd ###
 deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu trusty main 
 # deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu trusty main 
 
 ### inxi (system info) ###
-deb http://ppa.launchpad.net/unit193/inxi/ubuntu vivid main 
+#deb http://ppa.launchpad.net/unit193/inxi/ubuntu vivid main 
 # deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu vivid main
 
 ### Spacefm ###
-deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu vivid main 
+#deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu vivid main 
 #deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu vivid main 
 
 ### Debian snapshot ###
