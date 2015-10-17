@@ -1,6 +1,7 @@
 #
 # /etc/apt/sources.list
-# for https install apt-transport-https package
+#
+# For https, install the apt-transport-https package.
 
 ### Jessie - stable ###
 # deb http://ftp.de.debian.org/debian/ stable main non-free contrib
@@ -16,7 +17,7 @@
 # deb http://http.debian.net/debian jessie-backports main
 
 ### Stretch - testing ###
-deb http://ftp.de.debian.org/debian/ testing main non-free contrib
+#deb http://ftp.de.debian.org/debian/ testing main non-free contrib
 # deb-src http://ftp.de.debian.org/debian/ testing main non-free contrib
 #deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
@@ -80,7 +81,7 @@ deb http://ftp.de.debian.org/debian/ experimental main contrib non-free
 # deb http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
 
-#deb http://repozytorium.mati75.eu/debian sid main contrib non-free
+deb http://repozytorium.mati75.eu/debian sid main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian sid main contrib non-free
 
 #deb http://repozytorium.mati75.eu/debian experimental main contrib non-free
