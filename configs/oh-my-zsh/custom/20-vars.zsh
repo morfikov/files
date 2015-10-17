@@ -1,5 +1,8 @@
 # Set display
-export DISPLAY=:0.0
+export DISPLAY=":0.0"
+
+# TIMEZONE
+#export TZ="Europe/Warsaw"
 
 # Find alternative apps if it is installed on your system
 find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;return 1; }
@@ -30,8 +33,8 @@ export DEBEMAIL="mmorfikov@gmail.com"
 export DEBFULLNAME="Mikhail Morfikov"
 
 # Force XFT
-export GDK_USE_XFT="1"
-export QT_XFT="true"
+#export GDK_USE_XFT="1"
+#export QT_XFT="true"
 
 # Color the manpages
 # Tutorial video: http://www.youtube.com/watch?v=9BFaLAa428k
@@ -59,7 +62,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 #	White	    37	      47
 export GREP_COLOR='1;32'
 
-#if [ "$PS1" ]; then
+if [ "$PS1" ]; then
     # Setup information required by GnuPG and ssh.  We use the
     # standard socket in GnuPG's homedir, thus there is no need for an
     # environment variable.  We reset any left over envvar.
@@ -70,10 +73,10 @@ export GREP_COLOR='1;32'
     # to be set to the current TTY.  The extra test is used to avoid
     # setting SSH_AUTH_SOCK if gpg-agent has been started with the
     # shell on the command line (often used for testing).
-#    unset GPG_AGENT_INFO
-#    unset SSH_AGENT_PID
-#    if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-#      export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-#    fi
-#fi
-#export GPG_TTY=`tty`
+    unset GPG_AGENT_INFO
+    unset SSH_AGENT_PID
+    if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+      export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+    fi
+fi
+export GPG_TTY=`tty`
