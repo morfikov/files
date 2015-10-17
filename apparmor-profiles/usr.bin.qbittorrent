@@ -67,6 +67,9 @@
 	#owner @{PROC}/@{pid}/task/@{pid}/stat r,
 	audit deny owner @{PROC}/uptime r,
 
+	#
+	#/dev/tty rw,
+
 	# Launch external apps
 	/usr/bin/python* rPUx,
 	/usr/bin/exo-open rPUx,

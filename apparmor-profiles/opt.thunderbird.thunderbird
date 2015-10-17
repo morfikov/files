@@ -55,16 +55,18 @@
 	# Enigmail
 	owner @{HOME}/.gnupg/ r,
 	owner @{HOME}/.gnupg/* rw,
-	owner @{HOME}/.gnupg/pubring.gpg.lock l,
-	owner @{HOME}/.gnupg/secring.gpg.lock l,
-	owner @{HOME}/.gnupg/trustdb.gpg.lock l,
-	owner @{HOME}/.gnupg/gnupg_spawn_dirmngr_sentinel.lock l,
+	owner @{HOME}/.gnupg/*.lock l,
 	owner @{HOME}/.gnupg/random_seed k,
 	owner @{HOME}/.gnupg/.* l,
+	owner @{HOME}/.gnupg/crls.d/ r,
+	owner @{HOME}/.gnupg/crls.d/** rw,
+	owner @{PROC}/.gnupg/certs/ r,
+	owner @{PROC}/.gnupg/certs/sks-keyservers.netCA.pem r,
 	/usr/bin/gpg-connect-agent rix,
 	/usr/bin/gpg2 rix,
 	/usr/bin/gpgconf rix,
 	/usr/lib/gnupg2/gpg2keys_hkp rix,
+	/usr/bin/dirmngr rix,
 	/bin/ps rix,
 
 	/etc/mime.types r,
@@ -84,7 +86,7 @@
 	owner @{PROC}/@{pid}/status r,
 	owner @{PROC}/@{pid}/task/@{pid}/stat r,
 	audit deny owner @{PROC}/uptime r,
-
+	
 	# webcam
 	deny /dev/video0 rw,
 	deny /dev/v4l/by-path/ r,

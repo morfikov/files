@@ -101,7 +101,7 @@
 	owner /media/Grafi/firefox_profile/cookies.sqlite* rw,
 	owner /media/Grafi/firefox_profile/.parentlock k,
 	owner /media/Grafi/firefox_profile/extensions/** mrix,
-#	owner /media/Grafi/firefox_profile/plugins/** mr,
+	#owner /media/Grafi/firefox_profile/plugins/** mr,
 
 	# Torrent files
 	owner /media/ r,
@@ -110,13 +110,19 @@
 	owner /media/Grafi/raw/ rw,
 	owner /media/Grafi/raw/** rw,
 
+	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
+	/usr/lib/ladspa/ r,
+	/usr/lib/ladspa/*.so mr,
+
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/present r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 
-	owner @{HOME}/.cache/gstreamer-1.0/**  rw,
-	owner @{HOME}/.gstreamer-0.10/registry.x86_64.bin r,
+	# Gstreamer
+	owner @{HOME}/.cache/gstreamer*/**  rw,
+	owner @{HOME}/.gstreamer*/ rw,
+	owner @{HOME}/.gstreamer*/** rw,
 	/usr/lib/x86_64-linux-gnu/gstreamer0.10/gstreamer-0.10/gst-plugin-scanner rix,
 
 	/usr/share/glib-2.0/schemas/gschemas.compiled r,

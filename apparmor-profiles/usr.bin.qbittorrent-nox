@@ -40,4 +40,7 @@
 	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
 	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
+	#
+	#/dev/tty rw,
+
 }

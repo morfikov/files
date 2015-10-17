@@ -119,13 +119,18 @@
 	owner /media/Kabi/skriny/ r,
 	owner /media/Kabi/skriny/** rw,
 
+	# Docs folder
+	/usr/share/doc/** r,
+
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/present r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 
-	owner @{HOME}/.cache/gstreamer-1.0/**  rw,
-	owner @{HOME}/.gstreamer-0.10/registry.x86_64.bin r,
+	# Gstreamer
+	owner @{HOME}/.cache/gstreamer*/**  rw,
+	owner @{HOME}/.gstreamer*/ rw,
+	owner @{HOME}/.gstreamer*/** rw,
 	/usr/lib/x86_64-linux-gnu/gstreamer0.10/gstreamer-0.10/gst-plugin-scanner rix,
 
 	/usr/share/glib-2.0/schemas/gschemas.compiled r,
@@ -150,6 +155,7 @@
 	/usr/bin/okular rPUx,
 	/usr/bin/spacefm rPUx,
 	/usr/bin/viewnior rPUx,
+	/usr/bin/xarchiver rPUx,
 	/opt/thunderbird/thunderbird rPUx,
 
 }
