@@ -40,6 +40,8 @@
 	owner /media/Grafi/ r,
 	owner /media/Grafi/torrent/ r,
 	owner /media/Grafi/torrent/** rw,
+	owner @{HOME}/Desktop/ r,
+	owner @{HOME}/Desktop/* r,
 
 	#
 	owner @{HOME}/.config/Trolltech.conf rk,
@@ -50,7 +52,7 @@
 	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
 	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
-	# GeoIP setting
+	# GeoIP settings
 	/usr/share/GeoIP/GeoIP.dat r,
 
 	# Proc files

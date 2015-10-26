@@ -98,6 +98,10 @@
 
 	/sys/devices/system/cpu/present r,
 
+	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
+	/usr/lib/ladspa/ r,
+	/usr/lib/ladspa/*.so mr,
+
 	# Launch external apps
 	/opt/firefox/firefox rPUx,
 
