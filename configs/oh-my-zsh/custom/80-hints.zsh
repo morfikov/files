@@ -285,6 +285,7 @@ lspci                       list all pci devices
 lsusb                       list usb devices
   -vvv                      very verbose
   -t                        physical usb device hierarchy
+lsusb -v | grep -E '\<(Bus|iProduct|bDeviceClass|bDeviceProtocol)' 2>/dev/null
 tree /dev/                  list /dev/ directory
 lsmod                       list loaded modules 
 dmesq                       display kernel messages
