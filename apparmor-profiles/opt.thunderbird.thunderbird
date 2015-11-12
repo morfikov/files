@@ -60,8 +60,9 @@
 	owner @{HOME}/.gnupg/.* l,
 	owner @{HOME}/.gnupg/crls.d/ r,
 	owner @{HOME}/.gnupg/crls.d/** rw,
-	owner @{PROC}/.gnupg/certs/ r,
-	owner @{PROC}/.gnupg/certs/sks-keyservers.netCA.pem r,
+	owner @{HOME}/.gnupg/certs/ r,
+	owner @{HOME}/.gnupg/certs/sks-keyservers.netCA.pem rw, 
+	owner @{PROC}/@{pid}/task/*/comm rw,
 	/usr/bin/gpg-connect-agent rix,
 	/usr/bin/gpg2 rix,
 	/usr/bin/gpgconf rix,
@@ -84,7 +85,7 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	owner @{PROC}/@{pid}/task/*/stat r,
 	audit deny owner @{PROC}/uptime r,
 	
 	# webcam
