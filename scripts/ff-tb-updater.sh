@@ -24,19 +24,27 @@
 # Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
 #
 
-# For more info see https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
+# See:	https://wiki.mozilla.org/Software_Update:Manually_Installing_a_MAR_file
+#		http://download-origin.cdn.mozilla.net/pub/thunderbird/releases/latest/README.txt
 
 user="morfik"
 
 update() {
 	instalation_dir="/opt/$app"
 	tmp_dir="/tmp/$app/out"
-	lang="en-US"
+	language="en-US"
+	operating_system="linux64"
 
 	installed_verion="$(su - $user -s /bin/bash -c "$instalation_dir/$app -v 2> /dev/null | egrep -i "$app" | cut -d ' ' -f 3")"
-	url="http://download-origin.cdn.mozilla.net/pub/$app/releases/latest/update/linux-`uname -m`/$lang/"
-	sha512sums_url="http://download-origin.cdn.mozilla.net/pub/$app/releases/latest"
-	update_file="$(curl -s $url | egrep -o -e "$app\-$installed_verion\-[\.0-9]*partial\.mar" | sort -u)"
+	download_url="https://download.mozilla.org/?product=$app-latest&os=$operating_system&lang=$language"
+	file_url="$(curl -s $download_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*")"
+
+	sha512sums_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/SHA512SUMS"}')"
+	sha512sums_asc_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/SHA512SUMS.asc"}')"
+	
+	update_file_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/update/linux-x86_64/en-US/"}')"
+	update_file="$(curl -s $update_file_url | egrep -o -e "$app\-$installed_verion\-[\.0-9]*partial\.mar" | sort -u)"
+
 	new_version="$(echo $update_file | sort -u | cut -d '-' -f 3 |cut -d '.' -f 1-3)"
 
 	mkdir -p $tmp_dir
@@ -50,8 +58,8 @@ update() {
 		echo -e "updating to the version \033[01;32m$new_version\033[0m ..."
 	fi
 
-	wget -q --show-progress -O $tmp_dir/SHA512SUMS $sha512sums_url/SHA512SUMS
-	wget -q --show-progress -O $tmp_dir/SHA512SUMS.asc $sha512sums_url/SHA512SUMS.asc
+	wget -q --show-progress -O $tmp_dir/SHA512SUMS $sha512sums_url
+	wget -q --show-progress -O $tmp_dir/SHA512SUMS.asc $sha512sums_asc_url
 
 	echo -en "Running file signature verification... "
 	signature_verification="$(gpg --verify $tmp_dir/SHA512SUMS.asc 2>&1)"
@@ -71,10 +79,10 @@ update() {
 		echo -e "\033[01;32mgood signature\033[0m, file verified!"
 	fi
 
-	wget -q --show-progress -O $tmp_dir/update.mar $url$update_file
+	wget -q --show-progress -O $tmp_dir/update.mar $update_file_url/$update_file
 
 	echo -en "Running checksum... "
-	sum_update_file="$(egrep -e "linux-`uname -m`/$lang/$update_file" $tmp_dir/SHA512SUMS | egrep -e ".mar$" | cut -d ' ' -f 1)"
+	sum_update_file="$(egrep -e "linux-`uname -m`/$language/$update_file" $tmp_dir/SHA512SUMS | egrep -e ".mar$" | cut -d ' ' -f 1)"
 
 	sum_downloaded_update_file="$(sha512sum $tmp_dir/update.mar | cut -d ' ' -f 1)"
 	if [ "$sum_update_file" == "$sum_downloaded_update_file" ] ; then
