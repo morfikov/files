@@ -44,7 +44,7 @@
 	owner @{HOME}/Desktop/* r,
 
 	#
-	owner @{HOME}/.config/Trolltech.conf rk,
+	owner @{HOME}/.config/Trolltech.conf rwk,
 	owner @{HOME}/.config/gtk-3.0/bookmarks r,
 	/usr/share/icons/**/index.theme k,
 
