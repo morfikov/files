@@ -58,7 +58,7 @@
 	owner @{HOME}/.gnupg/*.lock l,
 	owner @{HOME}/.gnupg/random_seed k,
 	owner @{HOME}/.gnupg/.* l,
-	owner @{HOME}/.gnupg/crls.d/ r,
+	owner @{HOME}/.gnupg/crls.d/ rw,
 	owner @{HOME}/.gnupg/crls.d/** rw,
 	owner @{HOME}/.gnupg/certs/ r,
 	owner @{HOME}/.gnupg/certs/sks-keyservers.netCA.pem rw, 
@@ -87,6 +87,7 @@
 	owner @{PROC}/@{pid}/status r,
 	owner @{PROC}/@{pid}/task/*/stat r,
 	audit deny owner @{PROC}/uptime r,
+	owner @{PROC}/@{pid}/auxv r,
 	
 	# webcam
 	deny /dev/video0 rw,

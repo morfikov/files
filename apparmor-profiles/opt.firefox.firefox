@@ -71,6 +71,7 @@
 	owner @{PROC}/@{pid}/status r,
 	owner @{PROC}/@{pid}/task/@{pid}/stat r,
 	audit deny owner @{PROC}/uptime r,
+	owner @{PROC}/@{pid}/auxv r,
 
 	deny /bin/bash x,
 	deny /bin/dash x,
