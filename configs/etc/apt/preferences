@@ -1,0 +1,105 @@
+#
+#   /etc/apt/preferences
+#
+# An example of a release file that can be found in the /var/cache/apt/lists/ directory:
+#
+# Origin: LP-PPA-rvm-smplayer
+# Label: SMPlayer
+# Suite: vivid
+# Version: 15.04
+# Codename: vivid
+# Date: Sun, 19 Jul 2015 22:59:44 UTC
+# Architectures: amd64 arm64 armhf i386 powerpc ppc64el
+# Components: main
+# Description: Ubuntu Vivid 15.04
+#
+# Pin: release o=LP-PPA-rvm-smplayer
+# Pin: release l=SMPlayer
+# Pin: release a=vivid
+# Pin: release v=15.04
+# Pin: release n=vivid
+# Pin: release c=main
+#
+
+#Package: libpulse* pulseaudio*
+#Pin: release o=Debian,a=experimental
+#Pin-Priority: 995
+
+#Package: gnupg-agent gnupg2 gpgsm scdaemon
+#Pin: release o=Debian,a=testing
+#Pin-Priority: 995
+
+#Package: libnss-myhostname libpam-systemd libsystemd0 libudev1 systemd systemd-sysv udev
+#Pin: release o=Debian,a=testing
+#Pin-Priority: 995
+
+Package: smplayer* smtube
+Pin: origin ppa.launchpad.net
+Pin: release o=LP-PPA-rvm-smplayer,l=SMPlayer
+Pin-Priority: 995
+
+#Package: qbittorrent*
+#Pin: origin ppa.launchpad.net
+#Pin: release o=LP-PPA-qbittorrent-team-qbittorrent-stable,l=qbittorrent-stable
+#Pin-Priority: 995
+
+#Package: spacefm*
+#Pin: origin repozytorium.mati75.eu
+#Pin-Priority: 995
+
+Package: mpv *ffmpeg* libav* libsw* libmp3lame0 libxine2*
+Pin: origin ftp.deb-multimedia.org
+Pin: release o=Unofficial Multimedia Packages,a=unstable
+Pin-Priority: 995
+
+#Package: *
+#Pin: origin snapshot.debian.org
+#Pin-Priority: 1001
+
+Package: *
+Pin: origin ""
+Pin-Priority: 995
+
+Package: *
+Pin: origin deb.morfikownia.lh
+Pin-Priority: 995
+
+Package: *
+Pin: release o=Debian,a=experimental
+Pin-Priority: 130
+
+Package: *
+Pin: origin repozytorium.mati75.eu
+Pin-Priority: 130
+
+Package: *
+Pin: release o=Debian,a=stable
+Pin-Priority: 300
+
+Package: *
+Pin: origin ftp.deb-multimedia.org
+Pin-Priority: 400
+
+Package: *
+Pin: release o=Debian,a=testing
+Pin-Priority: 500
+
+Package: *
+Pin: release o=Debian,a=unstable
+Pin-Priority: 990
+
+Package: *
+Pin: origin ppa.launchpad.net
+Pin-Priority: 120
+
+Package: *
+Pin: origin ignorantguru.github.com
+Pin-Priority: 120
+
+Package: *
+Pin: origin packages.siduction.org
+Pin-Priority: 125
+
+Package: *
+Pin: origin liquorix.net
+Pin-Priority: 120
