@@ -46,6 +46,12 @@
 	@{MOZ_LIBDIR}/update.test/ rw,
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
+	
+	# Cache dir
+	owner /tmp/morfik_cache/.cache/thunderbird/ rw,
+	owner /tmp/morfik_cache/.cache/thunderbird/** rw,
+	owner @{HOME}/.cache/thunderbird/ rw,
+	owner @{HOME}/.cache/thunderbird/** rw,
 
 	# Profile files
 	@{MOZ_PROFILE}/** rwk,

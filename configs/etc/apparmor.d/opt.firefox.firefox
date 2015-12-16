@@ -97,8 +97,6 @@
 	deny /dev/snd/pcmC0D0c rw,
 
 	# Firefox files
-	owner @{HOME}/.cache/mozilla/ rw,
-	owner @{HOME}/.cache/mozilla/** rw,
 	owner @{HOME}/.mozilla/ r,
 	owner @{HOME}/.mozilla/** r,
 	owner @{HOME}/.mozilla/firefox/** rwk,
@@ -110,6 +108,12 @@
 #	owner @{HOME}/.mozilla/**/plugins/** mr,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 #	owner @{HOME}/.mozilla/plugins/** mr,
+
+	# Cache dir
+	owner /tmp/morfik_cache/.cache/mozilla/ rw,
+	owner /tmp/morfik_cache/.cache/mozilla/** rw,
+	owner @{HOME}/.cache/mozilla/ rw,
+	owner @{HOME}/.cache/mozilla/** rw,
 
 	# Torrent files
 	owner /media/ r,

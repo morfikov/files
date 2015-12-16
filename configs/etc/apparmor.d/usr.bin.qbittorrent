@@ -48,9 +48,11 @@
 	owner @{HOME}/.config/gtk-3.0/bookmarks r,
 	/usr/share/icons/**/index.theme k,
 
-	# Custom cache dir (~/.cache/)
+	# Cache dir
 	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
 	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
+	owner @{HOME}/.cache/qBittorrent/ rw,
+	owner @{HOME}/.cache/qBittorrent/** rw,
 
 	# GeoIP settings
 	/usr/share/GeoIP/GeoIP.dat r,
