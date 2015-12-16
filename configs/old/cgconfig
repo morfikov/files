@@ -1,0 +1,162 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:             cgconfig
+# Required-Start:       $local_fs $syslog
+# Required-Stop:        $local_fs $syslog
+# Should-Start:         cgmanager cgroupfs-mount cgproxy 
+# Should-Stop:          cgmanager cgroupfs-mount cgproxy 
+# Default-Start:        2 3 4 5
+# Default-Stop:       
+# Short-Description:    Create and setup control group filesystem(s)
+# Description:          Create and setup control group filesystem(s)
+### END INIT INFO
+
+# Author: Mikhail Morfikov
+
+# Do NOT "set -e"
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+NAME="cgconfig"
+DESC="Cgroups filesystem settings"
+SCRIPTNAME="/etc/init.d/$NAME"
+CONFIG_FILE="/etc/cgconfig.conf"
+
+CGDIR='/sys/fs/cgroup'
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+#if [ ! -d $CGDIR ]; then
+# mkdir -p $CGDIR/{cpuset,cpu,cpuacct,memory,devices,freezer,net_cls,blkio,net_prio,perf_event}
+#fi
+
+do_mount() {
+  NUM=`grep "cgroup" /proc/mounts | awk '$3=="cgroup"' | wc -l`
+  if [ "$NUM" -lt "1" ]; then
+    log_warning_msg "Cgroups filesystem wasn't mounted"
+
+# mount $CGDIR/cpuset
+# mount $CGDIR/cpu
+# mount $CGDIR/cpuacct
+# mount $CGDIR/memory
+# mount $CGDIR/devices
+# mount $CGDIR/freezer
+# mount $CGDIR/net_cls
+# mount $CGDIR/blkio
+# mount $CGDIR/net_prio
+# mount $CGDIR/perf_event
+  
+  mount -t cgroup -oblkio none $CGDIR/blkio
+  mount -t cgroup -ocpu none $CGDIR/cpu
+  mount -t cgroup -ocpuacct none $CGDIR/cpuacct
+  mount -t cgroup -ocpuset none $CGDIR/cpuset
+  mount -t cgroup -odevices none $CGDIR/devices
+  mount -t cgroup -ofreezer none $CGDIR/freezer
+  mount -t cgroup -omemory none $CGDIR/memory
+  mount -t cgroup -onet_cls none $CGDIR/net_cls
+  mount -t cgroup -onet_prio none $CGDIR/net_prio
+  mount -t cgroup -operf_event none $CGDIR/perf_event
+
+  fi
+}
+
+do_start() {
+# for release in `ls $CGDIR/*/notify_on_release`;
+# do echo 1 &GT;$release; done;
+
+  for clone in `ls $CGDIR/*/cgroup.clone_children`;
+  do echo 1 &GT; $clone; done;
+  
+  echo 1 &GT; $CGDIR/memory/memory.use_hierarchy
+  
+  ### FIREFOX ###
+  mkdir -p $CGDIR/cpu/users/firefox
+  echo '600' &GT; $CGDIR/cpu/users/firefox/cpu.shares
+  mkdir -p $CGDIR/cpuacct/users/firefox
+  mkdir -p $CGDIR/cpuset/users/firefox
+  mkdir -p $CGDIR/memory/users/firefox
+  echo '500m' &GT;   $CGDIR/memory/users/firefox/memory.limit_in_bytes
+  echo '700m' &GT;   $CGDIR/memory/users/firefox/memory.soft_limit_in_bytes
+# mkdir -p $CGDIR/net_cls/users/firefox
+# echo '0x00010005' &GT; $CGDIR/net_cls/users/firefox/net_cls.classid
+# echo "eth0 3" &GT; $CGDIR/net_prio/net_prio.ifpriomap
+# mkdir -p $CGDIR/net_prio/users/firefox
+# echo "eth0 5" &GT; $CGDIR/net_prio/users/firefox/net_prio.ifpriomap
+
+  ### QBITTORRENT ### 
+  mkdir -p $CGDIR/cpu/users/qbittorrent
+  echo '300' &GT; $CGDIR/cpu/users/qbittorrent/cpu.shares
+# mkdir -p $CGDIR/net_cls/users/qbittorrent
+# echo '0x00010002' &GT; $CGDIR/net_cls/users/qbittorrent/net_cls.classid
+# mkdir -p $CGDIR/net_prio/users/qbittorrent
+# echo "eth0 1" &GT; $CGDIR/net_prio/users/qbittorrent/net_prio.ifpriomap
+  
+  ### MINITUBE ###
+  mkdir -p $CGDIR/cpu/users/minitube
+  echo '300' &GT; $CGDIR/cpu/users/minitube/cpu.shares
+# mkdir -p $CGDIR/net_cls/users/minitube
+# echo '0x00010003' &GT; $CGDIR/net_cls/users/minitube/net_cls.classid
+  
+  chmod 660 $CGDIR/*/*/*/tasks
+  chown root:cgroups $CGDIR/*/users/*/tasks
+}
+
+do_stop() {
+    cgclear
+}
+
+do_restart() {
+  do_stop && sleep 1
+  do_mount
+  do_start
+}
+
+usage() {
+    echo "Usage: $SCRIPTNAME &LT;start|stop|restart&GT;"
+    exit 0
+}
+
+RETVAL=0
+
+case $1 in
+    'stop')
+        log_daemon_msg "Stopping $DESC" "$NAME"
+    do_stop
+    RETVAL="$?"
+
+    if [ "$RETVAL" -eq "0" ]; then
+      log_end_msg 0
+    else
+      log_end_msg 1
+    fi
+        ;;
+    'start')
+    do_mount
+    log_daemon_msg "Starting $DESC" "$NAME"
+    do_start
+    RETVAL="$?"
+
+    if [ "$RETVAL" -eq "0" ]; then
+      log_end_msg 0
+    else
+      log_end_msg 1
+    fi
+        ;;
+    'restart'|'reload')
+    log_daemon_msg "Restarting $DESC" "$NAME"
+    do_restart
+    RETVAL="$?"
+
+    if [ "$RETVAL" -eq "0" ]; then
+      log_end_msg 0
+    else
+      log_end_msg 1
+    fi
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+exit 0

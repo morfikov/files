@@ -1,0 +1,95 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          cgrulesengd
+# Required-Start:    $local_fs $syslog
+# Required-Stop:     $local_fs $syslog
+# Should-Start:      cgmanager cgroupfs-mount cgproxy cgconfig
+# Should-Stop:       cgmanager cgroupfs-mount cgproxy cgconfig
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: start and stop the cgroups rules engine daemon
+# Description:     CGroup Rules Engine is a tool for automatically using \
+#          cgroups to classify processes
+### END INIT INFO
+
+# Author: Mikhail Morfikov
+
+# Do NOT "set -e"
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+NAME="cgrulesengd"
+DESC="CGroup Rules Engine Daemon"
+SCRIPTNAME="/etc/init.d/$NAME"
+PIDFILE="/var/run/$NAME.pid"
+LOCKFILE="/run/lock/$NAME.lock"
+DAEMON="/usr/sbin/$NAME"
+DAEMON_ARGS="-n -Q"
+
+# Exit if the package is not installed
+[ -x "$DAEMON" ] || exit 1
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+do_start()
+{
+  if [ -f "$LOCKFILE" ]; then
+    log_warning_msg "$NAME is already running with PID `cat ${PIDFILE}`"
+    exit 0
+  fi
+
+  log_daemon_msg "Starting $DESC" "$NAME"
+  start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE --background --name $NAME --exec $DAEMON -- $DAEMON_ARGS
+  RETVAL="$?"
+
+  if [ "$RETVAL" -eq "0" ]; then
+    log_end_msg 0
+    touch "$LOCKFILE"
+  else
+    log_end_msg 1
+  fi
+}
+
+do_stop()
+{
+  if [ ! -f "$LOCKFILE" ]; then
+    log_warning_msg "$NAME is not running, so it can't be stopped"
+    exit 0
+  fi
+  
+  log_daemon_msg "Stopping $DESC" "$NAME"
+  start-stop-daemon --stop --quiet --pidfile $PIDFILE --name $NAME
+  RETVAL="$?"
+
+  if [ "$RETVAL" -eq "0" ]; then
+    log_end_msg 0
+    rm -f $PIDFILE $LOCKFILE
+  else
+    log_end_msg 1
+  fi
+}
+
+
+case "$1" in
+  start)
+    do_start
+  ;;
+  stop)
+    do_stop
+  ;;
+  restart)
+    do_stop
+    do_start
+  ;;
+  status)
+    status_of_proc "$DAEMON" "$NAME"
+    exit 0
+  ;;
+  *)
+    echo "Usage: $SCRIPTNAME {start|stop|status|restart}" &GT;&AMP;2
+    exit 0
+  ;;
+esac
+
+exit 0
