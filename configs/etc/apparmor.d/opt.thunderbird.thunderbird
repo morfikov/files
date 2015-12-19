@@ -48,10 +48,10 @@
 	@{MOZ_LIBDIR}/update.test rw,
 	
 	# Cache dir
-	owner /tmp/morfik_cache/.cache/thunderbird/ rw,
-	owner /tmp/morfik_cache/.cache/thunderbird/** rw,
-	owner @{HOME}/.cache/thunderbird/ rw,
-	owner @{HOME}/.cache/thunderbird/** rw,
+	owner /tmp/morfik_cache/.cache/thunderbird/ rwk,
+	owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
+	owner @{HOME}/.cache/thunderbird/ rwk,
+	owner @{HOME}/.cache/thunderbird/** rwk,
 
 	# Profile files
 	@{MOZ_PROFILE}/** rwk,
@@ -103,8 +103,9 @@
 	deny /dev/snd/pcmC0D0c rw,
 
 	/etc/mailcap r,
-
-	/sys/devices/system/cpu/present r,
+	
+	/sys/devices/system/cpu/ r,
+	/sys/devices/system/cpu/** r,
 
 	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
 	/usr/lib/ladspa/ r,

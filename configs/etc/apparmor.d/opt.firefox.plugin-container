@@ -77,6 +77,7 @@
 	deny /dev/snd/pcmC0D0c rw,
 
 	/sys/devices/system/cpu/ r,
+	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 

@@ -115,7 +115,7 @@
 	/usr/lib/ladspa/*.so mr,
 
 	/sys/devices/system/cpu/ r,
-	/sys/devices/system/cpu/present r,
+	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 
