@@ -29,6 +29,10 @@
 #Pin: release o=Debian,a=testing
 #Pin-Priority: 995
 
+Package: amarok*
+Pin: release o=Debian,a=unstable
+Pin-Priority: 995
+
 #Package: libnss-myhostname libpam-systemd libsystemd0 libudev1 systemd systemd-sysv udev
 #Pin: release o=Debian,a=testing
 #Pin-Priority: 995

@@ -6,8 +6,8 @@
 #
 
 ### Jessie - stable ###
-# deb http://ftp.de.debian.org/debian/ stable main non-free contrib
-# deb-src http://ftp.de.debian.org/debian/ stable main non-free contrib
+# deb http://ftp.pl.debian.org/debian/ stable main non-free contrib
+# deb-src http://ftp.pl.debian.org/debian/ stable main non-free contrib
 # deb http://security.debian.org/ stable/updates main contrib non-free
 # deb-src http://security.debian.org/ stable/updates main contrib non-free
 
@@ -19,8 +19,8 @@
 # deb http://http.debian.net/debian jessie-backports main
 
 ### Stretch - testing ###
-deb http://ftp.de.debian.org/debian/ testing main non-free contrib
-# deb-src http://ftp.de.debian.org/debian/ testing main non-free contrib
+deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
+# deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
 #deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
 
@@ -28,8 +28,8 @@ deb http://ftp.de.debian.org/debian/ testing main non-free contrib
 # deb-src http://www.deb-multimedia.org testing main non-free
 
 ### SID ###
-deb http://ftp.de.debian.org/debian/ sid main non-free contrib
-#deb-src http://ftp.de.debian.org/debian/ sid main non-free contrib
+deb http://ftp.pl.debian.org/debian/ sid main non-free contrib
+deb-src http://ftp.pl.debian.org/debian/ sid main non-free contrib
    
 deb ftp://ftp.deb-multimedia.org sid main non-free
 #deb-src ftp://ftp.deb-multimedia.org sid main non-free
@@ -67,8 +67,8 @@ deb ftp://ftp.deb-multimedia.org sid main non-free
 # deb-src http://packages.siduction.org/xfcenext unstable main
 
 ### EXPERIMENTAL ###
-deb http://ftp.de.debian.org/debian/ experimental main contrib non-free
-#deb-src http://ftp.de.debian.org/debian/ experimental main contrib non-free
+deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 
 ### INCOMING ###
 # deb http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
@@ -104,7 +104,8 @@ deb http://ftp.de.debian.org/debian/ experimental main contrib non-free
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
-# deb http://mega.nz/linux/MEGAsync/Debian_8.0/
+#deb https://mega.nz/linux/MEGAsync/Debian_8.0/ ./
+#deb https://mega.co.nz/linux/MEGAsync/xUbuntu_15.10/ ./
 
 ### Gajim ###
 #deb ftp://ftp.gajim.org/debian unstable main
