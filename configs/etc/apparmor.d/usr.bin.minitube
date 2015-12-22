@@ -1,0 +1,64 @@
+# Last Modified: Mon Dec 21 16:21:19 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/minitube {
+
+	#include <abstractions/base>
+	#include <abstractions/gnome>
+	#include <abstractions/audio>
+	#include <abstractions/dbus-session>
+	#include <abstractions/nameservice>
+	#include <abstractions/openssl>
+	#include <abstractions/private-files-strict>
+
+	# Minitube files
+	/usr/bin/minitube mr,
+
+	# Minitube home files
+	owner "@{HOME}/.config/Flavio Tordini/**" rwk,
+	owner "@{HOME}/.local/share/Flavio Tordini/**" rwk,
+
+	# Cache
+	owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rwk,
+	owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rwk,
+	owner "@{HOME}/.cache/Flavio Tordini/" rwk,
+	owner "@{HOME}/.cache/Flavio Tordini/**" rwk,
+
+	# Phonon backends
+	/usr/lib/@{multiarch}/qt*/plugins/**/*.so mr,
+
+	# VLC plugin
+	owner /usr/lib/vlc/plugins/plugins.dat.* rw,
+
+	# Devices
+	/sys/devices/pci0000:00/0000:00:02.0/uevent r,
+	/sys/devices/system/cpu/ r,
+	/sys/devices/system/node/ r,
+	/sys/devices/system/node/node0/meminfo r,
+	/dev/tty r,
+
+	# Proc filesystem
+	@{PROC}/@{pid}/cmdline r,
+	@{PROC}/@{pid}/status r,
+
+	# Open in the browser
+	/usr/bin/xdg-open rCUx,
+	/opt/firefox/firefox rPUx,
+	/usr/bin/proxy rix,
+
+	# Udev
+	/run/udev/data/+pci:0000:00:02.0 r,
+	/etc/udev/udev.conf r,
+
+}

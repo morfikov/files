@@ -68,7 +68,7 @@
 	#owner @{PROC}/@{pid}/stat r,
 	#owner @{PROC}/@{pid}/statm r,
 	#owner @{PROC}/@{pid}/status r,
-	#owner @{PROC}/@{pid}/task/@{pid}/stat r,
+	#owner @{PROC}/@{pid}/task/*/stat r,
 	audit deny owner @{PROC}/uptime r,
 
 	#

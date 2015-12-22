@@ -1,0 +1,48 @@
+# Last Modified: Mon Dec 21 17:49:41 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/megasync {
+
+	#include <abstractions/base>
+	#include <abstractions/gnome>
+	#include <abstractions/nameservice>
+	#include <abstractions/openssl>
+	#include <abstractions/user-download>
+	#include <abstractions/private-files-strict>
+
+	# MegaRsync files
+	/usr/bin/megasync mrix,
+
+	# MegaRsync home files
+	owner "@{HOME}/.local/share/data/Mega Limited/**" rwk,
+
+	# Sync folder
+	/media/Kabi/cloud_storage/mega/ r,
+	/media/Kabi/cloud_storage/mega/** rw,
+
+	# Style
+	owner @{HOME}/.config/Trolltech.conf rwk,
+	owner @{HOME}/.config/gtk-3.0/bookmarks r,
+
+	# Proc filesystem
+	@{PROC}/@{pid}/cmdline r,
+
+	# Open in the browser
+	/opt/firefox/firefox rPUx,
+	/usr/bin/xdg-open rCUx,
+
+	# Open the sync folder in file the manager
+	/usr/bin/spacefm rPUx,
+
+}

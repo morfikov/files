@@ -59,24 +59,6 @@
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
-	# Proc files
-	#owner @{PROC}/@{pid}/cmdline r,
-	owner @{PROC}/@{pid}/fd/ r,
-	owner @{PROC}/@{pid}/fd/* r,
-	#owner @{PROC}/@{pid}/maps r,
-	owner @{PROC}/@{pid}/smaps r,
-	owner @{PROC}/@{pid}/mountinfo r,
-	owner @{PROC}/@{pid}/stat r,
-	owner @{PROC}/@{pid}/statm r,
-	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/@{pid}/stat r,
-	audit deny owner @{PROC}/uptime r,
-	owner @{PROC}/@{pid}/auxv r,
-
-	deny /bin/bash x,
-	deny /bin/dash x,
-	deny /usr/bin/which x,
-
 	# Firefox plugins
 	#/usr/lib/mozilla/plugins/** mr,
 	#/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
@@ -88,15 +70,8 @@
 	# Flash config files
 	#/etc/adobe/mms.cfg  r,
 	#owner @{HOME}/mm.cfg rw,
-
-	# webcam
-	deny /dev/video0 rw,
-	deny /dev/v4l/by-path/ r,
 	
-	# mic
-	deny /dev/snd/pcmC0D0c rw,
-
-	# Firefox files
+	# Firefox home files
 	owner @{HOME}/.mozilla/ r,
 	owner @{HOME}/.mozilla/** r,
 	owner @{HOME}/.mozilla/firefox/** rwk,
@@ -105,11 +80,11 @@
 	owner @{HOME}/.mozilla/**/cookies.sqlite* rw,
 	owner @{HOME}/.mozilla/**/.parentlock k,
 	owner @{HOME}/.mozilla/**/extensions/** mrix,
-#	owner @{HOME}/.mozilla/**/plugins/** mr,
+	#owner @{HOME}/.mozilla/**/plugins/** mr,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
-#	owner @{HOME}/.mozilla/plugins/** mr,
+	#owner @{HOME}/.mozilla/plugins/** mr,
 
-	# Cache dir
+	# Cache
 	owner /tmp/morfik_cache/.cache/mozilla/ rwk,
 	owner /tmp/morfik_cache/.cache/mozilla/** rwk,
 	owner @{HOME}/.cache/mozilla/ rwk,
@@ -126,12 +101,33 @@
 
 	# Docs folder
 	/usr/share/doc/** r,
-	
+
+	# Devices
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/** r,
-
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
+
+	# webcam
+	deny /dev/video0 rw,
+	deny /dev/v4l/by-path/ r,
+
+	# mic
+	deny /dev/snd/pcmC0D0c rw,
+
+	# Proc files
+	#owner @{PROC}/@{pid}/cmdline r,
+	owner @{PROC}/@{pid}/fd/ r,
+	owner @{PROC}/@{pid}/fd/* r,
+	#owner @{PROC}/@{pid}/maps r,
+	owner @{PROC}/@{pid}/smaps r,
+	owner @{PROC}/@{pid}/mountinfo r,
+	owner @{PROC}/@{pid}/stat r,
+	owner @{PROC}/@{pid}/statm r,
+	owner @{PROC}/@{pid}/status r,
+	owner @{PROC}/@{pid}/task/*/stat r,
+	audit deny owner @{PROC}/uptime r,
+	owner @{PROC}/@{pid}/auxv r,
 
 	# Gstreamer
 	owner @{HOME}/.cache/gstreamer*/**  rw,
@@ -146,7 +142,9 @@
 
 	/etc/mailcap r,
 
+	# MIME types
 	/etc/mime.types r,
+	owner @{HOME}/.local/share/mime/mime.cache r,
 
 	/usr/share/applications/kde4/ r,
 	/usr/share/applications/kde4/** r,
