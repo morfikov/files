@@ -12,4 +12,5 @@ setopt nobeep
 # you install a new package, the files in /usr/bin would not be immediately or automatically
 # included in the completion. Thus, to have these new exectuables included, one would run "rehash".
 # This rehash can be set to happen automatically. 
-# setopt nohashdirs
+setopt nohashdirs
+setopt nohashcmds

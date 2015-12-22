@@ -40,10 +40,10 @@ pa-swap() { /opt/skrypty/pulseaudio_toggle.sh ;}
 #-------- FZF {{{
 #------------------------------------------------------
 # See tmux.conf for binds
-fzf-locate() { xdg-open "$(locate "*" | fzf -e)" > /dev/null 2>&1 ;}
+#fzf-locate() { xdg-open "$(locate "*" | fzf -e)" > /dev/null 2>&1 ;}
 #bindkey -s '^\' "fzf-locate\n"
 
-fzf_killps() { zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }; zle -N fzf_killps;
+#fzf_killps() { zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }; zle -N fzf_killps;
 #bindkey -s '\C-Q' "fzf_killps\n"
 
 #bindkey -s '\C-L' "fzf-history-widget\n"
