@@ -67,7 +67,7 @@
 	owner @{HOME}/.gnupg/crls.d/** rw,
 	owner @{HOME}/.gnupg/certs/ r,
 	owner @{HOME}/.gnupg/random_seed k,
-	owner @{PROC}/@{pid}/task/[0-9*]/comm rw,
+	owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 	/usr/bin/gpg-connect-agent rix,
 	/usr/bin/gpg2 rix,
 	/usr/bin/gpgconf rix,

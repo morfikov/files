@@ -17,6 +17,7 @@
 	#include <abstractions/base>
 	#include <abstractions/gnome>
 	#include <abstractions/audio>
+	#include <abstractions/gstreamer>
 	#include <abstractions/dbus-session>
 	#include <abstractions/nameservice>
 	#include <abstractions/openssl>
@@ -56,9 +57,5 @@
 	/usr/bin/xdg-open rCUx,
 	/opt/firefox/firefox rPUx,
 	/usr/bin/proxy rix,
-
-	# Udev
-	/run/udev/data/+pci:0000:00:02.0 r,
-	/etc/udev/udev.conf r,
 
 }

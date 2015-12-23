@@ -1,0 +1,23 @@
+# Last Modified: Wed Dec 23 12:43:11 2015
+#include <tunables/global>
+
+/opt/google/chrome/google-chrome {
+	#include <abstractions/base>
+
+	/opt/google/ r,
+	/opt/google/chrome/ r,
+	/opt/google/chrome/** r,
+	/opt/google/chrome/chrome rPx,
+
+	/dev/tty rw,
+
+	/bin/bash rix,
+	/bin/dash rix,
+	/bin/which rix,
+	/usr/bin/dirname rix,
+	/bin/grep rix,
+	/bin/readlink rix,
+	/bin/mkdir rix,
+	/bin/cat rix,
+
+}

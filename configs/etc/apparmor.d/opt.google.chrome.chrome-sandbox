@@ -1,0 +1,50 @@
+# Last Modified: Wed Dec 23 12:43:11 2015
+#include <tunables/global>
+
+profile /opt/google/chrome/chrome-sandbox {
+
+    #include <abstractions/base>
+
+    # Required for dropping into PID namespace. Keep in mind that until the
+    # process drops this capability it can escape confinement, but once it
+    # drops CAP_SYS_ADMIN we are ok.
+    capability sys_admin,
+
+	# All of these are for sanely dropping from root and chrooting
+	capability sys_admin,
+	capability chown,
+	capability fsetid,
+	capability setgid,
+	capability setuid,
+	capability dac_override,
+	capability sys_chroot,
+
+	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
+	
+	@{PROC}/[0-9]*/ r,
+	owner @{PROC}/@{pid}/fd/* r,
+
+	/opt/google/chrome/chrome rPx,
+	/opt/google/chrome/chrome-sandbox r,
+	/opt/google/chrome/nacl_helper rCx -> nacl,
+	/opt/google/chrome/nacl_helper_bootstrap rCx -> nacl,
+	
+	profile nacl {
+
+	#include <abstractions/base>
+
+	/opt/google/chrome/nacl_helper mr,
+	/opt/google/chrome/nacl_helper_bootstrap mr,
+
+	/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq r,
+
+	@{PROC}/ r,
+	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
+	owner @{PROC}/@{pid}/fd/ r,
+	owner @{PROC}/@{pid}/fd/* r,
+	@{PROC}/cpuinfo r,
+	@{PROC}/filesystems r,
+
+	}
+
+}

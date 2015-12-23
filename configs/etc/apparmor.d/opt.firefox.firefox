@@ -23,17 +23,18 @@
 /opt/firefox/firefox {
 
 	#include <abstractions/base>
-	#include <abstractions/private-files>
 	#include <abstractions/gnome>
+	#include <abstractions/kde>
 	#include <abstractions/audio>
+	#include <abstractions/gstreamer>
 	#include <abstractions/nvidia>
 	#include <abstractions/ssl_certs>
 	#include <abstractions/dconf>
-	#include <abstractions/kde>
 	#include <abstractions/nameservice>
 	#include <abstractions/user-download>
 	#include <abstractions/dbus-session>
-	#include <abstractions/gstreamer>
+	#include <abstractions/private-files>
+
 
 	# potentially extremely sensitive files
 	audit deny @{HOME}/.gnupg/** mrwkl,
@@ -99,9 +100,6 @@
 	owner /media/Kabi/skriny/ r,
 	owner /media/Kabi/skriny/** rw,
 
-	# Docs folder
-	/usr/share/doc/** r,
-
 	# Devices
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/** r,
@@ -125,7 +123,7 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/*/stat r,
+	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
 	audit deny owner @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
 
@@ -146,6 +144,7 @@
 	/etc/mime.types r,
 	owner @{HOME}/.local/share/mime/mime.cache r,
 
+	# KDE
 	/usr/share/applications/kde4/ r,
 	/usr/share/applications/kde4/** r,
 
