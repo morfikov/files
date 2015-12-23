@@ -1,4 +1,15 @@
 # Last Modified: Wed Dec 23 12:43:11 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
 #include <tunables/global>
 
 profile /opt/google/chrome/chrome {
@@ -19,7 +30,7 @@ profile /opt/google/chrome/chrome {
 	/opt/google/chrome/chrome-sandbox rPx,
 	/opt/google/chrome/extensions/ rw,
 	/opt/google/chrome/extensions/** rw,
-	
+
 	# google-chrome home files
 	owner @{HOME}/.cache/google-chrome/ rw,
 	owner @{HOME}/.cache/google-chrome/** rw,
@@ -76,7 +87,7 @@ profile /opt/google/chrome/chrome {
 	@{PROC}/sys/kernel/yama/ptrace_scope r,
 	@{PROC}/sys/kernel/shmmax r,
 	@{PROC}/sys/net/ipv4/tcp_fastopen r,
-	
+
 	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
 
 	# Child profiles
@@ -136,7 +147,7 @@ profile /opt/google/chrome/chrome {
 		/usr/share/distro-info/debian.csv r,
 		/etc/dpkg/origins/debian r,
 		/var/lib/dpkg/** r,
-		/usr/bin/apt-cache rUx,
+		/usr/bin/apt-cache rPUx,
 
 		/usr/local/lib/python3.[0-4]/dist-packages/ r,
 		/usr/bin/ r,

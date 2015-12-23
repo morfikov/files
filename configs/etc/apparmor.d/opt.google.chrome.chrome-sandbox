@@ -1,4 +1,15 @@
 # Last Modified: Wed Dec 23 12:43:11 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
 #include <tunables/global>
 
 profile /opt/google/chrome/chrome-sandbox {
@@ -20,7 +31,7 @@ profile /opt/google/chrome/chrome-sandbox {
 	capability sys_chroot,
 
 	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
-	
+
 	@{PROC}/[0-9]*/ r,
 	owner @{PROC}/@{pid}/fd/* r,
 
@@ -28,7 +39,7 @@ profile /opt/google/chrome/chrome-sandbox {
 	/opt/google/chrome/chrome-sandbox r,
 	/opt/google/chrome/nacl_helper rCx -> nacl,
 	/opt/google/chrome/nacl_helper_bootstrap rCx -> nacl,
-	
+
 	profile nacl {
 
 	#include <abstractions/base>

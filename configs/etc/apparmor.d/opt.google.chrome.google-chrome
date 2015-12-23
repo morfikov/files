@@ -1,4 +1,15 @@
 # Last Modified: Wed Dec 23 12:43:11 2015
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
 #include <tunables/global>
 
 /opt/google/chrome/google-chrome {
