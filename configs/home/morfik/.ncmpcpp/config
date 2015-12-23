@@ -187,7 +187,7 @@ playlist_show_remaining_time = yes
 
 # If enabled, total/remaining playlist time displayed in statusbar will be shown using shortened
 # units' names (d:h:m:s instead of days:hours:minutes:seconds).
-#playlist_shorten_total_times = no
+playlist_shorten_total_times = yes
 
 # If enabled, separators will be placed between albums.
 playlist_separate_albums = yes
@@ -211,7 +211,7 @@ seek_time = 5
 volume_change_step = 5
 
 # Default state for autocenter mode at start.
-#autocenter_mode = no
+autocenter_mode = yes
 
 # If enabled, currently highlighted position in the list will be always centered.
 #centered_cursor = no
