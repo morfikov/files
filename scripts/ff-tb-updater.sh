@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Last modified: 2015.11.04
-# Version: 0.3.0
+# Last modified: 2015.12.24
+# Version: 0.3.1
 # Source: https://github.com/morfikov/files/blob/master/scripts/ff-tb-updater.sh
 # Author: Mikhail Morfikov <mmorfikov[at]gmail.com>
 # Copyright: 2015 Mikhail Morfikov <mmorfikov[at]gmail.com>
@@ -28,6 +28,7 @@
 #		http://download-origin.cdn.mozilla.net/pub/thunderbird/releases/latest/README.txt
 
 user="morfik"
+verbose="no"
 
 update() {
 	instalation_dir="/opt/$app"
@@ -47,6 +48,17 @@ update() {
 
 	new_version="$(echo $update_file | sort -u | cut -d '-' -f 3 |cut -d '.' -f 1-3)"
 
+	if [ $verbose == "yes" ]; then
+		echo -e "Variable \$installed_verion: $installed_verion"
+		echo -e "Variable \$download_url: $download_url"
+		echo -e "Variable \$file_url: $file_url"
+		echo -e "Variable \$sha512sums_url: $sha512sums_url"
+		echo -e "Variable \$sha512sums_asc_url: $sha512sums_asc_url"
+		echo -e "Variable \$update_file_url: $update_file_url"
+		echo -e "Variable \$update_file: $update_file"
+		echo -e "Variable \$new_version: $new_version"
+	fi
+
 	mkdir -p $tmp_dir
 	
 	echo -en "Installed version \033[01;32m$installed_verion\033[0m, "
@@ -58,10 +70,15 @@ update() {
 		echo -e "updating to the version \033[01;32m$new_version\033[0m ..."
 	fi
 
-	wget -q --show-progress -O $tmp_dir/SHA512SUMS $sha512sums_url
-	wget -q --show-progress -O $tmp_dir/SHA512SUMS.asc $sha512sums_asc_url
+	if [ $verbose == "yes" ]; then
+		wget -O $tmp_dir/SHA512SUMS $sha512sums_url
+		wget -O $tmp_dir/SHA512SUMS.asc $sha512sums_asc_url
+	else
+		wget -q --show-progress -O $tmp_dir/SHA512SUMS $sha512sums_url
+		wget -q --show-progress -O $tmp_dir/SHA512SUMS.asc $sha512sums_asc_url
+	fi
 
-	echo -en "Running file signature verification... "
+	echo -en "Running file signature verification..."
 	signature_verification="$(gpg --verify $tmp_dir/SHA512SUMS.asc 2>&1)"
 
 	no_key="$(echo "$signature_verification" | egrep "public key not found")"
@@ -79,8 +96,12 @@ update() {
 		echo -e "\033[01;32mgood signature\033[0m, file verified!"
 	fi
 
-	wget -q --show-progress -O $tmp_dir/update.mar $update_file_url/$update_file
-
+	if [ $verbose == "yes" ]; then
+		wget -O $tmp_dir/update.mar $update_file_url$update_file
+	else
+		wget -q --show-progress -O $tmp_dir/update.mar $update_file_url$update_file
+	fi
+	
 	echo -en "Running checksum... "
 	sum_update_file="$(egrep -e "linux-`uname -m`/$language/$update_file" $tmp_dir/SHA512SUMS | egrep -e ".mar$" | cut -d ' ' -f 1)"
 
