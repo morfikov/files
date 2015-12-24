@@ -81,6 +81,7 @@ profile /opt/google/chrome/chrome {
 	owner @{PROC}/@{pid}/fd/ r,
 	owner @{PROC}/@{pid}/fd/* r,
 	@{PROC}/[0-9]*/task/ r,
+	@{PROC}/[0-9]*/io r,
 	@{PROC}/[0-9]*/task/[0-9]*/stat r,
 	@{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
@@ -89,6 +90,9 @@ profile /opt/google/chrome/chrome {
 	@{PROC}/sys/net/ipv4/tcp_fastopen r,
 
 	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
+
+	# Needed for --help
+	/usr/bin/man rPUx,
 
 	# Child profiles
 	/opt/google/chrome/xdg-settings Cxr -> xdgsettings,

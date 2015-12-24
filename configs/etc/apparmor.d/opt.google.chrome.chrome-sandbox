@@ -14,15 +14,14 @@
 
 profile /opt/google/chrome/chrome-sandbox {
 
-    #include <abstractions/base>
+	#include <abstractions/base>
 
-    # Required for dropping into PID namespace. Keep in mind that until the
-    # process drops this capability it can escape confinement, but once it
-    # drops CAP_SYS_ADMIN we are ok.
-    capability sys_admin,
+	# Required for dropping into PID namespace. Keep in mind that until the
+	# process drops this capability it can escape confinement, but once it
+	# drops CAP_SYS_ADMIN we are ok.
+	capability sys_admin,
 
 	# All of these are for sanely dropping from root and chrooting
-	capability sys_admin,
 	capability chown,
 	capability fsetid,
 	capability setgid,
@@ -42,19 +41,19 @@ profile /opt/google/chrome/chrome-sandbox {
 
 	profile nacl {
 
-	#include <abstractions/base>
+		#include <abstractions/base>
 
-	/opt/google/chrome/nacl_helper mr,
-	/opt/google/chrome/nacl_helper_bootstrap mr,
+		/opt/google/chrome/nacl_helper mr,
+		/opt/google/chrome/nacl_helper_bootstrap mr,
 
-	/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq r,
+		/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq r,
 
-	@{PROC}/ r,
-	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
-	owner @{PROC}/@{pid}/fd/ r,
-	owner @{PROC}/@{pid}/fd/* r,
-	@{PROC}/cpuinfo r,
-	@{PROC}/filesystems r,
+		@{PROC}/ r,
+		owner @{PROC}/@{pid}/task/[0-9]*/stat r,
+		owner @{PROC}/@{pid}/fd/ r,
+		owner @{PROC}/@{pid}/fd/* r,
+		@{PROC}/cpuinfo r,
+		@{PROC}/filesystems r,
 
 	}
 
