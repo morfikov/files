@@ -16,17 +16,14 @@
 
 	#include <abstractions/base>
 	#include <abstractions/gnome>
+	#include <abstractions/gstreamer>
+	#include <abstractions/openssl>
 	#include <abstractions/nameservice>
+	#include <abstractions/user-tmp>
 	#include <abstractions/private-files-strict>
-
-	deny /bin/dash r,
-	deny /bin/bash r,
-	deny /bin/which r,
 
 	# Qbittorrent dirs/files
 	/usr/bin/qbittorrent mr,
-	/tmp/qtsingleapp-qBitto-1809-3e8 w,
-	/tmp/qtsingleapp-qBitto-1809-3e8-lockfile rwk,
 
 	# Qbittorrent home dirs
 	owner @{HOME}/.config/qBittorrent/** rwk,
@@ -72,7 +69,7 @@
 	audit deny owner @{PROC}/uptime r,
 
 	#
-	#/dev/tty rw,
+	/dev/tty rw,
 
 	# Launch external apps
 	/usr/bin/python* rPUx,
