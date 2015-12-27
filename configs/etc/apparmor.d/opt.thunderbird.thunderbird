@@ -60,13 +60,10 @@
 
 	# Enigmail
 	owner @{HOME}/.gnupg/ r,
-	owner @{HOME}/.gnupg/* rw,
-	owner @{HOME}/.gnupg/.* l,
-	owner @{HOME}/.gnupg/certs/sks-keyservers.netCA.pem rw,
-	owner @{HOME}/.gnupg/crls.d/ rw,
-	owner @{HOME}/.gnupg/crls.d/** rw,
-	owner @{HOME}/.gnupg/certs/ r,
+	owner @{HOME}/.gnupg/** rw,
 	owner @{HOME}/.gnupg/random_seed k,
+	owner @{HOME}/.gnupg/.* l,
+	owner @{HOME}/.gnupg/*.lock l,
 	owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 	/usr/bin/gpg-connect-agent rix,
 	/usr/bin/gpg2 rix,
