@@ -66,13 +66,12 @@ cfg-conky-conkyrc() { $EDITOR ~/.conky/.conkyrc ;}
 cfg-conky-conkyrc_fs() { $EDITOR ~/.conky/.conkyrc_fs ;}
 cfg-conky-conkyrc_1b1() { $EDITOR ~/.conky/1b1/.conkyrc_1b1_int ;}
 cfg-conky-conkyrc_1c() { $EDITOR ~/.conky/1c/.conkyrc_1c ;}
-cfg-newsbeuter() { $EDITOR  ~/.config/newsbeuter/config ;}
-cfg-newsbeuter-urls() { $EDITOR ~/.config/newsbeuter/urls ;}
-cfg-plowdown-add-url() { $EDITOR ~/.config/plowshare/random.txt }
 cfg-xresources() { $EDITOR ~/.config/Xresources/.Xresources ;}
 cfg-xresources-colors() { $EDITOR ~/.config/Xresources/.Xresources ;}
-cfg-xresources-fonts() { $EDITOR ~/.config/Xresources/.Xresources ;}
-cfg-xresources-urxvt() { $EDITOR ~/.config/Xresources/.Xresources ;}
+cfg-xresources-fonts() { $EDITOR ~/.config/Xresources/.fonts ;}
+cfg-xresources-urxvt() { $EDITOR ~/.config/Xresources/.urxvt ;}
+cfg-mpd() { $EDITOR ~/.config/mpd/mpd.conf ;}
+cfg-ncmpcpp() { $EDITOR  ~/.ncmpcpp/config ;}
 
 cfg-xsession() { $EDITOR /etc/X11/Xsession ;}
 cfg-xsession-options() { $EDITOR /etc/X11/Xsession.options ;}
@@ -92,8 +91,6 @@ cfg-tmuxrc() { $EDITOR /etc/tmux.conf ;}
 cfg-vimrc() { $EDITOR /etc/vim/vimrc ;}
 cfg-wgetrc() { $EDITOR /etc/wgetrc ;}
 cfg-pyradio() { $EDITOR /opt/skrypty/pyradio-0.4/stations.csv ;}
-
-edit-hints() { $EDITOR  ~/.oh-my-zsh/custom/80-hints.zsh ;}
 #}}}
 #-------- Configurations Reload {{{
 #------------------------------------------------------
@@ -175,11 +172,6 @@ down4me() { curl -s "http://www.downforeveryoneorjustme.com/$1" | sed '/just you
 # http://www.amazon.com/Logitech-960-000581-C260-Webcam/dp/B003LVZO8I
 # 16:9 ; 1280x720 ; 3MP picture; 
 webcam-mplayer() { mplayer tv:// -tv driver=v4l2:width=1280:height=720:device=/dev/video0 -fps 30 -vf screenshot ;}
-
-# tutorial video: http://www.youtube.com/watch?v=5AzFdX-EyeI
-# d/l cyberlocker files like rapidshare, mediafire ..etc
-# http://code.google.com/p/plowshare/
-plowdown-random() { plowdown -r 3 --max-rate 1M -m ~/.config/plowshare/random.txt ;}
 
 # combine multiple avi files into a single avi file
 # tutorial video: https://www.youtube.com/watch?v=EAWGFJoZXAU
