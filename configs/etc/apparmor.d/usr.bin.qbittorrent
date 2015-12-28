@@ -16,20 +16,21 @@
 
 	#include <abstractions/base>
 	#include <abstractions/gnome>
+	#include <abstractions/kde>
 	#include <abstractions/gstreamer>
 	#include <abstractions/openssl>
 	#include <abstractions/nameservice>
 	#include <abstractions/user-tmp>
 	#include <abstractions/private-files-strict>
 
-	# Qbittorrent dirs/files
+	# Qbittorrent files
 	/usr/bin/qbittorrent mr,
 
 	# Qbittorrent home dirs
 	owner @{HOME}/.config/qBittorrent/** rwk,
 	owner @{HOME}/.local/share/data/qBittorrent/** rw,
 
-	# Torrent dirs/files
+	# Torrent files
 	owner /media/ r,
 	owner /media/Kabi/ r,
 	owner /media/Kabi/torrent/ r,
@@ -40,11 +41,6 @@
 	owner @{HOME}/Desktop/ r,
 	owner @{HOME}/Desktop/* r,
 
-	#
-	owner @{HOME}/.config/Trolltech.conf rwk,
-	owner @{HOME}/.config/gtk-3.0/bookmarks r,
-	/usr/share/icons/**/index.theme k,
-
 	# Cache dir
 	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
 	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
@@ -53,6 +49,12 @@
 
 	# GeoIP settings
 	/usr/share/GeoIP/GeoIP.dat r,
+
+	# Adding torrents
+	owner @{HOME}/.config/QtProject.conf rw,
+	owner @{HOME}/.config/QtProject.conf.* rw,
+	owner @{HOME}/.config/QtProject.conf.lock rwk,
+	/tmp/.X0-lock r,
 
 	# Proc files
 	owner @{PROC}/@{pid}/cmdline r,
@@ -70,6 +72,7 @@
 
 	#
 	/dev/tty rw,
+	/usr/share/icons/**/index.theme k,
 
 	# Launch external apps
 	/usr/bin/python* rPUx,
