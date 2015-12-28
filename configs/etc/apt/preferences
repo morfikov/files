@@ -42,10 +42,10 @@ Pin: origin ppa.launchpad.net
 Pin: release o=LP-PPA-rvm-smplayer,l=SMPlayer
 Pin-Priority: 995
 
-#Package: qbittorrent*
-#Pin: origin ppa.launchpad.net
-#Pin: release o=LP-PPA-qbittorrent-team-qbittorrent-stable,l=qbittorrent-stable
-#Pin-Priority: 995
+Package: qbittorrent*
+Pin: origin ppa.launchpad.net
+Pin: release o=LP-PPA-qbittorrent-team-qbittorrent-unstable,l=qbittorrent-unstable
+Pin-Priority: 995
 
 #Package: spacefm*
 #Pin: origin repozytorium.mati75.eu
