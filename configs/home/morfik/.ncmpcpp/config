@@ -47,14 +47,14 @@ mpd_crossfade_time = 5
 #        format          "44100:16:2"
 # }
 #
-#visualizer_fifo_path = /tmp/mpd.fifo
+visualizer_fifo_path = /tmp/mpd.fifo
 
 # Below parameter is needed for ncmpcpp to determine which output provides data for visualizer and
 # thus allow syncing between visualization and sound as currently there are some problems with it.
-#visualizer_output_name = Visualizer feed
+visualizer_output_name = Visualizer feed
 
 # Should be set to "yes", if fifo output's format was set to 44100:16:2.
-#visualizer_in_stereo = yes
+visualizer_in_stereo = yes
 
 # Multiply received samples by given value. Very useful for proper visualization of quiet music.
 #visualizer_sample_multiplier = 1
@@ -62,11 +62,11 @@ mpd_crossfade_time = 5
 # How often ncmpcpp has to "synchronize" visualizer and audio outputs. 30 seconds is optimal value,
 # but if you experience synchronization problems, set it to lower value. Keep in mind that sane
 # values start with >=10.
-#visualizer_sync_interval = 30
+visualizer_sync_interval = 30
 
 # Defines default visualizer type (spectrum is available only if ncmpcpp was compiled with fftw
 # support). Available values: spectrum, wave.
-visualizer_type = wave
+visualizer_type = spectrum
 
 # Defines visualizer's look (string has to be exactly 2 characters long: first one is for wave 
 # whereas second for frequency spectrum).
@@ -176,7 +176,7 @@ now_playing_suffix = $/b
 #     creates column named "Owner" that tries to display artist tag and then composer and performer
 #     if previous ones are not available.
 #song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
-song_columns_list_format = (7f)[green]{l} (20)[cyan]{a} (6f)[]{n} (35)[]{t} (25)[red]{b} (5f)[red]{y}"
+song_columns_list_format = (7f)[green]{l} (20)[cyan]{a} (6f)[]{n} (35)[]{t} (25)[blue]{b} (5f)[red]{y}"
 
 # Shell command that will be executed each time a song changes. Useful for notifications etc. It
 # doesn't support song format anymore. Use "ncmpcpp --now-playing SONG_FORMAT" instead.
@@ -226,7 +226,7 @@ progressbar_boldness = yes
 
 # If set to "playlist", Search engine will perform searching in current MPD playlist rather than in
 # music database. Available values: database, playlist.
-#default_place_to_search_in = database
+default_place_to_search_in = playlist
 
 # Default user interface used by ncmpcpp at start. Available values: classic, alternative.
 #user_interface = classic
