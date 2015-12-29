@@ -44,5 +44,6 @@
 
 	#
 	#/dev/tty rw,
+	owner @{HOME}/.config/Trolltech.conf rk,
 
 }
