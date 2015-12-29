@@ -114,6 +114,9 @@ update() {
 	fi
 
 	echo -en "Running update... "
+	if [ ! -h /usr/lib/libmozsqlite3.so ]; then
+		ln -s $instalation_dir/libmozsqlite3.so /usr/lib/
+	fi
 	cd $instalation_dir
 	cp $instalation_dir/updater $tmp_dir
 	$tmp_dir/updater $tmp_dir $instalation_dir $instalation_dir
