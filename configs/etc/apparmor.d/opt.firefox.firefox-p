@@ -66,8 +66,8 @@
 	owner @{HOME}/mm.cfg rw,
 
 	# Firefox home files
-	deny owner @{HOME}/.mozilla/firefox/**/ r,
-	deny owner @{HOME}/.mozilla/firefox/**/** r,
+	deny owner @{HOME}/.mozilla/firefox/**/ rw,
+	deny owner @{HOME}/.mozilla/firefox/**/** rw,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 	owner /media/Grafi/firefox_profile/ r,
 	owner /media/Grafi/firefox_profile/** rwk,

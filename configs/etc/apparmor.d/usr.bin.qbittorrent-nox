@@ -30,10 +30,10 @@
 	# Torrent dirs/files
 	owner /media/ r,
 	owner /media/Kabi/ r,
-	owner /media/Kabi/torrent/ r,
+	owner /media/Kabi/torrent/ rw,
 	owner /media/Kabi/torrent/** rw,
 	owner /media/Grafi/ r,
-	owner /media/Grafi/torrent/ r,
+	owner /media/Grafi/torrent/ rw,
 	owner /media/Grafi/torrent/** rw,
 
 	# Cache dir

@@ -127,6 +127,9 @@
 	audit deny owner @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
 
+	# To avoid some crashes
+	owner @{PROC}/[0-9]*/task/ r,
+
 	# Gstreamer
 	owner @{HOME}/.cache/gstreamer*/**  rw,
 	owner @{HOME}/.gstreamer*/ rw,
@@ -140,6 +143,13 @@
 
 	/etc/mailcap r,
 
+	# Set default browser
+	/usr/bin/update-desktop-database rPUx,
+	/usr/bin/update-mime-databas rPUx,
+	owner @{HOME}/.config/mimeapps.list* rw,
+	owner @{HOME}/.local/share/applications/userapp-Firefox-*.desktop* rw,
+	owner @{HOME}/.local/share/mime/packages/user-extension-htm.xml* rw,
+
 	# MIME types
 	/etc/mime.types r,
 	owner @{HOME}/.local/share/mime/mime.cache r,
@@ -147,6 +157,7 @@
 	# KDE
 	/usr/share/applications/kde4/ r,
 	/usr/share/applications/kde4/** r,
+
 
 	# Launch external apps
 	/usr/bin/vlc rPUx,

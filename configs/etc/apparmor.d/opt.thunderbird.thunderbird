@@ -20,6 +20,7 @@
 	#include <abstractions/base>
 	#include <abstractions/private-files>
 	#include <abstractions/gnome>
+	#include <abstractions/fonts>
 	#include <abstractions/audio>
 	#include <abstractions/nameservice>
 	#include <abstractions/user-download>
@@ -98,9 +99,13 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/*/stat r,
+	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
 	audit deny owner @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
+
+	# To avoid some crashes after waking up from hibernation
+	owner @{PROC}/[0-9]*/task/ r,
+	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
 
 	/etc/mailcap r,
 
