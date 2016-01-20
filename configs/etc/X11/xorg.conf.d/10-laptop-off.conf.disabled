@@ -1,0 +1,15 @@
+Section "InputClass"
+	Identifier      "Built-In Touchpad"
+	MatchIsTouchpad "on"
+	MatchProduct    "SynPS/2 Synaptics TouchPad"
+
+	Option "Ignore" "on"
+EndSection
+
+Section "InputClass"
+	Identifier      "Built-In Keyboard"
+	MatchIsKeyboard "on"
+	MatchProduct    "AT Translated Set 2 keyboard"
+
+	Option "Ignore" "on"
+EndSection
