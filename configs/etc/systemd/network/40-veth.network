@@ -1,0 +1,8 @@
+[Match]
+Driver=veth
+
+[Network]
+Description=Virtual interfaces configuration (veth)
+DHCP=no
+IPv6AcceptRouterAdvertisements=false
+Bridge=br-lxc

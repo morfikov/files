@@ -1,0 +1,8 @@
+[Match]
+Type=wlan
+
+[Network]
+Description=Bonded wireless interfaces configuration
+DHCP=no
+IPv6AcceptRouterAdvertisements=false
+Bond=bond0

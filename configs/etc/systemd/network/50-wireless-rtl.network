@@ -1,0 +1,22 @@
+[Match]
+MACAddress=e8:de:27:1d:4c:a5
+Type=wlan
+
+[Network]
+Description=Wireless interface configuration (wlan1)
+DHCP=ipv4
+LinkLocalAddressing=no
+DNS=127.0.0.1
+IPv6AcceptRouterAdvertisements=false
+#Bond=
+
+[DHCP]
+UseDNS=false
+UseNTP=false
+UseMTU=false
+SendHostname=true
+UseHostname=false
+#UseDomains=true
+UseRoutes=true
+#CriticalConnection=true
+RequestBroadcast=true

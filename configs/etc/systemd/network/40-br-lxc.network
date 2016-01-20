@@ -1,0 +1,9 @@
+[Match]
+Name=br-lxc
+
+[Network]
+Description=LXC bridge configuration (br-lxc)
+DHCP=no
+LinkLocalAddressing=no
+Address=192.168.10.100/24
+IPv6AcceptRouterAdvertisements=false

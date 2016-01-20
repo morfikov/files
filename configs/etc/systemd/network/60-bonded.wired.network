@@ -1,0 +1,8 @@
+[Match]
+Driver=r8169
+
+[Network]
+Description=Bonded wired interfaces configuration
+DHCP=no
+IPv6AcceptRouterAdvertisements=false
+Bond=bond0

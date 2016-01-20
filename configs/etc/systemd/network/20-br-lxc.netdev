@@ -1,0 +1,4 @@
+[NetDev]
+Description=Bridge interface configuration (br-lxc)
+Name=br-lxc
+Kind=bridge

@@ -1,0 +1,15 @@
+[Match]
+Name=tun*
+
+[Network]
+Description=VPN network configuration (tun)
+DHCP=ipv4
+IPv6AcceptRouterAdvertisements=false
+
+[DHCP]
+UseDNS=true
+UseNTP=false
+UseMTU=true
+SendHostname=false
+UseHostname=false
+UseRoutes=true

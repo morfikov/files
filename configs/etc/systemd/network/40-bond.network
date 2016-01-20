@@ -1,0 +1,19 @@
+[Match]
+Name=bond0
+
+[Network]
+Description=Bonded network configuration (bond0)
+DHCP=ipv4
+LinkLocalAddressing=no
+DNS=127.0.0.1
+IPv6AcceptRouterAdvertisements=false
+
+[DHCP]
+UseDNS=false
+UseNTP=false
+UseMTU=false
+SendHostname=true
+UseHostname=false
+UseDomains=false
+UseRoutes=true
+#UseTimezone=true

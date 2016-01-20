@@ -1,0 +1,6 @@
+[Match]
+MACAddress=e8:de:27:1d:4c:a5
+
+[Link]
+Description=Wireless interface configuration (wlan1)
+Name=wlan1
