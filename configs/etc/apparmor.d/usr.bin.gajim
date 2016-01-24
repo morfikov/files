@@ -74,6 +74,9 @@
 		owner @{HOME}/.local/share/gajim/ r,
 		owner @{HOME}/.local/share/gajim/** rwk,
 
+		# Send files
+		owner @{HOME}/.config/gtk-3.0/bookmarks r,	
+
 		# GPG
 		/usr/bin/gpg rix,
 		owner @{HOME}/.gnupg/gpg.conf r,
