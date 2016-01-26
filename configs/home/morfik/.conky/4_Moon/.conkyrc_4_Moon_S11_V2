@@ -1,0 +1,146 @@
+###  Begin Window Settings  ##################################################
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,skip_taskbar,skip_pager
+own_window_colour 000000
+own_window_class Conky
+own_window_title 4_Moon
+
+minimum_size 370 00  # w|h
+maximum_width 370
+
+gap_x 20	# l|r
+gap_y 20	# u|d
+
+alignment tr
+####################################################  End Window Settings  ###
+###  Font Settings  ##########################################################
+# Use Xft (anti-aliased font and stuff)
+use_xft yes
+xftfont Fantasque Sans Mono:bold:size=10
+
+# Alpha of Xft font. Must be a value at or between 1 and 0 ###
+xftalpha 1.0
+
+# Force UTF8? requires XFT ###
+override_utf8_locale yes
+
+uppercase no
+######################################################  End Font Settings  ###
+###  Color Settings  #########################################################
+draw_shades yes
+default_shade_color 000000
+draw_outline no
+default_outline_color 000000
+
+default_color DCDCDC #220 220 220	Gainsboro
+color0 8FBC8F #DarkSeaGreen
+color1 778899 #LightSlateGray
+color2 F5F5DC #Beige
+color3 87CEFA #LightSkyBlue
+color4 48D1CC #MediumTurquoise
+color5 FFDEAD #NavajoWhite
+color6 00BFFF #DeepSkyBlue
+color7 B0E0E6 #PowderBlue
+color8 FFD700 #Gold
+color9 CD5C5C #IndianRed
+#####################################################  End Color Settings  ###
+###  Borders Section  ########################################################
+draw_borders no
+# Stippled borders?
+stippled_borders 5
+# border margins
+border_inner_margin 5
+border_outer_margin 0
+# border width
+border_width 2
+# graph borders
+draw_graph_borders yes #no
+#default_graph_size 15 40
+#####################################################  End Borders Secton  ###
+###  Miscellaneous Section  ##################################################
+# Boolean value, if true, Conky will be forked to background when started.
+background yes
+
+# Adds spaces around certain objects to stop them from moving other things
+# around, this only helps if you are using a mono font
+# Options: right, left or none
+use_spacer none
+
+# Default and Minimum size is 256 - needs more for single commands that
+# "call" a lot of text IE: bash scripts
+text_buffer_size 6144
+
+# Subtract (file slystem) buffers from used memory?
+no_buffers yes
+
+# change GiB to G and MiB to M
+short_units yes
+
+# Like it says, ot pads the decimals on % values
+# doesn't seem to work since v1.7.1
+pad_percents 2
+
+# Imlib2 image cache size, in bytes. Default 4MiB Increase this value if you use
+# $image lots. Set to 0 to disable th0e image cache.
+imlib_cache_size 0
+
+# Use the Xdbe extension? (eliminates flicker)
+# It is highly recommended to use own window with this one
+# so double buffer won't be so big.
+double_buffer yes
+##############################################  End Miscellaneous Section  ###
+update_interval 1
+
+TEXT
+The Moon ${membar 0}${execi 500 $HOME/4_Moon/moon}\${texeci 500 bash $HOME/4_Moon/moon_MoonGiant}
+${image $HOME/4_Moon/-2.png -p 0,32 -s 90x90}
+${goto 100}Two Days Back${goto 220}${execpi 600 sed -n '12p' $HOME/4_Moon/raw}
+${goto 100}Illumunation${goto 220}${execpi 600 sed -n '13p' $HOME/4_Moon/raw}
+${goto 100}Sun Angle${goto 220}${execpi 600 sed -n '14p' $HOME/4_Moon/raw}°
+${goto 100}Sun Distance${goto 220}${execpi 600 sed -n '15p' $HOME/4_Moon/raw} km
+${goto 100}Moon Distance${goto 220}${execpi 600 sed -n '16p' $HOME/4_Moon/raw} km
+${goto 100}Moon Age${goto 220}${execpi 600 sed -n '17p' $HOME/4_Moon/raw} days
+${goto 100}Moon Angle${goto 220}${execpi 600 sed -n '18p' $HOME/4_Moon/raw}°
+${goto 100}Phase${goto 220}${execpi 600 sed -n '19p' $HOME/4_Moon/raw}
+${image $HOME/4_Moon/-1.png -p 0,160 -s 90x90}
+${goto 100}Yesterday${goto 220}${execpi 600 sed -n '20p' $HOME/4_Moon/raw}
+${goto 100}Illumunation${goto 220}${execpi 600 sed -n '21p' $HOME/4_Moon/raw}
+${goto 100}Sun Angle${goto 220}${execpi 600 sed -n '22p' $HOME/4_Moon/raw}°
+${goto 100}Sun Distance${goto 220}${execpi 600 sed -n '23p' $HOME/4_Moon/raw} km
+${goto 100}Moon Distance${goto 220}${execpi 600 sed -n '24p' $HOME/4_Moon/raw} km
+${goto 100}Moon Age${goto 220}${execpi 600 sed -n '25p' $HOME/4_Moon/raw} days
+${goto 100}Moon Angle${goto 220}${execpi 600 sed -n '26p' $HOME/4_Moon/raw}°
+${goto 100}Phase${goto 220}${execpi 600 sed -n '27p' $HOME/4_Moon/raw}
+${membar 0}\
+${image $HOME/4_Moon/0.png -p 260,290 -s 90x90}
+Today${goto 120}${execpi 600 sed -n '9p' $HOME/4_Moon/raw}
+Illumunation${goto 120}${execpi 600 sed -n '1p' $HOME/4_Moon/raw}
+Sun Angle${goto 120}${execpi 600 sed -n '2p' $HOME/4_Moon/raw}°
+Sun Distance${goto 120}${execpi 600 sed -n '3p' $HOME/4_Moon/raw} km
+Moon Distance${goto 120}${execpi 600 sed -n '4p' $HOME/4_Moon/raw} km
+Moon Age${goto 120}${execpi 600 sed -n '5p' $HOME/4_Moon/raw} days
+Moon Angle${goto 120}${execpi 600 sed -n '6p' $HOME/4_Moon/raw}°
+Phase${goto 120}${execpi 600 sed -n '7p' $HOME/4_Moon/raw}
+Moonrise/Set${goto 120}Approx ${execpi 600 sed -n '8p' $HOME/4_Moon/raw}
+${membar 0}\
+${image $HOME/4_Moon/1.png -p 0,424 -s 90x90}
+${goto 100}Tomorrow${goto 220}${execpi 600 sed -n '28p' $HOME/4_Moon/raw}
+${goto 100}Illumunation${goto 220}${execpi 600 sed -n '29p' $HOME/4_Moon/raw}
+${goto 100}Sun Angle${goto 220}${execpi 600 sed -n '30p' $HOME/4_Moon/raw}°
+${goto 100}Sun Distance${goto 220}${execpi 600 sed -n '31p' $HOME/4_Moon/raw} km
+${goto 100}Moon Distance${goto 220}${execpi 600 sed -n '32p' $HOME/4_Moon/raw} km
+${goto 100}Moon Age${goto 220}${execpi 600 sed -n '33p' $HOME/4_Moon/raw} days
+${goto 100}Moon Angle${goto 220}${execpi 600 sed -n '34p' $HOME/4_Moon/raw}°
+${goto 100}Phase${goto 220}${execpi 600 sed -n '35p' $HOME/4_Moon/raw}
+${image $HOME/4_Moon/2.png -p 0,550 -s 90x90}
+${goto 100}In Two Days${goto 220}${execpi 600 sed -n '36p' $HOME/4_Moon/raw}
+${goto 100}Illumunation${goto 220}${execpi 600 sed -n '37p' $HOME/4_Moon/raw}
+${goto 100}Sun Angle${goto 220}${execpi 600 sed -n '38p' $HOME/4_Moon/raw}°
+${goto 100}Sun Distance${goto 220}${execpi 600 sed -n '39p' $HOME/4_Moon/raw} km
+${goto 100}Moon Distance${goto 220}${execpi 600 sed -n '40p' $HOME/4_Moon/raw} km
+${goto 100}Moon Age${goto 220}${execpi 600 sed -n '41p' $HOME/4_Moon/raw} days
+${goto 100}Moon Angle${goto 220}${execpi 600 sed -n '42p' $HOME/4_Moon/raw}°
+${goto 100}Phase${goto 220}${execpi 600 sed -n '43p' $HOME/4_Moon/raw}
+${membar 0}

@@ -1,0 +1,157 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+conky.config = {
+
+-- Use XFT? Required to Force UTF8 (see below)
+	use_xft = true,
+	font = 'monospace:size=9',
+--	xftalpha = 0.1,
+
+-- Force UTF8? Requires XFT (see above)
+-- Displays degree symbol, instead of Â°, etc.
+	override_utf8_locale = true,
+
+-- Daemonize Conky, set to "yes" if you want Conky to be forked in the background.
+	background = true,
+
+-- Update interval in seconds.
+	update_interval = 2.0,
+
+-- The number of times Conky will update before quitting.
+-- Zero makes Conky run forever.
+	total_run_times = 0,
+
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+
+-- Create 'own_window' type.
+	own_window_title = 'conky_bg_1',
+	own_window_type = 'desktop',
+--	own_window_type = 'normal',
+--	own_window_type = 'override',
+	own_window_transparent = true,
+--	own_window_colour = '#938a86',
+--	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+-- Some distros require the following lines for true transparency.
+-- BOTH of these lines need to be Commented/Uncommented in tandem.
+--	own_window_argb_visual = true,
+--	own_window_argb_value = 255,
+
+-- Force images to redraw when they change.
+	imlib_cache_size = 0,
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- Draw shades?
+	draw_shades = false,
+	default_shade_color = '#292421',
+
+-- Draw outlines?
+	draw_outline = false,
+
+--	Draw borders around text?
+	draw_borders = false,
+
+-- Draw borders around graphs?
+	draw_graph_borders = true,
+
+-- Print text to stdout?
+-- Print text in console?
+	out_to_ncurses = false,
+	out_to_console = false,
+
+-- Text alignment.
+	alignment = 'top_left',
+--	alignment = 'top_right',
+--	alignment = 'bottom_left',
+--	alignment = 'bottom_right',
+
+-- Minimum size of the text area.
+-- Syntax: minimum_size [width] [height]
+-- Syntax: maximum_width [width]
+	minimum_width = 1114, minimum_height = 60,
+	maximum_width = 1114,
+
+-- This buffer is used for single lines, text, output from $exec, and other variables.
+-- Increasing the 'text_buffer_size' (too high) will drastically reduce Conky's performance.
+-- Decreasing the buffer size (too low) will truncate content and cause strange display output.
+-- Standard text buffer size is 256 bytes (cannot be less). Adjust YOUR buffer wisely!
+	text_buffer_size = 1024,
+
+-- Maximum size of user text buffer, i.e. layout below TEXT line in config file (default is 16384
+-- bytes)
+	max_user_text = 20000,
+
+-- Gap between text and screen borders.
+	gap_x = 5,		-- Left / Right
+	gap_y = 0,		-- Top / Bottom
+
+-- Shorten MiB/GiB to M/G in stats.
+	short_units = true,
+
+-- Pad % symbol spacing after numbers.
+	pad_percents = 0,
+
+-- Pad spacing between text and borders.
+	border_inner_margin = 4,
+
+-- Limit the length of names in "Top Processes".
+	top_name_width = 10,
+
+-- Subtract file system -/+buffers/cache from used memory?
+-- Set to yes, to produce meaningful physical memory stats.
+	no_buffers = true,
+
+-- Set to yes, if you want all text to be in UPPERCASE.
+	uppercase = false,
+
+-- Number of cpu samples to average.
+-- Set to 1 to disable averaging.
+	cpu_avg_samples = 2,
+
+-- Number of net samples to average.
+-- Set to 1 to disable averaging.
+	net_avg_samples = 2,
+
+-- Add spaces to keep things from moving around?
+-- Only affects certain objects.
+--	use_spacer = 'right',	-- right yes
+--	stippled_borders = 3,
+--	border_margin = 9,
+	border_width = 4,
+
+-- blue
+	color0 = '#FFCC00',
+	color1 = '#D75F00',
+
+-- orange
+--	color0 = '#1E90FF',
+--	color1 = '#1E56FF',
+
+-- Load Lua for shading (optional)
+-- Set the path to your script here.
+--	lua_load = '~/.conky/draw_bg.lua',
+--	lua_draw_hook_pre = 'draw_bg',
+
+-- Load Lua for bargraphs (required)
+-- Set the path to your script here.
+	lua_load = '~/.conky/bargraph_small_fs.lua',
+	lua_draw_hook_post = 'main_bars',
+
+};
+
+conky.text = [[
+${color1}${hr 1}
+${texeci 600 bash ~/.conky/1b1/1b1}${texeci 600 bash ~/.conky/1c/1c}${texeci 600 bash ~/.conky/4_Moon/moon_MoonGiant}\
+${goto 82}${font monospace:size=9}${color1}/${goto 197}${color0}${fs_used /}${color1} / ${fs_size /}\
+${goto 328}${color1}/home${goto 443}${color0}${fs_used /home}${color1} / ${fs_size /home}\
+${goto 574}${color1}/media/Server${goto 696}${color0}${fs_used /media/Server/}${color1}/ ${fs_size /media/Server/}\
+${goto 820}${color1}/tmp${goto 942}${color0}${fs_used /tmp}${color1} / ${fs_size /tmp}
+
+${goto 82}${font monospace:size=9}${color1}/media/Kabi${goto 204}${color0}${fs_used /media/Kabi}${color1} / ${fs_size /media/Kabi}\
+${goto 328}${color1}/media/Zami${goto 443}${color0}${fs_used /media/Zami}${color1} / ${fs_size /media/Zami}\
+${goto 574}${color1}/media/Gusto${goto 696}${color0}${fs_used /media/Gusto}${color1}/ ${fs_size /media/Gusto}\
+${goto 820}${color1}/media/Grafi${goto 935}${color0}${fs_used /media/Grafi}${color1} / ${fs_size /media/Grafi}
+${voffset 7}${color1}${hr 1}
+]];

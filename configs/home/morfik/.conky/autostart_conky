@@ -1,0 +1,14 @@
+#!/bin/sh
+# click to start, click to stop
+
+if pidof conky | grep [0-9] > /dev/null
+then
+	exec killall conky
+else
+	###   sleep 2  # sleep not required for xfce or dropbox upto - 30 or more for others
+	(sleep 2s && conky -c ~/.conky/.conkyrc &) &
+	(sleep 2s && conky -c ~/.conky/.conkyrc_fs) &
+	(sleep 15s && conky -c ~/.conky/1b1/.conkyrc_1b1_int) &
+	(sleep 15s && conky -c ~/.conky/1c/.conkyrc_1c) &
+	exit 0
+fi

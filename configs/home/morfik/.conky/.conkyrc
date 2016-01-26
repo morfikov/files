@@ -1,0 +1,202 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+conky.config = {
+
+-- Use XFT? Required to Force UTF8 (see below)
+	use_xft = true,
+	font = 'monospace:size=9',
+--	xftalpha = 0.1,
+
+-- Force UTF8? Requires XFT (see above)
+-- Displays degree symbol, instead of Â°, etc.
+	override_utf8_locale = true,
+
+-- Daemonize Conky, set to "yes" if you want Conky to be forked in the background.
+	background = true,
+
+-- Update interval in seconds.
+	update_interval = 2.0,
+
+-- The number of times Conky will update before quitting.
+-- Zero makes Conky run forever.
+	total_run_times = 0,
+
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+
+-- Create 'own_window' type.
+	own_window_title = 'conky_bg_1',
+	own_window_type = 'desktop',
+--	own_window_type = 'normal',
+--	own_window_type = 'override',
+	own_window_transparent = true,
+--	own_window_colour = '#938a86',
+--	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+-- Some distros require the following lines for true transparency.
+-- BOTH of these lines need to be Commented/Uncommented in tandem.
+--	own_window_argb_visual = true,
+--	own_window_argb_value = 255,
+
+-- Force images to redraw when they change.
+	imlib_cache_size = 0,
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- Draw shades?
+	draw_shades = false,
+	default_shade_color = '#292421',
+
+-- Draw outlines?
+	draw_outline = false,
+
+--	Draw borders around text?
+	draw_borders = false,
+
+-- Draw borders around graphs?
+	draw_graph_borders = true,
+
+-- Print text to stdout?
+-- Print text in console?
+	out_to_ncurses = false,
+	out_to_console = false,
+
+-- Text alignment.
+	alignment = 'top_left',
+--	alignment = 'top_right',
+--	alignment = 'bottom_left',
+--	alignment = 'bottom_right',
+
+-- Minimum size of the text area.
+-- Syntax: minimum_size [width] [height]
+-- Syntax: maximum_width [width]
+	minimum_width = 220, minimum_height = 0,
+	maximum_width = 220,
+
+-- This buffer is used for single lines, text, output from $exec, and other variables.
+-- Increasing the 'text_buffer_size' (too high) will drastically reduce Conky's performance.
+-- Decreasing the buffer size (too low) will truncate content and cause strange display output.
+-- Standard text buffer size is 256 bytes (cannot be less). Adjust YOUR buffer wisely!
+	text_buffer_size = 1024,
+
+-- Maximum size of user text buffer, i.e. layout below TEXT line in config file (default is 16384
+-- bytes)
+	max_user_text = 20000,
+
+-- Gap between text and screen borders.
+	gap_x = 1140,	-- Left / Right
+	gap_y = 0,		-- Top / Bottom
+
+-- Shorten MiB/GiB to M/G in stats.
+	short_units = false,
+
+-- Pad % symbol spacing after numbers.
+	pad_percents = 0,
+
+-- Pad spacing between text and borders.
+	border_inner_margin = 4,
+
+-- Limit the length of names in "Top Processes".
+	top_name_width = 10,
+
+-- Subtract file system -/+buffers/cache from used memory?
+-- Set to yes, to produce meaningful physical memory stats.
+	no_buffers = true,
+
+-- Set to yes, if you want all text to be in UPPERCASE.
+	uppercase = false,
+
+-- Number of cpu samples to average.
+-- Set to 1 to disable averaging.
+	cpu_avg_samples = 2,
+
+-- Number of net samples to average.
+-- Set to 1 to disable averaging.
+	net_avg_samples = 2,
+
+-- Add spaces to keep things from moving around?
+-- Only affects certain objects.
+--	use_spacer = 'right',	-- right yes
+--	stippled_borders = 3,
+--	border_margin = 9,
+	border_width = 4,
+
+-- orange
+	color0 = '#FFCC00',
+	color1 = '#D75F00',
+
+-- blue
+--	color0 = '#1E90FF',
+--	color1 = '#1E56FF',
+
+-- Load Lua for shading (optional)
+-- Set the path to your script here.
+--	lua_load = '~/.conky/draw_bg.lua',
+--	lua_draw_hook_pre = 'draw_bg',
+
+-- Load Lua for bargraphs (required)
+-- Set the path to your script here.
+	lua_load = '~/.conky/bargraph_small.lua',
+	lua_draw_hook_post = 'main_bars',
+
+};
+
+conky.text = [[
+${image $HOME/.conky/debian.png -p 18,28 -s 40x40}${color1}${hr 1}${font monospace:size=9}
+#${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^NAME' | awk -F'=' '{print $2}' | tr -d '"'} ${execi 300 cat /etc/*release | grep 'VERSION_ID' | awk -F'=' '{print $2}' | tr -d '"'}
+${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^PRETTY_NAME' | awk -F'=' '{print $2}' | tr -d '"'}
+${alignr}${offset -5}${execi 300 uname -r}
+${alignr}${offset -5}${execi 300 cat /etc/hostname}
+${alignr}${offset -5}Uptime: ${uptime}
+${voffset -5}${color1}$hr
+${voffset 2}${font StyleBats:size=9}a${font} Processor: ${color0}${alignr}${execi 300 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
+${voffset 2}${color1}CPU 0 ${color0}${cpu cpu1}%
+${color1}CPU 1 ${color0}${cpu cpu2}%
+${color1}${voffset 7}Frequency: ${alignr}${color0}${freq_g cpu1}GHz ${color1}| ${color0}${freq_g cpu2}GHz
+#${color0}Temperature: ${alignr} ${hwmon temp 2}°C
+#${color1}Temperature: ${color0}${alignr} ${exec acpi -t | cut -d ' ' -f 4}°C
+${color1}Temperature: ${alignr}${color0}${exec sensors | grep -i 'core 0' | cut -d ' ' -f 9} ${color1}| ${color0}${exec sensors | grep -i 'core 2' | cut -d ' ' -f 9}
+#${color1}Fan Speed: ${color0}${alignr} ${hwmon fan 1} RPM
+${color1}Fan Speed: ${color0}${alignr} RPM
+${color1}Load 1/5/15 : ${alignr}${color0}${loadavg}
+#${color1}Graphic Card
+#${color0}Geforce 7600 GT ${alignr} ${execi 30 nvidia-settings -q gpucoretemp | grep '):' | awk '{print $4}'}°C                  ${color0}Geforce 7600 GT ${alignr} ${execi 30 nvidia-settings -q gpucoretemp | grep '):' | cut -c46-47}°C
+#${color0}${execi 2000 lspci | egrep -i vga | awk '{print $5 $8$9$10}'} ${alignr} ${execi 10 nvidia-settings -q gpucoretemp -t}°C
+${voffset 2}${color1}${font StyleBats:size=9}l${font} ${color0}RAM:${offset 20}${color0}${alignc}$mem/ $memmax${alignr}$memperc%
+${voffset 15}${color1}${font StyleBats:size=9}x${font} ${color0}SWAP:${offset 13}${color0}${alignc}$swap/ $swapmax${alignr} $swapperc%
+${voffset 16}${color1}${font StyleBats:size=9}3${font} Procs: $processes ${goto 108} PID ${goto 155}%CPU ${goto 198}%RAM
+${color0}${top name 1} ${alignr} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color0}${top name 2} ${alignr} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color0}${top name 3} ${alignr} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color0}${top name 4} ${alignr} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color0}${top name 5} ${alignr} ${top pid 5} ${top cpu 5} ${top mem 5}
+${color0}${top name 6} ${alignr} ${top pid 6} ${top cpu 6} ${top mem 6}
+${color0}${top name 7} ${alignr} ${top pid 7} ${top cpu 7} ${top mem 7}
+${color0}${top name 8} ${alignr} ${top pid 8} ${top cpu 8} ${top mem 8}
+${color1}$hr
+${color1}${font StyleBats:size=9}u${font} Hard Disk:
+${color0}sda: ${execi 300 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C
+${color1}Read ${offset 27}${color0}${diskio_read /dev/sda}${color1}${offset 3}|${alignr}${color0}${diskio_write /dev/sda}${color} ${color1} Write
+${color1}$hr
+${color1}${font StyleBats:size=9}2${font} Wi-Fi ESSID:${alignr}${color0}${wireless_essid wlp3s0b1}
+${color1}AP:${alignr}${color0}${wireless_ap wlp3s0b1}
+${color1}Bitrate:${alignr}${color0}${wireless_bitrate wlp3s0b1}
+${color1}Signal:
+${voffset -5}${color1}$hr
+${color1}${font StyleBats:size=9}z${font} Con: ${alignr} ${color1}TI ${color0}${tcp_portmon 18398 18398 count} | ${color1}TO ${color0}${tcp_portmon 51000 55000 count} | ${color1}ALL ${color0}${tcp_portmon 1 65535 count}
+${color0}IP (bond0):${alignr}${addr bond0}
+#${color0}IP (external):${alignr}${execpi 60 dig +short myip.opendns.com @resolver1.opendns.com}
+${color0}IP (external):${alignr}${execpi 60 dig +short myip.opendns.com}
+${color1}Down Speed${alignr}Up Speed
+${color0}${downspeedf bond0} KiB/s${alignr}${alignr}${upspeedf bond0} KiB/s
+${color1}${downspeedgraph bond0 30,109 ff0000 fbe601}${alignr}${color1}${upspeedgraph bond0 30,109 fbe601 ff0000}
+${color1}${goto 90}Download ${alignr}Upload
+${color1}Today:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $2 $3}'}\
+${alignr}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $5 $6}'}
+${color1}This Week:${goto 85}${color0}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $3 $4}'}\
+${alignr}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $6 $7}'}
+${color1}${execi 300 date +"%b '%y"}:${goto 85}${color0}${execi 300 vnstat --iface bond0 -m | grep "`date +"%b '%y"`" | awk '{print $3 $4}'}\
+${alignr}${execi 300 vnstat --iface bond0 -m | grep "`date +"%b '%y"`" | awk '{print $6 $7}'}
+${color1}Total:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep -i rx: | awk '{print $2 $3}'}\
+${alignr}${execi 300 vnstat --iface bond0 | grep -i tx: | awk '{print $5 $6}'}
+]];

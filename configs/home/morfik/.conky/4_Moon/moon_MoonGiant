@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#kill -STOP $(pidof conky)
+#killall wget
+
+#put your hemisphere here: north or south
+hemisphere=north
+
+wget -O $HOME/.conky/4_Moon/raw "http://www.moongiant.com/phase/today"
+rm $HOME/.conky/4_Moon/*.png $HOME/.conky/4_Moon/*.jpg
+
+sed -i -e '/^ *$/d' -e 's/^ *//g' $HOME/.conky/4_Moon/raw
+sed -i '/var jArray=\|"todayMoonContainer"\|"moonNotToday"/!d' $HOME/.conky/4_Moon/raw
+sed -i -e '/var jArray/s/","/\n/g' -e 's/<span>\|<b>\|<\\\/span>\|<\\\/b>\|\\n//g' /$HOME/.conky/4_Moon/raw
+sed -i 's/"\].*\[\"/\n/g' /$HOME/.conky/4_Moon/raw
+sed -i '/var jArray/d' /$HOME/.conky/4_Moon/raw
+sed -i -e 's/"\]};//g' -e 's/^.*today_phase\///g' -e 's/\.jpg.*$//g' /$HOME/.conky/4_Moon/raw
+sed -i -e 's/^small\///g' -e 's/\.png.*$//g' /$HOME/.conky/4_Moon/raw
+sed -i 's/Illumination: \|Sun Angle: \|Sun Distance: \|Moon Distance: \|Moon Age: \|Moon Angle: //g' /$HOME/.conky/4_Moon/raw
+phase=$(sed -n 7p $HOME/.conky/4_Moon/raw|sed 's/ //')
+mrise_mset=$(moonrise_set $phase)
+sed -i 7a$(moonrise_set $phase) /$HOME/.conky/4_Moon/raw
+
+#Today
+img_in=$(sed -n 46p $HOME/.conky/4_Moon/raw)
+cp $HOME/.conky/4_Moon/moongiant_icons_$hemisphere/$img_in.png $HOME/.conky/4_Moon/0.png
+
+#kill -CONT $(pidof conky)

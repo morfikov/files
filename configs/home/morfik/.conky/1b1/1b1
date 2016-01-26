@@ -1,0 +1,108 @@
+#!/bin/bash
+
+#put your Accuweather address here
+#address="http://www.accuweather.com/en/gr/kastoria/178682/weather-forecast/178682"
+address="http://www.accuweather.com/en/pl/zyrardow/264812/weather-forecast/264812"
+#address="http://www.accuweather.com/en/pl/warsaw/274663/weather-forecast/274663"
+
+loc_id=$(echo $address|sed 's/\/weather-forecast.*$//'|sed 's/^.*\///')
+last_number=$(echo $address|sed 's/^.*\///')
+
+curr_addr="$(echo $address|sed 's/weather-forecast.*$//')"current-weather/"$last_number"
+
+addr1="$(echo $address|sed 's/weather-forecast.*$//')"daily-weather-forecast/"$last_number"
+addr2="$addr1"?day=6
+
+#kill -STOP $(pidof conky)
+#killall wget
+
+wget --save-cookies $HOME/.conky/1b1/cookie -O $HOME/.conky/1b1/curr_cond_raw $curr_addr
+wget --load-cookies $HOME/.conky/1b1/cookie -O $HOME/.conky/1b1/first_days_raw $addr1
+wget --load-cookies $HOME/.conky/1b1/cookie -O $HOME/.conky/1b1/last_days_raw $addr2
+
+#Current Conditions - curr_cond file
+if [[ -s $HOME/.conky/1b1/curr_cond_raw ]]; then
+
+    egrep -i '"detail-tab-panel |>Today<\/a>|>Tonight<\/a>|>Early AM<\/a>|>Overnight<\/a>|>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|icons-wind\/.*gif|text-align:center\;\">.*h</div>|Humidity: |Pressure: |Cloud Cover: |UV Index: |Dew Point: |Precipitation(1 hr): |Visibility: |"start">|"finish">' $HOME/.conky/1b1/curr_cond_raw > $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' -e 's/RealFeel/\n/g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/^.*"#">//g' -e 's/^.*<strong class="temp"//g' -e 's/^>//g' -e 's/<span>&deg.*$//g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/<\/a>.*$//g' -e 's/\/span> //g' -e 's/"temp">/\n/g' -e 's/^.*icons-wind\///g' -e 's/^.*text-align:center\;\">//g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/^.*"start">//g' -e 's/^.*"finish">//g' -e 's/<li>//g' -e 's/<strong>//g' -e 's/<<span.*$//g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/<\/span>//g' -e 's/<\/strong><\/li>//g' -e 's/ "><\/div>//g' -e 's/'\''//g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/"><\/div>//g' -e 's/^.*; //g' -e 's/&#.*$//g' -e 's/ i-alarm.*$//g' -e 's/;//g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/Humidity: //g' -e 's/Pressure: //g' -e 's/Cloud Cover: //g' -e 's/UV Index: //g' -e 's/Dew Point: //g' -e 's/Visibility: //g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/^.*detail-tab-panel //g' -e 's/">//g' -e 's/\r//g' -e 's/ *$//g' -e 's/mb.*$/mb/g' $HOME/.conky/1b1/curr_cond
+    sed -i -e 's/-s\|-xl.*$//g' -e 's/in &.*$/in/g' -e 's/\.gif.*$//g' -e 's/<\/div>.*$//g' $HOME/.conky/1b1/curr_cond
+    time=$(sed -n 1p $HOME/.conky/1b1/curr_cond)
+    if [[ $time == Tonight || $time == Overnight || $time == "Early AM" ]]; then
+        sed -i 3a- $HOME/.conky/1b1/curr_cond
+	fi
+    line35=$(sed -n 35p $HOME/.conky/1b1/curr_cond)
+    sed -i '35d' $HOME/.conky/1b1/curr_cond
+    sed -i 35a$line35 $HOME/.conky/1b1/curr_cond
+	cp $HOME/.conky/1b1/Forecast_Images/$(sed -n 27p $HOME/.conky/1b1/curr_cond).png $HOME/.conky/1b1/cc.png
+fi
+
+
+#First 5days - first_days file 
+if [[ -s $HOME/.conky/1b1/first_days_raw ]]; then
+
+    sed -i '/<div class="column-1 clearfix">/,/<div id=\"feature-history\">/!d' $HOME/.conky/1b1/first_days_raw
+    egrep -i '>Today<|<p>[a-z]|>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|realfeel">RealFeel|realfeel">Precipitation' $HOME/.conky/1b1/first_days_raw > $HOME/.conky/1b1/first_days
+
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' $HOME/.conky/1b1/first_days
+    sed -i -e 's/ "><\/div>//g' -e 's/"><\/div>//g' -e 's/^.*"temp">//g' -e 's/<span>&deg.*$//g' $HOME/.conky/1b1/first_days
+    sed -i -e 's/<p>//g' -e 's/<\/p>//g' -e 's/^.*"#">//g' -e 's/\/span> //g' -e 's/^.*>Precipitation //g' -e 's/^.*; //g' $HOME/.conky/1b1/first_days
+    sed -i -e 's/&#.*$//g' -e 's/<.*$//g' -e 's/ i-alarm.*$//g' -e 's/\r//g' -e 's/ *$//g' $HOME/.conky/1b1/first_days
+	sed -i -e 's/Today/TODAY/' -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' $HOME/.conky/1b1/first_days
+    sed -i 's/-s\|-l\|-xl.*$//g' $HOME/.conky/1b1/first_days
+    time=$(sed -n 1p $HOME/.conky/1b1/curr_cond)
+    if [[ $time == Tonight || $time == Overnight || $time == "Early AM" ]]; then
+        sed -i 2a- $HOME/.conky/1b1/first_days
+	fi
+	L1=$(sed -n 1p $HOME/.conky/1b1/first_days)
+    if [[ $L1 == TODAY ]]; then
+        sed -i 1d $HOME/.conky/1b1/first_days
+	fi
+    for (( i=6; i<=21; i+=5 ))
+	  do
+	      cp $HOME/.conky/1b1/Forecast_Images/$(sed -n ${i}p $HOME/.conky/1b1/first_days).png $HOME/.conky/1b1/$i.png
+	  done
+	cp $HOME/.conky/1b1/Forecast_Images/$(sed -n 25p $HOME/.conky/1b1/first_days).png $HOME/.conky/1b1/tod.png
+	cp $HOME/.conky/1b1/Forecast_Images/$(sed -n 30p $HOME/.conky/1b1/first_days).png $HOME/.conky/1b1/ton.png
+
+fi
+
+
+#Last 5days - last_days file 
+if [[ -s $HOME/.conky/1b1/last_days_raw ]]; then
+
+    sed -i '/<div class="column-1 clearfix">/,/<div id=\"feature-history\">/!d' $HOME/.conky/1b1/last_days_raw
+    egrep -i '>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|realfeel">RealFeel|realfeel">Precipitation' $HOME/.conky/1b1/last_days_raw > $HOME/.conky/1b1/last_days
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' $HOME/.conky/1b1/last_days
+    sed -i -e 's/ "><\/div>//g' -e 's/"><\/div>//g' -e 's/^.*"temp">//g' -e 's/<span>&deg.*$//g' $HOME/.conky/1b1/last_days
+    sed -i -e 's/^.*"#">//g' -e 's/\/span> //g' -e 's/^.*>Precipitation //g' -e 's/^.*; //g' $HOME/.conky/1b1/last_days
+    sed -i -e 's/&#.*$//g' -e 's/<.*$//g' -e 's/ i-alarm.*$//g' -e 's/\r//g' -e 's/ *$//g' $HOME/.conky/1b1/last_days
+	sed -i -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' $HOME/.conky/1b1/last_days
+    sed -i 's/-s\|-l\|-xl.*$//g' $HOME/.conky/1b1/last_days
+    for (( i=2; i<=22; i+=5 ))
+	  do
+	      cp $HOME/.conky/1b1/Forecast_Images/$(sed -n ${i}p $HOME/.conky/1b1/last_days).png $HOME/.conky/1b1/last_$i.png
+	  done
+
+fi
+
+#messages file
+sed -n 28p $HOME/.conky/1b1/curr_cond | cut -c -20 > $HOME/.conky/1b1/messages
+sed -n 29p $HOME/.conky/1b1/first_days | cut -c -20 >> $HOME/.conky/1b1/messages
+sed -n 34p $HOME/.conky/1b1/first_days | cut -c -20 >> $HOME/.conky/1b1/messages
+for (( i=7; i<=22; i+=5 ))
+  do
+      sed -n ${i}p $HOME/.conky/1b1/first_days | cut -c -20 >> $HOME/.conky/1b1/messages
+  done
+for (( i=3; i<=23; i+=5 ))
+  do
+      sed -n ${i}p $HOME/.conky/1b1/last_days | cut -c -20 >> $HOME/.conky/1b1/messages
+  done
+
+#kill -CONT $(pidof conky)

@@ -1,0 +1,186 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+conky.config = {
+
+-- Use XFT? Required to Force UTF8 (see below)
+	use_xft = true,
+	font = 'monospace:size=9',
+--	xftalpha = 0.1,
+
+-- Force UTF8? Requires XFT (see above)
+-- Displays degree symbol, instead of Â°, etc.
+	override_utf8_locale = true,
+
+-- Daemonize Conky, set to "yes" if you want Conky to be forked in the background.
+	background = true,
+
+-- Update interval in seconds.
+	update_interval = 10.0,
+
+-- The number of times Conky will update before quitting.
+-- Zero makes Conky run forever.
+	total_run_times = 0,
+
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+
+-- Create 'own_window' type.
+	own_window_title = 'conky_bg_3',
+	own_window_type = 'desktop',
+--	own_window_type = 'normal',
+--	own_window_type = 'override',
+	own_window_transparent = true,
+--	own_window_colour = '#938a86',
+--	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+-- Some distros require the following lines for true transparency.
+-- BOTH of these lines need to be Commented/Uncommented in tandem.
+--	own_window_argb_visual = true,
+--	own_window_argb_value = 255,
+
+-- Force images to redraw when they change.
+	imlib_cache_size = 0,
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- Draw shades?
+	draw_shades = false,
+	default_shade_color = '#292421',
+
+-- Draw outlines?
+	draw_outline = false,
+
+-- Draw borders around text?
+	draw_borders = false,
+
+-- Draw borders around graphs?
+	draw_graph_borders = true,
+
+-- Print text to stdout?
+-- Print text in console?
+	out_to_ncurses = false,
+	out_to_console = false,
+
+-- Text alignment.
+	alignment = 'top_left',
+--	alignment = 'top_right',
+--	alignment = 'bottom_left',
+--	alignment = 'bottom_right',
+
+-- Minimum size of the text area.
+-- Syntax: minimum_size [width] [height]
+-- Syntax: maximum_width [width]
+	minimum_width = 450, minimum_height = 300,
+	maximum_width = 450,
+
+-- This buffer is used for single lines, text, output from $exec, and other variables.
+-- Increasing the 'text_buffer_size' (too high) will drastically reduce Conky's performance.
+-- Decreasing the buffer size (too low) will truncate content and cause strange display output.
+-- Standard text buffer size is 256 bytes (cannot be less). Adjust YOUR buffer wisely!
+	text_buffer_size = 1024,
+
+-- Maximum size of user text buffer, i.e. layout below TEXT line in config file (default is 16384
+-- bytes)
+	max_user_text = 20000,
+
+-- Gap between text and screen borders.
+	gap_x = 649,	-- Left / Right
+	gap_y = 100,	-- Top / Bottom
+
+-- Shorten MiB/GiB to M/G in stats.
+	short_units = false,
+
+-- Pad % symbol spacing after numbers.
+	pad_percents = 0,
+
+-- Pad spacing between text and borders.
+	border_inner_margin = 4,
+
+-- Limit the length of names in "Top Processes".
+	top_name_width = 10,
+
+-- Subtract file system -/+buffers/cache from used memory?
+-- Set to yes, to produce meaningful physical memory stats.
+	no_buffers = true,
+
+-- Set to yes, if you want all text to be in UPPERCASE.
+	uppercase = false,
+
+-- Number of cpu samples to average.
+-- Set to 1 to disable averaging.
+	cpu_avg_samples = 2,
+
+-- Number of net samples to average.
+-- Set to 1 to disable averaging.
+	net_avg_samples = 2,
+
+-- Add spaces to keep things from moving around?
+-- Only affects certain objects.
+--	use_spacer = 'right',	-- right yes
+--	stippled_borders = 3,
+--	border_margin = 9,
+	border_width = 4,
+
+-- blue
+	color0 = '#FFCC00',
+	color1 = '#D75F00',
+
+-- orange
+--	color0 = '#1E90FF',
+--	color1 = '#1E56FF',
+
+-- Load Lua for shading (optional)
+-- Set the path to your script here.
+--	lua_load = '~/.conky/draw_bg.lua',
+--	lua_draw_hook_pre = 'draw_bg',
+
+-- Load Lua for bargraphs (required)
+-- Set the path to your script here.
+--	lua_load = '~/.conky/bargraph_small.lua',
+--	lua_draw_hook_post = 'main_bars',
+
+--${texeci 500 bash $HOME/.conky/1b1/1b1}
+};
+
+conky.text = [[
+${font monospace:size=9}${color1}${goto 56}${execpi 600 sed -n '5p' $HOME/.conky/1b1/first_days}${goto 166}${execpi 600 sed -n '10p' $HOME/.conky/1b1/first_days}${goto 266}${execpi 600 sed -n '15p' $HOME/.conky/1b1/first_days}${goto 386}${execpi 600 sed -n '20p' $HOME/.conky/1b1/first_days}$color${font}
+
+${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '8p' $HOME/.conky/1b1/first_days}°C${goto 206}${execpi 600 sed -n '13p' $HOME/.conky/1b1/first_days}°C${goto 316}${execpi 600 sed -n '18p' $HOME/.conky/1b1/first_days}°C${goto 426}${execpi 600 sed -n '23p' $HOME/.conky/1b1/first_days}°C
+${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '9p' $HOME/.conky/1b1/first_days}°C${goto 206}${execpi 600 sed -n '14p' $HOME/.conky/1b1/first_days}°C${goto 316}${execpi 600 sed -n '19p' $HOME/.conky/1b1/first_days}°C${goto 426}${execpi 600 sed -n '24p' $HOME/.conky/1b1/first_days}°C
+
+${image $HOME/.conky/1b1/6.png -p 0,20 -s 90x54}
+${image $HOME/.conky/1b1/11.png -p 106,20 -s 90x54}
+${image $HOME/.conky/1b1/16.png -p 216,20 -s 90x54}
+${image $HOME/.conky/1b1/21.png -p 326,20 -s 90x54}
+${voffset -70}
+${font monospace:size=9}${color1}${goto 56}${execpi 600 sed -n '1p' $HOME/.conky/1b1/last_days}${goto 166}${execpi 600 sed -n '6p' $HOME/.conky/1b1/last_days}${goto 266}${color1}${execpi 600 sed -n '11p' $HOME/.conky/1b1/last_days}${goto 386}${execpi 600 sed -n '16p' $HOME/.conky/1b1/last_days}$color${font}
+
+${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '4p' $HOME/.conky/1b1/last_days}°C${goto 206}${execpi 600 sed -n '9p' $HOME/.conky/1b1/last_days}°C${goto 316}${execpi 600 sed -n '14p' $HOME/.conky/1b1/last_days}°C${goto 426}${execpi 600 sed -n '19p' $HOME/.conky/1b1/last_days}°C
+${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '5p' $HOME/.conky/1b1/last_days}°C${goto 206}${execpi 600 sed -n '10p' $HOME/.conky/1b1/last_days}°C${goto 316}${execpi 600 sed -n '15p' $HOME/.conky/1b1/last_days}°C${goto 426}${execpi 600 sed -n '20p' $HOME/.conky/1b1/last_days}°C
+
+${image $HOME/.conky/1b1/last_2.png -p 0,90 -s 90x54}
+${image $HOME/.conky/1b1/last_7.png -p 106,90 -s 90x54}
+${image $HOME/.conky/1b1/last_12.png -p 216,90 -s 90x54}
+${image $HOME/.conky/1b1/last_17.png -p 326,90 -s 90x54}
+${voffset -76}
+${color1}${hr}
+
+${voffset -10}${font monospace:size=9}${color1}${goto 60}TODAY${goto 380}TONIGHT
+${image $HOME/.conky/1b1/tod.png -p 0,175 -s 120x72}${image $HOME/.conky/1b1/ton.png -p 330,175 -s 120x72}
+
+${voffset 50}${goto 40}${font monospace:size=9}${color0}${execpi 600 sed -n '26p' $HOME/.conky/1b1/first_days}°C (${execpi 600 sed -n '27p' $HOME/.conky/1b1/first_days}°C)
+${voffset -14}${goto 375}${execpi 600 sed -n '31p' $HOME/.conky/1b1/first_days}°C (${execpi 600 sed -n '32p' $HOME/.conky/1b1/first_days}°C)
+${goto 40}${color0}${execpi 600 sed -n '33p' $HOME/.conky/1b1/curr_cond}
+
+${voffset -56}${alignc}${color1}MOON RISE: $color${color0}${execpi 600 sed -n '41p' $HOME/.conky/1b1/curr_cond}
+${alignc}${color1}MOON SET: $color${color0}${execpi 600 sed -n '42p' $HOME/.conky/1b1/curr_cond}
+
+
+${color1}SUN RISE: $color${color0}${execpi 600 sed -n '39p' $HOME/.conky/1b1/curr_cond}
+${voffset -14}${alignr}${color1}SUN SET: $color${color0}${execpi 600 sed -n '40p' $HOME/.conky/1b1/curr_cond}$color
+${voffset -148}${alignc}${color1}THE MOON
+${image $HOME/.conky/4_Moon/0.png -p 200,165 -s 60x60}
+${voffset 108}
+${color1}${hr 1}
+${voffset -31}
+]];

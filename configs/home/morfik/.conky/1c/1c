@@ -1,0 +1,155 @@
+#!/bin/bash
+
+#put your Accuweather address here
+#address="http://www.accuweather.com/en/pl/warsaw/274663/weather-forecast/274663"
+address="http://www.accuweather.com/en/pl/zyrardow/264812/weather-forecast/264812"
+
+loc_id=$(echo $address|sed 's/\/weather-forecast.*$//'|sed 's/^.*\///')
+last_number=$(echo $address|sed 's/^.*\///')
+
+curr_addr="$(echo $address|sed 's/weather-forecast.*$//')"current-weather/"$last_number"
+addr1="$(echo $address|sed 's/weather-forecast.*$//')"hourly-weather-forecast/"$last_number"
+
+#kill -STOP $(pidof conky)
+#killall wget
+rm $HOME/.conky/1c/*.png
+
+wget --save-cookies $HOME/.conky/1c/cookie -O $HOME/.conky/1c/curr_cond_raw $curr_addr
+wget --load-cookies $HOME/.conky/1c/cookie -O $HOME/.conky/1c/hourly_raw1 $addr1
+ 
+#First 8hrs - hourly_raw1 file
+if [[ -s $HOME/.conky/1c/hourly_raw1 ]]; then
+	sed -i -e '/"arrow-small-right">Next 8 hours/,/"chart chart-top"/!d' -e 's/&#176;/°/g' $HOME/.conky/1c/hourly_raw1
+	sed -i '/td style="border-right/d' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/^.*<th>//g' -e 's/^.*<td class="//g' -e 's/^.*<div class="//g' $HOME/.conky/1c/hourly_raw1 
+	sed -i -e 's/ icon.*$//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/^">\|first-col">\|last-col">//g' -e 's/<\/td>.*$//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e '60,67s/^.*>//g' -e 's/^.*row">\|<\/th>//g' -e 's/&#174;\|&deg;//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/^.*row">\|<\/th>//g' -e 's/&#174;\|&deg;//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/^.*<\/span><\/div>//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/">/\n/g' -e '/<tr\|<\/tr>/d' -e 's/" class="arrow-small-right.*$//g' -e 's/^.*<span>//g' -e 's/<\/span><br \/>/:/g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/<\/div>.*$//g' -e 's/^.*icon i-//g' -e '/<th class="first/d' -e 's/^.*<th class="//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/^.*<a href="//g' -e 's/" class=".*$//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e '/<\|;/d' -e 's/\r//g' -e '/^ *$/d' -e 's/^ *//g' $HOME/.conky/1c/hourly_raw1
+	sed -i -e 's/day.*$/day/g' -e 's/night.*$/night/g' -e 's/-h.*$//g' $HOME/.conky/1c/hourly_raw1
+	for (( i=20; i<=41; i+=3 ))
+	  do
+    	  cp $HOME/.conky/1c/Forecast_Images/$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1).png $HOME/.conky/1c/$i.png
+	  done
+	for (( i=21; i<=50; i+=3 ))
+	  do
+		  no=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1|wc -c)
+			if (( no<=7 )); then
+				sed -i $i"s/$/\n/" $HOME/.conky/1c/hourly_raw1
+				i=$((i+1))
+			elif (( no>7 )); then
+				sed -i $i"s/^\(.\{7\}\)/\1\n/" $HOME/.conky/1c/hourly_raw1
+				i=$((i+1))
+			fi
+	  done
+fi
+
+# Full info - altogether file
+rm $HOME/.conky/1c/altogether
+#TEMP
+echo "\${color1}\${goto 100}\${hr 1}" > $HOME/.conky/1c/altogether
+echo "\${voffset -1}TEMP.(°C)\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=52; i<=59; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "2s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#REALFEEL
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}REALF.(°C)\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=61; i<=68; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "4s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#HUMIDITY
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}HUMIDITY\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=70; i<=77; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "6s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#RAIN
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}RAIN\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=79; i<=86; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "8s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#SNOW
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}SNOW\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=88; i<=95; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "10s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#ICE
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}ICE\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=97; i<=104; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "12s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#WIND
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}WIND(km/h)\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=106; i<=113; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "14s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#UV INDEX
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}UV INDEX\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=115; i<=122; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "16s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#CLOUD COVER
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}CLOUD COV.\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=124; i<=131; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "18s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+#DEW POINT
+echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1c/altogether
+echo "\${voffset -1}DEW P.(°C)\${color0}" >> $HOME/.conky/1c/altogether
+jump_to=100
+for (( i=133; i<=140; i+=1 ))
+do
+	temp=$(sed -n ${i}p $HOME/.conky/1c/hourly_raw1)
+	sed -i "20s/$/\${goto $jump_to}$temp/" $HOME/.conky/1c/altogether
+	jump_to=$(( jump_to+=60 ))
+done
+
+#kill -CONT $(pidof conky)
