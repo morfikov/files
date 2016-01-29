@@ -92,8 +92,8 @@
 		# Cache
 		owner /tmp/morfik_cache/.cache/gajim/ rwk,
 		owner /tmp/morfik_cache/.cache/gajim/** rwk,
-		/home/*/.cache/gajim/ rwk,
-		/home/*/.cache/gajim/** rwk,
+		owner @{HOME}/.cache/gajim/ rwk,
+		owner @{HOME}/.cache/gajim/** rwk,
 
 		# Proc filesystem
 		@{PROC}/ r,
