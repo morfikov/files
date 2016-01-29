@@ -111,3 +111,16 @@ ffcast_full() { $FF_RECORDER -f $FF_AUDIO -ac $FF_CHANNELS -i $FF_SOUNDCARD -asy
 #E5: (select window); ffmpeg -f alsa -ac 2 -i hw:0,0 -f x11grab -r 30 -s $(xwininfo -frame | grep -oEe 'geometry [0-9]+x[0-9]+' | grep -oEe '[0-9]+x[0-9]+') -i :0.0+$(xwininfo -frame | grep -oEe 'Corners:\s+\+[0-9]+\+[0-9]+' | grep -oEe '[0-9]+\+[0-9]+' | sed -e 's/\+/,/' ) -acodec pcm_s16le -vcodec libx264 -preset ultrafast -crf 0 -threads 0 -y out.mkv
 #E6: ffmpeg -f alsa -ac 2 -i hw:3,0 -async 1 -f x11grab -r 30 -s 1280x1024 -i :0.0 -vcodec libx264 -pix_fmt yuv444p -preset ultrafast -crf 0 -acodec libmp3lame -ab 128k -threads 0 -vf 800x600 -y out.mkv ;}
 # --------------------------# }}}
+
+# Stream over network:
+# ffmpeg \
+#	-f alsa -ac 2 -i pulse -async 1 \
+#	-f x11grab -r 30 -s 1366x768 -i :0.0 \
+#	-vcodec libx264 -preset veryfast -pix_fmt yuv444p \
+#	-crf 15 \
+#	-acodec libmp3lame -ab 256k \
+#	-threads 0 \
+#	-f mpegts - | nc -l -p 9000
+#
+# nc 192.168.1.150 9000 | mpv -
+# nc 192.168.1.150 9000 | vlc -
