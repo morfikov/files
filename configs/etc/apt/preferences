@@ -21,9 +21,9 @@
 # Pin: release c=main
 #
 
-#Package: libpulse* pulseaudio*
-#Pin: release o=Debian,a=experimental
-#Pin-Priority: 995
+Package: libpulse* pulseaudio*
+Pin: release o=Debian,a=experimental
+Pin-Priority: 995
 
 #Package: gnupg-agent gnupg2 gpgsm scdaemon
 #Pin: release o=Debian,a=testing

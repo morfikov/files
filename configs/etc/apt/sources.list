@@ -14,9 +14,9 @@
 # deb http://www.deb-multimedia.org stable main non-free
 # deb-src http://www.deb-multimedia.org stable main non-free
 
-# deb http://mirrors.kernel.org/debian jessie-backports main contrib
+deb http://mirrors.kernel.org/debian jessie-backports main contrib
 # deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
-# deb http://http.debian.net/debian jessie-backports main
+deb http://http.debian.net/debian jessie-backports main
 
 ### Stretch - testing ###
 #deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
