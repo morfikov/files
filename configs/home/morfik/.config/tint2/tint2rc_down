@@ -23,7 +23,7 @@ border_width = 1
 # background_color/border_color = color opacity , where color is specified in hex RGB, e.g. #ff0000
 # (red), and opacity varies from (0 to 100), where 0 is fully transparent, 100 is fully opaque.
 # Note that for a transparent panel you need to enable a desktop compositor such as compton or
-# compiz. 
+# compiz.
 background_color = #000000 60
 border_color = #FFFFFF 16
 
@@ -61,7 +61,10 @@ panel_items = TSBC
 
 # Which monitor tint2 draws the panel on. You can specify all, or 1, 2, etc. The first monitor is 1.
 # Use all to get a separate panel per monitor.
-panel_monitor = all
+panel_monitor = 1
+
+# Place the primary monitor before all the other monitors in the list.
+primary_monitor_first = 1
 
 # panel_position = vertical_position (bottom, top, center) horizontal_position (left, right, center)
 # orientation (horizontal, vertical).
@@ -75,11 +78,11 @@ panel_size = 100% 30
 # The margins define the distance between the panel and the horizontal/vertical monitor edge. Use 0
 # to obtain a panel with the same size as the edge of the monitor (no margin).
 #
-#    |                                   400                                  
-#    |    +--------------------------------------------------------------+    
-#    |    |                          Tint2 Panel                         | 40 
-#    | 30 +--------------------------------------------------------------+    
-#    |    10                                                                  
+#    |                                   400
+#    |    +--------------------------------------------------------------+
+#    |    |                          Tint2 Panel                         | 40
+#    | 30 +--------------------------------------------------------------+
+#    |    10
 #    |________________________________________________________________________
 #
 #                                 panel_size = 400 40
@@ -168,7 +171,7 @@ taskbar_mode = single_desktop
 #    |           2                2                2          |
 #    |________________________________________________________|
 #
-#                       taskbar_padding = 5 2 3 
+#                       taskbar_padding = 5 2 3
 #
 taskbar_padding = 2 3 2
 
