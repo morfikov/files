@@ -71,18 +71,14 @@
 	# Flash config files
 	#/etc/adobe/mms.cfg  r,
 	#owner @{HOME}/mm.cfg rw,
-	
+
 	# Firefox home files
 	owner @{HOME}/.mozilla/ r,
 	owner @{HOME}/.mozilla/** r,
-	owner @{HOME}/.mozilla/firefox/** rwk,
-	owner @{HOME}/.mozilla/**/*.sqlite* k,
-	owner @{HOME}/.mozilla/**/stylish.sqlite* rw,
-	owner @{HOME}/.mozilla/**/cookies.sqlite* rw,
-	owner @{HOME}/.mozilla/**/.parentlock k,
+	owner @{HOME}/.mozilla/firefox/profiles.ini r,
+	owner @{HOME}/.mozilla/firefox/** rwkl,
 	owner @{HOME}/.mozilla/**/extensions/** mrix,
 	#owner @{HOME}/.mozilla/**/plugins/** mr,
-	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 	#owner @{HOME}/.mozilla/plugins/** mr,
 
 	# Cache
@@ -136,7 +132,7 @@
 	owner @{HOME}/.gstreamer*/** rw,
 
 	/usr/share/glib-2.0/schemas/gschemas.compiled r,
-	
+
 	/run/user/*/dconf/user w,
 
 	owner @{HOME}/.config/gtk-3.0/bookmarks r,

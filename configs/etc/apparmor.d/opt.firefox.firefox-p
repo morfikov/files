@@ -70,11 +70,7 @@
 	deny owner @{HOME}/.mozilla/firefox/**/** rw,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
 	owner /media/Grafi/firefox_profile/ r,
-	owner /media/Grafi/firefox_profile/** rwk,
-	owner /media/Grafi/firefox_profile/*.sqlite* k,
-	owner /media/Grafi/firefox_profile/stylish.sqlite* rw,
-	owner /media/Grafi/firefox_profile/cookies.sqlite* rw,
-	owner /media/Grafi/firefox_profile/.parentlock k,
+	owner /media/Grafi/firefox_profile/** rwkl,
 	owner /media/Grafi/firefox_profile/extensions/** mrix,
 	#owner /media/Grafi/firefox_profile/plugins/** mr,
 
@@ -121,7 +117,7 @@
 	owner @{HOME}/.gstreamer*/** rw,
 
 	/usr/share/glib-2.0/schemas/gschemas.compiled r,
-	
+
 	deny /run/user/*/dconf/user w,
 
 	owner @{HOME}/.config/gtk-3.0/bookmarks r,
