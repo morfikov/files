@@ -1,6 +1,9 @@
 # Set display
 export DISPLAY=":0.0"
 
+# FZF colors
+export FZF_DEFAULT_OPTS="--color dark,hl:33,hl+:37,fg+:235,bg+:136,fg+:254"
+
 # TIMEZONE
 #export TZ="Europe/Warsaw"
 
