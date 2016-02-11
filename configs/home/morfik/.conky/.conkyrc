@@ -145,11 +145,11 @@ conky.text = [[
 ${image $HOME/.conky/debian.png -p 18,28 -s 40x40}${color1}${hr 1}${font monospace:size=9}
 #${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^NAME' | awk -F'=' '{print $2}' | tr -d '"'} ${execi 300 cat /etc/*release | grep 'VERSION_ID' | awk -F'=' '{print $2}' | tr -d '"'}
 ${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^PRETTY_NAME' | awk -F'=' '{print $2}' | tr -d '"'}
-${alignr}${offset -5}${execi 300 uname -r}
-${alignr}${offset -5}${execi 300 cat /etc/hostname}
+${alignr}${offset -5}${execi 3600 uname -r}
+${alignr}${offset -5}${execi 3600 cat /etc/hostname}
 ${alignr}${offset -5}Uptime: ${uptime}
 ${voffset -5}${color1}$hr
-${voffset 2}${font StyleBats:size=9}a${font} Processor: ${color0}${alignr}${execi 300 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
+${voffset 2}${font StyleBats:size=9}a${font} Processor: ${color0}${alignr}${execi 3600 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
 ${voffset 2}${color1}CPU 0 ${color0}${cpu cpu1}%
 ${color1}CPU 1 ${color0}${cpu cpu2}%
 ${color1}${voffset 7}Frequency: ${alignr}${color0}${freq_g cpu1}GHz ${color1}| ${color0}${freq_g cpu2}GHz
@@ -175,7 +175,7 @@ ${color0}${top name 7} ${alignr} ${top pid 7} ${top cpu 7} ${top mem 7}
 ${color0}${top name 8} ${alignr} ${top pid 8} ${top cpu 8} ${top mem 8}
 ${color1}$hr
 ${color1}${font StyleBats:size=9}u${font} Hard Disk:
-${color0}sda: ${execi 300 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C
+${color0}sda: ${execi 3600 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C
 ${color1}Read ${offset 27}${color0}${diskio_read /dev/sda}${color1}${offset 3}|${alignr}${color0}${diskio_write /dev/sda}${color} ${color1} Write
 ${color1}$hr
 ${color1}${font StyleBats:size=9}2${font} Wi-Fi ESSID:${alignr}${color0}${wireless_essid wlp3s0b1}
