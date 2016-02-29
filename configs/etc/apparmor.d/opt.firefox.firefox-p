@@ -118,7 +118,7 @@
 
 	/usr/share/glib-2.0/schemas/gschemas.compiled r,
 
-	deny /run/user/*/dconf/user w,
+	owner /run/user/[0-9]*/dconf/user w,
 
 	owner @{HOME}/.config/gtk-3.0/bookmarks r,
 
