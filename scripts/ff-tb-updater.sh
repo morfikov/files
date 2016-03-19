@@ -42,7 +42,7 @@ update() {
 
 	sha512sums_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/SHA512SUMS"}')"
 	sha512sums_asc_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/SHA512SUMS.asc"}')"
-	
+
 	update_file_url="$(echo $file_url | egrep -o "http[s]?://[0-9a-zA-Z.\/_\-]*" | cut -d "/" -f 1-7 | awk '{print $0"/update/linux-x86_64/en-US/"}')"
 	update_file="$(curl -s $update_file_url | egrep -o -e "$app\-$installed_verion\-[\.0-9]*partial\.mar" | sort -u)"
 
@@ -60,12 +60,12 @@ update() {
 	fi
 
 	mkdir -p $tmp_dir
-	
+
 	echo -en "Installed version \033[01;32m$installed_verion\033[0m, "
 	if [ -z "$new_version" ]; then
 		echo -e "\033[01;32mno updates!\033[0m"
 		rm -R $tmp_dir
-		exit 0
+		return 0
 	else
 		echo -e "updating to the version \033[01;32m$new_version\033[0m ..."
 	fi
@@ -101,7 +101,7 @@ update() {
 	else
 		wget -q --show-progress -O $tmp_dir/update.mar $update_file_url$update_file
 	fi
-	
+
 	echo -en "Running checksum... "
 	sum_update_file="$(egrep -e "linux-`uname -m`/$language/$update_file" $tmp_dir/SHA512SUMS | egrep -e ".mar$" | cut -d ' ' -f 1)"
 
@@ -131,10 +131,14 @@ update() {
 }
 
 echo -e "\033[1mFirefox/Thunderbird updater\033[0m"
-echo -en "Usage: ff/tb for firefox and thunderbird respectively: "
-read choice
-case "$choice" in
-	"ff") app="firefox" ; update ;;
-	"tb") app="thunderbird" ; update ;;
-	*) exit 0 ;;
-esac
+
+if [ "$*" == "ff" ]; then
+	app="firefox" && update
+elif [ "$*" == "tb" ]; then
+	app="thunderbird" && update
+elif [ "$*" == "ff tb" ] || [ "$*" == "tb ff" ]; then
+	app="firefox" && update
+	app="thunderbird" && update
+else
+	echo "Specify what program you want to upgrade, \"ff\" or \"tb\""
+fi
