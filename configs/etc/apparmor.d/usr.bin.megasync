@@ -42,7 +42,7 @@
 	/opt/firefox/firefox rPUx,
 	/usr/bin/xdg-open rCUx,
 
-	# Open the sync folder in file the manager
+	# Open the sync folder in the file manager
 	/usr/bin/spacefm rPUx,
 
 }
