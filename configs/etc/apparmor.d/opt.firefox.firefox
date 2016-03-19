@@ -15,7 +15,7 @@
 
 @{MOZ_LIBDIR}=/opt/firefox
 
-#alias /opt/firefox/firefox -> /usr/share/firefox/firefox,
+#alias /opt/firefox/firefox -> /usr/lib/firefox/firefox,
 #alias /opt/firefox/ -> /usr/share/firefox/,
 #rewrite /opt/firefox/firefox -> /usr/share/firefox/firefox,
 #rewrite /opt/firefox/ -> /usr/share/firefox/,
@@ -61,12 +61,12 @@
 	@{MOZ_LIBDIR}/update.test rw,
 
 	# Firefox plugins
-	#/usr/lib/mozilla/plugins/** mr,
-	#/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
-	#/usr/lib/mozilla/plugins/flash-mozilla.so mr,
-	#/usr/lib/mozilla/plugins/libvlcplugin.so mr,
+	#/usr/lib/mozilla/plugins/*.so mr,
 	#/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
 	#/opt/google/chrome/PepperFlash/manifest.json r,
+
+	# Firefox extensions
+	/usr/share/mozilla/extensions/** r,
 
 	# Flash config files
 	#/etc/adobe/mms.cfg  r,
@@ -119,7 +119,7 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
+	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
 	audit deny owner @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
 
@@ -148,7 +148,6 @@
 
 	# MIME types
 	/etc/mime.types r,
-	owner @{HOME}/.local/share/mime/mime.cache r,
 
 	# KDE
 	/usr/share/applications/kde4/ r,

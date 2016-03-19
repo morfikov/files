@@ -54,12 +54,12 @@
 	@{MOZ_LIBDIR}/update.test rw,
 
 	# Firefox plugins
-	#/usr/lib/mozilla/plugins/** mr,
-	/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
-	#/usr/lib/mozilla/plugins/flash-mozilla.so mr,
-	/usr/lib/mozilla/plugins/libvlcplugin.so mr,
+	/usr/lib/mozilla/plugins/*.so mr,
 	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
 	/opt/google/chrome/PepperFlash/manifest.json r,
+
+	# Firefox extensions
+	/usr/share/mozilla/extensions/** r,
 
 	# Flash config files
 	/etc/adobe/mms.cfg  r,
@@ -126,7 +126,6 @@
 
 	# MIME types
 	/etc/mime.types r,
-	owner @{HOME}/.local/share/mime/mime.cache r,
 
 	/usr/share/applications/kde4/ r,
 	/usr/share/applications/kde4/** r,

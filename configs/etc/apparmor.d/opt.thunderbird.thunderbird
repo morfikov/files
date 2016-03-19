@@ -1,4 +1,4 @@
-# Last Modified: Wed Aug 12 17:57:10 2015
+ # Last Modified: Wed Aug 12 17:57:10 2015
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
@@ -48,7 +48,7 @@
 	@{MOZ_LIBDIR}/update.test/ rw,
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
-	
+
 	# Profile files
 	@{MOZ_PROFILE}/** rwk,
 	@{MOZ_PROFILE}/**/extensions/** mrwk,
@@ -107,6 +107,9 @@
 	# To avoid some crashes after waking up from hibernation
 	owner @{PROC}/[0-9]*/task/ r,
 	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
+
+	# Locales
+	/usr/bin/locale rix,
 
 	/etc/mailcap r,
 
