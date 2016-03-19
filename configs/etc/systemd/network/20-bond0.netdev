@@ -4,6 +4,8 @@ Description=Bond interface configuration (bond0)
 Name=bond0
 Kind=bond
 MACAddress=3c:4a:92:00:4c:5b
+#MACAddress=c4:6e:1f:95:ef:ff
+
 
 [Bond]
 Mode=balance-rr

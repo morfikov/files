@@ -4,9 +4,9 @@ Name=bond0
 [Network]
 Description=Bonded network configuration (bond0)
 DHCP=ipv4
-LinkLocalAddressing=no
+#LinkLocalAddressing=yes
 DNS=127.0.0.1
-IPv6AcceptRouterAdvertisements=false
+#IPv6AcceptRouterAdvertisements=true
 
 [DHCP]
 UseDNS=false
@@ -17,3 +17,4 @@ UseHostname=false
 UseDomains=false
 UseRoutes=true
 #UseTimezone=true
+CriticalConnection=true
