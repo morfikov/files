@@ -95,15 +95,3 @@ Pin-Priority: 990
 Package: *
 Pin: origin ppa.launchpad.net
 Pin-Priority: 120
-
-Package: *
-Pin: origin ignorantguru.github.com
-Pin-Priority: 120
-
-Package: *
-Pin: origin packages.siduction.org
-Pin-Priority: 125
-
-Package: *
-Pin: origin liquorix.net
-Pin-Priority: 120

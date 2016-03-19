@@ -15,11 +15,11 @@
 # deb-src http://www.deb-multimedia.org stable main non-free
 
 deb http://mirrors.kernel.org/debian jessie-backports main contrib
-# deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
-deb http://http.debian.net/debian jessie-backports main
+#deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
+#deb http://http.debian.net/debian jessie-backports main
 
 ### Stretch - testing ###
-#deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
+deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
 # deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
 #deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
@@ -30,7 +30,7 @@ deb http://http.debian.net/debian jessie-backports main
 ### SID ###
 deb http://ftp.pl.debian.org/debian/ sid main non-free contrib
 #deb-src http://ftp.pl.debian.org/debian/ sid main non-free contrib
-   
+
 deb ftp://ftp.deb-multimedia.org sid main non-free
 #deb-src ftp://ftp.deb-multimedia.org sid main non-free
 
@@ -79,10 +79,10 @@ deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
-#deb https://mega.nz/linux/MEGAsync/Debian_8.0/ ./
+deb https://mega.co.nz/linux/MEGAsync/Debian_9.0/ ./
 #deb https://mega.co.nz/linux/MEGAsync/xUbuntu_15.10/ ./
 
-### Gajim ###
+### Gajim (jabber) ###
 # deb ftp://ftp.gajim.org/debian unstable main
 
 ### Webmin ###
@@ -100,9 +100,10 @@ deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 # deb https://debian.anonymous-proxy-servers.net sid main
 
 ### TOR (anonymity) ###
-# deb http://deb.torproject.org/torproject.org testing main
-# deb http://deb.torproject.org/torproject.org sid main
-# deb http://deb.torproject.org/torproject.org experimental-sid main
+deb http://deb.torproject.org/torproject.org sid main
+#deb-src http://deb.torproject.org/torproject.org sid main
+#deb http://deb.torproject.org/torproject.org tor-experimental-0.2.7.x-sid main
+#deb-src http://deb.torproject.org/torproject.org tor-experimental-0.2.7.x-sid main
 
 ### LiveUSB MultiBoot ###
 # deb http://liveusb.info/multisystem/depot all main
@@ -113,71 +114,67 @@ deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 ####################### PPAs ############################
 
 # GNS3 (network)
-deb http://ppa.launchpad.net/gns3/ppa/ubuntu wily main 
-#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu wily main 
+deb http://ppa.launchpad.net/gns3/ppa/ubuntu wily main
+#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu wily main
 
-### Shutter ###
-# deb http://ppa.launchpad.net/shutter/ppa/ubuntu vivid main
-# deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu vivid main
+### Shutter (screenshot) ###
+# deb http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
 
-### Jdownloader ###
-# deb http://ppa.launchpad.net/jd-team/jdownloader/ubuntu vivid main 
-# deb-src http://ppa.launchpad.net/jd-team/jdownloader/ubuntu vivid main 
-
-### Haguichi ###
-# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu wily main 
+### Haguichi (vpn) ###
+# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu xenial main
 
 ### i2p (anonymity) ###
-# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu wily main 
+# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu xenial main
 
 ### Java (oracle) ###
-# deb http://ppa.launchpad.net/webupd8team/java/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu wily main 
+# deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
 
 ### qBitorrent (p2p) ###
-# deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu wily main
+# deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
 
-deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu wily main 
+deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
 
 ### Tuxboot ###
-# deb http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu vivid main 
-# deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu vivid main 
+# deb http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu wily main
+# deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu wily main
 
 ### Grub Customizer ###
-# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu wily main 
+# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu xenial main
 
-### File symc ###
-# deb http://ppa.launchpad.net/freefilesync/ffs/ubuntu wily main
-# deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu wily main
+### File sync ###
+# deb http://ppa.launchpad.net/freefilesync/ffs/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu xenial main
 
 ### SMPlayer (video) ###
-deb http://ppa.launchpad.net/rvm/smplayer/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu wily main
+deb http://ppa.launchpad.net/rvm/smplayer/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu xenial main
 
 ### Keepass2 (passwords) ###
-deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu wily main 
+deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
 
 ### Desktop recorder ###
-# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu wily main 
+# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu xenial main
 
 ### whdd ###
-# deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu wily main 
+deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu xenial main
 
 ### inxi (system info) ###
-deb http://ppa.launchpad.net/unit193/inxi/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu wily main
+deb http://ppa.launchpad.net/unit193/inxi/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu xenial main
 
 ### Spacefm ###
-# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu wily main 
-# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu wily main 
+# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu xenial main
 
 ### Debian snapshot ###
 # deb http://snapshot.debian.org/archive/debian/20151101T042306Z/ testing main contrib non-free
