@@ -33,15 +33,14 @@
   /var/lib/sss/pipes/nss  rw,
 
   /etc/resolv.conf        r,
-  # On systems using resolvconf, /etc/resolv.conf is a symlink to
+  # on systems using resolvconf, /etc/resolv.conf is a symlink to
   # /{,var/}run/resolvconf/resolv.conf and a file sometimes referenced in
-  # /etc/resolvconf/run/resolv.conf
-  /{,var/}run/resolvconf/resolv.conf r,
+  # /etc/resolvconf/run/resolv.conf. Similarly, if NetworkManager is used
+  # without resolvconf, /etc/resolv.conf is a symlink to its own resolv.conf.
+  # Finally, on systems using systemd's networkd, /etc/resolv.conf is
+  # a symlink to /run/systemd/resolve/resolv.conf
+  /{,var/}run/{resolvconf,NetworkManager,systemd/resolve}/resolv.conf r,
   /etc/resolvconf/run/resolv.conf r,
-
-  # On systems using systemd /etc/resolv.conf is a symlink to
-  # /run/systemd/resolve/resolv.conf
-  /run/systemd/resolve/resolv.conf r,
 
   /etc/samba/lmhosts      r,
   /etc/services           r,
@@ -66,6 +65,10 @@
 
   # avahi-daemon is used for mdns4 resolution
   /{,var/}run/avahi-daemon/socket rw,
+
+  # libnl-3-200 via libnss-gw-name
+  @{PROC}/@{pid}/net/psched r,
+  /etc/libnl-*/classid r,
 
   # nis
   #include <abstractions/nis>
