@@ -18,16 +18,17 @@
 /opt/firefox/firefox-p {
 
 	#include <abstractions/base>
-	#include <abstractions/private-files>
 	#include <abstractions/gnome>
+	#include <abstractions/kde>
 	#include <abstractions/audio>
+	#include <abstractions/gstreamer>
 	#include <abstractions/nvidia>
 	#include <abstractions/ssl_certs>
 	#include <abstractions/dconf>
-	#include <abstractions/kde>
 	#include <abstractions/nameservice>
 	#include <abstractions/dbus-session>
-	#include <abstractions/gstreamer>
+	#include <abstractions/private-files>
+
 
 	# potentially extremely sensitive files
 	audit deny @{HOME}/.gnupg/** mrwkl,
@@ -57,6 +58,9 @@
 	/usr/lib/mozilla/plugins/*.so mr,
 	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
 	/opt/google/chrome/PepperFlash/manifest.json r,
+
+	# Needed in order to play flash videos
+	owner /dev/shm/org.chromium.* rw,
 
 	# Firefox extensions
 	/usr/share/mozilla/extensions/** r,
@@ -104,7 +108,7 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/*/stat r,
+	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
 	audit deny owner @{PROC}/uptime r,
 
 	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
@@ -120,22 +124,27 @@
 
 	owner /run/user/[0-9]*/dconf/user w,
 
-	owner @{HOME}/.config/gtk-3.0/bookmarks r,
+	owner @{HOME}/.config/gtk-3.0/* r,
 
 	/etc/mailcap r,
 
 	# MIME types
 	/etc/mime.types r,
 
+	# KDE
 	/usr/share/applications/kde4/ r,
 	/usr/share/applications/kde4/** r,
+
 
 	# Launch external apps
 	/usr/bin/vlc rPUx,
 	/usr/bin/qbittorrent rPUx,
 	/usr/bin/exo-open rPUx,
 	/usr/bin/smplayer rPUx,
+	/usr/bin/geany rPUx,
+	/usr/bin/okular rPUx,
 	/usr/bin/spacefm rPUx,
 	/usr/bin/viewnior rPUx,
+	/usr/bin/xarchiver rPUx,
 
 }

@@ -69,8 +69,8 @@ profile /opt/google/chrome/chrome {
 	deny /dev/snd/pcmC0D0c rw,
 
 	# Needed for memory tabs
-    capability sys_ptrace,
-    ptrace (read, readby),
+	capability sys_ptrace,
+	ptrace (read, readby),
 	ptrace (trace) peer=@{profile_name},
 
 	# Proc filesystem

@@ -18,22 +18,21 @@
 /opt/firefox/plugin-container {
 
 	#include <abstractions/base>
-	#include <abstractions/private-files-strict>
 	#include <abstractions/gnome>
 	#include <abstractions/audio>
-	#include <abstractions/nvidia>
-	#include <abstractions/dbus-session-strict>
 	#include <abstractions/gstreamer>
+	#include <abstractions/nvidia>
+	#include <abstractions/nameservice>
+	#include <abstractions/dbus-session-strict>
+	#include <abstractions/private-files-strict>
+
 
 	# Firefox files
 	@{MOZ_LIBDIR}/ r,
 	@{MOZ_LIBDIR}/**  mixr,
 
 	# Firefox plugins
-	#/usr/lib/mozilla/plugins/** mr,
-	/usr/lib/mozilla/plugins/libfreshwrapper-pepperflash.so mr,
-	#/usr/lib/mozilla/plugins/flash-mozilla.so mr,
-	/usr/lib/mozilla/plugins/libvlcplugin.so mr,
+	/usr/lib/mozilla/plugins/*.so mr,
 	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
 	/opt/google/chrome/PepperFlash/manifest.json r,
 
@@ -58,10 +57,13 @@
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 
+	# Needed in order to play flash videos
+	owner /dev/shm/org.chromium.* rw,
+
 	# webcam
 	deny /dev/video0 rw,
 	deny /dev/v4l/by-path/ r,
-	
+
 	# mic
 	deny /dev/snd/pcmC0D0c rw,
 

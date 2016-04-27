@@ -62,7 +62,7 @@
 
 	# Firefox plugins
 	#/usr/lib/mozilla/plugins/*.so mr,
-	#/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+	deny /opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
 	#/opt/google/chrome/PepperFlash/manifest.json r,
 
 	# Firefox extensions
@@ -96,6 +96,10 @@
 	owner /media/Kabi/skriny/ r,
 	owner /media/Kabi/skriny/** rw,
 
+	# Dropbox
+	owner /media/Kabi/dropbox_share/ r,
+	owner /media/Kabi/dropbox_share/** rw,
+
 	# Devices
 	/sys/devices/system/cpu/ r,
 	/sys/devices/system/cpu/** r,
@@ -119,12 +123,14 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
+	owner @{PROC}/[0-9]*/task/ r,
 	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
 	audit deny owner @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
 
-	# To avoid some crashes
-	owner @{PROC}/[0-9]*/task/ r,
+	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
+	/usr/lib/ladspa/ r,
+	/usr/lib/ladspa/*.so mr,
 
 	# Gstreamer
 	owner @{HOME}/.cache/gstreamer*/**  rw,
@@ -135,7 +141,7 @@
 
 	owner /run/user/[0-9]*/dconf/user w,
 
-	owner @{HOME}/.config/gtk-3.0/bookmarks r,
+	owner @{HOME}/.config/gtk-3.0/* r,
 
 	/etc/mailcap r,
 
