@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# quit if we're called for the loopback
+[ "$IFACE" != "lo" ] || exit 0
+
+macaddr=$(dd if=/dev/urandom bs=1024 count=1 2>/dev/null|md5sum|sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\)\(..\).*$/\1:\2:\3:\4:\5:\6/')
+#macaddr=$(perl -e 'for ($i=0;$i<6;$i++){@m[$i]=int(rand(256));} printf "%X:%X:%X:%X:%X:%X\n",@m;')
+
+lastfive=$( echo "$macaddr" | cut -d: -f 2-6 )
+firstbyte=$( echo "$macaddr" | cut -d: -f 1 )
+
+# make sure bit 0 (broadcast) of $firstbyte is not set,
+# and bit 1 (local) is set.
+# i.e. via bitwise AND with 254 and bitwise OR with 2.
+
+firstbyte=$( printf '%02x' $(( 0x$firstbyte & 254 | 2)) )
+
+newmac="$firstbyte:$lastfive"
+
+echo "Setting a new MAC address $newmac ..."
+
+ip link set dev $IFACE address $newmac
+
+exit 0
