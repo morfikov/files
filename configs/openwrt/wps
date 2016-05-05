@@ -1,0 +1,116 @@
+#!/bin/sh
+
+[ "${ACTION}" = "released" ] || exit 0
+
+. /lib/functions.sh
+
+logger "$BUTTON pressed for $SEEN seconds"
+
+if [ "$SEEN" -lt 2 ]; then
+    # Interface for 2GHz WiFi
+    iface="wlan1"
+
+    is_wps_led=`ls -al /sys/class/leds/ | grep wps | cut -d " " -f 30`
+    is_qss_led=`ls -al /sys/class/leds/ | grep qss | cut -d " " -f 30`
+
+    if [ ! -z "$is_wps_led" ]; then
+        logger "WPS at $is_wps_led"
+        led="$is_wps_led"
+    elif [ ! -z "$is_qss_led" ]; then
+        logger "WPS at $is_qss_led"
+        led="$is_qss_led"
+    fi
+
+    wps_state_iface=`hostapd_cli -i $iface get_config  2>/dev/null | grep wps_state | cut -d= -f2`
+    logger $wps_state_iface
+
+    if [ "$wps_state_iface" = "disabled" ]; then
+        logger "The WPS feature is disabled, please enable it in the /etc/config/wireless file."
+        exit 1
+    elif [ "$wps_state_iface" = "configured" ]; then
+
+        logger "Enabling WPS for interface: $iface"
+        hostapd_cli -i $iface -p /var/run/hostapd/ wps_pbc
+
+        echo "255" > /sys/class/leds/$led/brightness
+        logger "WPS activated for 15s or until it gets a request"
+
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+        do
+            is_wps_active=`hostapd_cli -i $iface wps_get_status | grep "PBC Status" | cut -d " " -f 3`
+
+            if [ "$is_wps_active" != "Active" ]; then
+                    echo "0" > /sys/class/leds/$led/brightness
+            fi
+
+            sleep 1
+        done
+
+        hostapd_cli -i $iface wps_cancel
+        logger "WPS has been deactivated for interface: $iface"
+        echo "0" > /sys/class/leds/$led/brightness
+        sleep 3
+    else
+        logger "WPS hasn't been activated because of some error."
+        exit 1
+    fi
+elif [ "$SEEN" -gt 2 ] && [ "$SEEN" -lt 5 ]; then
+    # Interface for 5GHz WiFi
+    iface="wlan0"
+
+    is_wps_led=`ls -al /sys/class/leds/ | grep wps | cut -d " " -f 30`
+    is_qss_led=`ls -al /sys/class/leds/ | grep qss | cut -d " " -f 30`
+
+    if [ ! -z "$is_wps_led" ]; then
+        logger "WPS at $is_wps_led"
+        led="$is_wps_led"
+    elif [ ! -z "$is_qss_led" ]; then
+        logger "WPS at $is_qss_led"
+        led="$is_qss_led"
+    fi
+
+    wps_state_iface=`hostapd_cli -i $iface get_config  2>/dev/null | grep wps_state | cut -d= -f2`
+
+    if [ "$wps_state_iface" = "disabled" ]; then
+        logger "The WPS feature is disabled, please enable it in the /etc/config/wireless file."
+            exit 1
+    elif [ "$wps_state_iface" = "configured" ]; then
+
+        logger "Enabling WPS for interface: $iface"
+        hostapd_cli -i $iface -p /var/run/hostapd/ wps_pbc
+
+        echo "255" > /sys/class/leds/$led/brightness
+        logger "WPS activated for 15s or until it gets a request"
+
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+        do
+            is_wps_active=`hostapd_cli -i $iface wps_get_status | grep "PBC Status" | cut -d " " -f 3`
+
+            if [ "$is_wps_active" != "Active" ]; then
+                    echo "0" > /sys/class/leds/$led/brightness
+            fi
+
+            sleep 1
+        done
+
+        hostapd_cli -i $iface wps_cancel
+        logger "WPS has been deactivated for interface: $iface"
+        echo "0" > /sys/class/leds/$led/brightness
+        sleep 3
+    else
+        exit 1
+    fi
+elif [ "$SEEN" -gt 5 -a "$SEEN" -lt 10 ]
+then
+    echo "REBOOT" > /dev/console
+    /etc/init.d/statistics stop
+    sync
+    reboot
+
+elif [ "$SEEN" -gt 10 ]
+then
+    echo "FACTORY RESET" > /dev/console
+    jffs2reset -y && reboot &
+fi
+
+return 0
