@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Last modified: 2015.12.24
-# Version: 0.3.1
+# Last modified: 2016.05.05
+# Version: 0.3.2
 # Source: https://github.com/morfikov/files/blob/master/scripts/ff-tb-updater.sh
 # Author: Mikhail Morfikov <mmorfikov[at]gmail.com>
 # Copyright: 2015 Mikhail Morfikov <mmorfikov[at]gmail.com>
@@ -61,7 +61,7 @@ update() {
 
 	mkdir -p $tmp_dir
 
-	echo -en "Installed version \033[01;32m$installed_verion\033[0m, "
+	echo -en "Installed version of $app: \033[01;32m$installed_verion\033[0m, "
 	if [ -z "$new_version" ]; then
 		echo -e "\033[01;32mno updates!\033[0m"
 		rm -R $tmp_dir
