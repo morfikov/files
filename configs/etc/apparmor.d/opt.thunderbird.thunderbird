@@ -49,6 +49,11 @@
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
+	# Thunderbird plugins
+	#/usr/lib/mozilla/plugins/*.so mr,
+	deny /opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+	deny /opt/google/chrome/PepperFlash/manifest.json r,
+
 	# Profile files
 	@{MOZ_PROFILE}/** rwk,
 	@{MOZ_PROFILE}/**/extensions/** mrwk,
@@ -69,8 +74,11 @@
 	owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 	/usr/bin/gpg-connect-agent rix,
 	/usr/bin/gpg2 rix,
+	/usr/bin/gpg-agent rix,
 	/usr/bin/gpgconf rix,
 	/usr/bin/dirmngr rix,
+	/usr/bin/pinentry-gtk-2 rix,
+	/usr/bin/pinentry-gnome3 rix,
 	/bin/ps rix,
 	/usr/lib/gnupg2/gpg2keys_hkp rix,
 
@@ -93,7 +101,7 @@
 	owner @{HOME}/.config/gtk-3.0/bookmarks r ,
 
 	# Proc files
-	#owner @{PROC}/@{pid}/cmdline r,
+	owner @{PROC}/@{pid}/cmdline r,
 	owner @{PROC}/@{pid}/fd/ r,
 	owner @{PROC}/@{pid}/fd/* r,
 	#owner @{PROC}/@{pid}/maps r,

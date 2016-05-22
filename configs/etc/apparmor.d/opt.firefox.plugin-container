@@ -56,6 +56,7 @@
 	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
+	/dev/ r,
 
 	# Needed in order to play flash videos
 	owner /dev/shm/org.chromium.* rw,

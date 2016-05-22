@@ -63,7 +63,7 @@
 	# Firefox plugins
 	#/usr/lib/mozilla/plugins/*.so mr,
 	deny /opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-	#/opt/google/chrome/PepperFlash/manifest.json r,
+	deny /opt/google/chrome/PepperFlash/manifest.json r,
 
 	# Firefox extensions
 	/usr/share/mozilla/extensions/** r,
@@ -114,7 +114,7 @@
 	deny /dev/snd/pcmC0D0c rw,
 
 	# Proc files
-	#owner @{PROC}/@{pid}/cmdline r,
+	owner @{PROC}/@{pid}/cmdline r,
 	owner @{PROC}/@{pid}/fd/ r,
 	owner @{PROC}/@{pid}/fd/* r,
 	#owner @{PROC}/@{pid}/maps r,
