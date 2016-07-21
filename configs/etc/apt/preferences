@@ -21,9 +21,15 @@
 # Pin: release c=main
 #
 
-Package: libpulse* pulseaudio*
-Pin: release o=Debian,a=experimental
-Pin-Priority: 995
+
+#Package: *gtk-3* *gtksource*-3*
+#Pin: release o=Debian,a=testing
+#Pin: version 3.18*
+#Pin-Priority: 1001
+
+#Package: libpulse* pulseaudio*
+#Pin: release o=Debian,a=experimental
+#Pin-Priority: 995
 
 #Package: gnupg-agent gnupg2 gpgsm scdaemon
 #Pin: release o=Debian,a=testing
@@ -37,10 +43,10 @@ Pin-Priority: 995
 #Pin: release o=Debian,a=testing
 #Pin-Priority: 995
 
-Package: smplayer* smtube
-Pin: origin ppa.launchpad.net
-Pin: release o=LP-PPA-rvm-smplayer,l=SMPlayer
-Pin-Priority: 995
+#Package: smplayer* smtube
+#Pin: origin ppa.launchpad.net
+#Pin: release o=LP-PPA-rvm-smplayer,l=SMPlayer
+#Pin-Priority: 995
 
 Package: qbittorrent*
 Pin: origin ppa.launchpad.net
