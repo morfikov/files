@@ -16,6 +16,8 @@ off=$(grep wylaczona $2)
 WAN_IF="wwan0"
 MODEM_IF="/dev/ttyUSB0"
 
+echo "New Message from: $NADAWCA , msg: $WIADOMOSC"
+
 if [ ! -z "$NADAWCA" ] && [ ! -z "$lte" ] && [ ! -z "$off" ] ; then
 	iptables -I INPUT -i $WAN_IF -j DROP
 	iptables -I FORWARD -o $WAN_IF -j DROP
