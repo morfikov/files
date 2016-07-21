@@ -5,16 +5,16 @@
 
 pa-list() { pacmd list-sinks | awk '/index/ || /name:/' ;}
 
-pa-set() { 
+pa-set() {
 	# list all apps in playback tab (ex: cmus, mplayer, vlc)
-	inputs=($(pacmd list-sink-inputs | awk '/index/ {print $2}')) 
+	inputs=($(pacmd list-sink-inputs | awk '/index/ {print $2}'))
 	# set the default output device
 	pacmd set-default-sink $1 &> /dev/null
 	# apply the changes to all running apps to use the new output device
 	for i in ${inputs[*]}; do pacmd move-sink-input $i $1 &> /dev/null; done
 }
 
-pa-playbacklist() { 
+pa-playbacklist() {
 	# list individual apps
 	echo "==============="
 	echo "Running Apps"
@@ -26,7 +26,7 @@ pa-playbacklist() {
 	pacmd list-sinks | awk '/index/ || /name:/'
 }
 
-pa-playbackset() { 
+pa-playbackset() {
 	# set the default output device
 	pacmd set-default-sink "$2" &> /dev/null
 	# apply changes to one running app to use the new output device
@@ -121,7 +121,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
-ls_opt+=' --classify --human-readable --all --group-directories-first --time-style="+%Y-%m-%d %H:%M:%S" '
+ls_opt+=' --classify --human-readable --almost-all --group-directories-first --time-style="+%Y-%m-%d %H:%M:%S" '
 alias ls="ls $ls_opt"
 
 # list and grep
@@ -170,7 +170,7 @@ down4me() { curl -s "http://www.downforeveryoneorjustme.com/$1" | sed '/just you
 # mplayer to display webcam; hit 's' to take screenshot
 # https://wiki.archlinux.org/index.php/Webcam_Setup#MPlayer
 # http://www.amazon.com/Logitech-960-000581-C260-Webcam/dp/B003LVZO8I
-# 16:9 ; 1280x720 ; 3MP picture; 
+# 16:9 ; 1280x720 ; 3MP picture;
 webcam-mplayer() { mplayer tv:// -tv driver=v4l2:width=1280:height=720:device=/dev/video0 -fps 30 -vf screenshot ;}
 
 # combine multiple avi files into a single avi file
@@ -189,20 +189,20 @@ info-sound() { cat /proc/asound/pcm && arecord -l ;} #List audio capture card
 info-distro() { uname -a && lsb_release -a ;}
 
 # find files
-@find() { 
+@find() {
         keyword=$(echo "*$@*" |  sed -e 's/ /*/g')
 	find /home /media -type f -iname $keyword | vim -R - ;}
 
 # find starting at current dir and go recursively to sub dir
-@search() { 
+@search() {
         keyword=$(echo "*$@*" |  sed -e 's/ /*/g')
 	find -type f -iname $keyword | vim -R - ;}
 
 # find current dir files bigger than X size
 # useage: @size <filesize> <keyword>
-@size() { 
+@size() {
 	keyword=$(echo "*${@:2}*" |  sed -e 's/ /*/g')
-	find -type f -size +${1}M -iname $keyword  | vim -R - ;} 
+	find -type f -size +${1}M -iname $keyword  | vim -R - ;}
 
 # search pdf files in current dir for keywords inside the pdfs
 # http://www.commandlinefu.com/commands/view/9189
@@ -213,7 +213,7 @@ pix() { import -pause 2 -window root "$PATH_SCREENSHOT/fullscr_`date +'%F_%Hh%Ms
 pix-area() { import -pause 2 "$PATH_SCREENSHOT/windowed_`date +'%F_%Hh%Ms%S'`.png" ;}
 pix-window() { import -pause 2 -frame -strip -quality 85 "$PATH_SCREENSHOT/pscreen-win_`date +'%F_%Hh%M'`.png" ;}
 
-say() { 
+say() {
 	# limit to 100 character or less
 	# language code: http://developers.google.com/translate/v2/using_rest#language-params
 	# useage: say <language code> <phase>
@@ -269,7 +269,7 @@ iso-unmount() {
 # tutorial video: https://www.youtube.com/watch?v=dW4co9f5Ors
 imguralbum() { python3 /opt/skrypty/imguralbum.py "$@" ;}
 
-wget-ext-url() { 
+wget-ext-url() {
 	# download all extension on a webpage
 	# http://stackoverflow.com/a/18709707
 	# -r            recursive
@@ -316,3 +316,15 @@ ps_sort() { ps $@ -eo pid,%cpu,%mem,user,group,bsdtime,command --sort +%mem ; }
 ps_user_sort() { ps $@ -u $USER -o pid,%cpu,%mem,user,group,bsdtime,command --sort +%mem ; }
 ps_tree() { ps $@ -eo pid,%cpu,%mem,user,group,bsdtime,command f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
 ps_user_tree() { ps $@ -u $USER -o pid,%cpu,%mem,user,group,bsdtime,command f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
+
+# get the creation time of a file
+get_crtime() {
+
+  for target in "${@}"; do
+    inode=$(stat -c %i "${target}")
+    fs=$(df  --output=source "${target}"  | tail -1)
+    crtime=$(debugfs -R 'stat <'"${inode}"'>' "${fs}" 2>/dev/null |
+    grep -oP 'crtime.*--\s*\K.*')
+    printf "%s\t%s\n" "${target}" "${crtime}"
+  done
+}

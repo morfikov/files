@@ -40,7 +40,7 @@ echo -e "
 
 /copyright oppositeslashC   	Case sensitive
 /Copyright oppositeslashc     	Case insensitive
-daw			delete the word under the cursor    
+daw			delete the word under the cursor
 caw			delete the word under the cursor and put you in insert mode
 diSYMBOL		delete between qoutes; or other symbols; like brackets, single qoutes ..etc
 ciSYMBOL
@@ -94,7 +94,7 @@ ct<letter>	change until letter
 s, S		delete char then go into insertmode, delete line then insertmode
 Repeat
 j.
-o, O 		insert new line below, above	
+o, O 		insert new line below, above
 c, C		change line go into insert mode
 \"+y or 5\"+y	copy to x clipboard (can be used in visual mode also
 " | less
@@ -131,7 +131,7 @@ echo -e "
     <  resize pane (left)
     +  resize pane (up)
     =  resize pane (down)
-    -  split-window (horizontally)  
+    -  split-window (horizontally)
     |  split-window (vertically)
     q  kill pane
     Q  kill window
@@ -192,7 +192,7 @@ New repo:
   git init
   touch README
   git add README    or    git add \*    or    git add .
-  git status -s    check file status 
+  git status -s    check file status
   git diff --cached
   git commit -S -m 'first commit'
   git remote add origin https://github.com/morfikov/practice-makes-perfect.git    (for https)
@@ -211,7 +211,7 @@ Remotes:
 Change https <=> ssh
   git remote set-url origin git@github.com:morfikov/conffiles.git
   git remote set-url origin https://github.com/morfikov/conffiles.git
-  
+
 Logs:
   git log -p
   git log -1
@@ -221,7 +221,7 @@ Logs:
   git log --stat
   git log --pretty=format:\"%H - %an, %ad : %s\"
   git log --pretty=format:\"%h on %ad by %an (%G? 0x%GK): %s%d\" --graph --date=short
-  git log --tags --show-notes --simplify-by-decoration --pretty=\"format:%ai %d %s (%G? 0x%GK)\" 
+  git log --tags --show-notes --simplify-by-decoration --pretty=\"format:%ai %d %s (%G? 0x%GK)\"
   git log --oneline
 
 Changes:
@@ -269,7 +269,7 @@ http://linuxsig.org/files/bash_scripting.html
 # }}}
 
 hint-hardware-info() {
-echo -e " 
+echo -e "
 dmidecode                   ram, bios, cpu, sys, bat, board info
 ethtool eth1                wire network interfaces
 iw list                     wireless network interfaces
@@ -290,7 +290,7 @@ lsusb                       list usb devices
 lsusb -v | grep -E '\<(Bus|iProduct|bDeviceClass|bDeviceProtocol)' 2>/dev/null
 cat /sys/kernel/debug/usb/devices
 tree /dev/                  list /dev/ directory
-lsmod                       list loaded modules 
+lsmod                       list loaded modules
 dmesq                       display kernel messages
 dmesg | egrep '
   acx|at76|ath|b43|bcm|brcm|CX|eth|ipw|ireless|irmware|isl|lbtf|orinoco|
@@ -298,7 +298,9 @@ dmesg | egrep '
 dmesg -t | grep -i 'error\|warn\|exception'
 sensors-detect              detect hardware monitoring chips
 sensors                     ąnd display them
-smartctl --all /dev/sda     disk smart raport
+smartctl --all /dev/sda     hdd smart raport
+hdparm -i -I /dev/sda       hdd info
+
 /proc/asound/card0/codec#   sound card codecs
 /proc/sys/dev/cdrom/info	# CD/DVD drive
 /proc/cpuinfo (lscpu)   cpu info
@@ -336,7 +338,7 @@ save one frame as .png file:
 cut 5min of a movie without recompression:
         ffmpeg -i file.mp4 -vcodec copy -acodec copy \
         -ss 00:05:00 -to 00:10:00 file_cut.mp4
-        
+
 Two pass encoding:
 	bitrate = file size / duration
 	(50 MB * 8192 [converts MB to kilobits]) / 600 seconds =
@@ -345,7 +347,7 @@ Two pass encoding:
 
 		ffmpeg -y -i input -c:v libx264 -preset medium -b:v 555k \
 		-pass 1 -c:a libfdk_aac -b:a 128k -f mp4 /dev/null && \
-		
+
 		ffmpeg -i input -c:v libx264 -preset medium -b:v 555k \
 		-pass 2 -c:a libfdk_aac -b:a 128k output.mp4
 
