@@ -15,75 +15,8 @@
 
 #include <abstractions/gnome>
 
-  # Allow connecting to session bus and where to connect to services
-  dbus (send)
-       bus=session
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=Hello
-       peer=(name=org.freedesktop.DBus),
-  dbus (send)
-       bus=session
-       path=/org/freedesktop/{db,DB}us
-       interface=org.freedesktop.DBus
-       member={Add,Remove}Match
-       peer=(name=org.freedesktop.DBus),
-  # NameHasOwner and GetNameOwner could leak running processes and apps
-  # depending on how services are implemented
-  dbus (send)
-       bus=session
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=GetNameOwner
-       peer=(name=org.freedesktop.DBus),
-  dbus (send)
-       bus=session
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=NameHasOwner
-       peer=(name=org.freedesktop.DBus),
-
-  # Allow starting services on the session bus (actual communications with
-  # the service are mediated elsewhere)
-  dbus (send)
-       bus=session
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=StartServiceByName
-       peer=(name=org.freedesktop.DBus),
-
-  # Allow connecting to system bus and where to connect to services. Put these
-  # here so we don't need to repeat these rules in multiple places (actual
-  # communications with any system services is mediated elsewhere). This does
-  # allow apps to brute-force enumerate system services, but our system
-  # services aren't a secret.
-  /{,var/}run/dbus/system_bus_socket rw,
-  dbus (send)
-       bus=system
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=Hello
-       peer=(name=org.freedesktop.DBus),
-  dbus (send)
-       bus=system
-       path=/org/freedesktop/{db,DB}us
-       interface=org.freedesktop.DBus
-       member={Add,Remove}Match
-       peer=(name=org.freedesktop.DBus),
-  # NameHasOwner and GetNameOwner could leak running processes and apps
-  # depending on how services are implemented
-  dbus (send)
-       bus=system
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=GetNameOwner
-       peer=(name=org.freedesktop.DBus),
-  dbus (send)
-       bus=system
-       path=/org/freedesktop/DBus
-       interface=org.freedesktop.DBus
-       member=NameHasOwner
-       peer=(name=org.freedesktop.DBus),
+#include <abstractions/dbus-session-strict>
+#include <abstractions/dbus-strict>
 
   #
   # Access required for connecting to/communication with Unity HUD

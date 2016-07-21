@@ -28,8 +28,8 @@
 	owner "@{HOME}/.local/share/data/Mega Limited/**" rwk,
 
 	# Sync folder
-	/media/Kabi/cloud_storage/mega/ r,
-	/media/Kabi/cloud_storage/mega/** rw,
+	owner /media/Kabi/cloud_storage/ r,
+	owner /media/Kabi/cloud_storage/** rw,
 
 	# Style
 	owner @{HOME}/.config/Trolltech.conf rwk,

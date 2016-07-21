@@ -28,8 +28,12 @@
   /usr/share/** r,
   /{media,mnt,opt,srv}/** r,
 
-  /usr/lib/@{multiarch}/gstreamer[0-9].[0-9]/gstreamer-[0-9].[0-9]/gst-plugin-scanner Cix -> gst_plugin_scanner,
+  /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner Cix -> gst_plugin_scanner,
 
   owner @{HOME}/.cache/tracker/meta.db k,
   owner @{HOME}/.cache/tracker/meta.db-shm k,
-  owner @{HOME}/.local/share/grilo-plugins/*.db k,
+  owner @{HOME}/.local/share/grilo-plugins/*.db{,-shm} k,
+
+  owner @{PROC}/@{pid}/status r,
+
+  /sys/devices/system/node/*/meminfo r,

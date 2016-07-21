@@ -14,6 +14,7 @@
 #include <tunables/global>
 
 @{MOZ_LIBDIR}=/opt/firefox
+@{MOZ_HOMEDIR}=/media/Grafi/.mozilla
 
 /opt/firefox/firefox-p {
 
@@ -48,35 +49,36 @@
 	# Firefox files
 	@{MOZ_LIBDIR}/ r,
 	@{MOZ_LIBDIR}/**  mixr,
-	#@{MOZ_LIBDIR}/plugin-container PUx,
-	@{MOZ_LIBDIR}/plugin-container pux,
+	#@{MOZ_LIBDIR}/plugin-container rPUx,
+	@{MOZ_LIBDIR}/plugin-container rpux,
 	@{MOZ_LIBDIR}/update.test/ rw,
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
 	# Firefox plugins
 	/usr/lib/mozilla/plugins/*.so mr,
-	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-	/opt/google/chrome/PepperFlash/manifest.json r,
-
-	# Needed in order to play flash videos
-	owner /dev/shm/org.chromium.* rw,
 
 	# Firefox extensions
 	/usr/share/mozilla/extensions/** r,
+
+	# Flash plugin
+	/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+	/opt/google/chrome/PepperFlash/manifest.json r,
+	/usr/lib/browser-plugin-freshplayer-pepperflash/ r,
+	/usr/lib/browser-plugin-freshplayer-pepperflash/** r,
+	owner /dev/shm/org.chromium.* rw,
 
 	# Flash config files
 	/etc/adobe/mms.cfg  r,
 	owner @{HOME}/mm.cfg rw,
 
 	# Firefox home files
-	deny owner @{HOME}/.mozilla/firefox/**/ rw,
-	deny owner @{HOME}/.mozilla/firefox/**/** rw,
+	owner @{MOZ_HOMEDIR}/ r,
+	owner @{MOZ_HOMEDIR}/** rwkl,
+	owner @{MOZ_HOMEDIR}/firefox/**/extensions/** mrix,
 	owner @{HOME}/.mozilla/firefox/profiles.ini r,
-	owner /media/Grafi/firefox_profile/ r,
-	owner /media/Grafi/firefox_profile/** rwkl,
-	owner /media/Grafi/firefox_profile/extensions/** mrix,
-	#owner /media/Grafi/firefox_profile/plugins/** mr,
+	deny @{HOME}/.mozilla/firefox/**/ rw,
+	deny @{HOME}/.mozilla/firefox/**/** rw,
 
 	# Torrent files
 	owner /media/ r,
@@ -99,7 +101,7 @@
 	deny /dev/snd/pcmC0D0c rw,
 
 	# Proc files
-	#owner @{PROC}/@{pid}/cmdline r,
+	owner @{PROC}/@{pid}/cmdline r,
 	owner @{PROC}/@{pid}/fd/ r,
 	owner @{PROC}/@{pid}/fd/* r,
 	#owner @{PROC}/@{pid}/maps r,
@@ -108,8 +110,10 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
+	owner @{PROC}/[0-9]*/task/ r,
 	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
-	audit deny owner @{PROC}/uptime r,
+	audit deny @{PROC}/uptime r,
+	owner @{PROC}/@{pid}/auxv r,
 
 	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
 	/usr/lib/ladspa/ r,

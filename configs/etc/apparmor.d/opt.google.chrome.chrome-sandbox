@@ -29,7 +29,7 @@ profile /opt/google/chrome/chrome-sandbox {
 	capability dac_override,
 	capability sys_chroot,
 
-	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
+	deny @{PROC}/[0-9]*/oom_{,score_}adj w,
 
 	@{PROC}/[0-9]*/ r,
 	owner @{PROC}/@{pid}/fd/* r,

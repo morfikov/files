@@ -27,6 +27,7 @@
   /etc/locale.alias              r,
   /etc/localtime                 r,
   /etc/writable/localtime        r,
+  /usr/share/locale-bundle/**    r,
   /usr/share/locale-langpack/**  r,
   /usr/share/locale/**           r,
   /usr/share/**/locale/**        r,

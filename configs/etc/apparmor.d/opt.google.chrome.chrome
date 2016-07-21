@@ -89,7 +89,7 @@ profile /opt/google/chrome/chrome {
 	@{PROC}/sys/kernel/shmmax r,
 	@{PROC}/sys/net/ipv4/tcp_fastopen r,
 
-	deny owner @{PROC}/[0-9]*/oom_{,score_}adj w,
+	deny @{PROC}/[0-9]*/oom_{,score_}adj w,
 
 	# Needed for --help
 	/usr/bin/man rPUx,

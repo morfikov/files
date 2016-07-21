@@ -1,4 +1,4 @@
- # Last Modified: Wed Aug 12 17:57:10 2015
+# Last Modified: Mon Jun 1 21:04:55 2016
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
@@ -13,20 +13,20 @@
 #include <tunables/global>
 
 @{MOZ_LIBDIR}=/opt/thunderbird
-@{MOZ_PROFILE}=/media/Kabi/.thunderbird
-#@{MOZ_PROFILE}=@{HOME}/.thunderbird
+@{MOZ_HOMEDIR}=/media/Kabi/.thunderbird
+#@{MOZ_HOMEDIR}=@{HOME}/.thunderbird
 
 /opt/thunderbird/thunderbird {
 
 	#include <abstractions/base>
-	#include <abstractions/private-files>
 	#include <abstractions/gnome>
-	#include <abstractions/fonts>
 	#include <abstractions/audio>
+	#include <abstractions/gstreamer>
 	#include <abstractions/nameservice>
 	#include <abstractions/user-download>
 	#include <abstractions/dbus-session-strict>
-	#include <abstractions/gstreamer>
+	#include <abstractions/private-files>
+
 
 	# potentially extremely sensitive files
 	audit deny @{HOME}/.ssh/** mrwkl,
@@ -45,25 +45,39 @@
 	# Thunderbird files
 	@{MOZ_LIBDIR}/ r,
 	@{MOZ_LIBDIR}/**  mixr,
+	#@{MOZ_LIBDIR}/plugin-container rPUx,
+	#@{MOZ_LIBDIR}/plugin-container rpux,
 	@{MOZ_LIBDIR}/update.test/ rw,
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
 	# Thunderbird plugins
-	#/usr/lib/mozilla/plugins/*.so mr,
-	deny /opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-	deny /opt/google/chrome/PepperFlash/manifest.json r,
+	deny /usr/lib/mozilla/plugins/*.so mr,
 
-	# Profile files
-	@{MOZ_PROFILE}/** rwk,
-	@{MOZ_PROFILE}/**/extensions/** mrwk,
-	@{MOZ_PROFILE}/profiles.ini r,
+	# Thunderbird extensions
+	deny /usr/share/mozilla/extensions/** r,
+
+	# Flash plugin
+	deny /opt/google/chrome/PepperFlash/ r,
+	deny /usr/lib/browser-plugin-freshplayer-pepperflash/ r,
+	deny /dev/shm/org.chromium.* rw,
+
+	# Flash config files
+	#/etc/adobe/mms.cfg  r,
+	#owner @{HOME}/mm.cfg rw
+
+	# Thunderbird home files
+	owner @{MOZ_HOMEDIR}/ r,
+	owner @{MOZ_HOMEDIR}/** rwkl,
+	owner @{MOZ_HOMEDIR}/**/extensions/** mrix,
 
 	# Cache
 	owner /tmp/morfik_cache/.cache/thunderbird/ rwk,
 	owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
 	owner @{HOME}/.cache/thunderbird/ rwk,
 	owner @{HOME}/.cache/thunderbird/** rwk,
+	owner @{HOME}/.cache/fontconfig/ rwk,
+	owner @{HOME}/.cache/fontconfig/** rwk,
 
 	# Enigmail
 	owner @{HOME}/.gnupg/ r,
@@ -95,11 +109,6 @@
 	# mic
 	deny /dev/snd/pcmC0D0c rw,
 
-	/etc/mime.types r,
-	/usr/share/applications/kde4/ r,
-	/usr/share/applications/kde4/** r,
-	owner @{HOME}/.config/gtk-3.0/bookmarks r ,
-
 	# Proc files
 	owner @{PROC}/@{pid}/cmdline r,
 	owner @{PROC}/@{pid}/fd/ r,
@@ -110,24 +119,33 @@
 	owner @{PROC}/@{pid}/stat r,
 	owner @{PROC}/@{pid}/statm r,
 	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/[0-9]*/stat r,
-	audit deny owner @{PROC}/uptime r,
-	owner @{PROC}/@{pid}/auxv r,
-
-	# To avoid some crashes after waking up from hibernation
 	owner @{PROC}/[0-9]*/task/ r,
 	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
-
-	# Locales
-	/usr/bin/locale rix,
-
-	/etc/mailcap r,
+	audit deny @{PROC}/uptime r,
+	owner @{PROC}/@{pid}/auxv r,
 
 	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
 	/usr/lib/ladspa/ r,
 	/usr/lib/ladspa/*.so mr,
 
+	# Locales
+	/usr/bin/locale rix,
+
+	owner @{HOME}/.config/gtk-3.0/* r,
+
+	/etc/mailcap r,
+
+	# MIME types
+	/etc/mime.types r,
+
+	# KDE
+	/usr/share/applications/kde4/ r,
+	/usr/share/applications/kde4/** r,
+
+
 	# Launch external apps
 	/opt/firefox/firefox rPUx,
+	/usr/bin/exo-open rPUx,
+	/usr/bin/okular rPUx,
 
 }

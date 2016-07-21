@@ -9,7 +9,7 @@
   /usr/bin/azureus Cxr -> sanitized_helper,
   /usr/bin/bitstormlite Cxr -> sanitized_helper,
   /usr/bin/btmaketorrentgui Cxr -> sanitized_helper,
-  /usr/bin/deluge Cxr -> sanitized_helper,
+  /usr/bin/deluge{,-gtk,-console} Cxr -> sanitized_helper,
   /usr/bin/gnome-btdownload Cxr -> sanitized_helper,
   /usr/bin/kget Cxr -> sanitized_helper,
   /usr/bin/ktorrent Cxr -> sanitized_helper,

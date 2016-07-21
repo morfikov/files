@@ -35,6 +35,7 @@
 	owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rwk,
 	owner "@{HOME}/.cache/Flavio Tordini/" rwk,
 	owner "@{HOME}/.cache/Flavio Tordini/**" rwk,
+	owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
 	# Phonon backends
 	/usr/lib/@{multiarch}/qt*/plugins/**/*.so mr,
