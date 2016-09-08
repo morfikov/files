@@ -55,6 +55,10 @@
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
+	# Needed when Debian firefox is installed
+	/usr/share/firefox/browser/icons/** r,
+	/usr/share/firefox/browser/chrome/icons/** r,
+
 	# Firefox plugins
 	/usr/lib/mozilla/plugins/*.so mr,
 

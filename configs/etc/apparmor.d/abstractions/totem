@@ -36,4 +36,7 @@
 
   owner @{PROC}/@{pid}/status r,
 
+  /run/udev/data/c* r,
+  /run/udev/data/+drm:card* r,
+
   /sys/devices/system/node/*/meminfo r,

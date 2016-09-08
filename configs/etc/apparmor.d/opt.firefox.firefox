@@ -61,6 +61,10 @@
 	@{MOZ_LIBDIR}/update.test/** rw,
 	@{MOZ_LIBDIR}/update.test rw,
 
+	# Needed when Debian firefox is installed
+	/usr/share/firefox/browser/icons/** r,
+	/usr/share/firefox/browser/chrome/icons/** r,
+
 	# Firefox plugins
 	deny /usr/lib/mozilla/plugins/*.so mr,
 
@@ -113,6 +117,7 @@
 	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
+	/sys/devices/virtual/block/**/dm/name r,
 
 	# webcam
 	deny /dev/video0 rw,
