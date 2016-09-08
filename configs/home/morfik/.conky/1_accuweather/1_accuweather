@@ -1,0 +1,355 @@
+#!/bin/bash
+
+if (( $# < 1 )); then
+	exit
+fi
+
+#put your Accuweather address here
+address="http://www.accuweather.com/en/pl/zyrardow/264812/weather-forecast/264812"
+#address="http://www.accuweather.com/en/pl/warsaw/274663/weather-forecast/274663"
+
+loc_id=$(echo $address|sed 's/\/weather-forecast.*$//'|sed 's/^.*\///')
+last_number=$(echo $address|sed 's/^.*\///')
+
+###################################################
+#NORMAL FORECAST: -f passed as 1rst or 2nd argument
+###################################################
+if [[ $1 == -f || $2 == -f ]]; then
+
+	#function: test_image
+	test_image () {
+	    case $1 in
+	         1)
+	           echo a
+	         ;;
+	         2|3)
+	           echo b
+	         ;;
+	         4|5)
+	           echo c
+	         ;;
+	         6)
+	           echo d
+	         ;;
+	         7)
+	           echo e
+	         ;;
+	         8)
+	           echo f
+	         ;;
+	         11)
+	           echo 0
+	         ;;
+	         12)
+	           echo h
+	         ;;
+	         13|14)
+	           echo g
+	         ;;
+	         15)
+	           echo m
+	         ;;
+	         16|17)
+	           echo k
+	         ;;
+	         18)
+	           echo i
+	         ;;
+	         19)
+	           echo q
+	         ;;
+	         20|21|23)
+	           echo o
+	         ;;
+	         22)
+	           echo r
+	         ;;
+	         24|31)
+	           echo E
+	         ;;
+	         25)
+	           echo v
+	         ;;
+	         26)
+	           echo x
+	         ;;
+	         29)
+	           echo y
+	         ;;
+	         30)
+	           echo 5
+	         ;;
+	         32)
+	           echo 6
+	         ;;
+	         33)
+	           echo A
+	         ;;
+	         34|35)
+	           echo B
+	         ;;
+	         36|37)
+	           echo C
+	         ;;
+	         38)
+	           echo D
+	         ;;
+	         39|40)
+	           echo G
+	         ;;
+	         41|42)
+	           echo K
+	         ;;
+	         43|44)
+	           echo O
+	         ;;
+	         *)
+			   echo -
+			 ;;
+	        esac
+	}
+
+
+#	kill -STOP $(pidof conky)
+#	killall wget
+
+	curr_addr="$(echo $address|sed 's/weather-forecast.*$//')"current-weather/"$last_number"
+	wget -O $HOME/.conky/1_accuweather/curr_cond_raw "$curr_addr"
+
+	addr1="$(echo $address|sed 's/weather-forecast.*$//')"daily-weather-forecast/"$last_number"
+	wget -O $HOME/.conky/1_accuweather/first_days_raw "$addr1"
+
+	addr2="$addr1"?day=6
+	wget -O $HOME/.conky/1_accuweather/last_days_raw "$addr2"
+
+	rm $HOME/.conky/1_accuweather/*.png
+
+	#current conditions
+	if [[ -s $HOME/.conky/1_accuweather/curr_cond_raw ]]; then
+	    sed -i '/detail-now/,/Astronomy <span class/!d' $HOME/.conky/1_accuweather/curr_cond_raw
+	    egrep -i '"cond"|icon i-|large-temp|small-temp|wind-point|"wind"|Humidity|Pressure|UV Index|Cloud Cover|Ceiling|Dew Point|Visibility|Duration|Sunrise:|Sunset:|Moonrise:|Moonset:' $HOME/.conky/1_accuweather/curr_cond_raw > $HOME/.conky/1_accuweather/curr_cond
+	    sed -i -e 's/^.*<strong>//g' -e 's/^.*<span>//g' -e 's/^.*icon i-//g' -e 's/^.*large-temp">//g' -e 's/^.*<\/em> //g' -e 's/^.*"cond">//g' -e 's/^.*wind-point //g' $HOME/.conky/1_accuweather/curr_cond
+	    sed -i -e 's/">.*$//g' -e 's/&deg.*$//g' -e 's/<\/span>.*$//g' -e 's/&#.*$//g' -e 's/ &darr.*$//g' -e 's/ &uarr.*$//g' -e 's/<\/strong>.*$//g' $HOME/.conky/1_accuweather/curr_cond
+	    sed -i '1s/-.*$//' $HOME/.conky/1_accuweather/curr_cond
+	    image=$(sed -n 1p $HOME/.conky/1_accuweather/curr_cond)
+	    echo $(test_image $image) >> $HOME/.conky/1_accuweather/curr_cond
+	    cp $HOME/.conky/1_accuweather/Forecast_Images_2016/$(sed -n 1p $HOME/.conky/1_accuweather/curr_cond).png $HOME/.conky/1_accuweather/0.png
+	fi
+
+	#First 5 days
+	if [[ -s $HOME/.conky/1_accuweather/first_days_raw ]]; then
+
+	    sed -i '/.feed-controls/,/\.feed-tabs/!d' $HOME/.conky/1_accuweather/first_days_raw
+	    egrep -i 'href="#"|icon i-|"large-temp"|"small-temp"|temp-label|"cond"' $HOME/.conky/1_accuweather/first_days_raw > $HOME/.conky/1_accuweather/first_days
+	    sed -i -e '/icon/s/-. //g' -e 's/^.*icon i-//g' -e 's/^.*large-temp">//g' -e 's/^.*small-temp">\///g' -e 's/^.*"cond">//g' -e 's/^.*href="#">//g' -e 's/^.*"temp-label tonight ">//g' -e 's/^.*"temp-label tonight selected">//g' $HOME/.conky/1_accuweather/first_days
+	    sed -i -e 's/&deg.*$//g' -e 's/<\/a>.*$//g' -e 's/<\/span>.*$//g' -e 's/">.*$//g' $HOME/.conky/1_accuweather/first_days
+	    sed -i -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' -e 's/Today$/TODAY/' -e 's/Tonight$/TONIGHT/' -e 's/Early AM/EARLY AM/' $HOME/.conky/1_accuweather/first_days
+	    for (( i=2; i<=22; i+=5 ))
+		  do
+	          image=$(sed -n "${i}"p $HOME/.conky/1_accuweather/first_days)
+	          echo $(test_image $image) >> $HOME/.conky/1_accuweather/first_days
+		  done
+		j=1
+		for (( i=2; i<=22; i+=5 ))
+		  do
+		      cp $HOME/.conky/1_accuweather/Forecast_Images_2016/$(sed -n ${i}p $HOME/.conky/1_accuweather/first_days).png $HOME/.conky/1_accuweather/$j.png
+		      ((j++))
+		  done
+	fi
+
+	#Next 5 days
+	if [[ -s $HOME/.conky/1_accuweather/last_days_raw ]]; then
+
+		sed -i '/.feed-controls/,/\.feed-tabs/!d' $HOME/.conky/1_accuweather/last_days_raw
+	    egrep -i 'href="#"|icon i-|large-temp|small-temp|temp-label|"cond"' $HOME/.conky/1_accuweather/last_days_raw > $HOME/.conky/1_accuweather/last_days
+	    sed -i -e '/icon/s/-. //g' -e 's/^.*icon i-//g' -e 's/^.*large-temp">//g' -e 's/^.*small-temp">\///g' -e 's/^.*"cond">//g' -e 's/^.*href="#">//g' -e 's/^.*"temp-label tonight ">//g' $HOME/.conky/1_accuweather/last_days
+	    sed -i -e 's/&deg.*$//g' -e 's/<\/a>.*$//g' -e 's/<\/span>.*$//g' -e 's/">.*$//g' $HOME/.conky/1_accuweather/last_days
+	    sed -i -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' $HOME/.conky/1_accuweather/last_days
+	    for (( i=2; i<=22; i+=5 ))
+		  do
+	          image=$(sed -n "${i}"p $HOME/.conky/1_accuweather/last_days)
+	          echo $(test_image $image) >> $HOME/.conky/1_accuweather/last_days
+		  done
+		j=6
+		for (( i=2; i<=22; i+=5 ))
+		  do
+		      cp $HOME/.conky/1_accuweather/Forecast_Images_2016/$(sed -n ${i}p $HOME/.conky/1_accuweather/last_days).png $HOME/.conky/1_accuweather/$j.png
+		      ((j++))
+		  done
+	fi
+
+#	if [[ $1 != -h && $2 != -h ]]; then
+#		kill -CONT $(pidof conky)
+#	fi
+
+fi
+
+
+
+###################################################
+#HOURLY FORECAST: -h passed as 1rst or 2nd argument
+###################################################
+if [[ $1 == -h || $2 == -h ]]; then
+
+	#Hourly: First 8h
+
+#	if [[ $1 != -f && $2 != -f ]]; then
+#		kill -STOP $(pidof conky)
+#	fi
+
+#	killall wget
+	rm $HOME/.conky/1_accuweather/hourly_*.png
+
+	hourly_addr1="$(echo $address|sed 's/weather-forecast.*$//')"hourly-weather-forecast/"$last_number"
+	wget -O $HOME/.conky/1_accuweather/hourly_raw1 "$hourly_addr1"
+
+	if [[ -s $HOME/.conky/1_accuweather/hourly_raw1 ]]; then
+		sed -i '/detail-tab-buttons\.detail-tab-buttons/,/<div class="hourly-table">/!d' $HOME/.conky/1_accuweather/hourly_raw1
+		egrep -i 'hour=|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|pm<\/div>|am<\/div>|icon-weather icon i-|<th>Forecast|<span>.*<\/span>|<th>Temp|<th>Realfeel|<th>Wind|<th>Rain|<th>Snow|<th>Ice|<th>UV Index|<th>Cloud Cover|<th>Humidity|<th>Dew Point' $HOME/.conky/1_accuweather/hourly_raw1 > $HOME/.conky/1_accuweather/hourly1
+		sed -i -e 's/^[ \t]*//g' -e 's/^.*<div>//g' -e 's/^.*<span>//g' -e 's/^.*<th>//g' -e 's/^.*icon i-//g' -e 's/-s">.*$//g' -e 's/<\/div>.*$//g' -e 's/&#.*$//g' -e 's/<\/span>.*$//g' -e 's/<\/th>.*$//g' -e 's/^.*href="//g' -e 's/" class=.*$//g' $HOME/.conky/1_accuweather/hourly1
+		sed -i -e 's/Monday/Mon/' -e 's/Tuesday/Tue/' -e 's/Wednesday/Wed/' -e 's/Thursday/Thu/' -e 's/Friday/Fri/' -e 's/Saturday/Sat/' -e 's/Sunday/Sun/' -e 's/\r//g' $HOME/.conky/1_accuweather/hourly1
+		j=1
+		for (( i=4; i<=18; i+=2 ))
+		  do
+	    	cp $HOME/.conky/1_accuweather/Forecast_Images_2016/$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1).png $HOME/.conky/1_accuweather/hourly_$j.png
+	    	((j++))
+		  done
+	fi
+
+	# Full info, next 8h - altogether8 file
+	rm $HOME/.conky/1_accuweather/altogether8
+
+	#TIME
+	echo "\${color1}TIME\${goto 100}" > $HOME/.conky/1_accuweather/altogether8
+	sed -i "1s/$/$(sed -n 2p $HOME/.conky/1_accuweather/hourly1):$(sed -n 3p $HOME/.conky/1_accuweather/hourly1)/" $HOME/.conky/1_accuweather/altogether8
+	jump_to=160
+	for (( i=5; i<=17; i+=2 ))
+		do
+			time=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "1s/$/\${goto $jump_to}$time/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+	sed -i '1s/$/\n/' $HOME/.conky/1_accuweather/altogether8
+
+	#IMAGES
+	jump_to=70
+	for (( i=1; i<=8; i+=1 ))
+		do
+			sed -i "2s/$/\${image \$HOME\/.conky\/1_accuweather\/hourly_$i.png -s 60x36 -p $jump_to,20}/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+	sed -i '1s/$/\n\n/' $HOME/.conky/1_accuweather/altogether8
+
+	#TEMPERATURE
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}TEMP.(°C) \${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=29; i<=36; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "6s/$/\${goto $jump_to}$messg°/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#REAL FEEL
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}REALF.(°C)\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=38; i<=45; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "8s/$/\${goto $jump_to}$messg°/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#WIND
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}WIND(km/h)\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=47; i<=54; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "10s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#RAIN
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}RAIN\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=64; i<=71; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "12s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#SNOW
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}SNOW\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=73; i<=80; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "14s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#ICE
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}ICE\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=82; i<=89; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "16s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#UV INDEX
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}UV INDEX\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=99; i<=106; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "18s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#CLOUD COVER
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}CLOUD COV.\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=108; i<=115; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "20s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#HUMIDITY
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}HUMIDITY\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=117; i<=124; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "22s/$/\${goto $jump_to}$messg/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+	#DEW POINT
+	echo "\${voffset -3}\${color1}\${goto 100}\${hr 1}" >> $HOME/.conky/1_accuweather/altogether8
+	echo "\${voffset -1}DEW P.(°C)\${color0}" >> $HOME/.conky/1_accuweather/altogether8
+	jump_to=100
+	for (( i=126; i<=133; i+=1 ))
+		do
+			messg=$(sed -n ${i}p $HOME/.conky/1_accuweather/hourly1)
+			sed -i "24s/$/\${goto $jump_to}$messg°/" $HOME/.conky/1_accuweather/altogether8
+			((jump_to+=60))
+		done
+
+#	kill -CONT $(pidof conky)
+
+fi

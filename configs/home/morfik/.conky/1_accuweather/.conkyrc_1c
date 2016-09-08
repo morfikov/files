@@ -84,7 +84,7 @@ conky.config = {
 	max_user_text = 20000,
 
 -- Gap between text and screen borders.
-	gap_x = 40,-- Left / Right
+	gap_x = 10,-- Left / Right
 	gap_y = 100,-- Top / Bottom
 
 -- Shorten MiB/GiB to M/G in stats.
@@ -138,15 +138,10 @@ conky.config = {
 -- Set the path to your script here.
 --	lua_load = '~/.conky/bargraph_small.lua',
 --	lua_draw_hook_post = 'main_bars',
-
---${texeci 600 bash $HOME/.conky/1c/1c}
 };
 
 conky.text = [[
-${color1}TIME${goto 100}${execpi 600 sed -n '2p' $HOME/.conky/1c/hourly_raw1}${goto 160}${execpi 600 sed -n '3p' $HOME/.conky/1c/hourly_raw1}${goto 220}${execpi 600 sed -n '4p' $HOME/.conky/1c/hourly_raw1}${goto 280}${execpi 600 sed -n '5p' $HOME/.conky/1c/hourly_raw1}${goto 340}${execpi 600 sed -n '6p' $HOME/.conky/1c/hourly_raw1}${goto 400}${execpi 600 sed -n '7p' $HOME/.conky/1c/hourly_raw1}${goto 460}${execpi 600 sed -n '8p' $HOME/.conky/1c/hourly_raw1}${goto 520}${execpi 600 sed -n '9p' $HOME/.conky/1c/hourly_raw1}
-${voffset -5}${image $HOME/.conky/1c/20.png -s 60x36 -p 70,30}${image $HOME/.conky/1c/23.png -s 60x36 -p 130,30}${image $HOME/.conky/1c/26.png -s 60x36 -p 190,30}${image $HOME/.conky/1c/29.png -s 60x36 -p 250,30}${image $HOME/.conky/1c/32.png -s 60x36 -p 310,30}${image $HOME/.conky/1c/35.png -s 60x36 -p 370,30}${image $HOME/.conky/1c/38.png -s 60x36 -p 430,30}${image $HOME/.conky/1c/41.png -s 60x36 -p 490,30}
-
-${voffset 25}${execpi 600 sed -n '1,21p' $HOME/.conky/1c/altogether}
+${execpi 600 sed -n '1,24p' $HOME/.conky/1_accuweather/altogether8}
 ${voffset -3}${color1}${hr 1}
 ${voffset -35}
 

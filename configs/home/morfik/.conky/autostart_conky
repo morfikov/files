@@ -5,10 +5,10 @@ if pidof conky | grep [0-9] > /dev/null
 then
 	exec killall conky
 else
-	###   sleep 2  # sleep not required for xfce or dropbox upto - 30 or more for others
-	(sleep 2s && conky -c ~/.conky/.conkyrc &) &
-	(sleep 2s && conky -c ~/.conky/.conkyrc_fs) &
-	(sleep 15s && conky -c ~/.conky/1b1/.conkyrc_1b1_int) &
-	(sleep 15s && conky -c ~/.conky/1c/.conkyrc_1c) &
+	###   sleep 1  # sleep not required for xfce or dropbox upto - 30 or more for others
+	(sleep 1s && conky -c ~/.conky/.conkyrc &) &
+	(sleep 1s && conky -c ~/.conky/.conkyrc_fs) &
+	(sleep 10s && conky -c ~/.conky/1_accuweather/.conkyrc_1b1) &
+	(sleep 10s && conky -c ~/.conky/1_accuweather/.conkyrc_1c) &
 	exit 0
 fi
