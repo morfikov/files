@@ -142,7 +142,8 @@ conky.config = {
 };
 
 conky.text = [[
-${color1}${hr 1}${texeci 600 bash $HOME/.conky/1_accuweather/1_accuweather -f -h}
+${color1}${hr 1}${texeci 600 bash $HOME/.conky/1_accuweather/1_accuweather -f -h}\
+${texeci 600 bash $HOME/.conky/4_Moon/moon_MoonGiant}
 ${goto 82}${font monospace:size=9}${color1}/${goto 197}${color0}${fs_used /}${color1} / ${fs_size /}\
 ${goto 328}${color1}/home${goto 443}${color0}${fs_used /home}${color1} / ${fs_size /home}\
 ${goto 574}${color1}/media/Server${goto 696}${color0}${fs_used /media/Server/}${color1}/ ${fs_size /media/Server/}\
