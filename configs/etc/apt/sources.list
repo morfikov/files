@@ -1,26 +1,27 @@
 #
 # /etc/apt/sources.list
 #
-# For https, install the apt-transport-https package.
+# For https support, install the apt-transport-https package.
+# For tor support, install the apt-transport-tor package.
 # For a specific ARCH, use [arch=amd64,i386] after deb.
 #
 
 ### Jessie - stable ###
-# deb http://ftp.pl.debian.org/debian/ stable main non-free contrib
-# deb-src http://ftp.pl.debian.org/debian/ stable main non-free contrib
+# deb http://httpredir.debian.org/debian/ stable main non-free contrib
+# deb-src http://httpredir.debian.org/debian/ stable main non-free contrib
 # deb http://security.debian.org/ stable/updates main contrib non-free
 # deb-src http://security.debian.org/ stable/updates main contrib non-free
 
 # deb http://www.deb-multimedia.org stable main non-free
 # deb-src http://www.deb-multimedia.org stable main non-free
 
-deb http://mirrors.kernel.org/debian jessie-backports main contrib
+#deb http://mirrors.kernel.org/debian jessie-backports main contrib
 #deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
 #deb http://http.debian.net/debian jessie-backports main
 
 ### Stretch - testing ###
-deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
-# deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
+#deb http://httpredir.debian.org/debian/ testing main non-free contrib
+# deb-src http://httpredir.debian.org/debian/ testing main non-free contrib
 #deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
 
@@ -28,29 +29,26 @@ deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
 # deb-src http://www.deb-multimedia.org testing main non-free
 
 ### SID ###
-deb http://ftp.pl.debian.org/debian/ sid main non-free contrib
-#deb-src http://ftp.pl.debian.org/debian/ sid main non-free contrib
+deb http://httpredir.debian.org/debian/ sid main non-free contrib
+#deb-src http://httpredir.debian.org/debian/ sid main non-free contrib
 
-deb ftp://ftp.deb-multimedia.org sid main non-free
+#deb ftp://ftp.deb-multimedia.org sid main non-free
 #deb-src ftp://ftp.deb-multimedia.org sid main non-free
 
-### AptoSID ###
-#deb http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
-#deb-src http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
-
-# deb ftp://ftp.spline.de/pub/aptosid/debian/ sid main fix.main
-# deb-src ftp://ftp.spline.de/pub/aptosid/debian/ sid main fix.main
-
-# deb http://aptosid.office-vienna.at/aptosid/debian/ sid main fix.main
-# deb-src http://aptosid.office-vienna.at/aptosid/debian/ sid main fix.main
-
 ### EXPERIMENTAL ###
-deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
-#deb-src http://ftp.pl.debian.org/debian/ experimental main contrib non-free
+deb http://httpredir.debian.org/debian/ experimental main contrib non-free
+#deb-src http://httpredir.debian.org/debian/ experimental main contrib non-free
 
 ### INCOMING ###
 # deb http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
 # deb-src http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
+
+### via TOR ###
+#deb tor+http://http.debian.net/debian sid main
+#deb tor+http://http.debian.org/debian/ experimental main contrib non-free
+#
+#deb tor+http://vwakviie2ienjx6t.onion/debian/ sid main contrib non-free
+#deb tor+http://vwakviie2ienjx6t.onion/debian/ experimental main contrib non-free
 
 ####################### ADDs ############################
 
@@ -68,7 +66,7 @@ deb http://ftp.pl.debian.org/debian/ experimental main contrib non-free
 # deb http://dl.google.com/linux/chrome/deb/ stable main
 
 ### Opera (browser) ###
-deb https://deb.opera.com/opera-stable/ stable non-free
+#deb https://deb.opera.com/opera-stable/ stable non-free
 
 ### Dropbox (cloud storage) ###
 # deb http://linux.dropbox.com/debian squeeze main
@@ -114,71 +112,75 @@ deb http://deb.torproject.org/torproject.org sid main
 ####################### PPAs ############################
 
 # GNS3 (network)
-deb http://ppa.launchpad.net/gns3/ppa/ubuntu wily main
-#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu wily main
+deb http://ppa.launchpad.net/gns3/ppa/ubuntu yakkety main
+#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu yakkety main
 
 ### Shutter (screenshot) ###
-# deb http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
+# deb http://ppa.launchpad.net/shutter/ppa/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu yakkety main
 
 ### Haguichi (vpn) ###
-# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu xenial main
+# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu yakkety main
 
 ### i2p (anonymity) ###
-# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu xenial main
+# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu yakkety main
 
 ### Java (oracle) ###
-# deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
+# deb http://ppa.launchpad.net/webupd8team/java/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu yakkety main
 
 ### qBitorrent (p2p) ###
 # deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
 # deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
-
+#
 deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
 # deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
 
 ### Tuxboot ###
-# deb http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu wily main
-# deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu wily main
+# deb http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu yakkety main
 
 ### Grub Customizer ###
-# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu xenial main
+# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu yakkety main
 
 ### File sync ###
-# deb http://ppa.launchpad.net/freefilesync/ffs/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu xenial main
+# deb http://ppa.launchpad.net/freefilesync/ffs/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu yakkety main
 
 ### SMPlayer (video) ###
-deb http://ppa.launchpad.net/rvm/smplayer/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu xenial main
+deb http://ppa.launchpad.net/rvm/smplayer/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu yakkety main
 
 ### Keepass2 (passwords) ###
 deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
 # deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
 
 ### Desktop recorder ###
-# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu xenial main
+# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
 
 ### whdd ###
-#deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu xenial main
-#deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu xenial main
+#deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu yakkety main
+#deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu yakkety main
 
 ### inxi (system info) ###
-deb http://ppa.launchpad.net/unit193/inxi/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu xenial main
+deb http://ppa.launchpad.net/unit193/inxi/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu yakkety main
 
 ### Spacefm ###
-# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu xenial main
+# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu yakkety main
+# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu yakkety main
+
+# Ubuntu #
+#deb http://archive.ubuntu.com/ubuntu/ yakkety main
+#deb http://archive.canonical.com/ubuntu yakkety partner
 
 ### Debian snapshot ###
-# deb http://snapshot.debian.org/archive/debian/20151101T042306Z/ testing main contrib non-free
-# deb-src http://snapshot.debian.org/archive/debian/20151101T042306Z/ testing main contrib non-free
+# deb http://snapshot.debian.org/archive/debian/20161102T033150Z/ testing main contrib non-free
+# deb-src http://snapshot.debian.org/archive/debian/20161102T033150Z/ sid main contrib non-free
 
 
 ### local ###
