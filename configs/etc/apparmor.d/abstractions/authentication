@@ -22,12 +22,12 @@
   /etc/gshadow                r,
   /etc/pwdb.conf              r,
 
-  /lib{,32,64}/security/pam_filter/*  mr,
-  /lib{,32,64}/security/pam_*.so      mr,
-  /lib{,32,64}/security/              r,
-  /lib/@{multiarch}/security/pam_filter/*  mr,
-  /lib/@{multiarch}/security/pam_*.so      mr,
-  /lib/@{multiarch}/security/              r,
+  /{usr/,}lib{,32,64}/security/pam_filter/*  mr,
+  /{usr/,}lib{,32,64}/security/pam_*.so      mr,
+  /{usr/,}lib{,32,64}/security/              r,
+  /{usr/,}lib/@{multiarch}/security/pam_filter/*  mr,
+  /{usr/,}lib/@{multiarch}/security/pam_*.so      mr,
+  /{usr/,}lib/@{multiarch}/security/              r,
 
   # kerberos
   #include <abstractions/kerberosclient>

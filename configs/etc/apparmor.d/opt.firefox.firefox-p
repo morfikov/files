@@ -37,6 +37,8 @@
 	audit deny @{HOME}/.gnome2_private/** mrwkl,
 	audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
 	audit deny @{HOME}/.config/chromium/** mrwkl,
+	deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
+	audit deny /media/Kabi/.mozilla/ mrwkl,
 	audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
 	audit deny @{HOME}/.evolution/** mrwkl,
 	audit deny @{HOME}/.config/evolution/** mrwkl,
@@ -96,6 +98,9 @@
 	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
+	/sys/devices/virtual/block/**/dm/name r,
+	/dev/dri/ r,
+	/sys/devices/pci[0-9]*/**/config r,
 
 	# webcam
 	deny /dev/video0 rw,
@@ -118,6 +123,9 @@
 	owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
 	audit deny @{PROC}/uptime r,
 	owner @{PROC}/@{pid}/auxv r,
+
+	# Link Monitor (since 49.0.1)
+	/proc/**/net/arp r,
 
 	# PulseAudio module-ladspa-sink (plugin sc4m_1916)
 	/usr/lib/ladspa/ r,

@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2010 Canonical Ltd.
+#    Copyright (C) 2016 Canonical Ltd.
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -9,11 +9,5 @@
 #
 # ------------------------------------------------------------------
 
-  # abstraction for ibus input methods
-  owner @{HOME}/.config/ibus/ r,
-  owner @{HOME}/.config/ibus/bus/ rw,
-  owner @{HOME}/.config/ibus/bus/* rw,
-
-  unix (connect, receive, send)
-       type=stream
-       peer=(addr="@/tmp/ibus/dbus-*"),
+  #include <abstractions/fcitx-strict>
+  dbus bus=fcitx,

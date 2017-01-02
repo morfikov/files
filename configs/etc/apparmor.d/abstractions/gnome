@@ -15,12 +15,15 @@
 #include <abstractions/freedesktop.org>
 #include <abstractions/xdg-desktop>
 #include <abstractions/user-tmp>
+#include <abstractions/wayland>
 
   # systemwide gtk defaults
   /etc/gnome/gtkrc*               r,
   /etc/gtk/*                      r,
   /usr/lib{,32,64}/gtk/**         mr,
   /usr/lib/@{multiarch}/gtk/**    mr,
+  /usr/lib{,32,64}/gtk-[0-9]*/**  mr,
+  /usr/lib/@{multiarch}/gtk-[0-9]*/** mr,
   /usr/share/themes/              r,
   /usr/share/themes/**            r,
 
@@ -39,6 +42,7 @@
   /usr/lib/@{multiarch}/gdk-pixbuf-*/** mr,
 
   # per-user gtk configuration
+  owner @{HOME}/.config/gtk-3.0/*       r,
   owner @{HOME}/.gnome/Gnome            r,
   owner @{HOME}/.gtk                    r,
   owner @{HOME}/.gtkrc                  r,

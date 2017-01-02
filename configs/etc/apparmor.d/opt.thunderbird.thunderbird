@@ -105,6 +105,8 @@
 	/sys/devices/system/cpu/** r,
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
+	/dev/dri/ r,
+	/sys/devices/pci[0-9]*/**/config r,
 
 	# webcam
 	deny /dev/video0 rw,

@@ -31,6 +31,7 @@
   # and abrowser)
   /usr/bin/firefox Cxr -> sanitized_helper,
   /usr/lib/firefox*/firefox*.sh Cx -> sanitized_helper,
+  /usr/lib/firefox-esr/firefox* Cx -> sanitized_helper,
 
   # Iceweasel
   /usr/bin/iceweasel Cxr -> sanitized_helper,

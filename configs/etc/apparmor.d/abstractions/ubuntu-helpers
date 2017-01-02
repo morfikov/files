@@ -46,11 +46,9 @@ profile sanitized_helper {
 
   # Allow exec of anything, but under this profile. Allow transition
   # to other profiles if they exist.
-  /bin/* Pixr,
-  /sbin/* Pixr,
-  /usr/bin/* Pixr,
+  /{usr/,}bin/* Pixr,
+  /{usr/,}sbin/* Pixr,
   /usr/local/bin/* Pixr,
-  /usr/sbin/* Pixr,
 
   # Allow exec of libexec applications in /usr/lib* and /usr/local/lib*
   /usr/{,local/}lib*/{,**/}* Pixr,

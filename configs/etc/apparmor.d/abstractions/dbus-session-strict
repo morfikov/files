@@ -12,6 +12,7 @@
   # unique per-machine identifier
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
+  owner /run/user/*/bus rw,
 
   unix (connect, receive, send)
        type=stream

@@ -24,12 +24,32 @@
 	#include <abstractions/nvidia>
 	#include <abstractions/nameservice>
 	#include <abstractions/dbus-session-strict>
-	#include <abstractions/private-files-strict>
+	#include <abstractions/private-files>
+
+
+	# potentially extremely sensitive files
+	audit deny @{HOME}/.gnupg/** mrwkl,
+	audit deny @{HOME}/.ssh/** mrwkl,
+	audit deny @{HOME}/.gnome2_private/** mrwkl,
+	audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
+	audit deny @{HOME}/.config/chromium/** mrwkl,
+	deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
+	audit deny /media/Kabi/.mozilla/ mrwkl,
+	audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
+	audit deny @{HOME}/.evolution/** mrwkl,
+	audit deny @{HOME}/.config/evolution/** mrwkl,
+	audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
+	audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
+
+	# don't allow access to any gnome-keyring modules
+	audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
 
 
 	# Firefox files
 	@{MOZ_LIBDIR}/ r,
 	@{MOZ_LIBDIR}/**  mixr,
+	owner @{HOME}/.mozilla/firefox/profiles.ini r,
+
 
 	# Firefox plugins
 	/usr/lib/mozilla/plugins/*.so mr,
@@ -43,11 +63,12 @@
 	/usr/lib/browser-plugin-freshplayer-pepperflash/ r,
 	/usr/lib/browser-plugin-freshplayer-pepperflash/** r,
 	owner /dev/shm/org.chromium.* rw,
+	/etc/ssl/openssl.cnf r,
 
 	# Flash dirs
-	#owner @{HOME}/.adobe/ r,
-	#owner @{HOME}/.adobe/** r,
-	#owner @{HOME}/.macromedia/ r,
+	deny @{HOME}/.adobe/ rw,
+	deny @{HOME}/.adobe/** rw,
+	deny @{HOME}/.macromedia/ rw,
 	#owner @{HOME}/.macromedia/** r,
 	owner @{HOME}/.config/freshwrapper-data/ r,
 	owner @{HOME}/.config/freshwrapper-data/** r,
@@ -65,6 +86,8 @@
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 	/dev/ r,
+	/dev/dri/ r,
+	/sys/devices/pci[0-9]*/**/config r,
 
 	# webcam
 	deny /dev/video0 rw,

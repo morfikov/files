@@ -40,8 +40,9 @@
 	# Phonon backends
 	/usr/lib/@{multiarch}/qt*/plugins/**/*.so mr,
 
-	# VLC plugin
+	# VLC plugins
 	owner /usr/lib/vlc/plugins/plugins.dat.* rw,
+	owner /usr/lib/x86_64-linux-gnu/vlc/plugins/plugins.dat.* wr,
 
 	# Devices
 	/sys/devices/pci[0-9]*/**/uevent r,
@@ -49,6 +50,8 @@
 	/sys/devices/system/node/ r,
 	/sys/devices/system/node/node0/meminfo r,
 	/dev/tty r,
+	/dev/dri/ r,
+	/sys/devices/pci[0-9]*/**/config r,
 
 	# Proc filesystem
 	@{PROC}/@{pid}/cmdline r,
