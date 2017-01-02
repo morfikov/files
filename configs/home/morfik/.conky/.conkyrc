@@ -190,18 +190,13 @@ ${color0}IP (bond0):${alignr}${addr bond0}
 ${color0}IP (external):${alignr}${execpi 60 curl -s text.whatisyourip.org | head -1}
 ${color1}Down Speed${alignr}Up Speed
 ${color0}${downspeedf bond0} KiB/s${alignr}${alignr}${upspeedf bond0} KiB/s
-${color1}${downspeedgraph bond0 20,109 ff0000 fbe601}${alignr}${color1}${upspeedgraph bond0 20,109 fbe601 ff0000}
-${voffset -3}${color0}${downspeedf wwan0} KiB/s${alignr}${alignr}${upspeedf wwan0} KiB/s
-${color1}${downspeedgraph wwan0 20,109 ff0000 fbe601}${alignr}${color1}${upspeedgraph wwan0 20,109 fbe601 ff0000}
-${voffset -3}${color1}${execi 300 date +"%b '%y"}${goto 90}Download ${alignr}Upload
-${color1}(bond0):${goto 85}${color0}${execi 300 vnstat --iface bond0 -m | grep "`date +"%b '%y"`" | awk '{print $3 $4}'}\
+${color1}${downspeedgraph bond0 30,109 ff0000 fbe601}${alignr}${color1}${upspeedgraph bond0 30,109 fbe601 ff0000}
+${color1}Today:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $2 $3}'}\
+${alignr}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $5 $6}'}
+${color1}This Week:${goto 85}${color0}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $3 $4}'}\
+${alignr}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $6 $7}'}
+${color1}${execi 300 date +"%b '%y"}:${goto 85}${color0}${execi 300 vnstat --iface bond0 -m | grep "`date +"%b '%y"`" | awk '{print $3 $4}'}\
 ${alignr}${execi 300 vnstat --iface bond0 -m | grep "`date +"%b '%y"`" | awk '{print $6 $7}'}
-${color1}(wwan0):${goto 85}${color0}${execi 300 vnstat --iface wwan0 -m | grep "`date +"%b '%y"`" | awk '{print $3 $4}'}\
-${alignr}${execi 300 vnstat --iface wwan0 -m | grep "`date +"%b '%y"`" | awk '{print $6 $7}'}
-#${color1}Today:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $2 $3}'}\
-#${alignr}${execi 300 vnstat --iface bond0 | grep "today" | awk '{print $5 $6}'}
-#${color1}This Week:${goto 85}${color0}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $3 $4}'}\
-#${alignr}${execi 300 vnstat --iface bond0 -w | grep "current week" | awk '{print $6 $7}'}
-#${color1}Total:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep -i rx: | awk '{print $2 $3}'}\
-#${alignr}${execi 300 vnstat --iface bond0 | grep -i tx: | awk '{print $5 $6}'}
+${color1}Total:${goto 85}${color0}${execi 300 vnstat --iface bond0 | grep -i rx: | awk '{print $2 $3}'}\
+${alignr}${execi 300 vnstat --iface bond0 | grep -i tx: | awk '{print $5 $6}'}
 ]];
