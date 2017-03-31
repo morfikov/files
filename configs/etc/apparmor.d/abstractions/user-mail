@@ -14,7 +14,7 @@
   owner @{HOME}/[mM]ail/**    rwl,
   owner @{HOME}/postponed*    rwl,
   /var/{,spool/}mail/         r,
-  /var/{,spool/}mail/*        rwl,
+  owner /var/{,spool/}mail/*  rwl,
   owner @{HOME}/mbox.lock*    rwl,
   owner @{HOME}/mbox          rw,
   owner @{HOME}/inbox         rw,

@@ -75,7 +75,7 @@
 		owner @{HOME}/.local/share/gajim/** rwk,
 
 		# Send files
-		owner @{HOME}/.config/gtk-3.0/bookmarks r,	
+		owner @{HOME}/.config/gtk-3.0/bookmarks r,
 
 		# GPG
 		/usr/bin/gpg rix,
@@ -100,7 +100,7 @@
 		@{PROC}/** r,
 
 		# External apps
-		/opt/firefox/firefox rPUx,
+		/usr/lib/firefox/firefox rPUx,
 
 	}
 }

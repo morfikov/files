@@ -87,6 +87,7 @@
 
   # mime-types
   /etc/gnome/defaults.list r,
+  /etc/xdg/*-mimeapps.list r,
   /usr/share/gnome/applications/ r,
   /usr/share/gnome/applications/mimeinfo.cache r,
 

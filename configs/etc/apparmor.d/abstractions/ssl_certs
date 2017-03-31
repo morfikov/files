@@ -23,3 +23,7 @@
   /usr/local/share/ca-certificates/** r,
   /var/lib/ca-certificates/ r,
   /var/lib/ca-certificates/** r,
+
+  # acmetool
+  /var/lib/acme/certs/*/chain r,
+  /var/lib/acme/certs/*/cert r,

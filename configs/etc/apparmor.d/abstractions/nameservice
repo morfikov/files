@@ -33,13 +33,9 @@
   /var/lib/sss/pipes/nss  rw,
 
   /etc/resolv.conf        r,
-  # on systems using resolvconf, /etc/resolv.conf is a symlink to
-  # /{,var/}run/resolvconf/resolv.conf and a file sometimes referenced in
-  # /etc/resolvconf/run/resolv.conf. Similarly, if NetworkManager is used
-  # without resolvconf, /etc/resolv.conf is a symlink to its own resolv.conf.
-  # Finally, on systems using systemd's networkd, /etc/resolv.conf is
-  # a symlink to /run/systemd/resolve/resolv.conf
-  /{,var/}run/{resolvconf,NetworkManager,systemd/resolve}/resolv.conf r,
+  # On systems where /etc/resolv.conf is managed programmatically, it is
+  # a symlink to /{,var/}run/(whatever program is managing it)/resolv.conf.
+  /{,var/}run/{resolvconf,NetworkManager,systemd/resolve,connman}/resolv.conf r,
   /etc/resolvconf/run/resolv.conf r,
 
   /etc/samba/lmhosts      r,
@@ -50,7 +46,7 @@
   # to vast speed increases when working with network-based lookups.
   /{,var/}run/.nscd_socket   rw,
   /{,var/}run/nscd/socket    rw,
-  /{var/db,var/cache,var/run,run}/nscd/{passwd,group,services,hosts}    r,
+  /{var/db,var/cache,var/lib,var/run,run}/nscd/{passwd,group,services,hosts}    r,
   # nscd renames and unlinks files in it's operation that clients will
   # have open
   /{,var/}run/nscd/db*  rmix,

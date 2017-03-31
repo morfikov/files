@@ -18,6 +18,9 @@
        type=stream
        peer=(addr="@/tmp/dbus-*"),
 
+  # dbus with systemd and --enable-user-session
+  owner /run/user/[0-9]*/bus rw,
+
   dbus send
        bus=session
        path=/org/freedesktop/DBus

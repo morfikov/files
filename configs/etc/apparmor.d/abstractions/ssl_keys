@@ -16,3 +16,7 @@
   /etc/ssl/ r,
   /etc/ssl/** r,
 
+  # acmetool
+  /var/lib/acme/live/* r,
+  /var/lib/acme/certs/** r,
+  /var/lib/acme/keys/** r,
