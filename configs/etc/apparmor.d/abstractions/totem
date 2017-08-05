@@ -30,13 +30,26 @@
 
   /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner Cix -> gst_plugin_scanner,
 
-  owner @{HOME}/.cache/tracker/meta.db k,
-  owner @{HOME}/.cache/tracker/meta.db-shm k,
-  owner @{HOME}/.local/share/grilo-plugins/*.db{,-shm} k,
+  owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/ rw,
+  owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/registry.*.bin rw,
+  owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/registry.*.bin.tmp* rw,
+  owner @{HOME}/.cache/thumbnails/** rw,
+  owner @{HOME}/.cache/totem/** rwk,
+  owner @{HOME}/.cache/totem-* rwk,
+  owner @{HOME}/.cache/tracker/db-locale.txt r,
+  owner @{HOME}/.cache/tracker/meta.db{,-shm,-journal,-wal} rwk,
+  owner @{HOME}/.cache/tracker/ontologies.gvdb r,
+  owner @{HOME}/.config/totem/ rwk,
+  owner @{HOME}/.config/totem/** rwk,
+  owner @{HOME}/.local/share/grilo-plugins/ rwk,
+  owner @{HOME}/.local/share/grilo-plugins/*.db{,-shm,-journal,-wal} rwk,
+  owner @{HOME}/.local/share/gvfs-metadata/** r,
+  owner @{HOME}/.local/share/totem/ rwk,
 
   owner @{PROC}/@{pid}/status r,
 
   /run/udev/data/c* r,
   /run/udev/data/+drm:card* r,
+  /run/udev/data/+usb* r,
 
   /sys/devices/system/node/*/meminfo r,

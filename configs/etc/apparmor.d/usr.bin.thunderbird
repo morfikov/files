@@ -67,6 +67,10 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   # rw access to HOME is useful when sending/receiving attachments
   #owner @{HOME}/** rw,
 
+  # other commonly used locations
+  #/{data,media,mnt,srv}/** r,
+  #owner /{data,media,mnt,srv}/** rw,
+
   # Required for LVM setups
   /sys/devices/virtual/block/dm-[0-9]*/uevent r,
   /sys/devices/virtual/block/dm-[0-9]*/dm/name r,
@@ -81,6 +85,7 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   @{PROC}/[0-9]*/net/ipv6_route r,
   @{PROC}/[0-9]*/net/dev r,
   @{PROC}/[0-9]*/net/wireless r,
+  @{PROC}/[0-9]*/net/arp r,
 
   # should maybe be in abstractions
   /etc/ r,
@@ -138,16 +143,26 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/config r,
+  /sys/devices/system/node/node[0-9]*/meminfo r,
   /etc/mtab r,
   audit deny /etc/fstab r,
 
   # Needed for the crash reporter
   owner @{PROC}/[0-9]*/environ r,
   owner @{PROC}/[0-9]*/auxv r,
+  owner @{PROC}/[0-9]*/status r,
+  owner @{PROC}/[0-9]*/cmdline r,
   /etc/lsb-release r,
+  /etc/ssl/openssl.cnf r,
+  /usr/lib/thunderbird/crashreporter ix,
   /usr/bin/expr ix,
   /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
+  /sys/devices/pci[0-9]*/**/config r,
+  /sys/devices/pci[0-9]*/**/vendor r,
+  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  /sys/devices/pci[0-9]*/**/device r,
+  /sys/devices/pci[0-9]*/**/subsystem_device r,
 
   # about:memory
   owner @{PROC}/[0-9]*/statm r,
@@ -174,6 +189,7 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   owner @{MOZ_HOMEDIR}/**/*.{db,parentlock,sqlite}* k,
   owner @{MOZ_HOMEDIR}/plugins/** rm,
   owner @{MOZ_HOMEDIR}/**/plugins/** rm,
+
   # Cache
   owner @{HOME}/.cache/thunderbird/ rw,
   owner @{HOME}/.cache/thunderbird/** rw,
@@ -212,7 +228,13 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   /bin/uname Uxr,
   /usr/bin/locale Uxr,
 
-  /usr/bin/gpg Cx -> gpg,
+  /usr/bin/gpg               Cx -> gpg,
+  /usr/bin/gpg2              Cx -> gpg,
+  /usr/bin/gpgconf           Cx -> gpg,
+  /usr/bin/gpg-connect-agent Cx -> gpg,
+
+  # TB tries to create this file but has no business doing so
+  deny @{HOME}/.gnupg/gpg-agent.conf w,
 
   profile gpg {
     #include <abstractions/base>
@@ -224,6 +246,13 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
     # Have to install the enigmail Debian package
     /usr/share/xul-ext/enigmail/chrome/enigmail.jar r,
 
+    # silence noise from enigmail 1.9+
+    deny owner @{MOZ_HOMEDIR}/*/.parentlock w,
+    deny owner @{MOZ_HOMEDIR}/*/panacea.dat w,
+    deny owner @{MOZ_HOMEDIR}/*/*.mab w,
+    deny owner @{MOZ_HOMEDIR}/**/*.msf w,
+    deny owner @{HOME}/.cache/thunderbird/**/_CACHE_* w,
+
     # For smartcards?
     /dev/bus/usb/ r,
     /dev/bus/usb/[0-9]*/ r,
@@ -233,72 +262,12 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
     /etc/ldap/ldap.conf r,
 
     /usr/bin/gpg mr,
-    /usr/lib/gnupg/gpgkeys_* ix,
-    owner @{HOME}/.gnupg r,
-    owner @{HOME}/.gnupg/gpg.conf r,
-    owner @{HOME}/.gnupg/random_seed rwk,
-    owner @{HOME}/.gnupg/pubring.kbx{,~} rw,
-    owner @{HOME}/.gnupg/trustdb.gpg rw,
-    owner @{HOME}/.gnupg/.#lk0x[0-9a-f]*.* rwl,
-    owner @{HOME}/.gnupg/.* rwl,
-	owner @{HOME}/.gnupg/*.lock rwl,
-	owner @{HOME}/.gnupg/*.tmp rwl,
-	owner @{HOME}/.gnupg/openpgp-revocs.d/ rw,
-	owner @{HOME}/.gnupg/openpgp-revocs.d/** rw,
-
-
-    owner /run/user/[0-9]*/keyring-*/gpg rw,
-
-    # for inline pgp
-    owner /tmp/encfile rw,
-    owner /tmp/encfile-[0-9]* rw,
-  }
-
-  /usr/bin/gpg2              Cx -> gpg2,
-  /usr/bin/gpgconf           Cx -> gpg2,
-  /usr/bin/gpg-connect-agent Cx -> gpg2,
-
-  # TB tries to create this file but has no business doing so
-  deny @{HOME}/.gnupg/gpg-agent.conf w,
-
-  profile gpg2 {
-    #include <abstractions/base>
-
-    # Required to import keys from keyservers
-    #include <abstractions/nameservice>
-    #include <abstractions/p11-kit>
-    /usr/lib/gnupg2/gpg2keys_hkp ix,
-
-    # silence noise from enigmail 1.9+
-    deny owner @{MOZ_HOMEDIR}/*/.parentlock w,
-    deny owner @{MOZ_HOMEDIR}/*/panacea.dat w,
-    deny owner @{MOZ_HOMEDIR}/*/*.mab w,
-    deny owner @{MOZ_HOMEDIR}/**/*.msf w,
-    deny owner @{HOME}/.cache/thunderbird/**/_CACHE_* w,
-
-    # Have to install the enigmail Debian package
-    /usr/share/xul-ext/enigmail/chrome/enigmail.jar r,
-
-    # For smartcards?
-    /dev/bus/usb/ r,
-    /dev/bus/usb/[0-9]*/ r,
-    /dev/bus/usb/[0-9]*/[0-9]* r,
-
-    # LDAP key servers
-    /etc/ldap/ldap.conf r,
-
-    /usr/bin/gpg-connect-agent mr,
-    owner @{HOME}/.gnupg/S.gpg-agent rw,
-    owner @{HOME}/.gnupg/S.dirmngr rw,
-    owner /run/user/[0-9]*/gnupg/S.gpg-agent rw,
-	#owner /run/user/[0-9]*/gnupg/S.gpg-agent.ssh rw,
-
-    /usr/bin/gpgconf mr,
-	/usr/bin/gpg-agent rix,
-	owner @{HOME}/.gnupg/gpg-agent.conf r,
-	owner @{HOME}/.gnupg/private-keys-v1.d/ wr,
-
     /usr/bin/gpg2 mr,
+    /usr/bin/gpgconf mr,
+    /usr/bin/gpg-connect-agent mr,
+    /usr/lib/gnupg/gpgkeys_* ix,
+    /usr/lib/gnupg2/gpg2keys_* ix,
+
     owner @{HOME}/.gnupg/ rw,
     owner @{HOME}/.gnupg/gpg.conf r,
     owner @{HOME}/.gnupg/random_seed rwk,
@@ -309,8 +278,19 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
     #owner @{HOME}/** r,
     owner @{PROC}/@{pids}/mountinfo r,
     owner @{HOME}/.gnupg/.* rwl,
-	owner @{HOME}/.gnupg/*.lock rwl,
-	owner @{HOME}/.gnupg/*.tmp rwl,
+    owner @{HOME}/.gnupg/*.lock rwl,
+    owner @{HOME}/.gnupg/*.tmp rwl,
+
+    owner /run/user/[0-9]*/keyring-*/gpg rw,
+
+    owner @{HOME}/.gnupg/S.gpg-agent rw,
+    owner @{HOME}/.gnupg/S.dirmngr rw,
+    owner /run/user/[0-9]*/gnupg/S.gpg-agent rw,
+    #owner /run/user/[0-9]*/gnupg/S.gpg-agent.ssh rw,
+
+    /usr/bin/gpg-agent rix,
+    owner @{HOME}/.gnupg/gpg-agent.conf r,
+    owner @{HOME}/.gnupg/private-keys-v1.d/ wr,
 
     # for inline pgp
     owner /tmp/encfile rw,
@@ -325,6 +305,37 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
     owner /tmp/data-[0-9]*.sig r,
 
     owner /tmp/gpg-[a-zA-Z0-9]*/S.gpg-agent rw,
+
+    /usr/share/sounds/** r,
+  }
+
+  /usr/bin/lsb_release Cxr -> lsb_release,
+  profile lsb_release {
+    #include <abstractions/base>
+    #include <abstractions/python>
+    /usr/bin/lsb_release r,
+    /bin/dash ixr,
+    /usr/bin/dpkg-query ixr,
+    /usr/include/python2.[4567]/pyconfig.h r,
+    /etc/lsb-release r,
+    /etc/debian_version r,
+    /var/lib/dpkg/** r,
+
+    /usr/local/lib/python3.[0-9]/dist-packages/ r,
+    /usr/bin/ r,
+    /usr/bin/python3.[0-9] mr,
+
+    deny /usr/bin/apt-cache xr,
+    /etc/apt/apt.conf.d/ r,
+    /etc/default/apport r,
+    /etc/dpkg/origins/debian r,
+    /usr/share/distro-info/debian.csv r,
+
+    # file_inherit
+    deny /tmp/gtalkplugin.log w,
+
+    owner @{PROC}/@{pid}/fd/ r,
+    owner @{PROC}/@{pid}/fd/* r,
   }
 
   # Launch external apps
@@ -336,3 +347,4 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.bin.thunderbird>
 }
+

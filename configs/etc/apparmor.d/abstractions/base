@@ -35,6 +35,12 @@
   /usr/share/zoneinfo/**         r,
   /usr/share/X11/locale/**       r,
   /{,var/}run/systemd/journal/dev-log w,
+  # systemd native journal API (see sd_journal_print(4))
+  /{,var/}run/systemd/journal/socket w,
+  # Nested containers and anything using systemd-cat need this. 'r' shouldn't
+  # be required but applications fail without it. journald doesn't leak
+  # anything when reading so this is ok.
+  /{,var/}run/systemd/journal/stdout rw,
 
   /usr/lib{,32,64}/locale/**             mr,
   /usr/lib{,32,64}/gconv/*.so            mr,

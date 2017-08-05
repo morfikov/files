@@ -62,13 +62,16 @@
 	/etc/firefox/ r,
 	/etc/firefox/** r,
 
-	# Firefox plugins and extensions
+	# Firefox plugins & extensions
 	deny /usr/lib/mozilla/plugins/*.so mr,
 	deny /usr/share/mozilla/extensions/** r,
 
 	# Flash plugin
 	audit deny /opt/google/chrome/PepperFlash/ r,
 	audit deny /usr/lib/browser-plugin-freshplayer-pepperflash/ r,
+
+	# Fix problems with empty pages
+	owner /dev/shm/org.chromium.* rw,
 
 	# Flash config files
 	#/etc/adobe/mms.cfg  r,
@@ -114,9 +117,12 @@
 	/sys/devices/virtual/block/**/dm/name r,
 	/dev/dri/ r,
 	/sys/devices/pci[0-9]*/**/config r,
-
-	# Fix problems with empty pages
-	owner /dev/shm/org.chromium.* rw,
+	/sys/devices/pci[0-9]*/**/vendor r,
+	/sys/devices/pci[0-9]*/**/subsystem_vendor r,
+	/sys/devices/pci[0-9]*/**/device r,
+	/sys/devices/pci[0-9]*/**/subsystem_device r,
+	# since v54.0
+	/dev/ r,
 
 	# webcam & mic
 	audit deny /dev/video0 rw,
