@@ -121,7 +121,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
-ls_opt+=' --classify --human-readable --almost-all --group-directories-first --time-style="+%Y-%m-%d %H:%M:%S" '
+ls_opt+=' --classify --almost-all --group-directories-first --time-style="+%Y-%m-%d %H:%M:%S" '
 alias ls="ls $ls_opt"
 
 # list and grep

@@ -234,8 +234,7 @@ Changes:
   git commit --amend -S -m 'new message'	(Rename the last comment message)
 
 Rename comments:
-  git rebase -i HEAD~7    (Displays a list of the last 7 commits on the
-                          current branch)
+  git rebase -i --gpg-sign=morfik@nsa.com HEAD~6 (change/rename/delete last 6 commits)
   git push --force
 
 Diffs:
