@@ -22,10 +22,27 @@
 #
 
 
+
+
 #Package: *gtk-3* *gtksource*-3*
 #Pin: release o=Debian,a=testing
 #Pin: version 3.18*
 #Pin-Priority: 1001
+
+Package: libfreetype6 libfreetype6:i386
+Pin: release o=Debian,a=testing
+Pin: version 2.6.3*
+Pin-Priority: 1001
+
+#Package: *
+#Pin: release o=Debian,a=testing
+#Pin-Priority: 1001
+
+#Package: amarok*
+#Pin: release o=Debian,a=unstable
+#Pin: version 2.8.0-6
+#Pin-Priority: 1001
+
 
 #Package: libpulse* pulseaudio*
 #Pin: release o=Debian,a=experimental
@@ -35,13 +52,9 @@
 #Pin: release o=Debian,a=testing
 #Pin-Priority: 995
 
-Package: amarok*
-Pin: release o=Debian,a=unstable
-Pin-Priority: 995
-
 #Package: libnss-myhostname libpam-systemd libsystemd0 libudev1 systemd systemd-sysv udev
 #Pin: release o=Debian,a=testing
-#Pin-Priority: 995
+#Pin-Priority: 1001
 
 #Package: smplayer* smtube
 #Pin: origin ppa.launchpad.net
@@ -50,7 +63,7 @@ Pin-Priority: 995
 
 Package: qbittorrent*
 Pin: origin ppa.launchpad.net
-Pin: release o=LP-PPA-qbittorrent-team-qbittorrent-unstable,l=qbittorrent-unstable
+Pin: release o=LP-PPA-qbittorrent-team-qbittorrent-stable,l=qbittorrent-stable
 Pin-Priority: 995
 
 #Package: spacefm*
@@ -100,4 +113,12 @@ Pin-Priority: 990
 
 Package: *
 Pin: origin ppa.launchpad.net
+Pin-Priority: 120
+
+Package: *
+Pin: origin archive.ubuntu.com
+Pin-Priority: 120
+
+Package: *
+Pin: origin archive.canonical.com
 Pin-Priority: 120

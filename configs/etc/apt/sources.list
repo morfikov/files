@@ -6,42 +6,46 @@
 # For a specific ARCH, use [arch=amd64,i386] after deb.
 #
 
-### Jessie - stable ###
-# deb http://httpredir.debian.org/debian/ stable main non-free contrib
-# deb-src http://httpredir.debian.org/debian/ stable main non-free contrib
+### Stretch - stable ###
+# deb https://deb.debian.org/debian/ stable main non-free contrib
+# deb-src https://deb.debian.org/debian/ stable main non-free contrib
 # deb http://security.debian.org/ stable/updates main contrib non-free
 # deb-src http://security.debian.org/ stable/updates main contrib non-free
+# deb https://deb.debian.org/debian-security stable/updates main
+# deb-src https://deb.debian.org/debian-security stable/updates main
 
 # deb http://www.deb-multimedia.org stable main non-free
 # deb-src http://www.deb-multimedia.org stable main non-free
 
-#deb http://mirrors.kernel.org/debian jessie-backports main contrib
-#deb-src http://mirrors.kernel.org/debian jessie-backports main contrib
-#deb http://http.debian.net/debian jessie-backports main
+# deb http://mirrors.kernel.org/debian stable-backports main contrib
+# deb-src http://mirrors.kernel.org/debian stable-backports main contrib
+# deb http://http.debian.net/debian stable-backports main
 
-### Stretch - testing ###
-#deb http://httpredir.debian.org/debian/ testing main non-free contrib
-# deb-src http://httpredir.debian.org/debian/ testing main non-free contrib
-#deb http://security.debian.org/ testing/updates main contrib non-free
+### Buster - testing ###
+deb https://deb.debian.org/debian/ testing main non-free contrib
+# deb-src https://deb.debian.org/debian/ testing main non-free contrib
+# deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
+deb https://deb.debian.org/debian-security testing/updates main
+# deb-src https://deb.debian.org/debian-security testing/updates main
 
 # deb http://www.deb-multimedia.org testing main non-free
 # deb-src http://www.deb-multimedia.org testing main non-free
 
 ### SID ###
-deb http://httpredir.debian.org/debian/ sid main non-free contrib
-#deb-src http://httpredir.debian.org/debian/ sid main non-free contrib
+deb https://deb.debian.org/debian/ sid main non-free contrib
+# deb-src https://deb.debian.org/debian/ sid main non-free contrib
 
-#deb ftp://ftp.deb-multimedia.org sid main non-free
-#deb-src ftp://ftp.deb-multimedia.org sid main non-free
+# deb http://www.deb-multimedia.org sid main non-free
+# deb-src http://www.deb-multimedia.org sid main non-free
 
 ### EXPERIMENTAL ###
-deb http://httpredir.debian.org/debian/ experimental main contrib non-free
-#deb-src http://httpredir.debian.org/debian/ experimental main contrib non-free
+deb https://deb.debian.org/debian/ experimental main contrib non-free
+# deb-src https://deb.debian.org/debian/ experimental main contrib non-free
 
 ### INCOMING ###
-# deb http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
-# deb-src http://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
+# deb https://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
+# deb-src https://incoming.debian.org/debian-buildd buildd-unstable main contrib non-free
 
 ### via TOR ###
 #deb tor+http://http.debian.net/debian sid main
@@ -53,9 +57,6 @@ deb http://httpredir.debian.org/debian/ experimental main contrib non-free
 ####################### ADDs ############################
 
 ### mati75 ###
-# deb http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
-# deb-src http://repozytorium.mati75.eu/debian jessie-backports main contrib non-free
-
 #deb http://repozytorium.mati75.eu/debian sid main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian sid main contrib non-free
 
@@ -63,22 +64,21 @@ deb http://httpredir.debian.org/debian/ experimental main contrib non-free
 # deb-src http://repozytorium.mati75.eu/debian experimental main contrib non-free
 
 ### Google chrome (browser) ###
-# deb http://dl.google.com/linux/chrome/deb/ stable main
+# deb https://dl.google.com/linux/chrome/deb/ stable main
 
 ### Opera (browser) ###
-#deb https://deb.opera.com/opera-stable/ stable non-free
+# deb https://deb.opera.com/opera-stable/ stable non-free
 
 ### Dropbox (cloud storage) ###
-# deb http://linux.dropbox.com/debian squeeze main
-deb http://linux.dropbox.com/debian sid main
+deb https://linux.dropbox.com/debian sid main
 
 ### Spideroak (cloud storage) ###
 # deb http://apt.spideroak.com/debian/ stable non-free
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
-#deb https://mega.co.nz/linux/MEGAsync/Debian_9.0/ ./
-deb https://mega.co.nz/linux/MEGAsync/xUbuntu_16.04/ ./
+# deb https://mega.co.nz/linux/MEGAsync/Debian_9.0/ ./
+deb https://mega.co.nz/linux/MEGAsync/xUbuntu_16.10/ ./
 
 ### Gajim (jabber) ###
 # deb ftp://ftp.gajim.org/debian unstable main
@@ -88,7 +88,7 @@ deb https://mega.co.nz/linux/MEGAsync/xUbuntu_16.04/ ./
 # deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib
 
 ### VirtualBox ###
-# deb http://download.virtualbox.org/virtualbox/debian jessie contrib non-free
+# deb http://download.virtualbox.org/virtualbox/debian stretch contrib non-free
 
 ### Jitsi (SIP Communicator) ###
 # deb http://download.jitsi.org/deb unstable/
@@ -98,10 +98,8 @@ deb https://mega.co.nz/linux/MEGAsync/xUbuntu_16.04/ ./
 # deb https://debian.anonymous-proxy-servers.net sid main
 
 ### TOR (anonymity) ###
-deb http://deb.torproject.org/torproject.org sid main
-#deb-src http://deb.torproject.org/torproject.org sid main
-#deb http://deb.torproject.org/torproject.org tor-experimental-0.2.7.x-sid main
-#deb-src http://deb.torproject.org/torproject.org tor-experimental-0.2.7.x-sid main
+deb https://deb.torproject.org/torproject.org sid main
+#deb-src https://deb.torproject.org/torproject.org sid main
 
 ### LiveUSB MultiBoot ###
 # deb http://liveusb.info/multisystem/depot all main
@@ -112,84 +110,65 @@ deb http://deb.torproject.org/torproject.org sid main
 ####################### PPAs ############################
 
 # GNS3 (network)
-deb http://ppa.launchpad.net/gns3/ppa/ubuntu yakkety main
-#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu yakkety main
-
-### Shutter (screenshot) ###
-# deb http://ppa.launchpad.net/shutter/ppa/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu yakkety main
+deb http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
+#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
 
 ### Haguichi (vpn) ###
-# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu yakkety main
+# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu zesty main
 
 ### i2p (anonymity) ###
-# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu yakkety main
+# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu zesty main
 
 ### Java (oracle) ###
-# deb http://ppa.launchpad.net/webupd8team/java/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu yakkety main
+# deb http://ppa.launchpad.net/webupd8team/java/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu zesty main
 
 ### qBitorrent (p2p) ###
-# deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu xenial main
-#
-deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-unstable/ubuntu xenial main
-
-### Tuxboot ###
-# deb http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/thomas.tsai/ubuntu-tuxboot/ubuntu yakkety main
+deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
 
 ### Grub Customizer ###
-# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu yakkety main
-
-### File sync ###
-# deb http://ppa.launchpad.net/freefilesync/ffs/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/freefilesync/ffs/ubuntu yakkety main
+# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
 
 ### SMPlayer (video) ###
-deb http://ppa.launchpad.net/rvm/smplayer/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu yakkety main
+# deb http://ppa.launchpad.net/rvm/smplayer/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu zesty main
 
 ### Keepass2 (passwords) ###
-deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
-# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu xenial main
+# deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu zesty main
 
 ### Desktop recorder ###
 # deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
 # deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
 
-### whdd ###
-#deb http://ppa.launchpad.net/eugenesan/ppa/ubuntu yakkety main
-#deb-src http://ppa.launchpad.net/eugenesan/ppa/ubuntu yakkety main
-
 ### inxi (system info) ###
-deb http://ppa.launchpad.net/unit193/inxi/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu yakkety main
+# deb http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
 
 ### Spacefm ###
-# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu yakkety main
+# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
+# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
+
+### WineHQ ###
+# deb https://dl.winehq.org/wine-builds/ubuntu/ zesty main
+# deb-src https://dl.winehq.org/wine-builds/ubuntu/ zesty main
 
 # Ubuntu #
-#deb http://archive.ubuntu.com/ubuntu/ yakkety main
-#deb http://archive.canonical.com/ubuntu yakkety partner
+# deb http://archive.ubuntu.com/ubuntu/ zesty main
+# deb http://archive.canonical.com/ubuntu zesty partner
 
 ### Debian snapshot ###
 # deb http://snapshot.debian.org/archive/debian/20161102T033150Z/ testing main contrib non-free
 # deb-src http://snapshot.debian.org/archive/debian/20161102T033150Z/ sid main contrib non-free
 
+####################### local ###########################
 
-### local ###
 deb file:/media/Kabi/repozytorium/debian/ sid main contrib non-free
 deb-src file:/media/Kabi/repozytorium/debian/ sid main contrib non-free
 
 #deb http://deb.morfikownia.lh/debian/ sid main contrib non-free
 #deb-src http://deb.morfikownia.lh/debian/ sid main contrib non-free
-
-### PacketFence ###
-#deb http://inverse.ca/downloads/PacketFence/debian wheezy wheezy
-#deb-src http://inverse.ca/downloads/PacketFence/debian wheezy wheezy
