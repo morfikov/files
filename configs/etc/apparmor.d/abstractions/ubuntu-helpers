@@ -65,7 +65,7 @@ profile sanitized_helper {
   # require the santized_helper (ie, LD_PRELOAD will only use standard system
   # paths (man ld.so)).
   /usr/lib/chromium-browser/chromium-browser-sandbox PUxr,
-  /usr/lib/chromium-browser/chrome-sandbox PUxr,
+  /usr/lib/chromium{,-browser}/chrome-sandbox PUxr,
   /opt/google/chrome/chrome-sandbox PUxr,
   /opt/google/chrome/google-chrome Pixr,
   /opt/google/chrome/chrome Pixr,

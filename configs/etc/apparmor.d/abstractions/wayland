@@ -11,4 +11,4 @@
 
   owner /var/run/user/*/weston-shared-* rw,
   owner /run/user/*/wayland-[0-9]* rw,
-  owner /run/user/*/{mesa,mutter,sdl,weston,xwayland}-shared-* rw,
+  owner /run/user/*/{mesa,mutter,sdl,wayland-cursor,weston,xwayland}-shared-* rw,
