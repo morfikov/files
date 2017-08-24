@@ -1,0 +1,46 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/youtube-dl {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/audio>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/python>
+  #include <abstractions/private-files-strict>
+  #include <abstractions/user-download>
+  #include <abstractions/user-tmp>
+
+  /usr/bin/ r,
+  /usr/bin/youtube-dl r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/status r,
+  owner @{PROC}/@{pid}/mounts r,
+
+  /etc/mime.types r,
+
+  owner @{HOME}/.cache/youtube-dl/ rw,
+  owner @{HOME}/.cache/youtube-dl/** rw,
+
+  /usr/bin/gcc rix,
+  /sbin/ldconfig rix,
+
+  /usr/bin/python3.5 rix,
+
+  /usr/bin/ffmpeg rPUx,
+  /usr/bin/ffprobe rPUx,
+
+}
