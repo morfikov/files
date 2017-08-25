@@ -1,8 +1,7 @@
-# Last Modified: Wed Sep  2 15:28:19 2015
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2015 Mikhail Morfikov
+#    Copyright (C) 2015-2017 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public

@@ -60,6 +60,8 @@
 	@{PROC}/@{pid}/cmdline r,
 	@{PROC}/@{pid}/status r,
 
+	/etc/xdg/QtProject/qtlogging.ini r,
+
 	# Open in the browser
 	/usr/bin/xdg-open rCUx,
 	/opt/firefox/firefox rPUx,
