@@ -1,0 +1,25 @@
+# Last Modified: Sun Jul 14 00:54:56 2013
+#include <tunables/global>
+
+/usr/bin/ffmpeg {
+  #include <abstractions/base>
+  #include <abstractions/private-files-strict>
+  #include <abstractions/user-tmp>
+
+
+  /usr/bin/ffmpeg  mr,
+
+  # Which files ffmpeg should be able to open
+  / r,
+  /**/ r,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} rw,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} rw,
+  /**/*.{TXT,SRT,txt,srt} r,
+  /**/*.{JPG,JPEG,PNG,jpg,jpeg,png} rw,
+
+  owner @{PROC}/@{pid}/status r,
+  /sys/devices/system/cpu/ r,
+  /sys/devices/system/node/ r,
+  /sys/devices/system/node/node0/meminfo r,
+
+}

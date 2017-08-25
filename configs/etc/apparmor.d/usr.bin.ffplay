@@ -1,0 +1,45 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/ffplay {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio>
+  #include <abstractions/dbus-session-strict>
+  #include <abstractions/private-files-strict>
+  #include <abstractions/user-tmp>
+
+
+  /usr/bin/ffplay mr,
+
+  # Which files ffplay should be able to open
+  / r,
+  /**/ r,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} r,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} r,
+  /**/*.{TXT,SRT,txt,srt} r,
+
+  owner @{PROC}/@{pid}/status r,
+  /sys/devices/system/cpu/ r,
+  /sys/devices/system/node/ r,
+  /sys/devices/system/node/node0/meminfo r,
+
+  /dev/dri/ r,
+  /sys/devices/pci[0-9]*/**/uevent r,
+  /sys/devices/pci[0-9]*/**/vendor r,
+  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  /sys/devices/pci[0-9]*/**/device r,
+  /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+}
