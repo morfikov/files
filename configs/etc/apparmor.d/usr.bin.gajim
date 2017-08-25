@@ -13,93 +13,84 @@
 
 /usr/bin/gajim {
 
-	#include <abstractions/base>
+  #include <abstractions/base>
 
-	/usr/bin/basename rix,
-	/usr/bin/gajim r,
-	/usr/bin/id rix,
-	/usr/bin/python2.7 Cx,
+  /usr/bin/basename rix,
+  /usr/bin/gajim r,
+  /usr/bin/id rix,
+  /usr/bin/python2.7 Cx,
 
-	profile /usr/bin/python2.7 {
-		#include <abstractions/base>
-		#include <abstractions/gnome>
-		#include <abstractions/audio>
-		#include <abstractions/dbus-session>
-		#include <abstractions/nameservice>
-		#include <abstractions/openssl>
-		#include <abstractions/python>
-		#include <abstractions/user-download>
-		#include <abstractions/private-files>
+  profile /usr/bin/python2.7 {
+    #include <abstractions/base>
+    #include <abstractions/gnome>
+    #include <abstractions/audio>
+    #include <abstractions/dbus-session>
+    #include <abstractions/nameservice>
+    #include <abstractions/openssl>
+    #include <abstractions/python>
+    #include <abstractions/private-files>
 
-		# potentially extremely sensitive files
-		audit deny @{HOME}/.ssh/** mrwkl,
-		audit deny @{HOME}/.gnome2_private/** mrwkl,
-		audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
-		# don't allow access to any gnome-keyring modules
-		audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
-		audit deny @{HOME}/.mozilla/** mrwkl,
-		audit deny @{HOME}/.config/chromium/** mrwkl,
-		audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
-		audit deny @{HOME}/.evolution/** mrwkl,
-		audit deny @{HOME}/.config/evolution/** mrwkl,
-		audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
-		audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
+    # potentially extremely sensitive files
+    audit deny @{HOME}/.ssh/** mrwkl,
+    audit deny @{HOME}/.gnome2_private/** mrwkl,
+    audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
+    # don't allow access to any gnome-keyring modules
+    audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
+    audit deny @{HOME}/.mozilla/** mrwkl,
+    audit deny @{HOME}/.config/chromium/** mrwkl,
+    audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
+    audit deny @{HOME}/.evolution/** mrwkl,
+    audit deny @{HOME}/.config/evolution/** mrwkl,
+    audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
+    audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
 
-		/ r,
-		/usr/bin/ r,
+    / r,
+    /usr/bin/ r,
 
-		/bin/dash rix,
-		/usr/bin/nslookup rix,
-		/usr/bin/host rix,
-		/usr/bin/gcc-* rix,
-		/sbin/ldconfig rix,
-		/sbin/ldconfig.real rix,
-		/bin/uname rix,
+    /bin/dash rix,
+    /usr/bin/nslookup rix,
+    /usr/bin/host rix,
+    /usr/bin/gcc-* rix,
+    /sbin/ldconfig rix,
+    /sbin/ldconfig.real rix,
+    /bin/uname rix,
 
-		# Gajim files
-		/usr/share/gajim/** rw,
+    # Gajim files
+    /usr/share/gajim/** rw,
 
-		# Python files
-		/usr/lib/python*/** rw,
-		/usr/lib/python*/** rw,
-		/usr/bin/python r,
-		/usr/bin/python* mr,
-		/usr/local/bin/ r,
-		/usr/local/lib/python*/** rw,
+    # Python files
+    /usr/lib/python*/** rw,
+    /usr/lib/python*/** rw,
+    /usr/bin/python r,
+    /usr/bin/python* mr,
+    /usr/local/bin/ r,
+    /usr/local/lib/python*/** rw,
 
-		# Gajim home files
-		owner @{HOME}/.config/gajim/ rw,
-		owner @{HOME}/.config/gajim/** rw,
-		owner @{HOME}/.local/share/gajim/ rw,
-		owner @{HOME}/.local/share/gajim/** rwk,
+    # Gajim home files
+    owner @{HOME}/.config/gajim/ rw,
+    owner @{HOME}/.config/gajim/** rw,
+    owner @{HOME}/.local/share/gajim/ rw,
+    owner @{HOME}/.local/share/gajim/** rwk,
 
-		# Send files
-		owner @{HOME}/.config/gtk-3.0/bookmarks r,
+    # Send files
+    owner @{HOME}/.config/gtk-3.0/bookmarks r,
 
-		# GPG
-		/usr/bin/gpg rix,
-		owner @{HOME}/.gnupg/gpg.conf r,
-		owner @{HOME}/.gnupg/secring.gpg r,
-		owner @{HOME}/.gnupg/pubring.gpg r,
-		owner @{HOME}/.gnupg/.* rwl,
-		owner @{HOME}/.gnupg/trustdb.gpg rw,
-		owner @{HOME}/.gnupg/random_seed rwk,
+    # Sounds
+    /usr/bin/aplay rix,
 
-		# Sounds
-		/usr/bin/aplay rix,
+    # Cache
+    owner /tmp/morfik_cache/.cache/gajim/ rwk,
+    owner /tmp/morfik_cache/.cache/gajim/** rwk,
+    owner @{HOME}/.cache/gajim/ rwk,
+    owner @{HOME}/.cache/gajim/** rwk,
 
-		# Cache
-		owner /tmp/morfik_cache/.cache/gajim/ rwk,
-		owner /tmp/morfik_cache/.cache/gajim/** rwk,
-		owner @{HOME}/.cache/gajim/ rwk,
-		owner @{HOME}/.cache/gajim/** rwk,
+    # Proc filesystem
+    @{PROC}/ r,
+    @{PROC}/** r,
 
-		# Proc filesystem
-		@{PROC}/ r,
-		@{PROC}/** r,
+    # External apps
+    /usr/lib/firefox/firefox rPUx,
+    /usr/bin/gpg rPUx,
 
-		# External apps
-		/usr/lib/firefox/firefox rPUx,
-
-	}
+  }
 }

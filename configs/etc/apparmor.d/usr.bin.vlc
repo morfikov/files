@@ -21,7 +21,6 @@
   #include <abstractions/dbus-session-strict>
   #include <abstractions/consoles>
   #include <abstractions/private-files-strict>
-  #include <abstractions/user-download>
   #include <abstractions/user-tmp>
   #include <abstractions/nvidia>
 

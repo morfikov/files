@@ -18,7 +18,6 @@ profile /opt/google/chrome/chrome {
 	#include <abstractions/audio>
 	#include <abstractions/gstreamer>
 	#include <abstractions/dbus-session>
-	#include <abstractions/user-download>
 	#include <abstractions/private-files-strict>
 
 	# google-chrome files

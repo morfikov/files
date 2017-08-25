@@ -13,77 +13,87 @@
 
 /usr/bin/qbittorrent {
 
-	#include <abstractions/base>
-	#include <abstractions/gnome>
-	#include <abstractions/kde>
-	#include <abstractions/gstreamer>
-	#include <abstractions/openssl>
-	#include <abstractions/nameservice>
-	#include <abstractions/user-tmp>
-	#include <abstractions/private-files-strict>
+  #include <abstractions/base>
+  #include <abstractions/gnome>
+  #include <abstractions/kde>
+  #include <abstractions/gstreamer>
+  #include <abstractions/openssl>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/private-files-strict>
 
-	# Qbittorrent files
-	/usr/bin/qbittorrent mr,
+  # Qbittorrent files
+  /usr/bin/qbittorrent mr,
 
-	# Qbittorrent home dirs
-	owner @{HOME}/.config/qBittorrent/** rwk,
-	owner @{HOME}/.local/share/data/qBittorrent/** rw,
+  # Qbittorrent home dirs
+  owner @{HOME}/.config/qBittorrent/** rwk,
+  owner @{HOME}/.local/share/data/qBittorrent/** rw,
 
-	# Torrent files
-	owner /media/ r,
-	owner /media/Kabi/ r,
-	owner /media/Kabi/torrent/ rw,
-	owner /media/Kabi/torrent/** rw,
-	owner /media/Grafi/ r,
-	owner /media/Grafi/torrent/ rw,
-	owner /media/Grafi/torrent/** rw,
-	owner @{HOME}/Desktop/ r,
-	owner @{HOME}/Desktop/* r,
+  # Torrent files
+  owner /media/ r,
+  owner /media/Kabi/ r,
+  owner /media/Kabi/torrent/ rw,
+  owner /media/Kabi/torrent/** rw,
+  owner /media/Grafi/ r,
+  owner /media/Grafi/torrent/ rw,
+  owner /media/Grafi/torrent/** rw,
+  owner @{HOME}/Desktop/ r,
+  owner @{HOME}/Desktop/* r,
 
-	# Cache dir
-	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
-	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
-	owner @{HOME}/.cache/qBittorrent/ rw,
-	owner @{HOME}/.cache/qBittorrent/** rw,
-	owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
+  # Cache dir
+  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
+  owner @{HOME}/.cache/qBittorrent/ rw,
+  owner @{HOME}/.cache/qBittorrent/** rw,
+  owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
-	# GeoIP settings
-	/usr/share/GeoIP/GeoIP.dat r,
+  # GeoIP settings
+  /usr/share/GeoIP/GeoIP.dat r,
 
-	# Adding torrents
-	owner @{HOME}/.config/QtProject.conf rw,
-	owner @{HOME}/.config/QtProject.conf.* rw,
-	owner @{HOME}/.config/QtProject.conf.lock rwk,
-	/tmp/.X0-lock r,
+  # Adding torrents
+  owner @{HOME}/.config/QtProject.conf rw,
+  owner @{HOME}/.config/QtProject.conf.* rw,
+  owner @{HOME}/.config/QtProject.conf.lock rwk,
+  /tmp/.X0-lock r,
 
-	# Proc files
-	owner @{PROC}/@{pid}/cmdline r,
-	#owner @{PROC}/@{pid}/fd/ r,
-	#owner @{PROC}/@{pid}/fd/* r,
-	#owner @{PROC}/@{pid}/maps r,
-	#owner @{PROC}/@{pid}/smaps r,
-	#owner @{PROC}/@{pid}/mountinfo r,
-	owner @{PROC}/@{pid}/mounts r,
-	#owner @{PROC}/@{pid}/stat r,
-	#owner @{PROC}/@{pid}/statm r,
-	#owner @{PROC}/@{pid}/status r,
-	#owner @{PROC}/@{pid}/task/*/stat r,
-	audit deny owner @{PROC}/uptime r,
+  # Proc files
+  owner @{PROC}/@{pid}/cmdline r,
+  #owner @{PROC}/@{pid}/fd/ r,
+  #owner @{PROC}/@{pid}/fd/* r,
+  #owner @{PROC}/@{pid}/maps r,
+  #owner @{PROC}/@{pid}/smaps r,
+  #owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/mounts r,
+  #owner @{PROC}/@{pid}/stat r,
+  #owner @{PROC}/@{pid}/statm r,
+  #owner @{PROC}/@{pid}/status r,
+  #owner @{PROC}/@{pid}/task/*/stat r,
+  audit deny owner @{PROC}/uptime r,
 
-	#
-	/dev/tty rw,
-	/usr/share/icons/**/index.theme k,
+  #
+  /dev/tty rw,
+  /usr/share/icons/**/index.theme k,
 
-	# Launch external apps
-	/usr/bin/python* rPUx,
-	/usr/bin/exo-open rPUx,
-	/usr/bin/xdg-open rPUx,
-	/usr/bin/xdg-mime rPUx,
-	/usr/bin/smplayer rPUx,
-	/usr/bin/vlc rPUx,
-	/usr/bin/geany rPUx,
-	/usr/bin/okular rPUx,
-	/usr/bin/spacefm rPUx,
-	/usr/bin/viewnior rPUx,
+  /etc/xdg/QtProject/qtlogging.ini r,
+
+  /dev/dri/ r,
+  /sys/devices/pci[0-9]*/**/uevent r,
+  /sys/devices/pci[0-9]*/**/vendor r,
+  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  /sys/devices/pci[0-9]*/**/device r,
+  /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+
+  # Launch external apps
+  /usr/bin/python* rPUx,
+  /usr/bin/exo-open rPUx,
+  /usr/bin/xdg-open rPUx,
+  /usr/bin/xdg-mime rPUx,
+  /usr/bin/smplayer rPUx,
+  /usr/bin/vlc rPUx,
+  /usr/bin/geany rPUx,
+  /usr/bin/okular rPUx,
+  /usr/bin/spacefm rPUx,
+  /usr/bin/viewnior rPUx,
 
 }

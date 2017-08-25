@@ -30,7 +30,6 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   #include <abstractions/p11-kit>
   #include <abstractions/private-files>
   #include <abstractions/ssl_certs>
-  #include <abstractions/user-download>
   #include <abstractions/user-tmp>
 
   # for crash reports?
@@ -232,87 +231,21 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
   /bin/uname Uxr,
   /usr/bin/locale Uxr,
 
-  /usr/bin/gpg               Cx -> gpg,
-  /usr/bin/gpg2              Cx -> gpg,
-  /usr/bin/gpgconf           Cx -> gpg,
-  /usr/bin/gpg-connect-agent Cx -> gpg,
-
   # TB tries to create this file but has no business doing so
   deny @{HOME}/.gnupg/gpg-agent.conf w,
 
-  profile gpg {
-    #include <abstractions/base>
-    #include <abstractions/user-tmp>
 
-    # Required to import keys from keyservers
-    #include <abstractions/nameservice>
-    #include <abstractions/p11-kit>
+  # Launch external apps
+  /usr/lib/firefox/firefox rPUx,
+  /usr/bin/exo-open rPUx,
+  /usr/bin/okular rPUx,
+  /usr/share/applications/kde4/ r,
+  /usr/bin/viewnior rPUx,
 
-    # Have to install the enigmail Debian package
-    /usr/share/xul-ext/enigmail/chrome/enigmail.jar r,
-
-    # silence noise from enigmail 1.9+
-    deny owner @{MOZ_HOMEDIR}/*/.parentlock w,
-    deny owner @{MOZ_HOMEDIR}/*/panacea.dat w,
-    deny owner @{MOZ_HOMEDIR}/*/*.mab w,
-    deny owner @{MOZ_HOMEDIR}/**/*.msf w,
-    deny owner @{HOME}/.cache/thunderbird/**/_CACHE_* w,
-
-    # For smartcards?
-    /dev/bus/usb/ r,
-    /dev/bus/usb/[0-9]*/ r,
-    /dev/bus/usb/[0-9]*/[0-9]* r,
-
-    # LDAP key servers
-    /etc/ldap/ldap.conf r,
-
-    /usr/bin/gpg mr,
-    /usr/bin/gpg2 mr,
-    /usr/bin/gpgconf mr,
-    /usr/bin/gpg-connect-agent mr,
-    /usr/lib/gnupg/gpgkeys_* ix,
-    /usr/lib/gnupg2/gpg2keys_* ix,
-
-    owner @{HOME}/.gnupg/ rw,
-    owner @{HOME}/.gnupg/gpg.conf r,
-    owner @{HOME}/.gnupg/random_seed rwk,
-    owner @{HOME}/.gnupg/pubring.kbx{,~} rw,
-    owner @{HOME}/.gnupg/trustdb.gpg rw,
-    owner @{HOME}/.gnupg/.#lk0x[0-9a-f]*.* rwl,
-    owner @{HOME}/.gnupg/.gpg-v[0-9]*-migrated rw,
-    #owner @{HOME}/** r,
-    owner @{PROC}/@{pids}/mountinfo r,
-    owner @{HOME}/.gnupg/.* rwl,
-    owner @{HOME}/.gnupg/*.lock rwl,
-    owner @{HOME}/.gnupg/*.tmp rwl,
-
-    owner /run/user/[0-9]*/keyring-*/gpg rw,
-
-    owner @{HOME}/.gnupg/S.gpg-agent rw,
-    owner @{HOME}/.gnupg/S.dirmngr rw,
-    owner /run/user/[0-9]*/gnupg/S.gpg-agent rw,
-    #owner /run/user/[0-9]*/gnupg/S.gpg-agent.ssh rw,
-
-    /usr/bin/gpg-agent rix,
-    owner @{HOME}/.gnupg/gpg-agent.conf r,
-    owner @{HOME}/.gnupg/private-keys-v1.d/ wr,
-
-    # for inline pgp
-    owner /tmp/encfile rw,
-    owner /tmp/encfile-[0-9]* rw,
-
-    # for signature generation
-    owner /tmp/nsemail.eml w,
-    owner /tmp/nsemail-[0-9]*.eml w,
-
-    # for signature verifications
-    owner /tmp/data.sig r,
-    owner /tmp/data-[0-9]*.sig r,
-
-    owner /tmp/gpg-[a-zA-Z0-9]*/S.gpg-agent rw,
-
-    /usr/share/sounds/** r,
-  }
+  # Needed for enigmail
+  /usr/bin/gpg rPUx,
+  /usr/bin/gpgconf rPUx,
+  /usr/bin/gpg-connect-agent rPUx,
 
   /usr/bin/lsb_release Cxr -> lsb_release,
   profile lsb_release {
@@ -342,13 +275,6 @@ profile thunderbird /usr/lib/thunderbird/thunderbird {
     owner @{PROC}/@{pid}/fd/ r,
     owner @{PROC}/@{pid}/fd/* r,
   }
-
-  # Launch external apps
-  /usr/lib/firefox/firefox rPUx,
-  /usr/bin/exo-open rPUx,
-  /usr/bin/okular rPUx,
-  /usr/share/applications/kde4/ r,
-  /usr/bin/viewnior rPUx,
 
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.bin.thunderbird>

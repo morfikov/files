@@ -31,7 +31,6 @@
 	#include <abstractions/ssl_certs>
 	#include <abstractions/dconf>
 	#include <abstractions/nameservice>
-	#include <abstractions/user-download>
 	#include <abstractions/dbus-session>
 	#include <abstractions/private-files>
 

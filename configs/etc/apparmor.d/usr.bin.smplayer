@@ -20,7 +20,6 @@
   #include <abstractions/nameservice>
   #include <abstractions/dbus-session-strict>
   #include <abstractions/private-files-strict>
-  #include <abstractions/user-download>
   #include <abstractions/user-tmp>
 
   # Needed for hardware decoding

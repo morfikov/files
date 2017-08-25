@@ -21,7 +21,6 @@
   #include <abstractions/consoles>
   #include <abstractions/dbus-session-strict>
   #include <abstractions/private-files-strict>
-  #include <abstractions/user-download>
   #include <abstractions/user-tmp>
 
   /usr/bin/smtube mr,

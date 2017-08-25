@@ -13,36 +13,36 @@
 
 /usr/bin/qbittorrent-nox {
 
-	#include <abstractions/base>
-	#include <abstractions/openssl>
-	#include <abstractions/nameservice>
-	#include <abstractions/user-tmp>
-	#include <abstractions/private-files-strict>
+  #include <abstractions/base>
+  #include <abstractions/openssl>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/private-files-strict>
 
-	# Qbittorrent dirs/files
-	/usr/bin/qbittorrent-nox mr,
+  # Qbittorrent dirs/files
+  /usr/bin/qbittorrent-nox mr,
 
-	# Qbittorrent home dirs
-	owner @{HOME}/.config/qBittorrent/** rwk,
-	owner @{HOME}/.local/share/data/qBittorrent/** rw,
+  # Qbittorrent home dirs
+  owner @{HOME}/.config/qBittorrent/** rwk,
+  owner @{HOME}/.local/share/data/qBittorrent/** rw,
 
-	# Torrent dirs/files
-	owner /media/ r,
-	owner /media/Kabi/ r,
-	owner /media/Kabi/torrent/ rw,
-	owner /media/Kabi/torrent/** rw,
-	owner /media/Grafi/ r,
-	owner /media/Grafi/torrent/ rw,
-	owner /media/Grafi/torrent/** rw,
+  # Torrent dirs/files
+  owner /media/ r,
+  owner /media/Kabi/ r,
+  owner /media/Kabi/torrent/ rw,
+  owner /media/Kabi/torrent/** rw,
+  owner /media/Grafi/ r,
+  owner /media/Grafi/torrent/ rw,
+  owner /media/Grafi/torrent/** rw,
 
-	# Cache dir
-	owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
-	owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
-	owner @{HOME}/.cache/qBittorrent/ rw,
-	owner @{HOME}/.cache/qBittorrent/** rw,
+  # Cache dir
+  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
+  owner @{HOME}/.cache/qBittorrent/ rw,
+  owner @{HOME}/.cache/qBittorrent/** rw,
 
-	#
-	#/dev/tty rw,
-	owner @{HOME}/.config/Trolltech.conf rk,
+
+  owner @{HOME}/.config/Trolltech.conf rk,
+  /etc/xdg/QtProject/qtlogging.ini r,
 
 }

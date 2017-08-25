@@ -17,7 +17,6 @@
 	#include <abstractions/gnome>
 	#include <abstractions/nameservice>
 	#include <abstractions/openssl>
-	#include <abstractions/user-download>
 	#include <abstractions/private-files-strict>
 
 	# MegaRsync files
