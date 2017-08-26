@@ -7,11 +7,11 @@
 #
 
 ### Stretch - stable ###
-# deb https://deb.debian.org/debian/ stable main non-free contrib
+#deb https://deb.debian.org/debian/ stable main non-free contrib
 # deb-src https://deb.debian.org/debian/ stable main non-free contrib
-# deb http://security.debian.org/ stable/updates main contrib non-free
+#deb http://security.debian.org/ stable/updates main contrib non-free
 # deb-src http://security.debian.org/ stable/updates main contrib non-free
-# deb https://deb.debian.org/debian-security stable/updates main
+#deb https://deb.debian.org/debian-security stable/updates main
 # deb-src https://deb.debian.org/debian-security stable/updates main
 
 # deb http://www.deb-multimedia.org stable main non-free
@@ -22,11 +22,11 @@
 # deb http://http.debian.net/debian stable-backports main
 
 ### Buster - testing ###
-deb https://deb.debian.org/debian/ testing main non-free contrib
+#deb https://deb.debian.org/debian/ testing main non-free contrib
 # deb-src https://deb.debian.org/debian/ testing main non-free contrib
 # deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
-deb https://deb.debian.org/debian-security testing/updates main
+#deb https://deb.debian.org/debian-security testing/updates main
 # deb-src https://deb.debian.org/debian-security testing/updates main
 
 # deb http://www.deb-multimedia.org testing main non-free
@@ -126,8 +126,12 @@ deb http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu zesty main
 
 ### qBitorrent (p2p) ###
-deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
+#deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
+
+### PSI (Communicator) ###
+deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
+#deb-src http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
 
 ### Grub Customizer ###
 # deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
@@ -162,8 +166,8 @@ deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty ma
 # deb http://archive.canonical.com/ubuntu zesty partner
 
 ### Debian snapshot ###
-# deb http://snapshot.debian.org/archive/debian/20161102T033150Z/ testing main contrib non-free
-# deb-src http://snapshot.debian.org/archive/debian/20161102T033150Z/ sid main contrib non-free
+# deb     [check-valid-until=no] http://snapshot.debian.org/archive/debian/20161102T033150Z/ testing main contrib non-free
+# deb-src [check-valid-until=no] http://snapshot.debian.org/archive/debian/20161102T033150Z/ sid main contrib non-free
 
 ####################### local ###########################
 
