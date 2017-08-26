@@ -28,6 +28,7 @@
     #include <abstractions/nameservice>
     #include <abstractions/openssl>
     #include <abstractions/python>
+    #include <abstractions/user-tmp>
     #include <abstractions/private-files>
 
     # potentially extremely sensitive files
@@ -71,6 +72,12 @@
     owner @{HOME}/.config/gajim/** rw,
     owner @{HOME}/.local/share/gajim/ rw,
     owner @{HOME}/.local/share/gajim/** rwk,
+
+    # User downloads
+    owner @{HOME}/[dD]ownload{,s}/	r,
+    owner @{HOME}/[dD]ownload{,s}/**	rwl,
+    owner @{HOME}/[dD]esktop/	r,
+    owner @{HOME}/[dD]esktop/**	rwl,
 
     # Send files
     owner @{HOME}/.config/gtk-3.0/bookmarks r,

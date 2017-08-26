@@ -1,0 +1,102 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/psi-plus {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/consoles>
+  #include <abstractions/enchant>
+  #include <abstractions/fonts>
+  #include <abstractions/ssl_certs>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+
+
+  /usr/bin/psi-plus mr,
+
+  # PSI files
+  /usr/share/psi-plus/ r,
+  /usr/share/psi-plus/** r,
+
+  # PSI config files
+  owner @{HOME}/.config/psi+/ rw,
+  owner @{HOME}/.config/psi+/** rw,
+  owner @{HOME}/.local/share/psi+/ rw,
+  owner @{HOME}/.local/share/psi+/** rw,
+
+  # Cache files
+  owner @{HOME}/.cache/fontconfig/** r,
+  owner @{HOME}/.cache/psi+/** rw,
+
+  /etc/xdg/QtProject/qtlogging.ini r,
+  owner @{HOME}/.cache/qt_compose_cache_* rw,
+
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
+  # Autostart
+  owner @{HOME}/.config/autostart/psi-plus.desktop rw,
+
+  # Deny access to webcam and mic
+  deny /dev/video0 rw,
+  deny /dev/v4l/by-path/ r,
+  deny /dev/snd/pcmC0D0c rw,
+
+  /dev/dri/ r,
+  /sys/devices/pci[0-9]*/**/uevent r,
+  /sys/devices/pci[0-9]*/**/vendor r,
+  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  /sys/devices/pci[0-9]*/**/device r,
+  /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+  # Transferring files
+  owner @{HOME}/.config/QtProject.conf* rwk,
+  owner @{HOME}/.config/QtProject.conf.lock rwk,
+  owner @{HOME}/.config/.* rwk,
+  deny owner @{HOME}/ r,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+
+  /etc/debian_version r,
+
+  # Needed for GPG/PGP support
+  /usr/bin/gpg rPUx,
+
+  /usr/bin/lsb_release rPUx,
+
+  # Needed for playing sound events
+  /usr/bin/aplay rCx -> aplay,
+  profile aplay {
+    #include <abstractions/base>
+    #include <abstractions/audio>
+
+    /usr/bin/aplay mr,
+
+    /etc/machine-id r,
+    /var/lib/dbus/machine-id r,
+
+    /usr/share/alsa/** r,
+    /usr/bin/pulseaudio rix,
+
+    /usr/share/psi-plus/sound/** r,
+
+    owner @{HOME}/.Xauthority r,
+
+  }
+
+}

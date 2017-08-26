@@ -1,0 +1,77 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/lsb_release flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/python>
+
+  /usr/bin/lsb_release r,
+  /usr/bin/dpkg-query ixr,
+  /usr/include/python2.[4567]/pyconfig.h r,
+  /etc/lsb-release r,
+  /etc/debian_version r,
+  /var/lib/dpkg/** r,
+
+  /usr/local/lib/python3.[0-9]/dist-packages/ r,
+  /usr/bin/ r,
+  /usr/bin/python3.[0-9] mr,
+
+  /usr/share/distro-info/debian.csv r,
+  /etc/dpkg/origins/debian r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/fd/* r,
+
+  /usr/bin/apt-cache rCx -> aptcache,
+  profile aptcache {
+    #include <abstractions/base>
+    #include <abstractions/user-tmp>
+
+    /usr/bin/apt-cache mr,
+
+    /etc/default/apport r,
+
+    /etc/apt/apt.conf r,
+    /etc/apt/apt.conf.d/ r,
+    /etc/apt/apt.conf.d/* r,
+
+    /etc/apt/sources.list r,
+    /etc/apt/sources.list.d/ r,
+    /etc/apt/sources.list.d/* r,
+
+    /var/cache/apt/ r,
+    /var/cache/apt/** r,
+    /media/Kabi/backup_packages/apt/ r,
+    /media/Kabi/backup_packages/apt/** r,
+
+    /etc/dpkg/dpkg.cfg r,
+    /etc/dpkg/dpkg.cfg.d/ r,
+    /etc/dpkg/dpkg.cfg.d/* r,
+
+    /var/lib/dpkg/ r,
+    /var/lib/dpkg/* r,
+
+    /etc/apt/preferences r,
+    /etc/apt/preferences.d/ r,
+    /etc/apt/preferences.d/* r,
+
+    /usr/share/dpkg/cputable r,
+    /usr/share/dpkg/tupletable r,
+
+    owner @{PROC}/@{pid}/fd/ r,
+
+    /usr/bin/dpkg rix,
+
+  }
+
+}

@@ -1,4 +1,14 @@
-# Last Modified: Mon Jul  3 14:26:55 2017
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
 #include <tunables/global>
 
 /usr/bin/telegram-desktop {
@@ -24,8 +34,6 @@
   deny /dev/v4l/by-path/ r,
   deny /dev/snd/pcmC0D0c rw,
 
-  /dev/dri/ r,
-
   /etc/ssl/openssl.cnf r,
 
   # cache and tmp files
@@ -36,6 +44,7 @@
   owner @{PROC}/@{pids}/mountinfo r,
   owner @{PROC}/@{pids}/status r,
 
+  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/config r,
   /sys/devices/pci[0-9]*/**/vendor r,
