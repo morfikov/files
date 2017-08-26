@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg {
+/usr/bin/gpg-connect-agent {
 
   #include <abstractions/base>
   #include <abstractions/consoles>
@@ -19,9 +19,9 @@
   #include <abstractions/nameservice>
 
 
-  /usr/bin/gpg mrix,
+  /usr/bin/gpg rPx,
   /usr/bin/gpgconf rPx,
-  /usr/bin/gpg-connect-agent rPx,
+  /usr/bin/gpg-connect-agent mrix,
   /usr/bin/gpg-agent mrix,
   /usr/bin/dirmngr mrix,
   /usr/bin/gpgsm rix,
