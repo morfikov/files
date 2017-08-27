@@ -50,9 +50,9 @@
     /etc/apt/sources.list.d/* r,
 
     /var/cache/apt/ r,
-    /var/cache/apt/** r,
+    /var/cache/apt/** rw,
     /media/Kabi/backup_packages/apt/ r,
-    /media/Kabi/backup_packages/apt/** r,
+    /media/Kabi/backup_packages/apt/** rw,
 
     /etc/dpkg/dpkg.cfg r,
     /etc/dpkg/dpkg.cfg.d/ r,

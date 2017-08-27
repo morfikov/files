@@ -20,7 +20,7 @@
   #include <abstractions/gnome>
   #include <abstractions/audio>
   #include <abstractions/enchant>
-  #include <abstractions/dbus-session-strict>
+  #include <abstractions/consoles>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/private-files>
@@ -37,7 +37,7 @@
   audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
   audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
 
-  @{MOZ_LIBDIR}/thunderbird ixr,
+  @{MOZ_LIBDIR}/thunderbird rix,
 
   /usr/share/thunderbird/ r,
   /usr/share/thunderbird/** r,
@@ -82,6 +82,8 @@
   # Needed for the crash reporter
   /usr/lib/thunderbird/crashreporter ix,
   owner @{PROC}/[0-9]*/auxv r,
+  owner @{PROC}/[0-9]*/environ r,
+  owner @{PROC}/[0-9]*/cmdline r,
 
   # Needed for Developer Toolbox
   /etc/mime.types r,
@@ -101,17 +103,6 @@
   owner @{HOME}/.local/share/mime/** rw,
   /usr/bin/update-mime-database rPUx,
 
-  # Launch external apps
-  /usr/lib/firefox/firefox rPUx,
-  /usr/bin/exo-open rPUx,
-  /usr/bin/okular rPUx,
-  /usr/bin/viewnior rPUx,
-
-  # Needed for enigmail
-  /usr/bin/gpg rPUx,
-  /usr/bin/gpgconf rPUx,
-  /usr/bin/gpg-connect-agent rPUx,
-
   @{PROC}/[0-9]*/net/arp r,
 
   owner @{PROC}/@{pid}/fd/ r,
@@ -125,6 +116,9 @@
   /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
 
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
   /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/config r,
@@ -133,7 +127,17 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
+  # Launch external apps
+  /usr/lib/firefox/firefox rPUx,
+  /usr/bin/exo-open rPUx,
+  /usr/bin/okular rPUx,
+  /usr/bin/viewnior rPUx,
   /usr/bin/lsb_release rPUx,
+
+  # Needed for enigmail
+  /usr/bin/gpg rPUx,
+  /usr/bin/gpgconf rPUx,
+  /usr/bin/gpg-connect-agent rPUx,
 
 }
 

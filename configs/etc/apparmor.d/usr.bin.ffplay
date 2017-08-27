@@ -16,7 +16,6 @@
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
-  #include <abstractions/dbus-session-strict>
   #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
@@ -29,6 +28,9 @@
   /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} r,
   /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} r,
   /**/*.{TXT,SRT,txt,srt} r,
+
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
 
   owner @{PROC}/@{pid}/status r,
   /sys/devices/system/cpu/ r,

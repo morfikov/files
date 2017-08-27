@@ -1,0 +1,32 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/gpg-agent flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/user-tmp>
+
+  /usr/bin/gpg-agent mr,
+
+  # GPG config files
+  owner @{HOME}/.gnupg/ rw,
+  owner @{HOME}/.gnupg/** rwkl,
+  owner /{,var/}run/user/[0-9]*/gnupg/ rw,
+  owner /{,var/}run/user/[0-9]*/gnupg/* rw,
+
+  @{PROC}/@{pid}/fd/ r,
+
+  /usr/bin/pinentry-gtk-2 rPUx,
+  /usr/bin/pinentry-gnome3 rPUx,
+  /usr/bin/pinentry-qt rPUx,
+
+}

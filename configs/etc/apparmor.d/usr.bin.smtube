@@ -19,7 +19,6 @@
   #include <abstractions/nameservice>
   #include <abstractions/openssl>
   #include <abstractions/consoles>
-  #include <abstractions/dbus-session-strict>
   #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
@@ -30,6 +29,9 @@
 
   # Needed for updating YT code
   owner @{HOME}/.config/smplayer/yt.js rw,
+
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
 
   /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
