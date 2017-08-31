@@ -133,6 +133,8 @@
   /usr/bin/okular rPUx,
   /usr/bin/viewnior rPUx,
   /usr/bin/lsb_release rPUx,
+  /usr/bin/geany rPUx,
+  /usr/bin/xarchiver rPUx,
 
   # Needed for enigmail
   /usr/bin/gpg rPUx,

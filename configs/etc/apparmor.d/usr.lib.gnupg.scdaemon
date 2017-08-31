@@ -11,12 +11,11 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg-agent flags=(complain) {
+/usr/lib/gnupg/scdaemon flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/user-tmp>
 
 
-  /usr/bin/gpg-agent mr,
+  /usr/lib/gnupg/scdaemon mr,
 
   # GPG config files
   owner @{HOME}/.gnupg/ rw,
@@ -24,12 +23,14 @@
   owner /{,var/}run/user/[0-9]*/gnupg/ rw,
   owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 
-  @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 
-  /usr/bin/pinentry-gtk-2 rPUx,
-  /usr/bin/pinentry-gnome3 rPUx,
-  /usr/bin/pinentry-qt rPUx,
+  /run/udev/data/+usb*  r,
+  /run/udev/data/c* r,
 
-  /usr/lib/gnupg/scdaemon rPUx,
-
+  /dev/bus/usb/ r,
+  /sys/bus/ r,
+  /sys/bus/usb/devices/ r,
+  /sys/class/ r,
+  /sys/devices/pci[0-9]*/**/{busnum,devnum,descriptors,speed,uevent,bConfigurationValue} r,
 }

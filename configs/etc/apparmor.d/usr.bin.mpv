@@ -32,8 +32,9 @@
   /**/ r,
   /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} r,
   /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} r,
-  /**/*.{m2ts,m2t,part,mplaylist} r,
+  /**/*.{m2ts,m2t,part} r,
   /**/*.{TXT,SRT,txt,srt} r,
+  /**/*.{PLS,M3U,pls,m3u} r,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,

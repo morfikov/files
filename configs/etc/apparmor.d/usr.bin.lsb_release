@@ -22,7 +22,11 @@
   /etc/debian_version r,
   /var/lib/dpkg/** r,
 
+  /usr/lib/python[0-9]/dist-packages/* r,
+  /usr/lib/python[0-9]/dist-packages/** rw,
   /usr/local/lib/python3.[0-9]/dist-packages/ r,
+  /usr/local/lib/python3.[0-9]/dist-packages/** rw,
+
   /usr/bin/ r,
   /usr/bin/python3.[0-9] mr,
 
