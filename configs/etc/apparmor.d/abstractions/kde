@@ -2,6 +2,7 @@
 #
 #    Copyright (C) 2002-2006 Novell/SUSE
 #    Copyright (C) 2009-2011 Canonical Ltd.
+#    Copyright (C) 2017 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -16,53 +17,58 @@
 #include <abstractions/xdg-desktop>
 #include <abstractions/user-tmp>
 
-/etc/qt3/kstylerc r,
-/etc/qt3/qt_plugins_3.3rc r,
-/etc/qt3/qtrc r,
-/etc/kderc r,
-/etc/kde3/* r,
-/etc/kde4rc r,
-/etc/xdg/Trolltech.conf r,
-
-owner @{HOME}/.DCOPserver_* r,
-owner @{HOME}/.ICEauthority r,
-owner @{HOME}/.fonts.* lrw,
-owner @{HOME}/.kde{,4}/share/config/kdeglobals rw,
-owner @{HOME}/.kde{,4}/share/config/*.lock rwl,
-owner @{HOME}/.qt/** rw,
-owner @{HOME}/.config/Trolltech.conf rwk,
-
-/usr/share/icons/ r,
-/usr/share/icons/** r,
-/usr/share/X11/XKeysymDB r,
-
-# kde3
-/usr/lib*/kde3/plugins/styles/ r,
-/usr/lib*/kde3/plugins/styles/* mr,
-/usr/lib*/kde3/lib*so* mr,
-/usr/lib/@{multiarch}/kde3/plugins/styles/ r,
-/usr/lib/@{multiarch}/kde3/plugins/styles/* mr,
-/usr/lib/@{multiarch}/kde3/lib*so* mr,
-/usr/lib*/qt3/lib*/lib*so* mr,
-/usr/lib*/qt3/plugins/**  mr,
-/usr/lib/@{multiarch}/qt3/lib*/lib*so* mr,
-/usr/lib/@{multiarch}/qt3/plugins/**  mr,
-/usr/lib*/libqt-mt*so* mr,
-/usr/lib*/libqui*so* mr,
-/usr/lib/@{multiarch}/libqt-mt*so* mr,
-/usr/lib/@{multiarch}/libqui*so* mr,
-/usr/share/qt3/lib*/libqt-mt*so* mr,
-/usr/share/qt3/lib*/libqui*so* mr,
 
 # kde4
-/usr/lib*/kde4/plugins/*/*.so mr,
-/usr/lib*/kde4/plugins/*/ r,
-/usr/lib*/kde4/lib*so* mr,
-/usr/lib/@{multiarch}/kde4/plugins/*/*.so mr,
-/usr/lib/@{multiarch}/kde4/plugins/*/ r,
-/usr/lib/@{multiarch}/kde4/lib*so* mr,
-/usr/lib*/qt4/lib*/lib*so* mr,
-/usr/lib*/qt4/plugins/**  mr,
-/usr/lib/@{multiarch}/qt4/lib*/lib*so* mr,
+/usr/lib/kde4/*.so mr,
+/usr/lib/kde4/plugins/*/*.so mr,
+/usr/lib/kde4/plugins/*/ r,
+/usr/lib/qt4/plugins/**  mr,
 /usr/lib/@{multiarch}/qt4/plugins/**  mr,
+/usr/lib/attica_kde.so mr,
 /usr/share/qt4/** r,
+/usr/share/kde4/ r,
+/usr/share/kde4/** r,
+/usr/share/applications/kde4/ r,
+/usr/share/applications/kde4/* r,
+
+# Create home KDE directory structure
+owner @{HOME}/.kde{,4}/ rw,
+owner @{HOME}/.kde{,4}/**/ rw,
+owner @{HOME}/.config/kde.org/ rw,
+owner @{HOME}/.config/kde.org/**/ rw,
+owner @{HOME}/.config/kde.org/libphonon.conf rwk,
+
+# TMP files
+owner @{HOME}/.kde{,4}/tmp-* rw,
+owner @{HOME}/.kde{,4}/tmp-*/** rwk,
+owner @{HOME}/.kde{,4}/cache-* rw,
+owner @{HOME}/.kde{,4}/cache-*/** rw,
+owner @{HOME}/.kde{,4}/socket-* rwk,
+owner @{HOME}/.kde{,4}/socket-*/* rw,
+owner /{,var/}run/user/[0-9]*/ksocket-*/ rw,
+owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
+
+# Common configs
+owner @{HOME}/.kde{,4}/share/config/kdeglobals rw,
+owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
+owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
+
+# UI
+owner @{HOME}/.config/Trolltech.conf rwk,
+owner @{HOME}/.gtkrc-2.0 rw,
+/usr/share/themes/** r,
+
+/etc/xdg/menus/ r,
+/etc/xdg/menus/* r,
+owner @{HOME}/.config/menus/ r,
+owner @{HOME}/.config/menus/* r,
+owner @{HOME}/.config/menus/applications-merged/ r,
+
+/usr/share/icons/ r,
+/usr/share/icons/** rk,
+
+/usr/share/mime/ r,
+owner @{HOME}/.local/share/mime/* r,
+
+/etc/machine-id r,
+/var/lib/dbus/machine-id r,

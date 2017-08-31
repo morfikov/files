@@ -1,0 +1,42 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/knotify4 {
+  #include <abstractions/audio>
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/user-tmp>
+  #include <abstractions/kde>
+
+
+  /usr/bin/knotify4 mr,
+
+  /usr/bin/kbuildsycoca4 rPUx,
+
+  /usr/share/sounds/ r,
+
+  owner @{HOME}/.cache/fontconfig/* r,
+
+  /proc/*/cmdline r,
+  /proc/*/mounts r,
+
+
+  # Silencer
+  deny /usr/lib/x86_64-linux-gnu/vlc/plugins/* w,
+  deny /run/udev/data/** r,
+  deny /sys/devices/** r,
+  deny /sys/bus/ r,
+  deny /sys/class/ r,
+
+}

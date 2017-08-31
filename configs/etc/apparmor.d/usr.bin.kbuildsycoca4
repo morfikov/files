@@ -1,0 +1,29 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/kbuildsycoca4 {
+  #include <abstractions/base>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/user-tmp>
+  #include <abstractions/kde>
+
+  /usr/bin/kbuildsycoca4 mr,
+
+  owner @{HOME}/.local/share/applications/ r,
+
+  /usr/share/desktop-directories/ r,
+  /usr/share/desktop-directories/* r,
+
+  @{PROC}/filesystems r,
+
+}

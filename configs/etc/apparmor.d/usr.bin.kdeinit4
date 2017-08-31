@@ -1,0 +1,86 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/kdeinit4 {
+  #include <abstractions/X>
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/kde>
+
+  # Needed for configuring Phonon
+  #include <abstractions/audio>
+
+
+  /usr/bin/kdeinit4 mrix,
+
+
+  /usr/bin/kbuildsycoca4 rPUx,
+  /usr/bin/kglobalaccel rPUx,
+  /usr/bin/knotify4 rPUx,
+  /usr/lib/kde4/libexec/kio_http_cache_cleaner rix,
+
+
+  owner @{HOME}/.kde/share/config/** rwk,
+#  owner @{HOME}/.kde/share/kde4/** r,
+#  owner @{HOME}/.kde/share/apps/** r,
+  owner @{HOME}/.kde/share/apps/kcookiejar/cookies* rw,
+  owner @{HOME}/.kde/share/apps/kconf_update/log/update.log rw,
+
+
+  /etc/rpc r,
+
+  owner @{HOME}/.cache/fontconfig/* r,
+
+  owner @{HOME}/.local/share/Trash/ rw,
+  owner @{HOME}/.local/share/Trash/** rw,
+
+  /proc/*/cmdline r,
+  /proc/*/mounts r,
+
+  /etc/timezone r,
+
+  # Silencer
+  deny /home/morfik/ r,
+  /home/morfik/avatar/ r,
+  deny /tftpboot r,
+  deny /boot/vmlinuz-* r,
+
+
+  /bin/dash rCx -> dash,
+  profile dash {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+    #include <abstractions/user-tmp>
+    #include <abstractions/kde>
+
+    /bin/dash mrix,
+    /usr/bin/kde4-config rix,
+    /bin/rm rix,
+    /bin/mv rix,
+    /bin/rmdir rix,
+    /usr/bin/perl rix,
+
+    /usr/lib/kde4/libexec/lnusertemp rix,
+    /usr/lib/kde4/libexec/kio_http_cache_cleaner rix,
+    /usr/lib/kconf_update_bin/phonon_devicepreference_update rix,
+    /usr/lib/kconf_update_bin/phonon_deviceuids_update rix,
+
+    owner @{HOME}/.kde/share/config/phonondevicesrc* rw,
+    owner @{HOME}/.kde/share/config/phonondevicesrc.lock rwk,
+
+  }
+
+}
