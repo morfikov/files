@@ -31,9 +31,9 @@
 
   # PSI config files
   owner @{HOME}/.config/psi+/ rw,
-  owner @{HOME}/.config/psi+/** rw,
+  owner @{HOME}/.config/psi+/** rwkl,
   owner @{HOME}/.local/share/psi+/ rw,
-  owner @{HOME}/.local/share/psi+/** rw,
+  owner @{HOME}/.local/share/psi+/** rwkl,
 
   # Cache files
   owner @{HOME}/.cache/fontconfig/** r,
@@ -67,17 +67,24 @@
   deny owner @{HOME}/ r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rwl,
   owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
+  owner @{HOME}/[dD]esktop/** rwl,
 
   /etc/debian_version r,
 
   # Needed for GPG/PGP support
   /usr/bin/gpg rPUx,
 
+  # GTK styles
+  /usr/share/themes/ r,
+  /usr/share/themes/** r,
+  owner @{HOME}/.gtkrc-2.0 r,
+  owner @{PROC}/@{pid}/cmdline r,
+
   /usr/bin/lsb_release rPUx,
+  /usr/bin/xdg-open rPUx,
 
   # Needed for playing sound events
   /usr/bin/aplay rCx -> aplay,

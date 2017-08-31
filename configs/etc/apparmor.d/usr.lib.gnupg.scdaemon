@@ -33,4 +33,5 @@
   /sys/bus/usb/devices/ r,
   /sys/class/ r,
   /sys/devices/pci[0-9]*/**/{busnum,devnum,descriptors,speed,uevent,bConfigurationValue} r,
+
 }
