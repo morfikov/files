@@ -25,6 +25,13 @@
   /usr/bin/ r,
   /usr/bin/youtube-dl r,
 
+  # Which files youtube-dl should be able to open
+#  / r,
+#  /**/ r,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} rw,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} rw,
+  /**/*.{ytdl,part,part-*} rw,
+
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/mounts r,

@@ -88,6 +88,12 @@
 	owner @{HOME}/.cache/fontconfig/ rwk,
 	owner @{HOME}/.cache/fontconfig/** rwk,
 
+    # User downloads
+    owner @{HOME}/[dD]ownload{,s}/	r,
+    owner @{HOME}/[dD]ownload{,s}/**	rwl,
+    owner @{HOME}/[dD]esktop/	r,
+    owner @{HOME}/[dD]esktop/**	rwl,
+
 	# Torrent files
 	owner /media/ r,
 	owner /media/Kabi/ r,
