@@ -1,0 +1,66 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/lightdm-gtk-greeter flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+
+
+  /usr/sbin/lightdm-gtk-greeter mr,
+
+  /usr/lib/at-spi2-core/at-spi-bus-launcher rPUx,
+
+  # LightDM files
+  /usr/share/lightdm/ r,
+  /usr/share/lightdm/** r,
+  /var/lib/lightdm/ rw,
+  /var/lib/lightdm/** rw,
+
+  # List of X sessions
+  /usr/share/xsessions/ r,
+  /usr/share/xsessions/* r,
+
+  # Greeter theme
+  /var/lib/AccountsService/ r,
+  /var/lib/AccountsService/** r,
+  /usr/share/desktop-base/ r,
+  /usr/share/desktop-base/** r,
+
+  # LightDM config files
+  /etc/lightdm/ r,
+  /etc/lightdm/** r,
+
+  # LightDM logs
+  /var/log/lightdm/ rw,
+  /var/log/lightdm/** rw,
+
+  owner @{PROC}/@{pid}/fd/ r,
+
+  /dev/dri/ r,
+  /sys/devices/pci[0-9]*/**/uevent r,
+  /sys/devices/pci[0-9]*/**/vendor r,
+  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  /sys/devices/pci[0-9]*/**/device r,
+  /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+  /usr/bin/locale rCx -> locale,
+  profile locale flags=(complain) {
+    #include <abstractions/base>
+
+    /usr/bin/locale mr,
+
+  }
+
+}

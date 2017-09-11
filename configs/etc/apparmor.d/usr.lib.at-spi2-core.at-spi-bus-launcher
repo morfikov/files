@@ -1,0 +1,32 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/at-spi2-core/at-spi-bus-launcher flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/dconf>
+
+  /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
+
+  /usr/bin/dbus-daemon rPUx,
+
+  /var/lib/lightdm/.Xauthority r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+
+  /run/user/[0-9]*/dconf/ rw,
+  /run/user/[0-9]*/dconf/user rw,
+
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+}

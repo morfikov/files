@@ -1,0 +1,106 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/xorg/Xorg flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/nameservice>
+
+
+  capability ipc_owner,
+  capability setgid,
+  capability setuid,
+  capability sys_admin,
+  capability sys_rawio,
+
+  /usr/lib/xorg/Xorg mr,
+
+  # Xorg files
+  /etc/X11/ r,
+  /etc/X11/** r,
+  /usr/lib/xorg/ r,
+  /usr/lib/xorg/modules/ r,
+  /usr/lib/xorg/modules/** mr,
+
+  #
+  /var/lib/xkb/server-*.xkm mrwk,
+
+  # Log files
+  owner /var/log/Xorg.* rw,
+  owner @{HOME}/.local/share/xorg/ rw,
+  owner @{HOME}/.local/share/xorg/Xorg.* rw,
+
+  # TMP files
+  /tmp/.X11-unix/ rw,
+  /tmp/.X11-unix/X* mrwlk,
+  /tmp/.X*-lock mrwlk,
+  /tmp/.tX*-lock mrwlk,
+
+  # Graphic card modules
+  /dev/vga_arbiter rw,
+  /sys/module/i915/ r,
+  /sys/module/i915/** r,
+
+  # Input devices (keyboard, mouse, etc)
+  /dev/input/* rw,
+
+  # Screen backligh
+  /sys/devices/pci[0-9]*/**/backlight/**/* rw,
+
+  # Display Xserver on a specific TTY
+  /dev/tty[1-8] rw,
+
+  # Needed for SDDM display manager
+  #/{,var/}run/sddm/ r,
+  #/{,var/}run/sddm/** rw,
+  #/tmp/server-* rwk,
+  #owner @{HOME}/.serverauth.* rw,
+
+  # Needed for LightDM display manager
+  /{,var/}run/lightdm/ r,
+  /{,var/}run/lightdm/** rw,
+  /var/log/lightdm/x-*.log* rw,
+
+  /sys/bus/ r,
+  /sys/bus/pci/devices/ r,
+  /sys/class/ r,
+  /sys/class/{drm,tty,input}/ r,
+  /sys/devices/**/{uevent,name,id,config} r,
+  /sys/devices/pci[0-9]*/**/ r,
+  /sys/devices/pci[0-9]*/**/{resource,boot_vga} r,
+
+  /run/udev/data/+drm:card* r,
+  /run/udev/data/+input:input* r,
+  /run/udev/data/c* r,
+
+  @{PROC}/[0-9]*/cmdline r,
+  @{PROC}/cmdline r,
+  @{PROC}/mtrr rw,
+
+
+  /bin/dash rCx -> dash,
+  profile dash flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+
+    /usr/bin/xkbcomp mrix,
+    /var/lib/xkb/server-*.xkm mrwk,
+    /usr/share/X11/xkb/ r,
+    /usr/share/X11/xkb/** r,
+
+  }
+
+}

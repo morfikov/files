@@ -1,0 +1,106 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/lightdm flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/authentication>
+  #include <abstractions/wutmp>
+
+
+  capability setgid,
+  capability setuid,
+  capability chown,
+  capability fowner,
+  capability fsetid,
+  capability kill,
+  capability dac_override,
+  capability audit_write,
+  capability dac_read_search,
+  capability sys_tty_config,
+  capability sys_resource,
+  capability net_admin,
+
+
+  /usr/sbin/lightdm mrix,
+
+  /bin/plymouth mrix,
+
+  /usr/bin/Xorg rPx,
+  /usr/sbin/lightdm-gtk-greeter rPx,
+  /usr/lib/at-spi2-core/at-spi-bus-launcher rPx,
+
+  /etc/X11/Xsession rPUx,
+  /usr/bin/gnome-keyring-daemon rPUx,
+
+  # LightDM files
+  /usr/share/lightdm/ r,
+  /usr/share/lightdm/** r,
+  /usr/share/xgreeters/ r,
+  /usr/share/xgreeters/** r,
+  /var/lib/lightdm/ rw,
+  /var/lib/lightdm/** rw,
+
+  # List of X sessions
+  /usr/share/xsessions/ r,
+  /usr/share/xsessions/* r,
+
+  owner @{HOME}/.Xauthority rw,
+
+  # LightDM config files
+  /etc/lightdm/ r,
+  /etc/lightdm/** r,
+
+  # LightDM logs
+  /var/log/lightdm/ rw,
+  /var/log/lightdm/** rw,
+  /var/log/btmp rwk,
+
+  /run/lightdm/ rw,
+  /run/lightdm/** rw,
+  /run/lightdm.pid rw,
+
+
+  @{PROC}/1/limits r,
+  /etc/security/limits.d/ r,
+  owner @{PROC}/@{pid}/uid_map r,
+  owner @{PROC}/@{pid}/loginuid rw,
+  owner @{PROC}/@{pid}/fd/ r,
+
+
+  @{PROC}/cmdline r,
+  /tmp/.X0-lock r,
+
+  /etc/environment r,
+  /etc/default/locale r,
+
+  /dev/tty0 r,
+
+  /bin/rm rCx -> remove,
+  profile remove flags=(complain) {
+    #include <abstractions/base>
+
+    capability dac_read_search,
+    capability dac_override,
+
+    /bin/rm mr,
+
+    /var/lib/lightdm/ rw,
+    /var/lib/lightdm/** rw,
+
+  }
+
+}
