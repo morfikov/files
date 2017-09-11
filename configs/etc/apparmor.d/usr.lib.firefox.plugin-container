@@ -15,91 +15,94 @@
 @{MOZ_LIBDIR}=/usr/lib/firefox
 
 /usr/lib/firefox/plugin-container {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio>
+  #include <abstractions/gstreamer>
+  #include <abstractions/nvidia>
+  #include <abstractions/nameservice>
+  #include <abstractions/private-files>
 
-	#include <abstractions/base>
-	#include <abstractions/gnome>
-	#include <abstractions/audio>
-	#include <abstractions/gstreamer>
-	#include <abstractions/nvidia>
-	#include <abstractions/nameservice>
-	#include <abstractions/dbus-session-strict>
-	#include <abstractions/private-files>
 
+  # potentially extremely sensitive files
+  audit deny @{HOME}/.gnupg/** mrwkl,
+  audit deny @{HOME}/.ssh/** mrwkl,
+  audit deny @{HOME}/.gnome2_private/** mrwkl,
+  audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
+  audit deny @{HOME}/.config/chromium/** mrwkl,
+  deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
+  audit deny /media/Kabi/.mozilla/ mrwkl,
+  audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
+  audit deny @{HOME}/.evolution/** mrwkl,
+  audit deny @{HOME}/.config/evolution/** mrwkl,
+  audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
+  audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
 
-	# potentially extremely sensitive files
-	audit deny @{HOME}/.gnupg/** mrwkl,
-	audit deny @{HOME}/.ssh/** mrwkl,
-	audit deny @{HOME}/.gnome2_private/** mrwkl,
-	audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
-	audit deny @{HOME}/.config/chromium/** mrwkl,
-	deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
-	audit deny /media/Kabi/.mozilla/ mrwkl,
-	audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
-	audit deny @{HOME}/.evolution/** mrwkl,
-	audit deny @{HOME}/.config/evolution/** mrwkl,
-	audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
-	audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
+  # don't allow access to any gnome-keyring modules
+  audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
 
-	# don't allow access to any gnome-keyring modules
-	audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
+  # Firefox files
+  @{MOZ_LIBDIR}/ r,
+  @{MOZ_LIBDIR}/**  mixr,
+  owner @{HOME}/.mozilla/firefox/profiles.ini r,
 
-	# Firefox files
-	@{MOZ_LIBDIR}/ r,
-	@{MOZ_LIBDIR}/**  mixr,
-	owner @{HOME}/.mozilla/firefox/profiles.ini r,
+  # Firefox plugins
+  /usr/lib/mozilla/plugins/*.so mr,
 
-	# Firefox plugins
-	/usr/lib/mozilla/plugins/*.so mr,
+  # Firefox extensions
+  deny /usr/share/mozilla/extensions/** r,
 
-	# Firefox extensions
-	deny /usr/share/mozilla/extensions/** r,
+  # Flash plugin
+  #/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
+  #/opt/google/chrome/PepperFlash/manifest.json r,
+  #/usr/lib/browser-plugin-freshplayer-pepperflash/ r,
+  #/usr/lib/browser-plugin-freshplayer-pepperflash/** r,
+  #owner /dev/shm/org.chromium.* rw,
+  #/etc/ssl/openssl.cnf r,
 
-	# Flash plugin
-	#/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-	#/opt/google/chrome/PepperFlash/manifest.json r,
-	#/usr/lib/browser-plugin-freshplayer-pepperflash/ r,
-	#/usr/lib/browser-plugin-freshplayer-pepperflash/** r,
-	#owner /dev/shm/org.chromium.* rw,
-	#/etc/ssl/openssl.cnf r,
+  # Flash dirs
+  #deny @{HOME}/.adobe/ rw,
+  #deny @{HOME}/.adobe/** rw,
+  #deny @{HOME}/.macromedia/ rw,
+  #owner @{HOME}/.macromedia/** r,
+  #owner @{HOME}/.config/freshwrapper-data/ r,
+  #owner @{HOME}/.config/freshwrapper-data/** r,
+  #deny @{HOME}/.config/freshwrapper-data/** w,
 
-	# Flash dirs
-	#deny @{HOME}/.adobe/ rw,
-	#deny @{HOME}/.adobe/** rw,
-	#deny @{HOME}/.macromedia/ rw,
-	#owner @{HOME}/.macromedia/** r,
-	#owner @{HOME}/.config/freshwrapper-data/ r,
-	#owner @{HOME}/.config/freshwrapper-data/** r,
-	#deny @{HOME}/.config/freshwrapper-data/** w,
+  # Flash config files
+  #/etc/adobe/mms.cfg  r,
+  #owner @{HOME}/mm.cfg rw,
 
-	# Flash config files
-	#/etc/adobe/mms.cfg  r,
-	#owner @{HOME}/mm.cfg rw,
+  # Devices
+  /sys/devices/system/cpu/ r,
+  /sys/devices/system/cpu/** r,
+  /sys/devices/system/node/ r,
+  /sys/devices/system/node/node0/meminfo r,
+  /dev/ r,
+  /dev/dri/ r,
+  /sys/devices/pci[0-9]*/**/config r,
 
-	# Devices
-	/sys/devices/system/cpu/ r,
-	/sys/devices/system/cpu/** r,
-	/sys/devices/system/node/ r,
-	/sys/devices/system/node/node0/meminfo r,
-	/dev/ r,
-	/dev/dri/ r,
-	/sys/devices/pci[0-9]*/**/config r,
+  # webcam & mic
+  deny /dev/video0 rw,
+  deny /dev/v4l/by-path/ r,
+  deny /dev/snd/pcmC0D0c rw,
 
-	# webcam & mic
-	deny /dev/video0 rw,
-	deny /dev/v4l/by-path/ r,
-	deny /dev/snd/pcmC0D0c rw,
+  # Proc files
+  owner @{PROC}/@{pid}/cmdline r,
+  #owner @{PROC}/@{pid}/fd/ r,
+  #owner @{PROC}/@{pid}/fd/* r,
+  #owner @{PROC}/@{pid}/maps r,
+  #owner @{PROC}/@{pid}/smaps r,
+  #owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/stat r,
+  #owner @{PROC}/@{pid}/statm r,
+  owner @{PROC}/@{pid}/status r,
+  owner @{PROC}/@{pid}/task/*/stat r,
+  audit deny @{PROC}/uptime r,
+  @{PROC}/sys/kernel/random/uuid r,
 
-	# Proc files
-	owner @{PROC}/@{pid}/cmdline r,
-	#owner @{PROC}/@{pid}/fd/ r,
-	#owner @{PROC}/@{pid}/fd/* r,
-	#owner @{PROC}/@{pid}/maps r,
-	#owner @{PROC}/@{pid}/smaps r,
-	#owner @{PROC}/@{pid}/mountinfo r,
-	owner @{PROC}/@{pid}/stat r,
-	#owner @{PROC}/@{pid}/statm r,
-	owner @{PROC}/@{pid}/status r,
-	owner @{PROC}/@{pid}/task/*/stat r,
-	audit deny @{PROC}/uptime r,
-	@{PROC}/sys/kernel/random/uuid r,
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
 }

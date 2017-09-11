@@ -14,7 +14,6 @@
 /usr/bin/psi-plus {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/consoles>
   #include <abstractions/enchant>
   #include <abstractions/fonts>
   #include <abstractions/ssl_certs>
@@ -73,6 +72,8 @@
   owner @{HOME}/[dD]esktop/** rwl,
 
   /etc/debian_version r,
+
+  /dev/tty r,
 
   # Needed for GPG/PGP support
   /usr/bin/gpg rPUx,

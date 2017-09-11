@@ -17,10 +17,11 @@
 
 /usr/lib/thunderbird/thunderbird {
   #include <abstractions/base>
-  #include <abstractions/gnome>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
   #include <abstractions/enchant>
-  #include <abstractions/consoles>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/private-files>
@@ -118,6 +119,12 @@
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
+
+  /dev/tty r,
+
+  owner @{PROC}/@{pid}/mounts r,
+
+  /owner @{HOME}/.config/gtk-3.0/settings.ini r,
 
   /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,

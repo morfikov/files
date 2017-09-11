@@ -33,6 +33,7 @@
   owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/ rw,
   owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/registry.*.bin rw,
   owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/registry.*.bin.tmp* rw,
+  owner @{HOME}/.cache/mesa/** rwk,
   owner @{HOME}/.cache/thumbnails/** rw,
   owner @{HOME}/.cache/totem/** rwk,
   owner @{HOME}/.cache/totem-* rwk,

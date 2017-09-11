@@ -17,7 +17,6 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/openssl>
-  #include <abstractions/consoles>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/private-files-strict>
@@ -73,6 +72,8 @@
   owner @{PROC}/@{pid}/cmdline r,
 
   /etc/xdg/QtProject/qtlogging.ini r,
+
+  /dev/tty r,
 
   # Launch external apps
   /usr/bin/python* rPUx,

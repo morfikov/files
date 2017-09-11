@@ -13,21 +13,26 @@
 
 /usr/bin/telegram-desktop {
   #include <abstractions/base>
-  #include <abstractions/gnome>
   #include <abstractions/X>
-  #include <abstractions/audio>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
+  #include <abstractions/audio>
   #include <abstractions/nameservice>
+  include <abstractions/user-tmp>
 
+  # Telegram files
+  /usr/share/TelegramDesktop/ r
+  /usr/share/TelegramDesktop/** r,
 
   # Download dir
   /media/Grafi/telegram/ r,
   /media/Grafi/telegram/** wr,
 
   # Telegram specific
-  owner @{HOME}/.local/share/TelegramDesktop/ r,
+  owner @{HOME}/.local/share/TelegramDesktop/ rw,
   owner @{HOME}/.local/share/TelegramDesktop/** rw,
+
+
 
   # Deny access to webcam and mic
   deny /dev/video0 rw,
@@ -36,9 +41,10 @@
 
   /etc/ssl/openssl.cnf r,
 
-  # cache and tmp files
+  /dev/tty r,
+
+  # cache files
   owner @{HOME}/.cache/qt_compose_cache_* r,
-  owner /tmp/** wr,
 
   owner @{PROC}/@{pids}/cmdline r,
   owner @{PROC}/@{pids}/mountinfo r,

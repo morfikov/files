@@ -58,3 +58,7 @@
   # mouse themes
   /etc/X11/cursors/               r,
   /etc/X11/cursors/**             r,
+
+
+  # for user logs
+  owner @{HOME}/.xsession-errors* rw,

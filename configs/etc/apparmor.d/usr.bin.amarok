@@ -16,7 +16,6 @@
   #include <abstractions/X>
   #include <abstractions/audio>
   #include <abstractions/fonts>
-  #include <abstractions/consoles>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/private-files-strict>
@@ -61,8 +60,6 @@
   # Cache for art images
   owner @{HOME}/.cache/**/ rw,
 
-  owner @{HOME}/.xsession-errors r,
-
   owner @{HOME}/.local/share/Trash/ rw,
   owner @{HOME}/.local/share/Trash/** rw,
 
@@ -71,6 +68,8 @@
   /etc/rpc r,
 
   /etc/gnome-vfs-2.0/modules/default-modules.conf r,
+
+  /dev/tty rw,
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/loginuid r,
