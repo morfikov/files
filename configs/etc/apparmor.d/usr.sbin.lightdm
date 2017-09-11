@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/lightdm flags=(complain) {
+/usr/sbin/lightdm {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/fonts>
@@ -21,18 +21,34 @@
   #include <abstractions/wutmp>
 
 
+  # Required to start LightDM
   capability setgid,
   capability setuid,
+  capability audit_write,
+
+  # Required to log in
+  capability kill,
+
+  # Required to remove the following error:
+  # "Could not create user data directory /var/lib/lightdm/data/$user: Error creating directory
+  # /var/lib/lightdm/data/$USER: Permission denied"
   capability chown,
   capability fowner,
-  capability fsetid,
-  capability kill,
   capability dac_override,
-  capability audit_write,
-  capability dac_read_search,
-  capability sys_tty_config,
+  capability fsetid,
+
+  # Required to remove the following error:
+  # "pam_limits(lightdm:session): Could not set limit for 'nofile' to soft=1024, hard=1048576:
+  # Operation not permitted; uid=0,euid=0"
   capability sys_resource,
-  capability net_admin,
+
+  # Required to remove the following error:
+  # "Error using VT_ACTIVATE 7 on /dev/tty0: Operation not permitted
+  capability sys_tty_config,
+
+  # Not needed
+  deny capability dac_read_search,
+  deny capability net_admin,
 
 
   /usr/sbin/lightdm mrix,

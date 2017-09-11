@@ -124,7 +124,7 @@
 
   owner @{PROC}/@{pid}/mounts r,
 
-  /owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
 
   /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,

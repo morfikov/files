@@ -21,7 +21,7 @@
   include <abstractions/user-tmp>
 
   # Telegram files
-  /usr/share/TelegramDesktop/ r
+  /usr/share/TelegramDesktop/ r,
   /usr/share/TelegramDesktop/** r,
 
   # Download dir
@@ -33,7 +33,6 @@
   owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
 
-
   # Deny access to webcam and mic
   deny /dev/video0 rw,
   deny /dev/v4l/by-path/ r,
@@ -42,6 +41,12 @@
   /etc/ssl/openssl.cnf r,
 
   /dev/tty r,
+
+  # GTK styles
+  owner @{HOME}/.gtkrc-2.0 r,
+  /usr/share/themes/** r,
+
+  /etc/xdg/QtProject/qtlogging.ini r,
 
   # cache files
   owner @{HOME}/.cache/qt_compose_cache_* r,

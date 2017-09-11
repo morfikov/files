@@ -166,7 +166,7 @@
 
   /etc/mailcap r,
 
-  /owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
 
   # Set default browser
   /usr/bin/update-desktop-database rPUx,
