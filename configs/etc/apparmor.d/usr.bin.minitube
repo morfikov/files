@@ -23,6 +23,7 @@
   #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
+
   # Minitube files
   /usr/bin/minitube mr,
 
@@ -37,7 +38,18 @@
   owner "@{HOME}/.cache/Flavio Tordini/**" rwk,
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
-  # Phonon backends
+  # Phonon Gstreamer Backend
+  #/usr/lib/ladspa/*.so mr,
+  #/usr/lib/frei0r-1/*.so mr,
+  #owner @{HOME}/.cache/gstreamer-1.0/ rw,
+  #owner @{HOME}/.cache/gstreamer-1.0/** rw,
+  #owner @{PROC}@{pid}/fd/ r,
+  #/dev/ r,
+  #/dev/bus/usb/ r,
+  #/sys/class/ r,
+  #/sys/bus/ r,
+
+  # Phonon VLC backend
   /usr/lib/@{multiarch}/qt*/plugins/**/*.so mr,
 
   # VLC plugins
@@ -64,6 +76,8 @@
   @{PROC}/@{pid}/status r,
 
   /etc/xdg/QtProject/qtlogging.ini r,
+
+  owner @{HOME}/.config/kde.org/libphonon.conf r,
 
   # Open in the browser
   /usr/bin/xdg-open rPUx,

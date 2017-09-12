@@ -36,7 +36,6 @@ owner @{HOME}/.kde{,4}/ rw,
 owner @{HOME}/.kde{,4}/**/ rw,
 owner @{HOME}/.config/kde.org/ rw,
 owner @{HOME}/.config/kde.org/**/ rw,
-owner @{HOME}/.config/kde.org/libphonon.conf rwk,
 
 # TMP files
 owner @{HOME}/.kde{,4}/tmp-* rw,
@@ -52,6 +51,10 @@ owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
 owner @{HOME}/.kde{,4}/share/config/kdeglobals rw,
 owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
 owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
+owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
+
+# Phonon
+owner @{HOME}/.config/kde.org/libphonon.conf* rwk,
 
 # UI
 owner @{HOME}/.config/Trolltech.conf rwk,
