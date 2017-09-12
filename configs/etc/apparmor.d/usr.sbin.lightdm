@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/lightdm {
+/usr/sbin/lightdm flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/fonts>
@@ -57,7 +57,6 @@
 
   /usr/bin/Xorg rPx,
   /usr/sbin/lightdm-gtk-greeter rPx,
-  /usr/lib/at-spi2-core/at-spi-bus-launcher rPx,
 
   /etc/X11/Xsession rPUx,
   /usr/bin/gnome-keyring-daemon rPUx,
@@ -116,6 +115,27 @@
 
     /var/lib/lightdm/ rw,
     /var/lib/lightdm/** rw,
+
+  }
+
+  /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
+  profile launcher flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/X>
+    #include <abstractions/dconf>
+
+    /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
+
+    /usr/bin/dbus-daemon rPUx,
+
+    /var/lib/lightdm/.Xauthority r,
+
+    owner @{PROC}/@{pid}/fd/ r,
+
+    /run/user/[0-9]*/dconf/ rw,
+    /run/user/[0-9]*/dconf/user rw,
+
+    /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   }
 

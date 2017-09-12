@@ -27,7 +27,12 @@
 
   /usr/lib/xorg/Xorg mr,
 
+  /bin/dash rix,
+  /usr/bin/xkbcomp rix,
+
   # Xorg files
+  /usr/share/X11/ r,
+  /usr/share/X11/** r,
   /etc/X11/ r,
   /etc/X11/** r,
   /usr/lib/xorg/ r,
@@ -47,6 +52,8 @@
   /tmp/.X11-unix/X* mrwlk,
   /tmp/.X*-lock mrwlk,
   /tmp/.tX*-lock mrwlk,
+  /tmp/server-* rwk,
+  /tmp/serverauth.* r,
 
   # Graphic card modules
   /dev/vga_arbiter rw,
@@ -90,16 +97,32 @@
   @{PROC}/mtrr rw,
 
 
-  /bin/dash rCx -> dash,
-  profile dash flags=(complain) {
+  /usr/bin/pkexec Cx -> pkexec,
+  profile pkexec flags=(complain) {
     #include <abstractions/base>
+    #include <abstractions/nameservice>
+    #include <abstractions/authentication>
 
-    /bin/dash mr,
+    # optional
+    capability sys_ptrace,
 
-    /usr/bin/xkbcomp mrix,
-    /var/lib/xkb/server-*.xkm mrwk,
-    /usr/share/X11/xkb/ r,
-    /usr/share/X11/xkb/** r,
+    #
+    capability audit_write,
+
+    # gdbus
+    capability setgid,
+
+    /usr/bin/pkexec mr,
+
+    /usr/lib/xserver-xorg-video-intel/xf86-video-intel-backlight-helper rix,
+
+    /etc/shells r,
+    /etc/environment r,
+    /etc/default/ r,
+    /etc/default/* r,
+    /proc/[0-9]*/stat r,
+
+    /sys/devices/pci[0-9]*/**/backlight/**/brightness rw,
 
   }
 

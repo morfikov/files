@@ -20,7 +20,7 @@
 
   /usr/sbin/lightdm-gtk-greeter mr,
 
-  /usr/lib/at-spi2-core/at-spi-bus-launcher rPUx,
+  /usr/bin/locale rix,
 
   # LightDM files
   /usr/share/lightdm/ r,
@@ -55,11 +55,25 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  /usr/bin/locale rCx -> locale,
-  profile locale flags=(complain) {
-    #include <abstractions/base>
 
-    /usr/bin/locale mr,
+  /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
+  profile launcher flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/X>
+    #include <abstractions/dconf>
+
+    /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
+
+    /usr/bin/dbus-daemon rPUx,
+
+    /var/lib/lightdm/.Xauthority r,
+
+    owner @{PROC}/@{pid}/fd/ r,
+
+    /run/user/[0-9]*/dconf/ rw,
+    /run/user/[0-9]*/dconf/user rw,
+
+    /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   }
 
