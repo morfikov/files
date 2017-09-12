@@ -1,0 +1,104 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/xinit flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/user-tmp>
+
+
+  /etc/X11/xinit/xinitrc rix,
+  /etc/X11/xinit/xserverrc rix,
+  /usr/bin/dbus-update-activation-environment rix,
+
+  /bin/rm rix,
+  /bin/touch rix,
+  /bin/grep rix,
+  /bin/sed rix,
+  /bin/which rix,
+  /bin/run-parts rix,
+  /bin/cat rix,
+  /bin/tempfile rix,
+  /bin/date rix,
+  /bin/chmod rix,
+  /usr/bin/head rix,
+  /usr/bin/gawk rix,
+  /usr/bin/id rix,
+  /usr/bin/xhost rix,
+  /usr/bin/numlockx rix,
+
+  /usr/bin/gpgconf rPUx,
+  /usr/bin/gpg-agent rPUx,
+  /usr/bin/openbox-session rPUx,
+  /usr/bin/xrdb rPUx,
+
+  /usr/bin/Xorg rPx,
+
+  /etc/X11/ r,
+  /etc/X11/** r,
+
+  /etc/default/ r,
+  /etc/default/** r,
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  owner @{HOME}/.xsession-errors* rw,
+  owner @{HOME}/.Xauthority r,
+
+  /bin/udevadm Cx -> udevadm,
+  profile udevadm flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/udevadm mr,
+
+    /etc/udev/udev.conf r,
+    /run/udev/data/** r,
+
+    /sys/bus/ r,
+    /sys/bus/**/ r,
+
+    /sys/devices/** r,
+
+    /sys/class/ r,
+    /sys/class/**/ r,
+
+    /proc/[0-9]*/stat r,
+
+  }
+
+  /usr/bin/glxinfo Cx -> glxinfo,
+  profile glxinfo flags=(complain) {
+    #include <abstractions/base>
+
+    /usr/bin/glxinfo mr,
+
+
+    /etc/X11/Xresources/x11-common r,
+    owner @{HOME}/.Xauthority r,
+
+
+    /usr/lib/x86_64-linux-gnu/dri/*.so mr,
+    /etc/drirc r,
+    owner @{HOME}/.drirc r,
+
+    /dev/dri/card0 rw,
+
+    /dev/dri/ r,
+    /sys/devices/pci[0-9]*/**/uevent r,
+    /sys/devices/pci[0-9]*/**/vendor r,
+    /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+    /sys/devices/pci[0-9]*/**/device r,
+    /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+  }
+
+}
