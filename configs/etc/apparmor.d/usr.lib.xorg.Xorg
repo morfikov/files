@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/xorg/Xorg flags=(complain) {
+/usr/lib/xorg/Xorg {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
@@ -88,9 +88,9 @@
   /sys/devices/pci[0-9]*/**/ r,
   /sys/devices/pci[0-9]*/**/{resource,boot_vga} r,
 
-  /run/udev/data/+drm:card* r,
-  /run/udev/data/+input:input* r,
-  /run/udev/data/c* r,
+  /{,var/}run/udev/data/+drm:card* r,
+  /{,var/}run/udev/data/+input:input* r,
+  /{,var/}run/udev/data/c* r,
 
   @{PROC}/[0-9]*/cmdline r,
   @{PROC}/cmdline r,
@@ -98,7 +98,7 @@
 
 
   /usr/bin/pkexec Cx -> pkexec,
-  profile pkexec flags=(complain) {
+  profile pkexec {
     #include <abstractions/base>
     #include <abstractions/nameservice>
     #include <abstractions/authentication>
@@ -120,7 +120,7 @@
     /etc/environment r,
     /etc/default/ r,
     /etc/default/* r,
-    /proc/[0-9]*/stat r,
+    @{PROC}/@{pid}/stat r,
 
     /sys/devices/pci[0-9]*/**/backlight/**/brightness rw,
 

@@ -72,7 +72,7 @@
 
   # Needed for file browsing to work
   owner @{HOME}/.{cache,config}/dconf/user rw,
-  owner /run/user/[0-9]*/dconf/user rw,
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/	r,
@@ -124,7 +124,10 @@
 
   owner @{PROC}/@{pid}/mounts r,
 
+  # GTK theme
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/gtk-3.0/bookmarks r,
+  owner @{HOME}/.gtk-bookmarks r,
 
   /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,

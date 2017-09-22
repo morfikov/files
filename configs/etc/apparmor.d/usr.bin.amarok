@@ -55,7 +55,7 @@
   owner @{HOME}/.kde/share/config/ktimezonedrc r,
 
   # VLC backend
-  owner /usr/lib/x86_64-linux-gnu/vlc/plugins/plugins.dat.* rw,
+  owner /usr/lib/@{multiarch}/vlc/plugins/plugins.dat.* rw,
 
   # Cache for art images
   owner @{HOME}/.cache/**/ rw,
@@ -79,7 +79,7 @@
   # Silencer
   deny /tftpboot r,
   deny /boot/vmlinuz-* r,
-  deny /run/udev/data/** r,
+  deny /{,var/}run/udev/data/** r,
   deny /sys/devices/** r,
 
   /bin/dash rCx -> dash,

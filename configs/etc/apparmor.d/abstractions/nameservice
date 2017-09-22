@@ -37,6 +37,7 @@
   # a symlink to /{,var/}run/(whatever program is managing it)/resolv.conf.
   /{,var/}run/{resolvconf,NetworkManager,systemd/resolve,connman}/resolv.conf r,
   /etc/resolvconf/run/resolv.conf r,
+  /{,var/}run/systemd/resolve/stub-resolv.conf r,
 
   /etc/samba/lmhosts      r,
   /etc/services           r,

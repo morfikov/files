@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/lightdm-gtk-greeter flags=(complain) {
+/usr/sbin/lightdm-gtk-greeter {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/fonts>
@@ -57,7 +57,7 @@
 
 
   /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
-  profile launcher flags=(complain) {
+  profile launcher {
     #include <abstractions/base>
     #include <abstractions/X>
     #include <abstractions/dconf>
@@ -70,8 +70,8 @@
 
     owner @{PROC}/@{pid}/fd/ r,
 
-    /run/user/[0-9]*/dconf/ rw,
-    /run/user/[0-9]*/dconf/user rw,
+    /{,var/}run/user/[0-9]*/dconf/ rw,
+    /{,var/}run/user/[0-9]*/dconf/user rw,
 
     /usr/share/glib-2.0/schemas/gschemas.compiled r,
 

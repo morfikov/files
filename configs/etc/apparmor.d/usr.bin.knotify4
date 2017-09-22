@@ -28,13 +28,13 @@
 
   owner @{HOME}/.cache/fontconfig/* r,
 
-  /proc/*/cmdline r,
-  /proc/*/mounts r,
+  @{PROC}/@{pid}/cmdline r,
+  @{PROC}/@{pid}/mounts r,
 
 
   # Silencer
-  deny /usr/lib/x86_64-linux-gnu/vlc/plugins/* w,
-  deny /run/udev/data/** r,
+  deny /usr/lib/@{multiarch}/vlc/plugins/* w,
+  deny /{,var/}run/udev/data/** r,
   deny /sys/devices/** r,
   deny /sys/bus/ r,
   deny /sys/class/ r,

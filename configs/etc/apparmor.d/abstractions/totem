@@ -46,6 +46,7 @@
   owner @{HOME}/.local/share/grilo-plugins/*.db{,-shm,-journal,-wal} rwk,
   owner @{HOME}/.local/share/gvfs-metadata/** r,
   owner @{HOME}/.local/share/totem/ rwk,
+  owner @{HOME}/.local/share/tracker/data/tracker-store.journal rwk,
 
   owner @{PROC}/@{pid}/status r,
 

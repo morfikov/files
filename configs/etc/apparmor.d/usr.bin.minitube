@@ -54,7 +54,7 @@
 
   # VLC plugins
   owner /usr/lib/vlc/plugins/plugins.dat.* rw,
-  owner /usr/lib/x86_64-linux-gnu/vlc/plugins/plugins.dat.* wr,
+  owner /usr/lib/@{multiarch}/vlc/plugins/plugins.dat.* wr,
 
   # Devices
   /sys/devices/pci[0-9]*/**/uevent r,

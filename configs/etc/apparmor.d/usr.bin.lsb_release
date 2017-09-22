@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/lsb_release flags=(complain) {
+/usr/bin/lsb_release {
   #include <abstractions/base>
   #include <abstractions/python>
 

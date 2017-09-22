@@ -25,8 +25,8 @@
 
   owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 
-  /run/udev/data/+usb*  r,
-  /run/udev/data/c* r,
+  /{,var/}run/udev/data/+usb*  r,
+  /{,var/}run/udev/data/c* r,
 
   /dev/bus/usb/ r,
   /sys/bus/ r,

@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/xinit flags=(complain) {
+/usr/bin/xinit {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
 
@@ -55,13 +55,13 @@
   owner @{HOME}/.Xauthority r,
 
   /bin/udevadm Cx -> udevadm,
-  profile udevadm flags=(complain) {
+  profile udevadm {
     #include <abstractions/base>
 
     /bin/udevadm mr,
 
     /etc/udev/udev.conf r,
-    /run/udev/data/** r,
+    /{,var/}run/udev/data/** r,
 
     /sys/bus/ r,
     /sys/bus/**/ r,
@@ -71,12 +71,12 @@
     /sys/class/ r,
     /sys/class/**/ r,
 
-    /proc/[0-9]*/stat r,
+    @{PROC}/@{pid}/stat r,
 
   }
 
   /usr/bin/glxinfo Cx -> glxinfo,
-  profile glxinfo flags=(complain) {
+  profile glxinfo {
     #include <abstractions/base>
 
     /usr/bin/glxinfo mr,
@@ -86,7 +86,7 @@
     owner @{HOME}/.Xauthority r,
 
 
-    /usr/lib/x86_64-linux-gnu/dri/*.so mr,
+    /usr/lib/@{multiarch}/dri/*.so mr,
     /etc/drirc r,
     owner @{HOME}/.drirc r,
 

@@ -29,8 +29,8 @@
   # GPG config files
   owner @{HOME}/.gnupg/ rw,
   owner @{HOME}/.gnupg/** rwkl,
-  owner /run/user/[0-9]*/gnupg/ rw,
-  owner /run/user/[0-9]*/gnupg/* rw,
+  owner /{,var/}run/user/[0-9]*/gnupg/ rw,
+  owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 
   # Needed for "apt-key adv --refresh-key" to work
   /etc/apt/trusted.gpg* rw,

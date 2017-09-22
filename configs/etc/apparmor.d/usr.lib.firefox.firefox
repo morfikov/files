@@ -149,7 +149,7 @@
   owner @{PROC}/@{pid}/auxv r,
 
   # Link Monitor (since 49.0.1)
-  /proc/**/net/arp r,
+  @{PROC}/@{pid}/net/arp r,
 
   # PulseAudio module-ladspa-sink (plugin sc4m_1916)
   /usr/lib/ladspa/ r,
@@ -162,7 +162,7 @@
 
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
-  owner /run/user/[0-9]*/dconf/user w,
+  owner /{,var/}run/user/[0-9]*/dconf/user w,
 
   /etc/mailcap r,
 

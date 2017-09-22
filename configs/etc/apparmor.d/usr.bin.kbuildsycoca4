@@ -21,6 +21,8 @@
 
   owner @{HOME}/.local/share/applications/ r,
 
+  owner @{HOME}/.config/menus/** r,
+
   /usr/share/desktop-directories/ r,
   /usr/share/desktop-directories/* r,
 

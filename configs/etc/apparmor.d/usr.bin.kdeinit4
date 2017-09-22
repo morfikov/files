@@ -47,8 +47,8 @@
   owner @{HOME}/.local/share/Trash/ rw,
   owner @{HOME}/.local/share/Trash/** rw,
 
-  /proc/*/cmdline r,
-  /proc/*/mounts r,
+  @{PROC}/@{pid}/cmdline r,
+  @{PROC}/@{pid}/mounts r,
 
   /etc/timezone r,
 
