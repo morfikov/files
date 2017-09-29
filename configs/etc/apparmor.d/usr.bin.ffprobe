@@ -16,6 +16,7 @@
   #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
+
   /usr/bin/ffprobe mr,
 
   # Which files ffprobe should be able to open

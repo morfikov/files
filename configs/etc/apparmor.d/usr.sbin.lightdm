@@ -73,6 +73,7 @@
   /usr/share/xsessions/ r,
   /usr/share/xsessions/* r,
 
+  /tmp/.X[0-9]*-lock r,
   owner @{HOME}/.Xauthority rw,
 
   # LightDM config files
@@ -94,7 +95,6 @@
   owner @{PROC}/@{pid}/uid_map r,
   owner @{PROC}/@{pid}/loginuid rw,
   owner @{PROC}/@{pid}/fd/ r,
-
 
   @{PROC}/cmdline r,
   /tmp/.X0-lock r,

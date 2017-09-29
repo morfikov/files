@@ -20,6 +20,7 @@
   #include <abstractions/openssl>
   #include <abstractions/private-files-strict>
 
+
   # MegaRsync files
   /usr/bin/megasync mrix,
 

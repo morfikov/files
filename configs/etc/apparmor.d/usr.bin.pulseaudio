@@ -16,7 +16,7 @@
   #include <abstractions/audio>
 
 
-  /usr/bin/pulseaudio rix,
+  /usr/bin/pulseaudio mrix,
   /usr/lib/@{multiarch}/pulse/gconf-helper mrix,
 
   # PulseAudio files
@@ -60,5 +60,10 @@
   /etc/host.conf r,
   /etc/resolv.conf r,
   /etc/nsswitch.conf r,
+
+  # Needed when muting the sound level via voldown multimedia key in volumeicon app
+  owner @{HOME}/orcexec.* mrw,
+  /tmp/orcexec.* mrw,
+  /{,var/}run/user/[0-9]*/orcexec.* mrw,
 
 }

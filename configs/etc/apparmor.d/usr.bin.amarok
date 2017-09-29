@@ -23,7 +23,7 @@
   #include <abstractions/kde>
 
 
-  /usr/bin/amarok r,
+  /usr/bin/amarok mr,
 
   /usr/bin/kglobalaccel rPUx,
   /usr/bin/kbuildsycoca4 rPUx,

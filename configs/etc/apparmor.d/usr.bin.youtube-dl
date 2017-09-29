@@ -23,7 +23,7 @@
   #include <abstractions/user-tmp>
 
   /usr/bin/ r,
-  /usr/bin/youtube-dl r,
+  /usr/bin/youtube-dl mr,
 
   # Which files youtube-dl should be able to open
 #  / r,

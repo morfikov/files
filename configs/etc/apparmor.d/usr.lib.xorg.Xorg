@@ -92,7 +92,7 @@
   /{,var/}run/udev/data/+input:input* r,
   /{,var/}run/udev/data/c* r,
 
-  @{PROC}/[0-9]*/cmdline r,
+  @{PROC}/@{pid}/cmdline r,
   @{PROC}/cmdline r,
   @{PROC}/mtrr rw,
 

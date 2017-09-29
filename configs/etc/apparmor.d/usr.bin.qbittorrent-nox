@@ -12,12 +12,12 @@
 #include <tunables/global>
 
 /usr/bin/qbittorrent-nox {
-
   #include <abstractions/base>
   #include <abstractions/openssl>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/private-files-strict>
+
 
   # Qbittorrent dirs/files
   /usr/bin/qbittorrent-nox mr,

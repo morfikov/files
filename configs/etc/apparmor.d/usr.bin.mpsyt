@@ -19,7 +19,7 @@
   #include <abstractions/user-tmp>
 
   /usr/bin/ r,
-  /usr/bin/mpsyt r,
+  /usr/bin/mpsyt mr,
 
   # MPV config files
   /etc/mpv/* r,

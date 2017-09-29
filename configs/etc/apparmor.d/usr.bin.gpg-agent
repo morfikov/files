@@ -17,7 +17,6 @@
 
 
   /usr/bin/gpg-agent mr,
-
   /usr/lib/gnupg/scdaemon rPx,
 
   # GPG config files

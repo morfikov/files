@@ -21,6 +21,7 @@
   #include <abstractions/user-tmp>
   #include <abstractions/private-files-strict>
 
+
   # Qbittorrent files
   /usr/bin/qbittorrent mr,
 

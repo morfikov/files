@@ -12,7 +12,6 @@
 #include <tunables/global>
 
 /usr/bin/gpg-connect-agent {
-
   #include <abstractions/base>
   #include <abstractions/user-tmp>
   #include <abstractions/nameservice>

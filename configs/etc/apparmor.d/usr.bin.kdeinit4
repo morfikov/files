@@ -26,7 +26,6 @@
 
   /usr/bin/kdeinit4 mrix,
 
-
   /usr/bin/kbuildsycoca4 rPUx,
   /usr/bin/kglobalaccel rPUx,
   /usr/bin/knotify4 rPUx,

@@ -18,7 +18,10 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
   #include <abstractions/nameservice>
-  include <abstractions/user-tmp>
+  #include <abstractions/user-tmp>
+
+
+  /usr/bin/telegram-desktop mr,
 
   # Telegram files
   /usr/share/TelegramDesktop/ r,
@@ -31,7 +34,6 @@
   # Telegram specific
   owner @{HOME}/.local/share/TelegramDesktop/ rw,
   owner @{HOME}/.local/share/TelegramDesktop/** rw,
-
 
   # Deny access to webcam and mic
   deny /dev/video0 rw,

@@ -49,7 +49,7 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  owner @{PROC}/[0-9]*/stat r,
+  owner @{PROC}/@{pid}/stat r,
 
   # SMPlayer config files
   owner @{HOME}/.config/smplayer/* rwk,

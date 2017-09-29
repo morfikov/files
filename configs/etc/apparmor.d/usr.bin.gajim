@@ -12,11 +12,12 @@
 #include <tunables/global>
 
 /usr/bin/gajim {
-
   #include <abstractions/base>
 
+
+  /usr/bin/gajim mr,
+
   /usr/bin/basename rix,
-  /usr/bin/gajim r,
   /usr/bin/id rix,
   /usr/bin/python2.7 Cx,
 

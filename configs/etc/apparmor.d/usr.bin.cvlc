@@ -14,7 +14,7 @@
 /usr/bin/cvlc {
   #include <abstractions/base>
 
-  /usr/bin/cvlc rix,
+  /usr/bin/cvlc mrix,
   /usr/bin/vlc rPx,
 
 }
