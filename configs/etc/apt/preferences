@@ -42,7 +42,6 @@ Pin-Priority: 1001
 #Pin: version 2.8.0-6
 #Pin-Priority: 1001
 
-
 #Package: libpulse* pulseaudio*
 #Pin: release o=Debian,a=experimental
 #Pin-Priority: 995
@@ -70,14 +69,19 @@ Pin: origin ppa.launchpad.net
 Pin: release o=LP-PPA-psi-plus,l=Psi+ PPA
 Pin-Priority: 995
 
+#Package: openshot-qt libopenshot* libopenshot-audio*
+#Pin: origin ppa.launchpad.net
+#Pin: release o=LP-PPA-openshot.developers-libopenshot-daily
+#Pin-Priority: 995
+
 #Package: spacefm*
 #Pin: origin repozytorium.mati75.eu
 #Pin-Priority: 995
 
-Package: mpv *ffmpeg* libav* libsw* libmp3lame0 libxine2*
-Pin: origin ftp.deb-multimedia.org
-Pin: release o=Unofficial Multimedia Packages,a=unstable
-Pin-Priority: 995
+#Package: mpv *ffmpeg* libav* libsw* libmp3lame0 libxine2*
+#Pin: origin ftp.deb-multimedia.org
+#Pin: release o=Unofficial Multimedia Packages,a=unstable
+#Pin-Priority: 995
 
 #Package: *
 #Pin: origin snapshot.debian.org

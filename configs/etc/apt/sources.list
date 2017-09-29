@@ -14,8 +14,8 @@
 #deb https://deb.debian.org/debian-security stable/updates main
 # deb-src https://deb.debian.org/debian-security stable/updates main
 
-# deb http://www.deb-multimedia.org stable main non-free
-# deb-src http://www.deb-multimedia.org stable main non-free
+# deb https://www.deb-multimedia.org stable main non-free
+# deb-src https://www.deb-multimedia.org stable main non-free
 
 # deb http://mirrors.kernel.org/debian stable-backports main contrib
 # deb-src http://mirrors.kernel.org/debian stable-backports main contrib
@@ -29,15 +29,15 @@
 #deb https://deb.debian.org/debian-security testing/updates main
 # deb-src https://deb.debian.org/debian-security testing/updates main
 
-# deb http://www.deb-multimedia.org testing main non-free
-# deb-src http://www.deb-multimedia.org testing main non-free
+# deb https://www.deb-multimedia.org testing main non-free
+# deb-src https://www.deb-multimedia.org testing main non-free
 
 ### SID ###
 deb https://deb.debian.org/debian/ sid main non-free contrib
-# deb-src https://deb.debian.org/debian/ sid main non-free contrib
+#deb-src https://deb.debian.org/debian/ sid main non-free contrib
 
-# deb http://www.deb-multimedia.org sid main non-free
-# deb-src http://www.deb-multimedia.org sid main non-free
+# deb https://www.deb-multimedia.org sid main non-free
+# deb-src https://www.deb-multimedia.org sid main non-free
 
 ### EXPERIMENTAL ###
 deb https://deb.debian.org/debian/ experimental main contrib non-free
@@ -160,6 +160,18 @@ deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
 ### WineHQ ###
 # deb https://dl.winehq.org/wine-builds/ubuntu/ zesty main
 # deb-src https://dl.winehq.org/wine-builds/ubuntu/ zesty main
+
+### Openshot ###
+deb http://ppa.launchpad.net/openshot.developers/ppa/ubuntu zesty main
+#deb-src http://ppa.launchpad.net/openshot.developers/ppa/ubuntu zesty main
+#deb http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu zesty main
+#deb-src http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu zesty main
+#deb http://ppa.launchpad.net/openshot.developers/libopenshot-daily/ubuntu zesty main
+#deb-src http://ppa.launchpad.net/openshot.developers/libopenshot-daily/ubuntu zesty main
+
+### Vidcutter ###
+#deb http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
+#deb-src http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
 
 # Ubuntu #
 # deb http://archive.ubuntu.com/ubuntu/ zesty main
