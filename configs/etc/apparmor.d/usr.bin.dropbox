@@ -1,0 +1,81 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+
+@{DEMON_DIR}=@{HOME}/.dropbox-dist/
+@{HOME_DIR}=/media/Kabi/.dropbox/
+@{SHARE_DIR}=/media/Kabi/dropbox_share/
+
+#include <tunables/global>
+
+/usr/bin/dropbox {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/user-tmp>
+  #include <abstractions/python>
+
+
+  /usr/bin/dropbox mr,
+  /usr/bin/python2.7 rix,
+
+  # Dropbox home files
+  @{HOME_DIR}/ rw,
+  @{HOME_DIR}/** rwk,
+
+  # Dropbox share files
+  @{SHARE_DIR}/ rw,
+  @{SHARE_DIR}/** rw,
+
+  # Dropbox proprietary demon files
+  owner @{DEMON_DIR}/** r,
+  owner @{DEMON_DIR}/dropboxd rix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/dropbox rix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/dropboxd rix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/wmctrl rix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/*.so* mr,
+  owner @{DEMON_DIR}/dropbox-lnx.*/**/*.so mr,
+
+  /bin/dash rix,
+  /bin/readlink rix,
+  /usr/bin/dirname rix,
+  /bin/uname rix,
+  /sbin/ldconfig rix,
+  /usr/bin/x86_64-linux-gnu-gcc-7 rix,
+  /usr/bin/x86_64-linux-gnu-objdump rix,
+
+  /usr/bin/lsb_release rPUx,
+
+  # Open Dropbox folder
+  /usr/bin/xdg-open rPUx,
+
+  /etc/gai.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/resolv.conf r,
+
+  @{PROC}/@{pid}/stat r,
+  @{PROC}/@{pid}/mounts r,
+  @{PROC}/@{pid}/statm r,
+  @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
+  @{PROC}/version r,
+  @{PROC}/vmstat r,
+
+  /etc/xdg/QtProject/qtlogging.ini r,
+
+  # Silencer
+  deny /home/morfik/ r,
+
+}

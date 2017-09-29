@@ -1,0 +1,37 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/light-locker flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/dconf>
+  #include <abstractions/fonts>
+
+
+  /usr/bin/light-locker mr,
+
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+        @{PROC}/1/cgroup r,
+  owner @{PROC}/@{pid}/cgroup r,
+
+  /{,var/}run/user/[0-9]*/dconf/user rw,
+
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+
+  owner @{HOME}/.Xauthority r,
+  owner @{HOME}/.xsession-errors rw,
+
+  # when locking the screen and switching/closing sessions
+  /{,var/}run/systemd/sessions/[0-9]* r,
+
+}

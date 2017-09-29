@@ -1,0 +1,142 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/conky {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+
+
+  /usr/bin/conky mr,
+
+  # Needed tools to render conky output
+  /bin/dash rix,
+  /bin/bash rix,
+  /bin/cp rix,
+  /bin/rm rix,
+  /bin/sed rix,
+  /bin/grep rix,
+  /bin/egrep rix,
+  /usr/bin/gawk rix,
+  /usr/bin/tr rix,
+  /usr/bin/uniq rix,
+  /usr/bin/head rix,
+  /usr/bin/cut rix,
+  /usr/bin/curl rix,
+  /bin/date rix,
+  /usr/bin/wget rix,
+  /bin/cat rix,
+
+  # Needed files for the aforementioned tools
+  /etc/ssl/openssl.cnf r,
+  /usr/share/zoneinfo/* r,
+  /etc/wgetrc r,
+  owner @{HOME}/wget-log* rw,
+  owner @{HOME}/.wget-hsts r,
+
+  # Conky home files
+  owner @{HOME}/.conky/ r,
+  owner @{HOME}/.conky/** rw,
+
+  # Display images (graphic) inside of the conky window
+  /usr/lib/@{multiarch}/imlib2/loaders/*.so mr,
+
+  # Get the PRETTY_NAME name from /etc/os-release link
+  /etc/ r,
+
+  # Get kernel version and its architecture via uname -r
+  /bin/uname rix,
+
+  # Display machine's hostname
+  /etc/hostname r,
+
+  # Display machine's uptime
+  @{PROC}/uptime r,
+
+  # Get the number of the CPU cores
+  /sys/devices/system/cpu/present r,
+
+  # Get the current frequency of the CPU
+  /sys/devices/system/cpu/cpufreq/policy[0-9]*/scaling_cur_freq r,
+
+  # Get load average values fir 1, 5 and 15 minutes
+  @{PROC}/loadavg r,
+
+  # Display processes status
+  @{PROC}/ r,
+  # Get the PID value
+  @{PROC}/@{pid}/stat r,
+  # Get the name, %CPU and %RAM values
+  @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/io r,
+
+  # Display hard disk model name
+  /sys/devices/pci*/**/ata[0-9]*/host[0-9]*/**/model r,
+  /sys/block/sd[a-z]*/device/model r,
+  # Display disk write/read speed
+  @{PROC}/diskstats r,
+  # Get the mount points names
+  owner @{PROC}/@{pid}/mounts r,
+  # /etc/mtab r,
+
+  # Display WiFi network status, i.e:
+  # ESSID, AP's MAC, bitrate, signal strength, IP address and down/up speed
+  @{PROC}/@{pid}/net/dev r,
+  # Display IPv6 address of a interface
+  @{PROC}/@{pid}/net/if_inet6 r,
+
+  # Display the number of active TCP/TCP6 connections
+  @{PROC}/@{pid}/net/tcp{,6} r,
+
+  # Xserver auth cookie for clients
+  owner @{HOME}/.Xauthority r,
+
+  /dev/tty rw,
+
+  capability sys_ptrace,
+
+  # Display CPU cores temperature
+  /usr/bin/sensors Cx -> sensors,
+  profile sensors {
+    #include <abstractions/base>
+
+    /usr/bin/sensors mr,
+
+    /etc/sensors3.conf r,
+    /etc/sensors.d/ r,
+
+    /sys/devices/pci[0-9]*/**/name r,
+
+    /sys/class/i2c-adapter/ r,
+    /sys/class/hwmon/ r,
+    /sys/devices/virtual/hwmon/hwmon[0-9]* r,
+    /sys/devices/virtual/hwmon/hwmon[0-9]*/{,name,temp*} r,
+    /sys/devices/platform/coretemp.[0-9]*/hwmon/hwmon[0-9]*/{,name,temp*} r,
+
+  }
+
+  # Display network data transfer status
+  /usr/bin/vnstat Cx -> vnstat,
+  profile vnstat {
+    #include <abstractions/base>
+
+    /usr/bin/vnstat mr,
+
+    /etc/vnstat.conf r,
+
+    /var/lib/vnstat/ r,
+    /var/lib/vnstat/* rk,
+  }
+
+}

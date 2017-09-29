@@ -1,0 +1,44 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/volumeicon flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/audio>
+  #include <abstractions/freedesktop.org>
+
+
+  /usr/bin/volumeicon mr,
+
+  # Volumeicon files
+  /usr/share/volumeicon/** r,
+
+  # Volumeicon config files
+  owner @{HOME}/.config/volumeicon/ rw,
+  owner @{HOME}/.config/volumeicon/volumeicon* rw,
+
+  # Start the PulseAudio sound mixer
+  /bin/dash rix,
+  /usr/bin/pavucontrol rPUx,
+
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+
+  owner @{HOME}/.Xauthority r,
+  owner @{HOME}/.xsession-errors* rw,
+
+  /usr/share/mime/mime.cache r,
+  owner @{HOME}/.local/share/mime/mime.cache r,
+
+  /etc/machine-id r,
+
+}

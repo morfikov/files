@@ -1,0 +1,37 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/pavucontrol flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio>
+
+
+  /usr/bin/pavucontrol mr,
+
+  # Pavucontrol files
+  /usr/share/pavucontrol/pavucontrol.glade r,
+
+  # Pavucontrol config files
+  owner @{HOME}/.config/pavucontrol.ini* rw,
+
+  # GTK styles
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+
+  owner @{HOME}/.Xauthority r,
+  /etc/machine-id r,
+
+
+
+}

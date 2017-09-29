@@ -1,0 +1,45 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/bluetooth/bluetoothd flags=(complain) {
+  #include <abstractions/base>
+
+  # Needed for configuring HCI interfaces
+  capability net_admin,
+  capability net_bind_service,
+
+  /usr/sbin/bluetoothd mr,
+
+  # Bluetooth plugins
+  /usr/lib/@{multiarch}/bluetooth/plugins/*.so mr,
+
+  # Bluetooth config files
+  /etc/bluetooth/ r,
+  /etc/bluetooth/*.conf r,
+
+  #
+  /dev/rfkill rw,
+
+  #
+  /{,var/}run/sdp rw,
+
+  /sys/devices/virtual/dmi/id/chassis_type r,
+
+  # The bluetooth device configuration dir
+  /var/lib/bluetooth/ rw,
+  /var/lib/bluetooth/** rw,
+
+  # when connecting to a device
+  /dev/uinput rw,
+
+}

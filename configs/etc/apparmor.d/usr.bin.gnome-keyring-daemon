@@ -1,0 +1,33 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/gnome-keyring-daemon flags=(complain) {
+  #include <abstractions/base>
+
+
+  /usr/bin/gnome-keyring-daemon mr,
+
+  # Keyrings location
+  owner @{HOME}/.local/share/keyrings/ rw,
+  owner @{HOME}/.local/share/keyrings/* rwl,
+
+  # Seahorse and SSH keys
+  owner @{HOME}/.ssh/ r,
+  owner @{HOME}/.ssh/** r,
+
+  /{,var/}run/user/[0-9]*/keyring/ rw,
+  /{,var/}run/user/[0-9]*/keyring/* rw,
+
+  @{PROC}/@{pid}/status r,
+
+}

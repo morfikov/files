@@ -1,0 +1,41 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/local/bin/repo flags=(complain) {
+  #include <abstractions/base>
+
+
+  /usr/local/bin/repo mrix,
+
+  /usr/bin/env rix,
+
+  /usr/bin/python2.7 Cx -> python,
+  profile python flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/python>
+
+    /usr/bin/python2.7 mrix,
+
+    /usr/local/bin/repo rix,
+    /bin/dash mrix,
+    /bin/uname mrix,
+    /usr/bin/git rPUx,
+
+    owner @{HOME}/.repo_.gitconfig.json r,
+
+    # Android source dir
+    /media/Kabi/Android/** rw,
+
+  }
+
+}
