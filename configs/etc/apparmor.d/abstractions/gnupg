@@ -1,10 +1,35 @@
 # vim:syntax=apparmor
-# gnupg sub-process running permissions
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
 
-  # user configurations
-  owner @{HOME}/.gnupg/options     r,
-  owner @{HOME}/.gnupg/pubring.gpg r,
-  owner @{HOME}/.gnupg/random_seed rw,
-  owner @{HOME}/.gnupg/secring.gpg r,
-  owner @{HOME}/.gnupg/so/*.x86_64 mr,
-  owner @{HOME}/.gnupg/trustdb.gpg rw,
+# GPG config files
+owner @{HOME}/.gnupg/ rw,
+owner @{HOME}/.gnupg/** rwkl,
+owner /{,var/}run/user/[0-9]*/gnupg/ rw,
+owner /{,var/}run/user/[0-9]*/gnupg/* rw,
+
+# For apt-key
+/etc/apt/.* rwkl,
+/etc/apt/trusted.gpg* rwkl,
+/etc/apt/trusted.gpg.d/ r,
+/etc/apt/trusted.gpg.d/** rw,
+owner /{,var/}run/user/0/gnupg/d.*/ rw,
+owner /{,var/}run/user/0/gnupg/d.*/* rw,
+
+# CA cert for SKS keyservers pool
+/usr/share/gnupg/** r,
+
+# Needed for popularity-contest
+/usr/share/popularity-contest/* r,
+/var/log/popularity-contest* rwkl,
+
+# Lightdm GPG home dir
+/var/lib/lightdm/.gnupg/ rw,
+/var/lib/lightdm/.gnupg/** rw,

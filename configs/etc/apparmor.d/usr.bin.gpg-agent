@@ -14,22 +14,13 @@
 /usr/bin/gpg-agent {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
+  #include <abstractions/gnupg>
 
 
   /usr/bin/gpg-agent mr,
   /usr/lib/gnupg/scdaemon rPx,
 
-  # GPG config files
-  owner @{HOME}/.gnupg/ rw,
-  owner @{HOME}/.gnupg/** rwkl,
-  owner /{,var/}run/user/[0-9]*/gnupg/ rw,
-  owner /{,var/}run/user/[0-9]*/gnupg/* rw,
-
   @{PROC}/@{pid}/fd/ r,
-
-  #
-  /var/lib/lightdm/.gnupg/ rw,
-  /var/lib/lightdm/.gnupg/** rw,
 
   /usr/bin/pinentry-gtk-2 rPUx,
   /usr/bin/pinentry-gnome3 rPUx,

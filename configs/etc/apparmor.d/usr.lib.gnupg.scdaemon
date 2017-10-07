@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/gnupg/scdaemon flags=(complain) {
+/usr/lib/gnupg/scdaemon {
   #include <abstractions/base>
 
 
