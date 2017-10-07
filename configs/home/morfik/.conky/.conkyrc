@@ -3,7 +3,7 @@ conky.config = {
 
 -- Use XFT? Required to Force UTF8 (see below)
 	use_xft = true,
-	font = 'monospace:size=9',
+	font = 'monospace:size=8',
 --	xftalpha = 0.1,
 
 -- Force UTF8? Requires XFT (see above)
@@ -142,14 +142,14 @@ conky.config = {
 };
 
 conky.text = [[
-${image $HOME/.conky/debian.png -p 18,28 -s 40x40}${color1}${hr 1}${font monospace:size=9}
+${image $HOME/.conky/debian.png -p 18,28 -s 40x40}${color1}${hr 1}${font monospace:size=8}
 #${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^NAME' | awk -F'=' '{print $2}' | tr -d '"'} ${execi 300 cat /etc/*release | grep 'VERSION_ID' | awk -F'=' '{print $2}' | tr -d '"'}
 ${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^PRETTY_NAME' | awk -F'=' '{print $2}' | tr -d '"'}
 ${alignr}${offset -5}${execi 3600 uname -r}
 ${alignr}${offset -5}${execi 3600 cat /etc/hostname}
 ${alignr}${offset -5}Uptime: ${uptime}
 ${voffset -5}${color1}$hr
-${voffset 2}${font StyleBats:size=9}a${font} Processor: ${color0}${alignr}${execi 3600 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
+${voffset 2}${font StyleBats:size=8}a${font} Processor: ${color0}${alignr}${execi 3600 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
 ${voffset 2}${color1}CPU 0 ${color0}${cpu cpu1}%
 ${color1}CPU 1 ${color0}${cpu cpu2}%
 ${color1}${voffset 7}Frequency: ${alignr}${color0}${freq_g cpu1}GHz ${color1}| ${color0}${freq_g cpu2}GHz
@@ -162,9 +162,9 @@ ${color1}Load 1/5/15 : ${alignr}${color0}${loadavg}
 #${color1}Graphic Card
 #${color0}Geforce 7600 GT ${alignr} ${execi 30 nvidia-settings -q gpucoretemp | grep '):' | awk '{print $4}'}°C                  ${color0}Geforce 7600 GT ${alignr} ${execi 30 nvidia-settings -q gpucoretemp | grep '):' | cut -c46-47}°C
 #${color0}${execi 2000 lspci | egrep -i vga | awk '{print $5 $8$9$10}'} ${alignr} ${execi 10 nvidia-settings -q gpucoretemp -t}°C
-${voffset 2}${color1}${font StyleBats:size=9}l${font} ${color0}RAM:${offset 20}${color0}${alignc}$mem/ $memmax${alignr}$memperc%
-${voffset 15}${color1}${font StyleBats:size=9}x${font} ${color0}SWAP:${offset 13}${color0}${alignc}$swap/ $swapmax${alignr} $swapperc%
-${voffset 16}${color1}${font StyleBats:size=9}3${font} Procs: $processes ${goto 108} PID ${goto 155}%CPU ${goto 198}%RAM
+${voffset 2}${color1}${font StyleBats:size=8}l${font} ${color0}RAM:${offset 20}${color0}${alignc}$mem/ $memmax${alignr}$memperc%
+${voffset 15}${color1}${font StyleBats:size=8}x${font} ${color0}SWAP:${offset 13}${color0}${alignc}$swap/ $swapmax${alignr} $swapperc%
+${voffset 16}${color1}${font StyleBats:size=8}3${font} Procs: $processes ${goto 108} PID ${goto 155}%CPU ${goto 198}%RAM
 ${color0}${top name 1} ${alignr} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color0}${top name 2} ${alignr} ${top pid 2} ${top cpu 2} ${top mem 2}
 ${color0}${top name 3} ${alignr} ${top pid 3} ${top cpu 3} ${top mem 3}
@@ -174,16 +174,16 @@ ${color0}${top name 6} ${alignr} ${top pid 6} ${top cpu 6} ${top mem 6}
 ${color0}${top name 7} ${alignr} ${top pid 7} ${top cpu 7} ${top mem 7}
 ${color0}${top name 8} ${alignr} ${top pid 8} ${top cpu 8} ${top mem 8}
 ${color1}$hr
-${color1}${font StyleBats:size=9}u${font} Hard Disk:
+${color1}${font StyleBats:size=8}u${font} Hard Disk:
 ${color0}sda: ${execi 3600 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C
 ${color1}Read ${offset 27}${color0}${diskio_read /dev/sda}${color1}${offset 3}|${alignr}${color0}${diskio_write /dev/sda}${color} ${color1} Write
 ${color1}$hr
-${color1}${font StyleBats:size=9}2${font} Wi-Fi ESSID:${alignr}${color0}${wireless_essid wlan0}
+${color1}${font StyleBats:size=8}2${font} Wi-Fi ESSID:${alignr}${color0}${wireless_essid wlan0}
 ${color1}AP:${alignr}${color0}${wireless_ap wlan0}
 ${color1}Bitrate:${alignr}${color0}${wireless_bitrate wlan0}
 ${color1}Signal:
 ${voffset -5}${color1}$hr
-${color1}${font StyleBats:size=9}z${font} Con: ${alignr} ${color1}TI ${color0}${tcp_portmon 18398 18398 count} | ${color1}TO ${color0}${tcp_portmon 51000 55000 count} | ${color1}ALL ${color0}${tcp_portmon 1 65535 count}
+${color1}${font StyleBats:size=8}z${font} Con: ${alignr} ${color1}TI ${color0}${tcp_portmon 18398 18398 count} | ${color1}TO ${color0}${tcp_portmon 51000 55000 count} | ${color1}ALL ${color0}${tcp_portmon 1 65535 count}
 ${color0}IP (bond0):${alignr}${addr bond0}
 #${color0}IP (external):${alignr}${execpi 60 dig +short myip.opendns.com @resolver1.opendns.com}
 #${color0}IP (external):${alignr}${execpi 60 dig +short myip.opendns.com}

@@ -3,7 +3,7 @@ conky.config = {
 
 -- Use XFT? Required to Force UTF8 (see below)
 	use_xft = true,
-	font = 'monospace:size=9',
+	font = 'monospace:size=8',
 --	xftalpha = 0.1,
 
 -- Force UTF8? Requires XFT (see above)
@@ -141,10 +141,10 @@ conky.config = {
 };
 
 conky.text = [[
-${font monospace:size=9}${color1}${goto 56}${execpi 600 sed -n '1p' $HOME/.conky/1_accuweather/first_days}${goto 166}${execpi 600 sed -n '6p' $HOME/.conky/1_accuweather/first_days}${goto 266}${execpi 600 sed -n '11p' $HOME/.conky/1_accuweather/first_days}${goto 386}${execpi 600 sed -n '16p' $HOME/.conky/1_accuweather/first_days}${goto 496}${execpi 600 sed -n '21p' $HOME/.conky/1_accuweather/first_days}$color${font}
+${font monospace:size=8}${color1}${goto 56}${execpi 600 sed -n '1p' $HOME/.conky/1_accuweather/first_days}${goto 166}${execpi 600 sed -n '6p' $HOME/.conky/1_accuweather/first_days}${goto 266}${execpi 600 sed -n '11p' $HOME/.conky/1_accuweather/first_days}${goto 386}${execpi 600 sed -n '16p' $HOME/.conky/1_accuweather/first_days}${goto 496}${execpi 600 sed -n '21p' $HOME/.conky/1_accuweather/first_days}$color${font}
 
-${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '3p' $HOME/.conky/1_accuweather/first_days}°C${goto 206}${execpi 600 sed -n '8p' $HOME/.conky/1_accuweather/first_days}°C${goto 316}${execpi 600 sed -n '13p' $HOME/.conky/1_accuweather/first_days}°C${goto 426}${execpi 600 sed -n '18p' $HOME/.conky/1_accuweather/first_days}°C${goto 536}${execpi 600 sed -n '23p' $HOME/.conky/1_accuweather/first_days}°C
-${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '4p' $HOME/.conky/1_accuweather/first_days}°C${goto 206}${execpi 600 sed -n '9p' $HOME/.conky/1_accuweather/first_days}°C${goto 316}${execpi 600 sed -n '14p' $HOME/.conky/1_accuweather/first_days}°C${goto 426}${execpi 600 sed -n '19p' $HOME/.conky/1_accuweather/first_days}°C${goto 536}${execpi 600 sed -n '24p' $HOME/.conky/1_accuweather/first_days}°C
+${font monospace:size=8}${color0}${goto 96}${execpi 600 sed -n '3p' $HOME/.conky/1_accuweather/first_days}°C${goto 206}${execpi 600 sed -n '8p' $HOME/.conky/1_accuweather/first_days}°C${goto 316}${execpi 600 sed -n '13p' $HOME/.conky/1_accuweather/first_days}°C${goto 426}${execpi 600 sed -n '18p' $HOME/.conky/1_accuweather/first_days}°C${goto 536}${execpi 600 sed -n '23p' $HOME/.conky/1_accuweather/first_days}°C
+${font monospace:size=8}${color0}${goto 96}${execpi 600 sed -n '4p' $HOME/.conky/1_accuweather/first_days}°C${goto 206}${execpi 600 sed -n '9p' $HOME/.conky/1_accuweather/first_days}°C${goto 316}${execpi 600 sed -n '14p' $HOME/.conky/1_accuweather/first_days}°C${goto 426}${execpi 600 sed -n '19p' $HOME/.conky/1_accuweather/first_days}°C${goto 536}${execpi 600 sed -n '24p' $HOME/.conky/1_accuweather/first_days}°C
 
 ${image $HOME/.conky/1_accuweather/1.png -p 0,20 -s 90x54}
 ${image $HOME/.conky/1_accuweather/2.png -p 106,20 -s 90x54}
@@ -152,22 +152,22 @@ ${image $HOME/.conky/1_accuweather/3.png -p 216,20 -s 90x54}
 ${image $HOME/.conky/1_accuweather/4.png -p 326,20 -s 90x54}
 ${image $HOME/.conky/1_accuweather/5.png -p 436,20 -s 90x54}
 ${voffset -70}
-${font monospace:size=9}${color1}${goto 56}${execpi 600 sed -n '1p' $HOME/.conky/1_accuweather/last_days}${goto 166}${execpi 600 sed -n '6p' $HOME/.conky/1_accuweather/last_days}${goto 266}${color1}${execpi 600 sed -n '11p' $HOME/.conky/1_accuweather/last_days}${goto 386}${execpi 600 sed -n '16p' $HOME/.conky/1_accuweather/last_days}${goto 496}${execpi 600 sed -n '21p' $HOME/.conky/1_accuweather/last_days}$color${font}
+${font monospace:size=8}${color1}${goto 56}${execpi 600 sed -n '1p' $HOME/.conky/1_accuweather/last_days}${goto 166}${execpi 600 sed -n '6p' $HOME/.conky/1_accuweather/last_days}${goto 266}${color1}${execpi 600 sed -n '11p' $HOME/.conky/1_accuweather/last_days}${goto 386}${execpi 600 sed -n '16p' $HOME/.conky/1_accuweather/last_days}${goto 496}${execpi 600 sed -n '21p' $HOME/.conky/1_accuweather/last_days}$color${font}
 
-${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '3p' $HOME/.conky/1_accuweather/last_days}°C${goto 206}${execpi 600 sed -n '8p' $HOME/.conky/1_accuweather/last_days}°C${goto 316}${execpi 600 sed -n '13p' $HOME/.conky/1_accuweather/last_days}°C${goto 426}${execpi 600 sed -n '18p' $HOME/.conky/1_accuweather/last_days}°C${goto 536}${execpi 600 sed -n '23p' $HOME/.conky/1_accuweather/last_days}°C
-${font monospace:size=9}${color0}${goto 96}${execpi 600 sed -n '4p' $HOME/.conky/1_accuweather/last_days}°C${goto 206}${execpi 600 sed -n '9p' $HOME/.conky/1_accuweather/last_days}°C${goto 316}${execpi 600 sed -n '14p' $HOME/.conky/1_accuweather/last_days}°C${goto 426}${execpi 600 sed -n '19p' $HOME/.conky/1_accuweather/last_days}°C${goto 536}${execpi 600 sed -n '24p' $HOME/.conky/1_accuweather/last_days}°C
+${font monospace:size=8}${color0}${goto 96}${execpi 600 sed -n '3p' $HOME/.conky/1_accuweather/last_days}°C${goto 206}${execpi 600 sed -n '8p' $HOME/.conky/1_accuweather/last_days}°C${goto 316}${execpi 600 sed -n '13p' $HOME/.conky/1_accuweather/last_days}°C${goto 426}${execpi 600 sed -n '18p' $HOME/.conky/1_accuweather/last_days}°C${goto 536}${execpi 600 sed -n '23p' $HOME/.conky/1_accuweather/last_days}°C
+${font monospace:size=8}${color0}${goto 96}${execpi 600 sed -n '4p' $HOME/.conky/1_accuweather/last_days}°C${goto 206}${execpi 600 sed -n '9p' $HOME/.conky/1_accuweather/last_days}°C${goto 316}${execpi 600 sed -n '14p' $HOME/.conky/1_accuweather/last_days}°C${goto 426}${execpi 600 sed -n '19p' $HOME/.conky/1_accuweather/last_days}°C${goto 536}${execpi 600 sed -n '24p' $HOME/.conky/1_accuweather/last_days}°C
 
-${image $HOME/.conky/1_accuweather/6.png -p 0,100 -s 90x54}
-${image $HOME/.conky/1_accuweather/7.png -p 106,100 -s 90x54}
-${image $HOME/.conky/1_accuweather/8.png -p 216,100 -s 90x54}
-${image $HOME/.conky/1_accuweather/9.png -p 326,100 -s 90x54}
-${image $HOME/.conky/1_accuweather/10.png -p 436,100 -s 90x54}
+${image $HOME/.conky/1_accuweather/6.png -p 0,93 -s 90x54}
+${image $HOME/.conky/1_accuweather/7.png -p 106,93 -s 90x54}
+${image $HOME/.conky/1_accuweather/8.png -p 216,93 -s 90x54}
+${image $HOME/.conky/1_accuweather/9.png -p 326,93 -s 90x54}
+${image $HOME/.conky/1_accuweather/10.png -p 436,93 -s 90x54}
 ${voffset -76}
-${voffset -13}${color1}${hr}
-${font monospace:size=9}${color1}${goto 60}TODAY${goto 150}TONIGHT${goto 460}THE MOON$color
-${image $HOME/.conky/1_accuweather/0.png -p 0,185 -s 120x72}
-${image $HOME/.conky/1_accuweather/ton.png -p 130,175 -s 120x72}
-${image $HOME/.conky/4_Moon/0.png -p 450,195 -s 60x60}
+${voffset -3}${color1}${hr}
+${font monospace:size=8}${color1}${goto 60}TODAY${goto 150}TONIGHT${goto 460}THE MOON$color
+${image $HOME/.conky/1_accuweather/0.png -p 0,165 -s 120x72}
+${image $HOME/.conky/1_accuweather/ton.png -p 130,165 -s 120x72}
+${image $HOME/.conky/4_Moon/0.png -p 450,175 -s 60x60}
 ${voffset -50}
 ${goto 230}${color1}PRESSURE: ${color0}${execpi 600 sed -n '8p' $HOME/.conky/1_accuweather/curr_cond}$color
 ${goto 230}${color1}CEILING: ${color0}${execpi 600 sed -n '11p' $HOME/.conky/1_accuweather/curr_cond}$color
@@ -177,5 +177,5 @@ ${goto 230}${color1}SUN DUR: ${color0}${execpi 600 sed -n '16p' $HOME/.conky/1_a
 ${goto 230}${color1}MOON R/S: ${color0}${execpi 600 sed -n '18p' $HOME/.conky/1_accuweather/curr_cond}/${execpi 600 sed -n '19p' $HOME/.conky/1_accuweather/curr_cond}$color
 ${goto 230}${color1}MOON DUR: ${color0}${execpi 600 sed -n '20p' $HOME/.conky/1_accuweather/curr_cond}$color
 ${voffset -20}${goto 40}${color0}${execpi 600 sed -n '2p' $HOME/.conky/1_accuweather/curr_cond}°C (${execpi 600 sed -n '3p' $HOME/.conky/1_accuweather/curr_cond}°C)${goto 150}${color0}${execpi 600 sed -n '31p' $HOME/.conky/1_accuweather/first_days}°C (${execpi 600 sed -n '32p' $HOME/.conky/1_accuweather/first_days}°C)
-${voffset 18}${color1}${hr 1}
+${voffset 20}${color1}${hr 1}
 ]];

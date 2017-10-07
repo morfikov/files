@@ -3,7 +3,7 @@ conky.config = {
 
 -- Use XFT? Required to Force UTF8 (see below)
 	use_xft = true,
-	font = 'monospace:size=9',
+	font = 'monospace:size=8',
 --	xftalpha = 0.1,
 
 -- Force UTF8? Requires XFT (see above)
@@ -144,14 +144,14 @@ conky.config = {
 conky.text = [[
 ${color1}${hr 1}${texeci 600 bash $HOME/.conky/1_accuweather/1_accuweather -f -h}\
 ${texeci 600 bash $HOME/.conky/4_Moon/moon_MoonGiant}
-${goto 82}${font monospace:size=9}${color1}/${goto 197}${color0}${fs_used /}${color1} / ${fs_size /}\
+${goto 82}${font monospace:size=8}${color1}/${goto 197}${color0}${fs_used /}${color1} / ${fs_size /}\
 ${goto 328}${color1}/home${goto 443}${color0}${fs_used /home}${color1} / ${fs_size /home}\
 ${goto 574}${color1}/media/Server${goto 696}${color0}${fs_used /media/Server/}${color1}/ ${fs_size /media/Server/}\
 ${goto 820}${color1}/tmp${goto 942}${color0}${fs_used /tmp}${color1} / ${fs_size /tmp}
 
-${goto 82}${font monospace:size=9}${color1}/media/Kabi${goto 204}${color0}${fs_used /media/Kabi}${color1} / ${fs_size /media/Kabi}\
+${goto 82}${font monospace:size=8}${color1}/media/Kabi${goto 204}${color0}${fs_used /media/Kabi}${color1} / ${fs_size /media/Kabi}\
 ${goto 328}${color1}/media/Zami${goto 443}${color0}${fs_used /media/Zami}${color1} / ${fs_size /media/Zami}\
 ${goto 574}${color1}/media/Gusto${goto 696}${color0}${fs_used /media/Gusto}${color1}/ ${fs_size /media/Gusto}\
-${goto 820}${color1}/media/Grafi${goto 935}${color0}${fs_used /media/Grafi}${color1} / ${fs_size /media/Grafi}
+${goto 820}${color1}/media/Grafi${goto 940}${color0}${fs_used /media/Grafi}${color1} / ${fs_size /media/Grafi}
 ${voffset 7}${color1}${hr 1}
 ]];

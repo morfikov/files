@@ -3,7 +3,7 @@ conky.config = {
 
 -- Use XFT? Required to Force UTF8 (see below)
 	use_xft = true,
-	font = 'monospace:size=9',
+	font = 'monospace:size=8',
 --	xftalpha = 0.1,
 
 -- Force UTF8? Requires XFT (see above)
