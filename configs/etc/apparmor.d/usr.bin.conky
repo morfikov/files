@@ -81,6 +81,9 @@
   @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/io r,
 
+  deny capability sys_ptrace,
+  deny ptrace (trace),
+
   # Display hard disk model name
   /sys/devices/pci*/**/ata[0-9]*/host[0-9]*/**/model r,
   /sys/block/sd[a-z]*/device/model r,
@@ -102,41 +105,15 @@
   # Xserver auth cookie for clients
   owner @{HOME}/.Xauthority r,
 
+  # Logs
+  owner @{HOME}/.xsession-errors* rw,
+
   /dev/tty rw,
 
-  capability sys_ptrace,
-
   # Display CPU cores temperature
-  /usr/bin/sensors Cx -> sensors,
-  profile sensors {
-    #include <abstractions/base>
-
-    /usr/bin/sensors mr,
-
-    /etc/sensors3.conf r,
-    /etc/sensors.d/ r,
-
-    /sys/devices/pci[0-9]*/**/name r,
-
-    /sys/class/i2c-adapter/ r,
-    /sys/class/hwmon/ r,
-    /sys/devices/virtual/hwmon/hwmon[0-9]* r,
-    /sys/devices/virtual/hwmon/hwmon[0-9]*/{,name,temp*} r,
-    /sys/devices/platform/coretemp.[0-9]*/hwmon/hwmon[0-9]*/{,name,temp*} r,
-
-  }
+  /usr/bin/sensors rPUx,
 
   # Display network data transfer status
-  /usr/bin/vnstat Cx -> vnstat,
-  profile vnstat {
-    #include <abstractions/base>
-
-    /usr/bin/vnstat mr,
-
-    /etc/vnstat.conf r,
-
-    /var/lib/vnstat/ r,
-    /var/lib/vnstat/* rk,
-  }
+  /usr/bin/vnstat rPUx,
 
 }

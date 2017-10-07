@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/compton flags=(complain) {
+/usr/bin/compton {
   #include <abstractions/base>
 
 
@@ -22,5 +22,6 @@
 
   /usr/share/X11/XErrorDB r,
   owner @{HOME}/.Xauthority r,
+  owner @{HOME}/.xsession-errors* rw,
 
 }

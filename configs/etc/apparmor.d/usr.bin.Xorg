@@ -21,4 +21,8 @@
 
   /usr/lib/xorg/Xorg rPx,
 
+  # file_inherit (lightdm)
+  /var/log/lightdm/x-[0-9]*.log rw,
+
+
 }

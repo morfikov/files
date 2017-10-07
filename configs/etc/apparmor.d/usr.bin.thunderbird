@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/thunderbird flags=(complain) {
+/usr/bin/thunderbird {
   #include <abstractions/base>
 
 
@@ -25,5 +25,7 @@
   /bin/which rix,
 
   /dev/tty rw,
+
+  owner @{HOME}/.xsession-errors* rw,
 
 }

@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/redshift flags=(complain) {
+/usr/bin/redshift {
   #include <abstractions/base>
 
 

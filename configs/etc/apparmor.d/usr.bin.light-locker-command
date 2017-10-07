@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/light-locker-command flags=(complain) {
+/usr/bin/light-locker-command {
   #include <abstractions/base>
 
 

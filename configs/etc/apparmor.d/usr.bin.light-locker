@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/light-locker flags=(complain) {
+/usr/bin/light-locker {
   #include <abstractions/base>
   #include <abstractions/dconf>
   #include <abstractions/fonts>
@@ -24,6 +24,7 @@
         @{PROC}/1/cgroup r,
   owner @{PROC}/@{pid}/cgroup r,
 
+  /{,var/}run/user/[0-9]*/dconf/ rw,
   /{,var/}run/user/[0-9]*/dconf/user rw,
 
   owner @{HOME}/.config/gtk-3.0/settings.ini r,

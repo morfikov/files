@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/volumeicon flags=(complain) {
+/usr/bin/volumeicon {
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/audio>

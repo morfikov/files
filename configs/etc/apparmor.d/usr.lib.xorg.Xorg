@@ -24,6 +24,7 @@
   capability setuid,
   capability sys_admin,
   capability sys_rawio,
+  capability dac_override,
 
   /usr/lib/xorg/Xorg mr,
 
@@ -67,7 +68,7 @@
   /sys/devices/pci[0-9]*/**/backlight/**/* rw,
 
   # Display Xserver on a specific TTY
-  /dev/tty[1-8] rw,
+  /dev/tty[1-9] rw,
 
   # Needed for SDDM display manager
   #/{,var/}run/sddm/ r,

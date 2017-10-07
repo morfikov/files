@@ -76,6 +76,6 @@
   /etc/xdg/QtProject/qtlogging.ini r,
 
   # Silencer
-  deny /home/morfik/ r,
+  deny @{HOME}/ r,
 
 }

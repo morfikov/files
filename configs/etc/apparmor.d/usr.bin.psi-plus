@@ -104,6 +104,7 @@
     /usr/share/psi-plus/sound/** r,
 
     owner @{HOME}/.Xauthority r,
+    owner @{HOME}/.xsession-errors* rw,
 
   }
 

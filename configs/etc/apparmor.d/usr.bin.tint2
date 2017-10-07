@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/tint2 flags=(complain) {
+/usr/bin/tint2 {
   #include <abstractions/base>
   #include <abstractions/fonts>
 

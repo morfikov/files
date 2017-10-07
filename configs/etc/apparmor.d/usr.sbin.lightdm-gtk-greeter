@@ -75,6 +75,9 @@
 
     /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
+    # file_inherit (lightdm)
+    /var/log/lightdm/seat[0-9]*-greeter.log rw,
+
   }
 
 }

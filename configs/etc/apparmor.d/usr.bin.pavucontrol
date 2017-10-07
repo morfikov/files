@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/pavucontrol flags=(complain) {
+/usr/bin/pavucontrol {
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>

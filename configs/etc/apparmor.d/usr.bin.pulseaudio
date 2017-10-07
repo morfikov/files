@@ -30,6 +30,7 @@
   owner @{HOME}/.config/pulse/ rw,
   owner @{HOME}/.config/pulse/** rw,
 
+  /{,var/}run/user/[0-9]*/ rw,
   /{,var/}run/user/[0-9]*/pulse/ rw,
   /{,var/}run/user/[0-9]*/pulse/** rw,
 
@@ -65,5 +66,7 @@
   owner @{HOME}/orcexec.* mrw,
   /tmp/orcexec.* mrw,
   /{,var/}run/user/[0-9]*/orcexec.* mrw,
+
+  owner @{HOME}/.xsession-errors* rw,
 
 }
