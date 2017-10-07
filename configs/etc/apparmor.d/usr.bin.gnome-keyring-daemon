@@ -11,9 +11,13 @@
 
 #include <tunables/global>
 
-/usr/bin/gnome-keyring-daemon flags=(complain) {
+/usr/bin/gnome-keyring-daemon {
   #include <abstractions/base>
 
+
+  # Remove the following error:
+  #  gnome-keyring-daemon: insufficient process capabilities, unsecure memory might get used
+  capability ipc_lock,
 
   /usr/bin/gnome-keyring-daemon mr,
 
@@ -29,5 +33,7 @@
   /{,var/}run/user/[0-9]*/keyring/* rw,
 
   @{PROC}/@{pid}/status r,
+
+  owner @{HOME}/.xsession-errors rw,
 
 }
