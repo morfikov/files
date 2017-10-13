@@ -23,10 +23,10 @@
 
 
 
-Package: libfreetype6 libfreetype6:i386
-Pin: release o=Debian,a=testing
-Pin: version 2.6.3*
-Pin-Priority: 1001
+#Package: libfreetype6 libfreetype6:i386
+#Pin: release o=Debian,a=testing
+#Pin: version 2.6.3*
+#Pin-Priority: 1001
 
 #Package: *gtk-3* *gtksource*-3*
 #Pin: release o=Debian,a=testing

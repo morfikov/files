@@ -107,6 +107,10 @@ deb https://deb.torproject.org/torproject.org sid main
 ### Spotify (music) ###
 # deb http://repository.spotify.com stable non-free
 
+### Docker ###
+deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+# deb-src [arch=amd64] https://download.docker.com/linux/debian stretch stable edge test
+
 ####################### PPAs ############################
 
 # GNS3 (network)
@@ -129,11 +133,11 @@ deb http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
 #deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
 
-### PSI (Communicator) ###
+### PSI (jabber) ###
 deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
 #deb-src http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
 
-### Grub Customizer ###
+### Grub Customizer (bootloader) ###
 # deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
 
@@ -153,7 +157,7 @@ deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
 # deb http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
 
-### Spacefm ###
+### Spacefm (file manager) ###
 # deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
 # deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
 
