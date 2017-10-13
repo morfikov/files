@@ -38,6 +38,7 @@
 @{PROC}/asound/** rw,
 
 /usr/share/alsa/** r,
+/usr/share/sounds/ r,
 /usr/share/sounds/** r,
 
 owner @{HOME}/.esd_auth r,
@@ -60,6 +61,10 @@ owner /{,var/}run/user/*/pulse/{native,pid} rwk,
 owner @{HOME}/.config/pulse/cookie rwk,
 owner /tmp/pulse-*/ rw,
 owner /tmp/pulse-*/* rw,
+
+# PulseAudio module-ladspa-sink (plugin sc4m_1916)
+/usr/lib/ladspa/ r,
+/usr/lib/ladspa/*.so mr,
 
 # libgnome2
 /etc/sound/ r,

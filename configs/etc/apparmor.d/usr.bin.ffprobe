@@ -13,7 +13,6 @@
 
 /usr/bin/ffprobe {
   #include <abstractions/base>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
 

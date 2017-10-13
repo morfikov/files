@@ -13,15 +13,9 @@
 
 /usr/lib/gnupg/scdaemon {
   #include <abstractions/base>
-
+  #include <abstractions/gnupg>
 
   /usr/lib/gnupg/scdaemon mr,
-
-  # GPG config files
-  owner @{HOME}/.gnupg/ rw,
-  owner @{HOME}/.gnupg/** rwkl,
-  owner /{,var/}run/user/[0-9]*/gnupg/ rw,
-  owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 
   owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
 

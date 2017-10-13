@@ -22,6 +22,7 @@
   owner /{,var/}run/lightdm/*/xauthority r,
   owner /{,var/}run/user/*/gdm/Xauthority r,
   owner /{,var/}run/user/*/X11/Xauthority r,
+  owner /var/lib/lightdm/.Xauthority r,
 
   # the unix socket to use to connect to the display
   /tmp/.X11-unix/* rw,
@@ -48,6 +49,7 @@
   /usr/lib{,32,64}/dri/**         mr,
   /usr/lib/@{multiarch}/dri/**    mr,
   /usr/lib/fglrx/dri/**           mr,
+  /dev/dri/                       r,
   /dev/dri/**                     rw,
   /etc/drirc                      r,
   owner @{HOME}/.drirc            r,
@@ -60,5 +62,5 @@
   /etc/X11/cursors/**             r,
 
 
-  # for user logs
+  # logs
   owner @{HOME}/.xsession-errors* rw,

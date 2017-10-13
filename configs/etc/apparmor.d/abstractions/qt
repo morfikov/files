@@ -9,19 +9,17 @@
 #
 # ------------------------------------------------------------------
 
-#include <tunables/global>
+  /etc/xdg/QtProject/qtlogging.ini r,
 
-/usr/bin/dirmngr {
-  #include <abstractions/base>
-  #include <abstractions/gnupg>
-  #include <abstractions/ssl_certs>
+  owner @{HOME}/.config/QtProject.conf* rw,
+  owner @{HOME}/.config/QtProject.conf.lock rwk,
 
-  /usr/bin/dirmngr mr,
+  owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
-  # For apt-key
-  /tmp/apt-key-gpghome.*/ rw,
-  /tmp/apt-key-gpghome.*/** rw,
-  /etc/hosts r,
-  @{PROC}/@{pid}/task/[0-9]*/comm rw,
+  owner @{HOME}/.config/Trolltech.conf rwk,
 
-}
+  # .Xauthority files required for X connections
+  owner @{HOME}/.Xauthority r,
+
+  # X errors
+  owner @{HOME}/.xsession-errors* rw,

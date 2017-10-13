@@ -24,13 +24,8 @@
 
   /usr/bin/kbuildsycoca4 rPUx,
 
-  /usr/share/sounds/ r,
-
-  owner @{HOME}/.cache/fontconfig/* r,
-
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mounts r,
-
 
   # Silencer
   deny /usr/lib/@{multiarch}/vlc/plugins/* w,

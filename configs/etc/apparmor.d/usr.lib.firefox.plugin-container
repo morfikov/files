@@ -45,7 +45,7 @@
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,
-  @{MOZ_LIBDIR}/**  mixr,
+  @{MOZ_LIBDIR}/**  mrix,
   owner @{HOME}/.mozilla/firefox/profiles.ini r,
 
   # Firefox plugins
@@ -54,34 +54,12 @@
   # Firefox extensions
   deny /usr/share/mozilla/extensions/** r,
 
-  # Flash plugin
-  #/opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-  #/opt/google/chrome/PepperFlash/manifest.json r,
-  #/usr/lib/browser-plugin-freshplayer-pepperflash/ r,
-  #/usr/lib/browser-plugin-freshplayer-pepperflash/** r,
-  #owner /dev/shm/org.chromium.* rw,
-  #/etc/ssl/openssl.cnf r,
-
-  # Flash dirs
-  #deny @{HOME}/.adobe/ rw,
-  #deny @{HOME}/.adobe/** rw,
-  #deny @{HOME}/.macromedia/ rw,
-  #owner @{HOME}/.macromedia/** r,
-  #owner @{HOME}/.config/freshwrapper-data/ r,
-  #owner @{HOME}/.config/freshwrapper-data/** r,
-  #deny @{HOME}/.config/freshwrapper-data/** w,
-
-  # Flash config files
-  #/etc/adobe/mms.cfg  r,
-  #owner @{HOME}/mm.cfg rw,
-
   # Devices
   /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
   /dev/ r,
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/config r,
 
   # webcam & mic
@@ -91,13 +69,7 @@
 
   # Proc files
   owner @{PROC}/@{pid}/cmdline r,
-  #owner @{PROC}/@{pid}/fd/ r,
-  #owner @{PROC}/@{pid}/fd/* r,
-  #owner @{PROC}/@{pid}/maps r,
-  #owner @{PROC}/@{pid}/smaps r,
-  #owner @{PROC}/@{pid}/mountinfo r,
   owner @{PROC}/@{pid}/stat r,
-  #owner @{PROC}/@{pid}/statm r,
   owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/task/*/stat r,
   audit deny @{PROC}/uptime r,
@@ -105,4 +77,5 @@
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
+
 }

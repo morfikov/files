@@ -13,6 +13,7 @@
 
 /usr/bin/pavucontrol {
   #include <abstractions/base>
+  #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
@@ -26,12 +27,6 @@
   # Pavucontrol config files
   owner @{HOME}/.config/pavucontrol.ini* rw,
 
-  # GTK styles
-  owner @{HOME}/.config/gtk-3.0/settings.ini r,
-
-  owner @{HOME}/.Xauthority r,
   /etc/machine-id r,
-
-
 
 }

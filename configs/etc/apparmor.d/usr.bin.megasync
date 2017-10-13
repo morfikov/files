@@ -14,11 +14,12 @@
 /usr/bin/megasync {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/openssl>
-  #include <abstractions/private-files-strict>
 
 
   # MegaRsync files
@@ -30,10 +31,6 @@
   # Sync folder
   owner /media/Kabi/cloud_storage/ r,
   owner /media/Kabi/cloud_storage/** rw,
-
-  # Style
-  owner @{HOME}/.config/Trolltech.conf rwk,
-  owner @{HOME}/.config/gtk-3.0/bookmarks r,
 
   # Proc filesystem
   @{PROC}/@{pid}/cmdline r,

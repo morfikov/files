@@ -14,11 +14,12 @@
 /usr/bin/smplayer {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/audio>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
   # Needed for hardware decoding
@@ -42,7 +43,6 @@
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
@@ -52,28 +52,15 @@
   owner @{PROC}/@{pid}/stat r,
 
   # SMPlayer config files
+  owner @{HOME}/.config/smplayer/ rw,
   owner @{HOME}/.config/smplayer/* rwk,
-
-  # Needed when movie is paused
-  owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
-
-  # Needed when the "File" icon is pressed
-  owner @{HOME}/.config/QtProject.conf rw,
-  owner @{HOME}/.config/QtProject.conf.lock rwk,
-  owner @{HOME}/.config/QtProject.conf.* rw,
   owner @{HOME}/.config/.* rwk,
-
-  # GTK styles
-  /usr/share/themes/ r,
-  /usr/share/themes/** r,
-  owner @{HOME}/.gtkrc-2.0 r,
-  owner @{PROC}/@{pid}/cmdline r,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
 
   # PulseAudio (why?)
   deny capability sys_ptrace,
   deny ptrace (trace) peer=/usr/bin/pulseaudio,
+
+  owner @{PROC}/@{pid}/cmdline r,
 
   /usr/bin/pacmd rix,
   /usr/bin/mpv rPUx,

@@ -1,0 +1,42 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/vnstat {
+  #include <abstractions/base>
+
+  /usr/bin/vnstat mr,
+
+  # Vnstat files
+  /var/lib/vnstat/ r,
+  /var/lib/vnstat/* rk,
+
+  # Vnstat config
+  /etc/vnstat.conf r,
+
+  # Needed for a live view
+  /sys/devices/pci[0-9]*/**/net/**/statistics/{tx,rx}_{bytes,packets} r,
+
+  # Logs
+  owner @{HOME}/.xsession-errors* rw,
+
+  # file_inherit (conky)
+  deny @{PROC}/@{pid}/net/dev r,
+  deny @{PROC}/@{pid}/stat r,
+  deny @{PROC}/@{pid}/net/tcp{,6} r,
+  deny @{PROC}/@{pid}/net/if_inet6 r,
+  deny @{PROC}/@{pid}/cmdline r,
+  deny @{PROC}/uptime r,
+  deny @{PROC}/diskstats r,
+  deny @{PROC}/loadavg r,
+
+}

@@ -16,7 +16,6 @@
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
 
@@ -37,7 +36,6 @@
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,

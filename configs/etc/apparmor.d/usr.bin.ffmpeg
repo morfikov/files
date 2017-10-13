@@ -13,7 +13,6 @@
 
 /usr/bin/ffmpeg {
   #include <abstractions/base>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
 

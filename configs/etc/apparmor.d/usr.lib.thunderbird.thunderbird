@@ -18,6 +18,7 @@
 /usr/lib/thunderbird/thunderbird {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
@@ -48,8 +49,8 @@
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   # About:memory
-  owner @{PROC}/[0-9]*/statm r,
-  owner @{PROC}/[0-9]*/smaps r,
+  owner @{PROC}/@{pid}/statm r,
+  owner @{PROC}/@{pid}/smaps r,
 
   # Needed for Release Notes
   /sys/devices/system/node/ r,
@@ -76,16 +77,16 @@
   owner /{,var/}run/user/[0-9]*/dconf/user rw,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rwl,
 
   # Needed for the crash reporter
   /usr/lib/thunderbird/crashreporter ix,
-  owner @{PROC}/[0-9]*/auxv r,
-  owner @{PROC}/[0-9]*/environ r,
-  owner @{PROC}/[0-9]*/cmdline r,
+  owner @{PROC}/@{pid}/auxv r,
+  owner @{PROC}/@{pid}/environ r,
+  owner @{PROC}/@{pid}/cmdline r,
 
   # Needed for Developer Toolbox
   /etc/mime.types r,
@@ -105,15 +106,15 @@
   owner @{HOME}/.local/share/mime/** rw,
   /usr/bin/update-mime-database rPUx,
 
-  @{PROC}/[0-9]*/net/arp r,
+  @{PROC}/@{pid}/net/arp r,
 
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/fd/* r,
-  owner @{PROC}/[0-9]*/stat r,
-  owner @{PROC}/[0-9]*/task/ r,
-  owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
+  owner @{PROC}/@{pid}/stat r,
+  owner @{PROC}/@{pid}/task/ r,
+  owner @{PROC}/@{pid}/task/[0-9]*/stat r,
   owner @{PROC}/@{pid}/status r,
-  owner @{PROC}/[0-9]*/mountinfo r,
+  owner @{PROC}/@{pid}/mountinfo r,
 
   /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
@@ -125,12 +126,6 @@
 
   owner @{PROC}/@{pid}/mounts r,
 
-  # GTK theme
-  owner @{HOME}/.config/gtk-3.0/settings.ini r,
-  owner @{HOME}/.config/gtk-3.0/bookmarks r,
-  owner @{HOME}/.gtk-bookmarks r,
-
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/config r,
   /sys/devices/pci[0-9]*/**/vendor r,

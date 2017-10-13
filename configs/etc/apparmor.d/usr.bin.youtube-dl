@@ -19,7 +19,6 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/python>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
   /usr/bin/ r,

@@ -16,6 +16,7 @@
   #include <abstractions/fonts>
   #include <abstractions/audio>
   #include <abstractions/freedesktop.org>
+  #include <abstractions/gtk>
 
 
   /usr/bin/volumeicon mr,
@@ -30,11 +31,6 @@
   # Start the PulseAudio sound mixer
   /bin/dash rix,
   /usr/bin/pavucontrol rPUx,
-
-  owner @{HOME}/.config/gtk-3.0/settings.ini r,
-
-  owner @{HOME}/.Xauthority r,
-  owner @{HOME}/.xsession-errors* rw,
 
   /usr/share/mime/mime.cache r,
   owner @{HOME}/.local/share/mime/mime.cache r,

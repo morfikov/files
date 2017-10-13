@@ -19,6 +19,7 @@
 /usr/bin/dropbox {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/user-tmp>
@@ -72,8 +73,6 @@
   owner @{PROC}/@{pid}/fd/ r,
   @{PROC}/version r,
   @{PROC}/vmstat r,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
 
   # Silencer
   deny @{HOME}/ r,

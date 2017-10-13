@@ -41,8 +41,6 @@
 
   /etc/rpc r,
 
-  owner @{HOME}/.cache/fontconfig/* r,
-
   owner @{HOME}/.local/share/Trash/ rw,
   owner @{HOME}/.local/share/Trash/** rw,
 
@@ -52,8 +50,8 @@
   /etc/timezone r,
 
   # Silencer
-  deny /home/morfik/ r,
-  /home/morfik/avatar/ r,
+  deny @{HOME}/ r,
+  @{HOME}/avatar/ r,
   deny /tftpboot r,
   deny /boot/vmlinuz-* r,
 

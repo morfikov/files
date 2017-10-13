@@ -48,7 +48,6 @@
 
   owner @{PROC}/@{pid}/fd/ r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
@@ -65,8 +64,6 @@
     /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
 
     /usr/bin/dbus-daemon rPUx,
-
-    /var/lib/lightdm/.Xauthority r,
 
     owner @{PROC}/@{pid}/fd/ r,
 

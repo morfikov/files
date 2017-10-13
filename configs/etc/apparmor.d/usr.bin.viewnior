@@ -1,0 +1,67 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2015-2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/viewnior {
+  #include <abstractions/base>
+  #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/user-tmp>
+
+
+  /usr/bin/viewnior mr,
+
+  # Which files viewnior should be able to open
+  / r,
+  /**/ r,
+  /**/*.{JPG,JPEG,PNG,GIF,BMP} r,
+  /**/*.{jpg,jpeg,png,gif,bmp} r,
+  # Write permissions needed only when manipulating/deleting files
+  #/**/*.{JPG,JPEG,PNG,GIF,BMP}* rw,
+  #/**/*.{jpg,jpeg,png,gif,bmp}* rw,
+
+  # Silencer
+  deny /**/*mp4.0* r,
+  deny /**/*avi.0* r,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rwl,
+
+  # Viewnior files
+  /usr/share/viewnior/ r,
+  /usr/share/viewnior/** r,
+
+  # Viewnior config files
+  owner @{HOME}/.config/viewnior/ rw,
+  owner @{HOME}/.config/viewnior/viewnior.conf rw,
+  owner @{HOME}/.config/viewnior/accel_map rw,
+
+  # Open folder
+  owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/mounts r,
+
+  # Set as wallpaper
+  # GNOME2
+  /usr/bin/gconftool-2 rPUx,
+  # GNOME3
+  /usr/bin/gsettings rPUx,
+  # XFCE
+  /usr/bin/xfconf-query rPUx,
+
+  # Open the "About" URL
+  /usr/bin/exo-open rPUx,
+
+}

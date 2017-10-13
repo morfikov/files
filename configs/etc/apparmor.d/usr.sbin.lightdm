@@ -74,7 +74,6 @@
   /usr/share/xsessions/* r,
 
   /tmp/.X[0-9]*-lock r,
-  owner @{HOME}/.Xauthority rw,
 
   # LightDM config files
   /etc/lightdm/ r,
@@ -89,7 +88,6 @@
   /{,var/}run/lightdm/** rw,
   /{,var/}run/lightdm.pid rw,
 
-
   @{PROC}/1/limits r,
   /etc/security/limits.d/ r,
   owner @{PROC}/@{pid}/uid_map r,
@@ -97,12 +95,13 @@
   owner @{PROC}/@{pid}/fd/ r,
 
   @{PROC}/cmdline r,
-  /tmp/.X0-lock r,
 
   /etc/environment r,
   /etc/default/locale r,
 
   /dev/tty0 r,
+  
+  owner @{HOME}/.Xauthority rw,
 
   /bin/rm rCx -> remove,
   profile remove {
@@ -127,8 +126,6 @@
     /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
 
     /usr/bin/dbus-daemon rPUx,
-
-    /var/lib/lightdm/.Xauthority r,
 
     owner @{PROC}/@{pid}/fd/ r,
 

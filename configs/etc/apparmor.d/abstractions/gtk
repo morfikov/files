@@ -1,0 +1,27 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+  /usr/share/themes/ r,
+#  /usr/share/themes/** r,
+  /usr/share/themes/**/gtk-2.0/gtkrc r,
+#  /usr/share/themes/**/gtk-3.0/gtk.css r,
+
+  owner @{HOME}/.gtkrc-2.0 r,
+  owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* rw,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/gtk-3.0/bookmarks r,
+  owner @{HOME}/.gtk-bookmarks r,
+
+  # .Xauthority files required for X connections
+  owner @{HOME}/.Xauthority r,
+
+  # X errors
+  owner @{HOME}/.xsession-errors* rw,

@@ -14,11 +14,11 @@
 /usr/bin/smtube {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/openssl>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
 
   /usr/bin/smtube mr,
@@ -32,15 +32,11 @@
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
-  owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
   /dev/tty r,
 

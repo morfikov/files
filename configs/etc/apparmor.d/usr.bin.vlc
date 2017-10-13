@@ -14,11 +14,12 @@
 /usr/bin/vlc {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/audio>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/nameservice>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
   #include <abstractions/nvidia>
 
@@ -50,7 +51,6 @@
 
   /dev/tty r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
@@ -59,19 +59,12 @@
 
   owner @{PROC}/@{pid}/status r,
 
-  # GTK styles
-  /usr/share/themes/ r,
-  /usr/share/themes/** r,
-  owner @{HOME}/.gtkrc-2.0 r,
-  owner @{PROC}/@{pid}/cmdline r,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
-  owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
-
+  # GTK
+  #owner @{PROC}/@{pid}/cmdline r,
 
   # Silencer
-  deny /usr/lib/x86_64-linux-gnu/vlc/ w,
-  deny /usr/lib/x86_64-linux-gnu/vlc/** w,
+  deny /{usr/,}lib/@{multiarch}/vlc/ w,
+  deny /{usr/,}lib/@{multiarch}/vlc/** w,
 
   # Be able to turn off the screensaver while playing movies
   /usr/bin/xdg-screensaver rPUx,

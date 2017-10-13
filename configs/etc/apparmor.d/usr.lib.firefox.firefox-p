@@ -19,9 +19,11 @@
 
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
+  #include <abstractions/enchant>
   #include <abstractions/gstreamer>
   #include <abstractions/nvidia>
   #include <abstractions/ssl_certs>
@@ -49,9 +51,7 @@
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,
-  @{MOZ_LIBDIR}/**  mixr,
-  #@{MOZ_LIBDIR}/plugin-container rPUx,
-  @{MOZ_LIBDIR}/plugin-container rpux,
+  @{MOZ_LIBDIR}/**  mrix,
   /usr/share/firefox/ r,
   /usr/share/firefox/** r,
   /etc/firefox/ r,
@@ -61,18 +61,8 @@
   deny /usr/lib/mozilla/plugins/*.so mr,
   deny /usr/share/mozilla/extensions/** r,
 
-  # Flash plugin
-  /opt/google/chrome/PepperFlash/libpepflashplayer.so mr,
-  /opt/google/chrome/PepperFlash/manifest.json r,
-  /usr/lib/browser-plugin-freshplayer-pepperflash/ r,
-  /usr/lib/browser-plugin-freshplayer-pepperflash/** r,
-
   # Fix problems with empty pages
   owner /dev/shm/org.chromium.* rw,
-
-  # Flash config files
-  /etc/adobe/mms.cfg  r,
-  owner @{HOME}/mm.cfg rw,
 
   # Firefox home files
   owner @{MOZ_HOMEDIR}/ r,
@@ -95,7 +85,6 @@
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
   /sys/devices/virtual/block/**/dm/name r,
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/config r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
@@ -113,7 +102,6 @@
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/fd/* r,
-  #owner @{PROC}/@{pid}/maps r,
   owner @{PROC}/@{pid}/smaps r,
   owner @{PROC}/@{pid}/mountinfo r,
   owner @{PROC}/@{pid}/stat r,
@@ -126,10 +114,6 @@
 
   # Link Monitor (since 49.0.1)
   @{PROC}/@{pid}/net/arp r,
-
-  # PulseAudio module-ladspa-sink (plugin sc4m_1916)
-  /usr/lib/ladspa/ r,
-  /usr/lib/ladspa/*.so mr,
 
   # Gstreamer
   owner @{HOME}/.cache/gstreamer*/**  rw,
@@ -149,17 +133,8 @@
   /usr/share/applications/kde4/ r,
   /usr/share/applications/kde4/** r,
 
-  /usr/share/hunspell/ r,
-  /usr/share/hunspell/** r,
-
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
-
-  # GTK styles
-  owner @{HOME}/.config/gtk-3.0/settings.ini r,
-  owner @{HOME}/.config/gtk-3.0/bookmarks r,
-  owner @{HOME}/.gtk-bookmarks r,
-
 
   # Launch external apps
   /usr/bin/vlc rPUx,

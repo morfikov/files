@@ -14,6 +14,8 @@
 /usr/bin/psi-plus {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/enchant>
   #include <abstractions/fonts>
   #include <abstractions/ssl_certs>
@@ -33,13 +35,11 @@
   owner @{HOME}/.config/psi+/** rwkl,
   owner @{HOME}/.local/share/psi+/ rw,
   owner @{HOME}/.local/share/psi+/** rwkl,
+  owner @{HOME}/.config/.* rwk,
 
   # Cache files
   owner @{HOME}/.cache/fontconfig/** r,
   owner @{HOME}/.cache/psi+/** rw,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
-  owner @{HOME}/.cache/qt_compose_cache_* rw,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
@@ -52,17 +52,13 @@
   deny /dev/v4l/by-path/ r,
   deny /dev/snd/pcmC0D0c rw,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  # Transferring files
-  owner @{HOME}/.config/QtProject.conf* rwk,
-  owner @{HOME}/.config/QtProject.conf.lock rwk,
-  owner @{HOME}/.config/.* rwk,
+  # Silencer
   deny owner @{HOME}/ r,
 
   # User downloads
@@ -78,10 +74,6 @@
   # Needed for GPG/PGP support
   /usr/bin/gpg rPUx,
 
-  # GTK styles
-  /usr/share/themes/ r,
-  /usr/share/themes/** r,
-  owner @{HOME}/.gtkrc-2.0 r,
   owner @{PROC}/@{pid}/cmdline r,
 
   /usr/bin/lsb_release rPUx,

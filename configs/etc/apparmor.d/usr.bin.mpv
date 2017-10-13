@@ -18,8 +18,8 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/nameservice>
-  #include <abstractions/private-files-strict>
   #include <abstractions/user-tmp>
+
 
   /usr/bin/mpv  mr,
 
@@ -43,7 +43,6 @@
   /sys/devices/system/cpu/ r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,

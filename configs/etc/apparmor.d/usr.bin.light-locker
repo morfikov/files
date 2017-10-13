@@ -13,6 +13,7 @@
 
 /usr/bin/light-locker {
   #include <abstractions/base>
+  #include <abstractions/gtk>
   #include <abstractions/dconf>
   #include <abstractions/fonts>
 
@@ -26,11 +27,6 @@
 
   /{,var/}run/user/[0-9]*/dconf/ rw,
   /{,var/}run/user/[0-9]*/dconf/user rw,
-
-  owner @{HOME}/.config/gtk-3.0/settings.ini r,
-
-  owner @{HOME}/.Xauthority r,
-  owner @{HOME}/.xsession-errors rw,
 
   # when locking the screen and switching/closing sessions
   /{,var/}run/systemd/sessions/[0-9]* r,

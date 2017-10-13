@@ -14,6 +14,8 @@
 /usr/bin/telegram-desktop {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio>
@@ -44,15 +46,6 @@
 
   /dev/tty r,
 
-  # GTK styles
-  owner @{HOME}/.gtkrc-2.0 r,
-  /usr/share/themes/** r,
-
-  /etc/xdg/QtProject/qtlogging.ini r,
-
-  # cache files
-  owner @{HOME}/.cache/qt_compose_cache_* r,
-
   owner @{PROC}/@{pids}/cmdline r,
   owner @{PROC}/@{pids}/mountinfo r,
   owner @{PROC}/@{pids}/status r,
@@ -60,7 +53,6 @@
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
-  /dev/dri/ r,
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/config r,
   /sys/devices/pci[0-9]*/**/vendor r,
