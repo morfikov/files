@@ -14,6 +14,8 @@
 /usr/bin/nomacs {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
@@ -52,8 +54,6 @@
   /etc/group r,
 
   owner @{PROC}/@{pid}/cmdline rw,
-
-  /sys/devices/system/cpu/ r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,

@@ -40,7 +40,6 @@
   /var/lib/dbus/machine-id r,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
@@ -49,9 +48,9 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  owner @{PROC}/*/status r,
-  owner @{PROC}/*/cmdline r,
-  owner @{PROC}/*/task/ r,
+
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/task/ r,
 
   # Be able to turn off the screensaver while playing movies
   /usr/bin/xdg-screensaver rPUx,

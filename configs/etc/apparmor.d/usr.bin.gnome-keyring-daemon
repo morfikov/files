@@ -32,8 +32,6 @@
   /{,var/}run/user/[0-9]*/keyring/ rw,
   /{,var/}run/user/[0-9]*/keyring/* rw,
 
-  @{PROC}/@{pid}/status r,
-
   owner @{HOME}/.xsession-errors rw,
 
 }

@@ -24,13 +24,14 @@
   /usr/bin/seamonkey Cx -> sanitized_helper,
   /usr/bin/sensible-browser Pixr,
 
-  /usr/bin/chromium{,-browser} Cx -> sanitized_helper,
-  /usr/lib/chromium{,-browser}/chromium{,-browser} Cx -> sanitized_helper,
+  /usr/bin/chromium-browser Cx -> sanitized_helper,
+  /usr/lib/chromium-browser/chromium-browser Cx -> sanitized_helper,
 
   # this should cover all firefox browsers and versions (including shiretoko
   # and abrowser)
   /usr/bin/firefox Cxr -> sanitized_helper,
-  /usr/lib/firefox*/firefox* Cx -> sanitized_helper,
+  /usr/lib/firefox*/firefox*.sh Cx -> sanitized_helper,
+  /usr/lib/firefox-esr/firefox* Cx -> sanitized_helper,
 
   # Iceweasel
   /usr/bin/iceweasel Cxr -> sanitized_helper,

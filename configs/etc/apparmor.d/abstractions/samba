@@ -11,6 +11,7 @@
 
   /etc/samba/* r,
   /usr/lib*/ldb/*.so mr,
+  /usr/lib*/samba/ldb/*.so mr,
   /usr/share/samba/*.dat r,
   /usr/share/samba/codepages/{lowcase,upcase,valid}.dat r,
   /var/cache/samba/ w,

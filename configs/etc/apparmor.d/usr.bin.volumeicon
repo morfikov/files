@@ -32,6 +32,9 @@
   /bin/dash rix,
   /usr/bin/pavucontrol rPUx,
 
+  # Needed when volumeicon crashes
+  /usr/share/X11/XErrorDB r,
+
   /usr/share/mime/mime.cache r,
   owner @{HOME}/.local/share/mime/mime.cache r,
 

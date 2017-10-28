@@ -12,7 +12,7 @@
 #include <tunables/global>
 #include <tunables/dovecot>
 
-/usr/lib/dovecot/dovecot-lda flags=(complain) {
+/usr/lib/dovecot/dovecot-lda flags=(complain,attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/nameservice>
   #include <abstractions/dovecot-common>
@@ -26,9 +26,11 @@
   /proc/*/mounts r,
   owner /tmp/dovecot.lda.* rw,
   /{var/,}run/dovecot/mounts r,
+  /run/dovecot/auth-userdb rw,
   /usr/bin/doveconf mrix,
   /usr/lib/dovecot/dovecot-lda mrix,
   /usr/sbin/sendmail Cx,
+  /usr/share/dovecot/protocols.d/ r,
 
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.lib.dovecot.dovecot-lda>

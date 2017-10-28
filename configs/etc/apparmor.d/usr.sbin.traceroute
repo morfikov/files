@@ -10,11 +10,12 @@
 # ------------------------------------------------------------------
 
 #include <tunables/global>
-/usr/{sbin/traceroute,bin/traceroute.db} {
+/usr/{sbin/traceroute,bin/traceroute.db} flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/consoles>
   #include <abstractions/nameservice>
 
+  deny capability net_admin, # noisy setsockopt() calls
   capability net_raw,
 
   network inet raw,
@@ -23,6 +24,7 @@
   /usr/sbin/traceroute mrix,
   /usr/bin/traceroute.db mrix,
   @{PROC}/net/route r,
+  @{PROC}/sys/net/ipv4/{tcp_ecn,tcp_sack,tcp_timestamps,tcp_window_scaling} r,
 
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.sbin.traceroute>

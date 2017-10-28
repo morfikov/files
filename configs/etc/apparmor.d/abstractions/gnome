@@ -66,6 +66,10 @@
   /var/cache/**/icon-theme.cache  r,
   /usr/share/**/icon-theme.cache  r,
 
+  # GLib schemas
+  /usr/{local/,}share/glib-[0-9]*/schemas/   r,
+  /usr/{local/,}share/glib-[0-9]*/schemas/** r,
+
   # gnome VFS modules
   /etc/gnome-vfs-2.0/modules/ r,
   /etc/gnome-vfs-2.0/modules/* r,

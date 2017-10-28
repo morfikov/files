@@ -27,8 +27,6 @@
   /**/*.{JPG,JPEG,PNG,jpg,jpeg,png} rw,
   /media/Grafi/* rw,
 
-  owner @{PROC}/@{pid}/status r,
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
 

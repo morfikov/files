@@ -21,6 +21,8 @@
   capability setuid,
   deny capability block_suspend,
 
+  network unix stream,
+
   @{DOVECOT_MAILSTORE}/ rw,
   @{DOVECOT_MAILSTORE}/** rwkl,
 
@@ -33,6 +35,7 @@
   /usr/bin/doveconf rix,
   /usr/lib/dovecot/imap mrix,
   /usr/share/dovecot/** r,
+  /run/dovecot/login/imap rw,
   /{,var/}run/dovecot/auth-master rw,
   /{,var/}run/dovecot/mounts r,
 

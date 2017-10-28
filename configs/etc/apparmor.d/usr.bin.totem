@@ -10,12 +10,14 @@
   #include <abstractions/python>
   #include <abstractions/totem>
 
+  signal (send) set=("kill") peer=unconfined,
+
   # Maybe in an abstraction?
   /usr/include/**/pyconfig.h r,
 
   /usr/bin/totem r,
   /usr/bin/totem-video-thumbnailer Pix,
-#  /usr/bin/bwrap Pux,
+  /usr/bin/bwrap pux,
   /usr/lib/@{multiarch}/libtotem-plparser[0-9]*/totem-pl-parser/* ix,
   /dev/sr* r,
 

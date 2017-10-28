@@ -11,27 +11,19 @@
 
 #include <tunables/global>
 
-/usr/bin/knotify4 {
+/usr/bin/xsel {
   #include <abstractions/base>
-  #include <abstractions/kde>
-  #include <abstractions/audio>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/user-tmp>
 
 
-  /usr/bin/knotify4 mr,
+  /usr/bin/xsel mr,
 
-  /usr/bin/kbuildsycoca4 rPUx,
+  /dev/ptmx rw,
 
-  @{PROC}/@{pid}/cmdline r,
-  @{PROC}/@{pid}/mounts r,
+  owner @{HOME}/.xsel.log rw,
 
-  # Silencer
-  deny /{usr/,}lib/@{multiarch}/vlc/plugins/* w,
-  deny /{,var/}run/udev/data/** r,
-  deny /sys/devices/** r,
-  deny /sys/bus/ r,
-  deny /sys/class/ r,
+  owner @{HOME}/.Xauthority r,
+
+  # file_inherit
+  owner @{HOME}/.xsession-errors rw,
 
 }

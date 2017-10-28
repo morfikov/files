@@ -29,6 +29,7 @@
   # When using sssd, the passwd and group files are stored in an alternate path
   # and the nss plugin also needs to talk to a pipe
   /var/lib/sss/mc/group   r,
+  /var/lib/sss/mc/initgroups r,
   /var/lib/sss/mc/passwd  r,
   /var/lib/sss/pipes/nss  rw,
 

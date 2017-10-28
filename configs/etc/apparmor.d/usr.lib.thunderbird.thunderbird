@@ -40,7 +40,7 @@
   audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
 
   @{MOZ_LIBDIR}/thunderbird mrix,
-  /usr/bin/thunderbird rPx,
+  /usr/bin/thunderbird mrix,
 
   /usr/share/thunderbird/ r,
   /usr/share/thunderbird/** r,
@@ -84,9 +84,9 @@
 
   # Needed for the crash reporter
   /usr/lib/thunderbird/crashreporter ix,
-  owner @{PROC}/@{pid}/auxv r,
   owner @{PROC}/@{pid}/environ r,
   owner @{PROC}/@{pid}/cmdline r,
+  ptrace (trace) peer=/usr/lib/thunderbird/thunderbird,
 
   # Needed for Developer Toolbox
   /etc/mime.types r,
@@ -113,10 +113,8 @@
   owner @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/task/ r,
   owner @{PROC}/@{pid}/task/[0-9]*/stat r,
-  owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/mountinfo r,
 
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
 
   /etc/machine-id r,
@@ -132,6 +130,9 @@
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
+
+  # Silencer
+  deny /var/cache/fontconfig/ w,
 
   # Launch external apps
   /usr/lib/firefox/firefox rPUx,

@@ -8,6 +8,8 @@
   signal (receive) peer=unconfined,
   # Allow apache to send us signals by default
   signal (receive) peer=/usr/sbin/apache2,
+  # Allow other hats to signal by default
+  signal peer=/usr/sbin/apache2//*,
   # Allow us to signal ourselves
   signal peer=@{profile_name},
 
@@ -25,3 +27,8 @@
 
   /dev/urandom            r,
 
+  # sasl-auth
+  /run/saslauthd/mux rw,
+
+  # OCSP stapling
+  /var/log/apache2/stapling-cache rw,

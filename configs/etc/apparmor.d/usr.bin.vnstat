@@ -35,6 +35,7 @@
   deny @{PROC}/@{pid}/net/tcp{,6} r,
   deny @{PROC}/@{pid}/net/if_inet6 r,
   deny @{PROC}/@{pid}/cmdline r,
+  deny @{PROC}/@{pid}/io r,
   deny @{PROC}/uptime r,
   deny @{PROC}/diskstats r,
   deny @{PROC}/loadavg r,

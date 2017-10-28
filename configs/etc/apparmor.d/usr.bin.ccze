@@ -11,27 +11,20 @@
 
 #include <tunables/global>
 
-/usr/bin/knotify4 {
+/usr/bin/ccze {
   #include <abstractions/base>
-  #include <abstractions/kde>
-  #include <abstractions/audio>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/user-tmp>
+  #include <abstractions/consoles>
 
 
-  /usr/bin/knotify4 mr,
+  /usr/bin/ccze mr,
 
-  /usr/bin/kbuildsycoca4 rPUx,
+  /{usr/,}lib/@{multiarch}/ccze/*.so mr,
 
-  @{PROC}/@{pid}/cmdline r,
-  @{PROC}/@{pid}/mounts r,
+  /etc/cczerc r,
 
-  # Silencer
-  deny /{usr/,}lib/@{multiarch}/vlc/plugins/* w,
-  deny /{,var/}run/udev/data/** r,
-  deny /sys/devices/** r,
-  deny /sys/bus/ r,
-  deny /sys/class/ r,
+  /etc/services r,
+  /etc/protocols r,
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
 
 }

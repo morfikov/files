@@ -55,7 +55,6 @@
   deny /usr/share/mozilla/extensions/** r,
 
   # Devices
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
@@ -70,12 +69,14 @@
   # Proc files
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/stat r,
-  owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/task/*/stat r,
   audit deny @{PROC}/uptime r,
   @{PROC}/sys/kernel/random/uuid r,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
+
+  # Silencer
+  deny /var/cache/fontconfig/ w,
 
 }

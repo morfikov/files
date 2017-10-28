@@ -22,7 +22,7 @@
 
   /etc/mailname         r,
   /etc/postfix/*.cf     r,
-  /etc/postfix/*.db     r,
+  /etc/postfix/*.db     rk,
   @{PROC}/net/if_inet6  r,
   /usr/lib/postfix/*.so mr,
   /usr/lib{,32,64}/sasl2/*    mr,

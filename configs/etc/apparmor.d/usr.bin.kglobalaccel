@@ -22,7 +22,7 @@
 
   /usr/bin/kglobalaccel mr,
 
-  /home/morfik/.kde/share/config/kglobalshortcutsrc* rw,
+  owner @{HOME}/.kde/share/config/kglobalshortcutsrc* rw,
   owner @{PROC}/@{pid}/cmdline r,
 
 }

@@ -77,7 +77,6 @@
   owner @{HOME}/.cache/fontconfig/** rwk,
 
   # Devices
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/cpu/** r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
@@ -103,11 +102,8 @@
   owner @{PROC}/@{pid}/mountinfo r,
   owner @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/statm r,
-  owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/task/ r,
   owner @{PROC}/@{pid}/task/[0-9]*/stat r,
-  audit deny @{PROC}/uptime r,
-  owner @{PROC}/@{pid}/auxv r,
 
   # Link Monitor (since 49.0.1)
   @{PROC}/@{pid}/net/arp r,
@@ -132,6 +128,9 @@
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
+
+  # Silencer
+  deny /var/cache/fontconfig/ w,
 
   # Launch external apps
   /usr/bin/exo-open rPUx,

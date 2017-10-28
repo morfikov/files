@@ -37,6 +37,9 @@
   /var/tmp/sieve_* rw,
   /var/tmp/smtp_* rw,
 
+  /run/dovecot/auth-master rw,
+  /run/dovecot/auth-worker rw,
+  /run/dovecot/login/login rw,
   /{var/,}run/dovecot/auth-token-secret.dat{,.tmp} rw,
   /{var/,}run/dovecot/stats-user rw,
   /{var/,}run/dovecot/anvil-auth-penalty rw,

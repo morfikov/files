@@ -4,12 +4,18 @@
 
   /etc/udev/udev.conf r,
 
+  /dev/dri/ r,
+
   # /dev/shm is a symlink to /run/shm on ubuntu
   owner /{dev,run}/shm/shmfd-* rw,
 
+  /run/udev/data/c* r,
   /run/udev/data/+pci:* r,
+  /run/udev/data/+usb* r,
 
-  /sys/devices/pci[0-9]*/**/{busnum,devnum,descriptors,speed,uevent} r,
+  /sys/devices/pci[0-9]*/**/{busnum,config,devnum,descriptors,speed,uevent} r,
+  /sys/devices/system/node/ r,
+  /sys/devices/system/node/*/meminfo r,
 
   owner /tmp/orcexec.* mrw,
   owner /{,var/}run/user/[0-9]*/orcexec.* mrw,

@@ -32,7 +32,6 @@
   /**/*.{ytdl,part,part-*} rw,
 
   owner @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/status r,
   owner @{PROC}/@{pid}/mounts r,
 
   /etc/mime.types r,

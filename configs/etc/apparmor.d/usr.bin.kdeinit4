@@ -31,13 +31,9 @@
   /usr/bin/knotify4 rPUx,
   /usr/lib/kde4/libexec/kio_http_cache_cleaner rix,
 
-
   owner @{HOME}/.kde/share/config/** rwk,
-#  owner @{HOME}/.kde/share/kde4/** r,
-#  owner @{HOME}/.kde/share/apps/** r,
   owner @{HOME}/.kde/share/apps/kcookiejar/cookies* rw,
   owner @{HOME}/.kde/share/apps/kconf_update/log/update.log rw,
-
 
   /etc/rpc r,
 

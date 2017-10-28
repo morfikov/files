@@ -36,11 +36,12 @@
 
   @{PROC}/@{pid}/fd/ r,
   @{PROC}/@{pid}/mounts r,
-  owner @{PROC}/@{pid}/status r,
-  @{PROC}/filesystems r,
 
-  /usr/bin/python3.5 rix,
+  /usr/bin/python3.[0-6] mrix,
   /sbin/ldconfig mrix,
+
+  # Silencer
+  deny /usr/lib/python3/dist-packages/** w,
 
   /usr/bin/mpv mrPUx,
   /usr/bin/ffmpeg rPUx,

@@ -28,7 +28,7 @@
   /usr/share/** r,
   /{media,mnt,opt,srv}/** r,
 
-  /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner Cix -> gst_plugin_scanner,
+  /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner px -> gst_plugin_scanner,
 
   owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/ rw,
   owner @{HOME}/.cache/gstreamer-[0-9]*.[0-9]*/registry.*.bin rw,

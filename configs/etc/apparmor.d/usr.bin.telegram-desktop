@@ -48,7 +48,6 @@
 
   owner @{PROC}/@{pids}/cmdline r,
   owner @{PROC}/@{pids}/mountinfo r,
-  owner @{PROC}/@{pids}/status r,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
@@ -60,7 +59,6 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
 

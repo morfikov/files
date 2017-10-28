@@ -40,7 +40,6 @@
 
   # Needed files for the aforementioned tools
   /etc/ssl/openssl.cnf r,
-  /usr/share/zoneinfo/* r,
   /etc/wgetrc r,
   owner @{HOME}/wget-log* rw,
   owner @{HOME}/.wget-hsts r,
@@ -50,7 +49,7 @@
   owner @{HOME}/.conky/** rw,
 
   # Display images (graphic) inside of the conky window
-  /usr/lib/@{multiarch}/imlib2/loaders/*.so mr,
+  /{usr/,}lib/@{multiarch}/imlib2/loaders/*.so mr,
 
   # Get the PRETTY_NAME name from /etc/os-release link
   /etc/ r,

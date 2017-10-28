@@ -31,8 +31,6 @@
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
-  owner @{PROC}/@{pid}/status r,
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
 

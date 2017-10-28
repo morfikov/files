@@ -49,14 +49,13 @@
   #/sys/bus/ r,
 
   # Phonon VLC backend
-  /usr/lib/@{multiarch}/qt*/plugins/**/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt*/plugins/**/*.so mr,
 
   # VLC plugins
-  owner /usr/lib/vlc/plugins/plugins.dat.* rw,
-  owner /usr/lib/@{multiarch}/vlc/plugins/plugins.dat.* wr,
+  owner /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* rw,
+  owner /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* wr,
 
   /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/system/cpu/ r,
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node0/meminfo r,
 
@@ -70,7 +69,6 @@
 
   # Proc filesystem
   owner @{PROC}/@{pid}/cmdline r,
-  @{PROC}/@{pid}/status r,
 
   owner @{HOME}/.config/kde.org/libphonon.conf r,
 

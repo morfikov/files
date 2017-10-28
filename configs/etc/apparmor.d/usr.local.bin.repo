@@ -31,7 +31,7 @@
     /bin/uname mrix,
     /usr/bin/git rPUx,
 
-    owner @{HOME}/.repo_.gitconfig.json r,
+    owner @{HOME}/.repo_.gitconfig.json rw,
 
     # Android source dir
     /media/Kabi/Android/** rw,
