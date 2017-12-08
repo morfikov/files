@@ -35,8 +35,8 @@
   # Which files Amarok should be able to open
   / r,
   /**/ r,
-  /**/*.{MP3,WAV} rw,
-  /**/*.{mp3,wav} rw,
+  /**/*.{MP3,WAV,WMA} rw,
+  /**/*.{mp3,wav,wma} rw,
   /**/*.{JPG,JPEG,PNG,jpg,jpeg,png} rw,
   /**/*.{PLS,M3U,pls,m3u} rw,
 

@@ -40,4 +40,4 @@
   # some unpackaged, but popular browsers
   /usr/lib/icecat-*/icecat Cx -> sanitized_helper,
   /usr/bin/opera Cx -> sanitized_helper,
-  /opt/google/chrome/google-chrome Cx -> sanitized_helper,
+  /opt/google/chrome{,-beta}/google-chrome{,-beta} Cx -> sanitized_helper,

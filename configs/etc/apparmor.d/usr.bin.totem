@@ -7,6 +7,7 @@
   #include <abstractions/audio>
   #include <abstractions/dconf>
   #include <abstractions/ibus>
+  #include <abstractions/nvidia>
   #include <abstractions/python>
   #include <abstractions/totem>
 
@@ -17,7 +18,7 @@
 
   /usr/bin/totem r,
   /usr/bin/totem-video-thumbnailer Pix,
-  /usr/bin/bwrap pux,
+  /usr/bin/bwrap PUx,
   /usr/lib/@{multiarch}/libtotem-plparser[0-9]*/totem-pl-parser/* ix,
   /dev/sr* r,
 

@@ -35,7 +35,7 @@
   /usr/local/lib/python3.[0-9]/dist-packages/ r,
   /usr/local/lib/python3.[0-9]/dist-packages/** rw,
 
-  owner @{PROC}/@{pid}/fd/ r,
+  @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/fd/* r,
 
   owner @{HOME}/.xsession-errors* rw,

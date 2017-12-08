@@ -1,0 +1,83 @@
+# vim:syntax=apparmor
+
+#include <tunables/global>
+
+/usr/bin/man {
+  #include <abstractions/base>
+
+  # Use a special profile when man calls anything groff-related.  We only
+  # include the programs that actually parse input data in a non-trivial
+  # way, not wrappers such as groff and nroff, since the latter would need a
+  # broader profile.
+  /usr/bin/eqn rmCx -> groff,
+  /usr/bin/grap rmCx -> groff,
+  /usr/bin/pic rmCx -> groff,
+  /usr/bin/preconv rmCx -> groff,
+  /usr/bin/refer rmCx -> groff,
+  /usr/bin/tbl rmCx -> groff,
+  /usr/bin/troff rmCx -> groff,
+  /usr/bin/vgrind rmCx -> groff,
+
+  # Similarly, use a special profile when man calls decompressors and other
+  # simple filters.
+  /bin/bzip2 rmCx -> filter,
+  /bin/gzip rmCx -> filter,
+  /usr/bin/col rmCx -> filter,
+  /usr/bin/compress rmCx -> filter,
+  /usr/bin/iconv rmCx -> filter,
+  /usr/bin/lzip.lzip rmCx -> filter,
+  /usr/bin/tr rmCx -> filter,
+  /usr/bin/xz rmCx -> filter,
+
+  # Allow basically anything in terms of file system access, subject to DAC.
+  # The purpose of this profile isn't to confine man itself (that might be
+  # nice in the future, but is tricky since it's quite configurable), but to
+  # confine the processes it calls that parse untrusted data.
+  /** mrixwlk,
+
+  capability setuid,
+  capability setgid,
+
+  profile groff {
+    #include <abstractions/base>
+    # Recent kernels revalidate open FDs, and there are often some still
+    # open on TTYs.  This is temporary until man learns to close irrelevant
+    # open FDs before execve.
+    #include <abstractions/consoles>
+    # man always runs its groff pipeline with the input file open on stdin,
+    # so we can skip <abstractions/user-manpages>.
+
+    /usr/bin/eqn rm,
+    /usr/bin/grap rm,
+    /usr/bin/pic rm,
+    /usr/bin/preconv rm,
+    /usr/bin/refer rm,
+    /usr/bin/tbl rm,
+    /usr/bin/troff rm,
+    /usr/bin/vgrind rm,
+
+    /etc/groff/** r,
+    /usr/lib/groff/site-tmac/** r,
+    /usr/share/groff/** r,
+  }
+
+  profile filter {
+    #include <abstractions/base>
+    # Recent kernels revalidate open FDs, and there are often some still
+    # open on TTYs.  This is temporary until man learns to close irrelevant
+    # open FDs before execve.
+    #include <abstractions/consoles>
+
+    /bin/bzip2 rm,
+    /bin/gzip rm,
+    /usr/bin/col rm,
+    /usr/bin/compress rm,
+    /usr/bin/iconv rm,
+    /usr/bin/lzip.lzip rm,
+    /usr/bin/tr rm,
+    /usr/bin/xz rm,
+  }
+
+  # Site-specific additions and overrides.  See local/README for details.
+  #include <local/usr.bin.man>
+}

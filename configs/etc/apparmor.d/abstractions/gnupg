@@ -15,11 +15,18 @@ owner @{HOME}/.gnupg/** rwkl,
 owner /{,var/}run/user/[0-9]*/gnupg/ rw,
 owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 
+# PlayOnLinux GPG config location
+/usr/share/playonlinux/etc/playonlinux.gpg r,
+owner @{HOME}/.PlayOnLinux/gpg/* rwkl,
+owner /media/Kabi/.PlayOnLinux/gpg/* rwkl,
+
 # For apt-key
 /etc/apt/.* rwkl,
 /etc/apt/trusted.gpg* rwkl,
 /etc/apt/trusted.gpg.d/ r,
 /etc/apt/trusted.gpg.d/** rw,
+/etc/apt/trusted.gpg.d/.* rwkl,
+/etc/apt/trusted.gpg.d/*.lock rwkl,
 owner /{,var/}run/user/0/gnupg/d.*/ rw,
 owner /{,var/}run/user/0/gnupg/d.*/* rw,
 

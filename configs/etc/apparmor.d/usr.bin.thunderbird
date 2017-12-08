@@ -16,7 +16,7 @@
 
 
   /usr/bin/thunderbird mrix,
-  /usr/lib/thunderbird/thunderbird rPx,
+  /usr/lib/thunderbird/thunderbird{,-bin} rPx,
 
   /bin/bash rix,
   /bin/sed rix,

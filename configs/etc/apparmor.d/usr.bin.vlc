@@ -28,8 +28,8 @@
   # Which files VLC should be able to open
   / r,
   /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T} rw,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t} rw,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T,WMA} rw,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t,wma} rw,
   /**/*.{m2ts,m2t,part} r,
   /**/*.{TXT,SRT,txt,srt} r,
   /**/*.{PLS,M3U,pls,m3u} r,

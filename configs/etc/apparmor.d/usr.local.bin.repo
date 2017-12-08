@@ -23,6 +23,8 @@
   profile python flags=(complain) {
     #include <abstractions/base>
     #include <abstractions/python>
+    #include <abstractions/nameservice>
+    #include <abstractions/openssl>
 
     /usr/bin/python2.7 mrix,
 
@@ -30,6 +32,11 @@
     /bin/dash mrix,
     /bin/uname mrix,
     /usr/bin/git rPUx,
+    /usr/bin/curl mrix,
+
+    /usr/bin/gpg rPUx,
+    owner @{HOME}/.repoconfig/ rw,
+    owner @{HOME}/.repoconfig/** rw,
 
     owner @{HOME}/.repo_.gitconfig.json rw,
 

@@ -17,4 +17,7 @@
 
   /usr/bin/light-locker-command mr,
 
+  # file_inherit
+  @{HOME}/.xsession-errors rw,
+
 }

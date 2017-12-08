@@ -30,8 +30,8 @@
   # Which files MPV should be able to open
   / r,
   /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T} r,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t} r,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T,WMA} r,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t,wma} r,
   /**/*.{m2ts,m2t,part} r,
   /**/*.{TXT,SRT,txt,srt} r,
   /**/*.{PLS,M3U,pls,m3u} r,

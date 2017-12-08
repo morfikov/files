@@ -31,8 +31,8 @@
   /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} rw,
   /**/*.{ytdl,part,part-*} rw,
 
-  owner @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/mounts r,
+  @{PROC}/@{pid}/fd/ r,
+  @{PROC}/@{pid}/mounts r,
 
   /etc/mime.types r,
 
@@ -42,7 +42,7 @@
   /usr/bin/gcc rix,
   /sbin/ldconfig rix,
 
-  /usr/bin/python3.5 rix,
+  /usr/bin/python3.[0-6] mrix,
 
   /usr/bin/ffmpeg rPUx,
   /usr/bin/ffprobe rPUx,
