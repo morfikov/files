@@ -18,6 +18,8 @@
   #include <abstractions/freedesktop.org>
 
 
+  signal (receive) set=(term) peer=/usr/sbin/lightdm,
+
   /usr/sbin/lightdm-gtk-greeter mr,
 
   /usr/bin/locale rix,
@@ -46,7 +48,7 @@
   /var/log/lightdm/ rw,
   /var/log/lightdm/** rw,
 
-  owner @{PROC}/@{pid}/fd/ r,
+  @{PROC}/@{pid}/fd/ r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
@@ -61,16 +63,21 @@
     #include <abstractions/X>
     #include <abstractions/dconf>
 
+    signal (send) set=(term) peer=unconfined,
+
     /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
 
     /usr/bin/dbus-daemon rPUx,
 
-    owner @{PROC}/@{pid}/fd/ r,
+    @{PROC}/@{pid}/fd/ r,
 
     /{,var/}run/user/[0-9]*/dconf/ rw,
     /{,var/}run/user/[0-9]*/dconf/user rw,
+    /var/lib/lightdm/.cache/dconf/user rw,
 
     /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+    /etc/machine-id r,
 
     # file_inherit (lightdm)
     /var/log/lightdm/seat[0-9]*-greeter.log rw,

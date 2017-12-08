@@ -26,6 +26,10 @@
   capability sys_rawio,
   capability dac_override,
 
+  signal (receive) set=(term, kill, usr1) peer=/usr/sbin/lightdm,
+  signal (send) set=(usr1) peer=/usr/sbin/lightdm,
+  signal (send) set=(usr1) peer=unconfined,
+
   /usr/lib/xorg/Xorg mr,
 
   /bin/dash rix,
@@ -88,6 +92,7 @@
   /sys/devices/**/{uevent,name,id,config} r,
   /sys/devices/pci[0-9]*/**/ r,
   /sys/devices/pci[0-9]*/**/{resource,boot_vga} r,
+  /sys/devices/pci[0-9]*/**/drm/card[0-9]*/error r,
 
   /{,var/}run/udev/data/+drm:card* r,
   /{,var/}run/udev/data/+input:input* r,
