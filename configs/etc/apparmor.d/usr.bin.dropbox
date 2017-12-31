@@ -33,6 +33,10 @@
   @{HOME_DIR}/ rw,
   @{HOME_DIR}/** rwk,
 
+  # Dropbox migration folders
+  owner @{HOME}/Dropbox*/ rw,
+  owner @{HOME}/Dropbox*/** rw,
+
   # Dropbox share files
   @{SHARE_DIR}/ rw,
   @{SHARE_DIR}/** rw,
@@ -65,12 +69,17 @@
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /etc/resolv.conf r,
+  /etc/group r,
 
+  @{PROC} r,
   @{PROC}/@{pid}/stat r,
   @{PROC}/@{pid}/mounts r,
   @{PROC}/@{pid}/statm r,
   @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/io r,
+  owner @{PROC}/@{pid}/tcp r,
+  owner @{PROC}/@{pid}/fdinfo/* r,
   @{PROC}/version r,
   @{PROC}/vmstat r,
 

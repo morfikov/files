@@ -23,6 +23,6 @@
   /usr/bin/kglobalaccel mr,
 
   owner @{HOME}/.kde/share/config/kglobalshortcutsrc* rw,
-  owner @{PROC}/@{pid}/cmdline r,
+  @{PROC}/@{pid}/cmdline r,
 
 }

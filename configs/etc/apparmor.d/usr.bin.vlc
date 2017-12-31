@@ -40,6 +40,9 @@
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
 
+  # VLC files
+  /usr/share/vlc/** r,
+
   # VLC config files
   owner @{HOME}/.config/vlc/* rwk,
   owner @{HOME}/.local/share/vlc/** rwk,

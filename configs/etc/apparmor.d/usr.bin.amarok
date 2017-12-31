@@ -21,6 +21,8 @@
   #include <abstractions/user-tmp>
   #include <abstractions/kde>
 
+  signal (send) set=(term) peer=/usr/bin/kdeinit4,
+  signal (receive) set=(stop,cont) peer=/usr/bin/kdeinit4,
 
   /usr/bin/amarok mr,
 
@@ -31,6 +33,10 @@
   /usr/bin/ffmpeg rPUx,
   /usr/bin/amarokcollectionscanner rix,
   /usr/bin/kde4-config rix,
+  /usr/bin/lsb_release rPUx,
+
+  /usr/lib/kde4/libexec/drkonqi rix,
+  ptrace (trace) peer=@{profile_name},
 
   # Which files Amarok should be able to open
   / r,
@@ -55,6 +61,7 @@
 
   # VLC backend
   owner /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* rw,
+  /usr/share/vlc/** r,
 
   # Cache for art images
   owner @{HOME}/.cache/**/ rw,
@@ -90,6 +97,44 @@
     /bin/dash mrix,
 
     /usr/lib/kde4/libexec/lnusertemp rix,
+
+  }
+
+  # To generate the crash log info in Amarok
+  /usr/bin/gdb rCx -> gdb,
+  profile gdb {
+    #include <abstractions/base>
+    #include <abstractions/python>
+    #include <abstractions/user-tmp>
+
+    /usr/bin/gdb mr,
+    /usr/share/glib-2.0/gdb/ r,
+    /usr/share/glib-2.0/gdb/** r,
+
+    @{PROC}/@{pid}/fd/  r,
+    owner @{PROC}/@{pids}/task/ r,
+    owner @{PROC}/@{pids}/task/@{pids}/stat r,
+    owner @{PROC}/@{pids}/task/@{pids}/maps r,
+    owner @{PROC}/@{pids}/mem r,
+
+    /usr/bin/iconv rix,
+    /usr/share/gdb/python/ r,
+    /usr/share/gdb/python/** r,
+
+    ptrace (trace) peer=/usr/bin/amarok,
+    ptrace (trace) peer=@{profile_name},
+
+   /usr/bin/amarok r,
+
+   /usr/share/gdb/auto-load/usr/lib/x86_64-linux-gnu/*.py r,
+   /usr/share/gdb/auto-load/lib/x86_64-linux-gnu/*.py r,
+   /usr/share/gcc-7/python/ r,
+   /usr/share/gcc-7/python/** r,
+
+    # Silencer
+    deny /usr/share/gdb/python/** w,
+    deny /usr/share/gcc-7/python/** w,
+    deny /usr/share/glib-2.0/gdb/** w,
 
   }
 

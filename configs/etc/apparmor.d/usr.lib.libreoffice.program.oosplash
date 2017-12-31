@@ -12,7 +12,7 @@
 
 #include <tunables/global>
 
-profile libreoffice-oopslash /usr/lib/libreoffice/program/oosplash {
+profile libreoffice-oopslash /usr/lib/libreoffice/program/oosplash flags=(complain) {
   #include <abstractions/base>
 
   /etc/libreoffice/                     r,

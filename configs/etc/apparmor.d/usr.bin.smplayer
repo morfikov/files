@@ -56,13 +56,30 @@
   owner @{HOME}/.config/smplayer/* rwk,
   owner @{HOME}/.config/.* rwk,
 
-  # PulseAudio (why?)
-  deny capability sys_ptrace,
-  deny ptrace (trace) peer=/usr/bin/pulseaudio,
+  # PulseAudio (to use "pacmd")
+  /usr/bin/pacmd rCx -> pacmd,
+  profile pacmd {
+    #include <abstractions/base>
+
+    /usr/bin/pacmd mr,
+
+    #capability sys_ptrace,
+    ptrace (trace) peer=/usr/bin/pulseaudio,
+
+    signal (send) set=(usr2) peer=/usr/bin/pulseaudio,
+
+    owner /{,var/}run/user/[0-9]*/pulse/  r,
+    owner /{,var/}run/user/[0-9]*/pulse/*  r,
+    owner /{,var/}run/user/[0-9]*/pulse/pid rk,
+
+    owner @{PROC}/@{pids}/stat r,
+
+  }
 
   owner @{PROC}/@{pid}/cmdline r,
 
-  /usr/bin/pacmd rix,
+  /dev/tty r,
+
   /usr/bin/mpv rPUx,
   /usr/bin/smtube rPUx,
   /usr/bin/youtube-dl rPUx,

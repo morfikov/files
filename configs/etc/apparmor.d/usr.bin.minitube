@@ -52,7 +52,8 @@
   /{usr/,}lib/@{multiarch}/qt*/plugins/**/*.so mr,
 
   # VLC plugins
-  owner /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* rw,
+  /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* r,
+  /usr/share/vlc/** r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/system/node/ r,
@@ -75,5 +76,8 @@
   /usr/bin/xdg-open rPUx,
   /usr/lib/firefox/firefox rPUx,
   /usr/bin/proxy rix,
+
+  # Silencer
+  /usr/lib/x86_64-linux-gnu/vlc/plugins/** w,
 
 }

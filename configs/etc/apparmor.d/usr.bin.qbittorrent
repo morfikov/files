@@ -31,6 +31,7 @@
   owner @{HOME}/.config/qBittorrent/** rwk,
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
+  owner @{HOME}/.config/.* rw,
 
   # Torrent files
   owner /media/ r,
@@ -53,17 +54,14 @@
   /usr/share/GeoIP/GeoIP.dat r,
 
   # Proc files
-  owner @{PROC}/@{pid}/cmdline r,
-  owner @{PROC}/@{pid}/mounts r,
-  audit deny owner @{PROC}/uptime r,
+  @{PROC}/@{pid}/cmdline r,
+  @{PROC}/@{pid}/mounts r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
   /sys/devices/pci[0-9]*/**/vendor r,
   /sys/devices/pci[0-9]*/**/subsystem_vendor r,
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
-
-  owner @{PROC}/@{pid}/cmdline r,
 
   /dev/tty r,
 
@@ -79,5 +77,8 @@
   /usr/bin/okular rPUx,
   /usr/bin/spacefm rPUx,
   /usr/bin/viewnior rPUx,
+
+  # Silencer
+  deny /home/ rw,
 
 }

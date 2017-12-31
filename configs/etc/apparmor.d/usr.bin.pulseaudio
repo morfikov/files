@@ -15,6 +15,9 @@
   #include <abstractions/base>
   #include <abstractions/audio>
 
+  ptrace (trace) peer=@{profile_name},
+
+  signal (receive) set=(usr2) peer=/usr/bin/smplayer//pacmd,
 
   /usr/bin/pulseaudio mrix,
   /usr/lib/@{multiarch}/pulse/gconf-helper mrix,

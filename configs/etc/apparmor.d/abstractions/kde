@@ -50,6 +50,7 @@ owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
 # Common configs
 owner @{HOME}/.kde{,4}/share/config/kdeglobals rw,
 owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
+owner @{HOME}/.kde{,4}/share/config/drkonqirc* rw,
 owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
 owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
 
