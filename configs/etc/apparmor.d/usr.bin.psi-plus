@@ -79,6 +79,9 @@
   /usr/bin/lsb_release rPUx,
   /usr/bin/xdg-open rPUx,
 
+  # Needed for some plugins
+  /etc/ssl/openssl.cnf r,
+
   # Needed for playing sound events
   /usr/bin/aplay rCx -> aplay,
   profile aplay {

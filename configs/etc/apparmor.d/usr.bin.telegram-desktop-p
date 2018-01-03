@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/telegram-desktop {
+/usr/bin/telegram-desktop-p {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
@@ -23,44 +23,44 @@
   #include <abstractions/user-tmp>
 
 
-  /usr/bin/telegram-desktop mr,
+  /usr/bin/telegram-desktop-p mr,
 
   # Telegram files
   /usr/share/TelegramDesktop/ r,
   /usr/share/TelegramDesktop/** r,
 
   # Download dir
-  owner /media/Kabi/telegram/ rw,
-  owner /media/Kabi/telegram/** rw,
+  owner /media/Grafi/telegram/ rw,
+  owner /media/Grafi/telegram/** rw,
 
   # Telegram's profile (via telegram -many -workdir ~/some/dir/)
   #owner @{HOME}/.local/share/TelegramDesktop/ rw,
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
   # Deny access to webcam and mic
-  /dev/video0 rw,
-  /dev/v4l/by-path/ r,
-  /dev/snd/pcmC0D0c rw,
+  deny /dev/video0 rw,
+  deny /dev/v4l/by-path/ r,
+  deny /dev/snd/pcmC0D0c rw,
 
   /etc/ssl/openssl.cnf r,
 
-  /dev/tty r,
+  deny /dev/tty r,
 
-  owner @{PROC}/@{pids}/cmdline r,
-  owner @{PROC}/@{pids}/mountinfo r,
+  deny owner @{PROC}/@{pids}/cmdline r,
+  deny owner @{PROC}/@{pids}/mountinfo r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
-  /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/pci[0-9]*/**/config r,
-  /sys/devices/pci[0-9]*/**/vendor r,
-  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  /sys/devices/pci[0-9]*/**/device r,
-  /sys/devices/pci[0-9]*/**/subsystem_device r,
+  deny /sys/devices/pci[0-9]*/**/uevent r,
+  deny /sys/devices/pci[0-9]*/**/config r,
+  deny /sys/devices/pci[0-9]*/**/vendor r,
+  deny /sys/devices/pci[0-9]*/**/subsystem_vendor r,
+  deny /sys/devices/pci[0-9]*/**/device r,
+  deny /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-  /sys/devices/system/node/ r,
-  /sys/devices/system/node/node[0-9]*/meminfo r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]*/meminfo r,
 
   # Launch external apps
   /usr/bin/exo-open rPUx,

@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2017 Mikhail Morfikov
+#    Copyright (C) 2017-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -46,13 +46,15 @@
   # "Error using VT_ACTIVATE 7 on /dev/tty0: Operation not permitted
   capability sys_tty_config,
 
-  # Not needed
+  #
   deny capability dac_read_search,
+
+  # Not needed
   deny capability net_admin,
 
   signal (send) set=(term, kill, usr1) peer=/usr/lib/xorg/Xorg,
   signal (receive) set=(usr1) peer=/usr/lib/xorg/Xorg,
-  signal (send) set=(term) peer=/usr/sbin/lightdm-gtk-greeter, 
+  signal (send) set=(term) peer=/usr/sbin/lightdm-gtk-greeter,
 
   /usr/sbin/lightdm mrix,
 
@@ -63,6 +65,8 @@
 
   /etc/X11/Xsession rPUx,
   /usr/bin/gnome-keyring-daemon rPUx,
+
+  /bin/rm rix,
 
   # LightDM files
   /usr/share/lightdm/ r,
@@ -105,20 +109,6 @@
   /dev/tty0 r,
 
   owner @{HOME}/.Xauthority rw,
-
-  /bin/rm rCx -> remove,
-  profile remove {
-    #include <abstractions/base>
-
-    capability dac_read_search,
-    capability dac_override,
-
-    /bin/rm mr,
-
-    /var/lib/lightdm/ rw,
-    /var/lib/lightdm/** rw,
-
-  }
 
   /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
   profile launcher {
