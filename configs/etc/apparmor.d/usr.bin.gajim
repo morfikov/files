@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2015-2017 Mikhail Morfikov
+#    Copyright (C) 2015-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -13,77 +13,100 @@
 
 /usr/bin/gajim {
   #include <abstractions/base>
-
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/gtk>
+  #include <abstractions/python>
+  #include <abstractions/user-tmp>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/dconf>
 
   /usr/bin/gajim mr,
 
-  /usr/bin/basename rix,
-  /usr/bin/id rix,
-  /usr/bin/python2.7 Cx,
+  /usr/bin/ r,
+  /usr/local/bin/ r,
 
-  profile /usr/bin/python2.7 {
+  # Gajim plugins
+  /usr/share/gajim/plugins/ r,
+  /usr/share/gajim/plugins/** r,
+
+  # Gajim home files
+  owner @{HOME}/.config/gajim/ rw,
+  owner @{HOME}/.config/gajim/** rw,
+  owner @{HOME}/.local/share/gajim/ rw,
+  owner @{HOME}/.local/share/gajim/** rwk,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rwl,
+
+  # Cache
+  owner /tmp/morfik_cache/.cache/gajim/ rwk,
+  owner /tmp/morfik_cache/.cache/gajim/** rwk,
+  owner @{HOME}/.cache/gajim/ rwk,
+  owner @{HOME}/.cache/gajim/** rwk,
+
+  # Deny access to webcam and mic
+  deny /dev/video0 rw,
+  deny /dev/v4l/by-path/ r,
+  deny /dev/snd/pcmC0D0c rw,
+
+  owner @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mountinfo r,
+
+  # External apps
+  /usr/lib/firefox/firefox rPUx,
+  /usr/bin/gpg rPUx,
+
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+
+  # Silencer
+  deny /usr/lib/python3/dist-packages/** w,
+  deny /usr/share/gajim/plugins/** w,
+  deny @{HOME}/ r,
+
+  # Sounds
+  /usr/bin/aplay Cx -> audio,
+  /usr/bin/pacat Cx -> audio,
+  profile audio {
     #include <abstractions/base>
-    #include <abstractions/X>
-    #include <abstractions/fonts>
-    #include <abstractions/freedesktop.org>
-    #include <abstractions/gtk>
     #include <abstractions/audio>
-    #include <abstractions/dbus-session>
-    #include <abstractions/nameservice>
-    #include <abstractions/openssl>
-    #include <abstractions/python>
-    #include <abstractions/user-tmp>
 
-    / r,
-    /usr/bin/ r,
+    /usr/bin/aplay mr,
+    /usr/bin/pacat mr,
 
-    /bin/dash rix,
-    /usr/bin/nslookup rix,
-    /usr/bin/host rix,
-    /usr/bin/gcc-* rix,
-    /sbin/ldconfig rix,
-    /sbin/ldconfig.real rix,
+    owner @{HOME}/.Xauthority r,
+
+    /etc/machine-id r,
+    /var/lib/dbus/machine-id r,
+
+  }
+
+  /sbin/ldconfig Cx -> ldconfig,
+  profile ldconfig {
+    #include <abstractions/base>
+
+    /sbin/ldconfig mr,
+
+  }
+
+  /bin/dash Cx -> dash,
+  profile dash {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+
     /bin/uname rix,
 
-    # Gajim files
-    /usr/share/gajim/** rw,
-
-    # Python files
-    /usr/lib/python*/** rw,
-    /usr/lib/python*/** rw,
-    /usr/bin/python r,
-    /usr/bin/python* mr,
-    /usr/local/bin/ r,
-    /usr/local/lib/python*/** rw,
-
-    # Gajim home files
-    owner @{HOME}/.config/gajim/ rw,
-    owner @{HOME}/.config/gajim/** rw,
-    owner @{HOME}/.local/share/gajim/ rw,
-    owner @{HOME}/.local/share/gajim/** rwk,
-
-    # User downloads
-    owner @{HOME}/[dD]ownload{,s}/ r,
-    owner @{HOME}/[dD]ownload{,s}/** rwl,
-    owner @{HOME}/[dD]esktop/ r,
-    owner @{HOME}/[dD]esktop/** rwl,
-
-    # Sounds
-    /usr/bin/aplay rix,
-
-    # Cache
-    owner /tmp/morfik_cache/.cache/gajim/ rwk,
-    owner /tmp/morfik_cache/.cache/gajim/** rwk,
-    owner @{HOME}/.cache/gajim/ rwk,
-    owner @{HOME}/.cache/gajim/** rwk,
-
-    # Proc filesystem
-    @{PROC}/ r,
-    @{PROC}/** r,
-
-    # External apps
-    /usr/lib/firefox/firefox rPUx,
     /usr/bin/gpg rPUx,
 
   }
+
 }

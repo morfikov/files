@@ -15,10 +15,14 @@ owner @{HOME}/.gnupg/** rwkl,
 owner /{,var/}run/user/[0-9]*/gnupg/ rw,
 owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 
-# PlayOnLinux GPG config location
+# To be able to read various keyring locations
+owner /**/pubring.kbx* rw,
+owner /**/pubring.kbx.lock rwkl,
+owner /**/trustdb.gpg rw,
+owner /**/trustdb.gpg.lock rwkl,
+
+# PlayOnLinux
 /usr/share/playonlinux/etc/playonlinux.gpg r,
-owner @{HOME}/.PlayOnLinux/gpg/* rwkl,
-owner /media/Kabi/.PlayOnLinux/gpg/* rwkl,
 
 # For apt-key
 /etc/apt/.* rwkl,
@@ -30,13 +34,14 @@ owner /media/Kabi/.PlayOnLinux/gpg/* rwkl,
 owner /{,var/}run/user/0/gnupg/d.*/ rw,
 owner /{,var/}run/user/0/gnupg/d.*/* rw,
 
+# Spamassassin
+/var/lib/spamassassin/sa-update-keys/.* rwkl,
+/var/lib/spamassassin/sa-update-keys/*.lock rwkl,
+/usr/share/spamassassin/GPG.KEY r,
+
 # CA cert for SKS keyservers pool
 /usr/share/gnupg/** r,
 
 # Needed for popularity-contest
 /usr/share/popularity-contest/* r,
 /var/log/popularity-contest* rwkl,
-
-# Lightdm GPG home dir
-/var/lib/lightdm/.gnupg/ rw,
-/var/lib/lightdm/.gnupg/** rw,

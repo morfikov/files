@@ -30,6 +30,7 @@
 
   # per-user configurations
   owner @{HOME}/.icons/                 r,
+  owner @{HOME}/.icons/**               r,
   owner @{HOME}/.recently-used.xbel*    rw,
   owner @{HOME}/.local/share/recently-used.xbel* rw,
   owner @{HOME}/.config/user-dirs.dirs  r,

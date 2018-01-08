@@ -47,6 +47,7 @@
   /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner Pix -> gst_plugin_scanner,
   owner @{HOME}/.purple/ rw,
   owner @{HOME}/.purple/** rwk,
+  owner @{HOME}/.purple/plugins/*.so m,
   owner @{HOME}/.config/indicators/ rw,
   owner @{HOME}/.config/indicators/** rw,
   owner @{HOME}/.local/share/applications/ r,

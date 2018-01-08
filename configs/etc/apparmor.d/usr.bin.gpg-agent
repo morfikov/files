@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg-agent {
+/usr/bin/gpg-agent flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
   #include <abstractions/gnupg>
@@ -19,6 +19,12 @@
 
   /usr/bin/gpg-agent mr,
   /usr/lib/gnupg/scdaemon rPx,
+
+  /**/private-keys-v1.d/ rw,
+  /**/S.gpg-agent rw,
+  /**/S.gpg-agent.extra rw,
+  /**/S.gpg-agent.browser rw,
+  /**/S.gpg-agent.ssh rw,
 
   @{PROC}/@{pid}/fd/ r,
 

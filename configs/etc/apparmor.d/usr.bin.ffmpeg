@@ -21,8 +21,8 @@
   # Which files ffmpeg should be able to open
   / r,
   /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T} rw,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t} rw,
+  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T,WAV} rw,
+  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t,wav} rw,
   /**/*.{TXT,SRT,txt,srt} r,
   /**/*.{JPG,JPEG,PNG,jpg,jpeg,png} rw,
   /media/Grafi/* rw,
