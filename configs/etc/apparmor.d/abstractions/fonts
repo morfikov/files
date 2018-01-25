@@ -39,6 +39,8 @@
   owner @{HOME}/.fonts.conf             r,
   owner @{HOME}/.fonts/                 r,
   owner @{HOME}/.fonts/**               r,
+  owner @{HOME}/.local/share/fonts/     r,
+  owner @{HOME}/.local/share/fonts/**   r,
   owner @{HOME}/.fonts.cache-2          mr,
   owner @{HOME}/.{,cache/}fontconfig/   r,
   owner @{HOME}/.{,cache/}fontconfig/** mrl,

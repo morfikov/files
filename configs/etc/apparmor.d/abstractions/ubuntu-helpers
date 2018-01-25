@@ -68,11 +68,11 @@ profile sanitized_helper {
   # require the santized_helper (ie, LD_PRELOAD will only use standard system
   # paths (man ld.so)).
   /usr/lib/chromium-browser/chromium-browser-sandbox PUxr,
-  /usr/lib/chromium-browser/chrome-sandbox PUxr,
-  /opt/google/chrome{,-beta}/chrome-sandbox PUxr,
-  /opt/google/chrome{,-beta}/google-chrome Pixr,
-  /opt/google/chrome{,-beta}/chrome Pixr,
-  /opt/google/chrome{,-beta}/{,**/}lib*.so{,.*} m,
+  /usr/lib/chromium{,-browser}/chrome-sandbox PUxr,
+  /opt/google/chrome{,-beta,-unstable}/chrome-sandbox PUxr,
+  /opt/google/chrome{,-beta,-unstable}/google-chrome Pixr,
+  /opt/google/chrome{,-beta,-unstable}/chrome Pixr,
+  /opt/google/chrome{,-beta,-unstable}/{,**/}lib*.so{,.*} m,
 
   # Full access
   / r,

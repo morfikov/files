@@ -28,6 +28,7 @@
   # Needed for support for video sites (in the Network options)
   #include <abstractions/openssl>
 
+  signal (send) set=(kill) peer=/usr/bin/mpv,
 
   /usr/bin/smplayer mrix,
 

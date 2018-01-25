@@ -58,3 +58,6 @@
 
   # gxine (LP: #1057642)
   /var/lib/xine/gxine.desktop r,
+
+  # For WebRTC camera access (LP: #1665535)
+  /dev/video[0-9]* rw,

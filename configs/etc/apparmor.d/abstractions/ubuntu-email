@@ -20,5 +20,5 @@
   /usr/bin/sylpheed Cx -> sanitized_helper,
   /usr/bin/tkrat Cx -> sanitized_helper,
 
-  /usr/lib/thunderbird*/thunderbird{,.sh} Cx -> sanitized_helper,
+  /usr/lib/thunderbird*/thunderbird{,.sh,-bin} Cx -> sanitized_helper,
 

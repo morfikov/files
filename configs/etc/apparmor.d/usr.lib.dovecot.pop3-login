@@ -23,6 +23,7 @@
   capability sys_chroot,
 
   /usr/lib/dovecot/pop3-login mr,
+  /{,var/}run/dovecot/anvil rw,
   /{,var/}run/dovecot/login/ r,
   /{,var/}run/dovecot/login/* rw,
 

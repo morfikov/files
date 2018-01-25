@@ -4,11 +4,10 @@
   owner @{HOME}/.java/deployment/deployment.properties k,
   /etc/java-*/ r,
   /etc/java-*/** r,
-  /usr/lib/jvm/java-{6,7}-openjdk*/jre/lib/*/IcedTeaPlugin.so mr,
-  /usr/lib/jvm/java-6-openjdk/jre/bin/java cx -> browser_openjdk,
-  /usr/lib/jvm/java-6-openjdk-{amd64,armel,armhf,i386,powerpc}/jre/bin/java cx -> browser_openjdk,
-  /usr/lib/jvm/java-7-openjdk/jre/bin/java cx -> browser_openjdk,
-  /usr/lib/jvm/java-7-openjdk-{amd64,armel,armhf,i386,powerpc}/jre/bin/java cx -> browser_openjdk,
+  /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk/{,jre/}lib/*/IcedTeaPlugin.so mr,
+  /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk-{amd64,armel,armhf,i386,powerpc}/{,jre/}lib/*/IcedTeaPlugin.so mr,
+  /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk/{,jre/}bin/java cx -> browser_openjdk,
+  /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk-{amd64,armel,armhf,i386,powerpc}/{,jre/}bin/java cx -> browser_openjdk,
   /usr/lib/jvm/java-*-sun-1.*/jre/bin/java{,_vm} cx -> browser_java,
   /usr/lib/jvm/java-*-sun-1.*/jre/lib/*/libnp*.so cx -> browser_java,
   /usr/lib/j2*-ibm/jre/bin/java cx -> browser_java,
@@ -49,12 +48,15 @@
     /var/lib/dbus/machine-id r,
 
     /usr/bin/env ix,
-    /usr/lib/jvm/java-{6,7}-openjdk*/jre/bin/java ix,
+    /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk/{,jre/}bin/java ix,
+    /usr/lib/jvm/java-[1-9]{,[0-9]}-openjdk-{amd64,armel,armhf,i386,powerpc}/{,jre/}bin/java ix,
     /usr/lib/jvm/java-{6,7}-openjdk*/jre/lib/i386/client/classes.jsa m,
 
     # Why would java need this?
     deny /usr/bin/gconftool-2 x,
 
+    owner /{,var/}run/user/[0-9]*/icedteaplugin-*-*/[0-9]*-icedteanp-appletviewer-to-plugin rw,
+    owner /{,var/}run/user/[0-9]*/icedteaplugin-*-*/[0-9]*-icedteanp-plugin-{,debug-}to-appletviewer r,
     owner @{HOME}/ r,
     owner @{HOME}/** rwk,
   }

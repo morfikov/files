@@ -60,6 +60,7 @@
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
   owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/mounts r,
 
   # Silencer
   deny /{usr/,}lib/@{multiarch}/vlc/ w,

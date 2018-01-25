@@ -27,6 +27,7 @@
   network inet6 stream,
 
   /usr/lib/dovecot/managesieve-login mr,
+  /{,var/}run/dovecot/login-master-notify* rw,
   /{,var/}run/dovecot/login/ r,
   /{,var/}run/dovecot/login/* rw,
 

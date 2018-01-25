@@ -24,4 +24,7 @@
   /etc/hosts r,
   @{PROC}/@{pid}/task/[0-9]*/comm rw,
 
+  # conn fd=5 (?)
+  /etc/resolv.conf r,
+
 }

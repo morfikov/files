@@ -22,6 +22,8 @@
   #include <abstractions/dovecot-common>
 
   capability audit_write,
+  capability dac_override,
+  capability dac_read_search,
   capability setuid,
 
   /etc/my.cnf r,

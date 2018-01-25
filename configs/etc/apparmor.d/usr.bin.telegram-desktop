@@ -42,6 +42,12 @@
   audit /dev/v4l/by-path/ r,
   audit /dev/snd/pcmC0D0c rw,
 
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rwl,
+
   /etc/ssl/openssl.cnf r,
 
   /dev/tty r,

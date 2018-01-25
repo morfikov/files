@@ -23,12 +23,15 @@
 
   capability chown,
   capability dac_override,
+  capability dac_read_search,
   capability fsetid,
   capability kill,
   capability net_bind_service,
   capability setuid,
   capability sys_chroot,
   capability sys_resource,
+
+  signal send set=(int,quit) peer=/usr/lib/dovecot/*,
 
   /etc/dovecot/** r,
   /etc/mtab r,

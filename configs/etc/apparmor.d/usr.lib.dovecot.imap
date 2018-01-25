@@ -32,6 +32,8 @@
   /etc/dovecot/conf.d/ r,
   /etc/dovecot/conf.d/** r,
 
+  owner /tmp/dovecot.imap.* rw,
+
   /usr/bin/doveconf rix,
   /usr/lib/dovecot/imap mrix,
   /usr/share/dovecot/** r,

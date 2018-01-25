@@ -87,7 +87,7 @@
   /usr/lib/thunderbird/crashreporter ix,
   owner @{PROC}/@{pid}/environ r,
   owner @{PROC}/@{pid}/cmdline r,
-  ptrace (trace) peer=/usr/lib/thunderbird/thunderbird,
+  ptrace (trace) peer=/usr/lib/thunderbird/thunderbird{,-bin},
   /dev/tty rw,
   /bin/sed rix,
   /bin/date rix,

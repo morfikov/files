@@ -21,6 +21,9 @@
   /etc/passwd             r,
   /etc/protocols          r,
 
+  # libtirpc (used for NIS/YP login) needs this
+  /etc/netconfig r,
+
   # When using libnss-extrausers, the passwd and group files are merged from
   # an alternate path
   /var/lib/extrausers/group  r,
