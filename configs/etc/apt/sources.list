@@ -39,6 +39,10 @@ deb https://deb.debian.org/debian/ sid main non-free contrib
 # deb https://www.deb-multimedia.org sid main non-free
 # deb-src https://www.deb-multimedia.org sid main non-free
 
+### APTOSID ###
+#deb http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
+#deb-src http://debian.tu-bs.de/project/aptosid/debian/ sid main fix.main
+
 ### EXPERIMENTAL ###
 deb https://deb.debian.org/debian/ experimental main contrib non-free
 # deb-src https://deb.debian.org/debian/ experimental main contrib non-free
@@ -177,7 +181,20 @@ deb http://ppa.launchpad.net/openshot.developers/ppa/ubuntu zesty main
 #deb http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
 #deb-src http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
 
-# Ubuntu #
+### Shutter ###
+#deb http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
+#deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
+#deb http://ppa.launchpad.net/shutter-testing-team/dailybuilds/ubuntu xenial main
+#deb-src http://ppa.launchpad.net/shutter-testing-team/dailybuilds/ubuntu xenial main
+#deb http://ppa.launchpad.net/shutter-testing-team/ppa/ubuntu artful main
+#deb-src http://ppa.launchpad.net/shutter-testing-team/ppa/ubuntu artful main
+
+### WoeUSB (Windows USB stick installer) ###
+deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu artful main
+#deb-src http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu artful main
+
+
+### Ubuntu ###
 # deb http://archive.ubuntu.com/ubuntu/ zesty main
 # deb http://archive.canonical.com/ubuntu zesty partner
 

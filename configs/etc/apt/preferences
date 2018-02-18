@@ -22,6 +22,9 @@
 #
 
 
+#Package: firefox
+#Pin: release o=Debian,a=experimental
+#Pin-Priority: 995
 
 #Package: libfreetype6 libfreetype6:i386
 #Pin: release o=Debian,a=testing
