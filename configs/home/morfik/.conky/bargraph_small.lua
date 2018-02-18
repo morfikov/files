@@ -161,7 +161,7 @@ function conky_main_bars()
 			bg_colour={0xFFFFFF,0.25},
 			fg_colour={0x00FF00,0.55},
 			blocks=55,
-			x=65,y=472,
+			x=65,y=498,
 			height=2,width=8,
 			mid_colour={{0,0xFF0000,0.90},{0.4,0xff0000,0.90},{0.7,0xffff00,0.90},{0.85,0x00ff33,0.90}},
 			smooth = true,
