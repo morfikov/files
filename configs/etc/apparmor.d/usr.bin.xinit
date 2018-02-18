@@ -13,6 +13,7 @@
 
 /usr/bin/xinit {
   #include <abstractions/base>
+  #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
 
 

@@ -9,25 +9,25 @@
   # include the programs that actually parse input data in a non-trivial
   # way, not wrappers such as groff and nroff, since the latter would need a
   # broader profile.
-  /usr/bin/eqn rmCx -> groff,
-  /usr/bin/grap rmCx -> groff,
-  /usr/bin/pic rmCx -> groff,
-  /usr/bin/preconv rmCx -> groff,
-  /usr/bin/refer rmCx -> groff,
-  /usr/bin/tbl rmCx -> groff,
-  /usr/bin/troff rmCx -> groff,
-  /usr/bin/vgrind rmCx -> groff,
+  /usr/bin/eqn rmCx -> &man_groff,
+  /usr/bin/grap rmCx -> &man_groff,
+  /usr/bin/pic rmCx -> &man_groff,
+  /usr/bin/preconv rmCx -> &man_groff,
+  /usr/bin/refer rmCx -> &man_groff,
+  /usr/bin/tbl rmCx -> &man_groff,
+  /usr/bin/troff rmCx -> &man_groff,
+  /usr/bin/vgrind rmCx -> &man_groff,
 
   # Similarly, use a special profile when man calls decompressors and other
   # simple filters.
-  /bin/bzip2 rmCx -> filter,
-  /bin/gzip rmCx -> filter,
-  /usr/bin/col rmCx -> filter,
-  /usr/bin/compress rmCx -> filter,
-  /usr/bin/iconv rmCx -> filter,
-  /usr/bin/lzip.lzip rmCx -> filter,
-  /usr/bin/tr rmCx -> filter,
-  /usr/bin/xz rmCx -> filter,
+  /bin/bzip2 rmCx -> &man_filter,
+  /bin/gzip rmCx -> &man_filter,
+  /usr/bin/col rmCx -> &man_filter,
+  /usr/bin/compress rmCx -> &man_filter,
+  /usr/bin/iconv rmCx -> &man_filter,
+  /usr/bin/lzip.lzip rmCx -> &man_filter,
+  /usr/bin/tr rmCx -> &man_filter,
+  /usr/bin/xz rmCx -> &man_filter,
 
   # Allow basically anything in terms of file system access, subject to DAC.
   # The purpose of this profile isn't to confine man itself (that might be
@@ -38,46 +38,46 @@
   capability setuid,
   capability setgid,
 
-  profile groff {
-    #include <abstractions/base>
-    # Recent kernels revalidate open FDs, and there are often some still
-    # open on TTYs.  This is temporary until man learns to close irrelevant
-    # open FDs before execve.
-    #include <abstractions/consoles>
-    # man always runs its groff pipeline with the input file open on stdin,
-    # so we can skip <abstractions/user-manpages>.
-
-    /usr/bin/eqn rm,
-    /usr/bin/grap rm,
-    /usr/bin/pic rm,
-    /usr/bin/preconv rm,
-    /usr/bin/refer rm,
-    /usr/bin/tbl rm,
-    /usr/bin/troff rm,
-    /usr/bin/vgrind rm,
-
-    /etc/groff/** r,
-    /usr/lib/groff/site-tmac/** r,
-    /usr/share/groff/** r,
-  }
-
-  profile filter {
-    #include <abstractions/base>
-    # Recent kernels revalidate open FDs, and there are often some still
-    # open on TTYs.  This is temporary until man learns to close irrelevant
-    # open FDs before execve.
-    #include <abstractions/consoles>
-
-    /bin/bzip2 rm,
-    /bin/gzip rm,
-    /usr/bin/col rm,
-    /usr/bin/compress rm,
-    /usr/bin/iconv rm,
-    /usr/bin/lzip.lzip rm,
-    /usr/bin/tr rm,
-    /usr/bin/xz rm,
-  }
-
   # Site-specific additions and overrides.  See local/README for details.
   #include <local/usr.bin.man>
+}
+
+profile man_groff {
+  #include <abstractions/base>
+  # Recent kernels revalidate open FDs, and there are often some still
+  # open on TTYs.  This is temporary until man learns to close irrelevant
+  # open FDs before execve.
+  #include <abstractions/consoles>
+  # man always runs its groff pipeline with the input file open on stdin,
+  # so we can skip <abstractions/user-manpages>.
+
+  /usr/bin/eqn rm,
+  /usr/bin/grap rm,
+  /usr/bin/pic rm,
+  /usr/bin/preconv rm,
+  /usr/bin/refer rm,
+  /usr/bin/tbl rm,
+  /usr/bin/troff rm,
+  /usr/bin/vgrind rm,
+
+  /etc/groff/** r,
+  /usr/lib/groff/site-tmac/** r,
+  /usr/share/groff/** r,
+}
+
+profile man_filter {
+  #include <abstractions/base>
+  # Recent kernels revalidate open FDs, and there are often some still
+  # open on TTYs.  This is temporary until man learns to close irrelevant
+  # open FDs before execve.
+  #include <abstractions/consoles>
+
+  /bin/bzip2 rm,
+  /bin/gzip rm,
+  /usr/bin/col rm,
+  /usr/bin/compress rm,
+  /usr/bin/iconv rm,
+  /usr/bin/lzip.lzip rm,
+  /usr/bin/tr rm,
+  /usr/bin/xz rm,
 }

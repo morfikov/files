@@ -10,8 +10,7 @@
 # ------------------------------------------------------------------
 
 @{MOZ_LIBDIR}=/usr/lib/thunderbird
-@{MOZ_HOMEDIR}=/media/Kabi/.thunderbird
-#@{MOZ_HOMEDIR}=@{HOME}/.thunderbird
+@{MOZ_HOMEDIR}=@{HOME}/.thunderbird
 
 #include <tunables/global>
 
@@ -66,7 +65,7 @@
   owner @{HOME}/.cache/thunderbird/** rw,
   owner /tmp/morfik_cache/.cache/thunderbird/ rw,
   owner /tmp/morfik_cache/.cache/thunderbird/** rw,
-  owner @{HOME}/.cache/fontconfig/* rw,
+  owner @{HOME}/.cache/fontconfig/** rwk,
 
   # Deny access to webcam and mic
   deny /dev/video0 rw,

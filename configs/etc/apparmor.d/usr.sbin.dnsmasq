@@ -12,8 +12,7 @@
 @{TFTP_DIR}=/var/tftp /srv/tftpboot
 
 #include <tunables/global>
-
-/usr/sbin/dnsmasq flags=(attach_disconnected) {
+/usr/sbin/dnsmasq flags=(complain,attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/dbus>
   #include <abstractions/nameservice>
@@ -24,6 +23,7 @@
   capability dac_override,
   capability net_admin,         # for DHCP server
   capability net_raw,           # for DHCP server ping checks
+  capability chown,             # for ownership of pid file
   network inet raw,
   network inet6 raw,
 
@@ -88,7 +88,7 @@
   /{,var/}run/NetworkManager/dnsmasq.conf r,
   /{,var/}run/NetworkManager/dnsmasq.pid w,
 
-  profile libvirt_leaseshelper {
+  profile libvirt_leaseshelper flags=(complain) {
     #include <abstractions/base>
 
     /etc/libnl-3/classid r,

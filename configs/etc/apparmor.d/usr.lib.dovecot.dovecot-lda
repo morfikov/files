@@ -31,6 +31,7 @@
   /usr/lib/dovecot/dovecot-lda mrix,
   /usr/sbin/sendmail Cx,
   /usr/share/dovecot/protocols.d/ r,
+  /usr/share/dovecot/protocols.d/** r,
 
   # Site-specific additions and overrides. See local/README for details.
   #include <local/usr.lib.dovecot.dovecot-lda>

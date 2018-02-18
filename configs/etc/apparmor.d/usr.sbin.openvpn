@@ -1,0 +1,71 @@
+#include <tunables/global>
+
+# XXX: attach_disconnected needed because of Protect{Home,System}
+/usr/sbin/openvpn flags=(attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability net_admin,
+  capability setuid,
+  capability setgid,
+  capability sys_chroot,
+  capability dac_override,
+  capability dac_read_search,
+
+  # For mlock support
+  capability ipc_lock,
+
+  # Interactive authentication requires this
+  /dev/tty  rw,
+  /bin/systemd-ask-password PUx,
+
+  /usr/lib/openvpn/*.so mr,
+  /dev/net/tun rw,
+
+  # helpers
+  /bin/ip ix,
+  /etc/openvpn/update-resolv-conf PUx,
+
+  # secret files only readable by root (before setuid)
+  owner /etc/openvpn/*.conf  r,
+  owner /etc/openvpn/*.login r,
+  owner /etc/openvpn/*/*     r,
+  /etc/openvpn/*/*.crt r,
+  /etc/openvpn/**/ r,
+  /var/lib/openvpn/** r,
+  /var/lib/openvpn/**/ r,
+  /var/lib/openvpn/**/tmp/ rw,
+  owner /var/lib/openvpn/**/tmp/** rw,
+  /{,var/}run/openvpn/*.{pid,status} rw,
+  /var/log/openvpn/*.log w,
+
+  /etc/openvpn/update-resolv-conf.sh Cx -> dnsleak_fix,
+  profile dnsleak_fix {
+    #include <abstractions/base>
+
+    capability dac_override,
+    capability net_raw,
+    capability net_admin,
+
+    /etc/openvpn/update-resolv-conf.sh mr,
+
+    /bin/bash rix,
+    /usr/bin/cut rix,
+    /bin/which rix,
+
+    /sbin/xtables-multi rix,
+    /run/xtables.lock rwk,
+
+    /bin/ip rix,
+    /etc/iproute2/** r,
+
+    /dev/tty rw,
+
+    /etc/nsswitch.conf r,
+    /etc/passwd r,
+    /etc/protocols r,
+    /etc/gai.conf r,
+
+  }
+
+}

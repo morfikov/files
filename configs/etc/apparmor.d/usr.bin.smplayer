@@ -69,7 +69,7 @@
 
     signal (send) set=(usr2) peer=/usr/bin/pulseaudio,
 
-    owner /{,var/}run/user/[0-9]*/pulse/  r,
+    owner /{,var/}run/user/[0-9]*/pulse/  rw,
     owner /{,var/}run/user/[0-9]*/pulse/*  r,
     owner /{,var/}run/user/[0-9]*/pulse/pid rk,
 

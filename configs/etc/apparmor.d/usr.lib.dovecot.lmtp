@@ -20,6 +20,7 @@
   #include <abstractions/ssl_keys>
 
   capability dac_override,
+  capability dac_read_search,
   capability setuid,
 
   @{DOVECOT_MAILSTORE}/ rw,

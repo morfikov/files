@@ -109,7 +109,11 @@
   /dev/tty0 r,
 
   owner @{HOME}/.Xauthority rw,
+  
+  owner @{HOME}/.dmrc* r,
+  /var/cache/lightdm/dmrc/*.dmrc* rw,
 
+  
   /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
   profile launcher {
     #include <abstractions/base>

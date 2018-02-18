@@ -96,6 +96,7 @@
 
   /{,var/}run/udev/data/+drm:card* r,
   /{,var/}run/udev/data/+input:input* r,
+  /{,var/}run/udev/data/+platform:serial8250 r,
   /{,var/}run/udev/data/c* r,
 
   @{PROC}/@{pid}/cmdline r,

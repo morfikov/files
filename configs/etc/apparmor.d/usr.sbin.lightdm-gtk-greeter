@@ -19,6 +19,7 @@
 
 
   signal (receive) set=(term) peer=/usr/sbin/lightdm,
+  signal (send) set=(term) peer=/usr/sbin/lightdm-gtk-greeter//launcher,
 
   /usr/sbin/lightdm-gtk-greeter mr,
 
@@ -48,6 +49,8 @@
   /var/log/lightdm/ rw,
   /var/log/lightdm/** rw,
 
+  owner @{HOME}/.face r,
+
   @{PROC}/@{pid}/fd/ r,
 
   /sys/devices/pci[0-9]*/**/uevent r,
@@ -64,6 +67,7 @@
     #include <abstractions/dconf>
 
     signal (send) set=(term) peer=unconfined,
+    signal (receive) set=(term) peer=/usr/sbin/lightdm-gtk-greeter,
 
     /usr/lib/at-spi2-core/at-spi-bus-launcher mr,
 

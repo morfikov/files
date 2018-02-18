@@ -41,7 +41,7 @@
     owner @{HOME}/.repo_.gitconfig.json rw,
 
     # Android source dir
-    /media/Kabi/Android/** rw,
+    /media/Android/** rw,
 
   }
 

@@ -85,6 +85,8 @@
   owner @{HOME}/[dD]ownload{,s}/**	rwl,
   owner @{HOME}/[dD]esktop/	r,
   owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
 
   # Torrent files
   owner /media/ r,
@@ -92,8 +94,8 @@
   owner /media/Kabi/torrent/ r,
 
   # Screenshot dirs
-  owner /media/Kabi/skriny/ r,
-  owner /media/Kabi/skriny/** rw,
+  owner @{HOME}/skriny/ r,
+  owner @{HOME}/skriny/** rw,
   owner @{HOME}/Desktop/fotki/ r,
   owner @{HOME}/Desktop/fotki/** rw,
 
