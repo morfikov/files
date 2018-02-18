@@ -1,6 +1,0 @@
-[Match]
-Driver=bonding
-
-[Link]
-Description=MAC address for bond0 interface
-MACAddress=c4:6e:1f:95:ef:ff
