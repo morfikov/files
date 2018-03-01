@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2015-2017 Mikhail Morfikov
+#    Copyright (C) 2015-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -11,17 +11,19 @@
 
 
 @{DEMON_DIR}=@{HOME}/.dropbox-dist/
-@{HOME_DIR}=/media/Kabi/.dropbox/
-@{SHARE_DIR}=/media/Kabi/dropbox_share/
+@{HOME_DIR}=@{HOME}/.dropbox/
+@{SHARE_DIR}=@{HOME}/Dropbox*/
 
 #include <tunables/global>
 
 /usr/bin/dropbox {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
   #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
+  #include <abstractions/ssl_certs>
   #include <abstractions/user-tmp>
   #include <abstractions/python>
 
@@ -33,16 +35,13 @@
   @{HOME_DIR}/ rw,
   @{HOME_DIR}/** rwk,
 
-  # Dropbox migration folders
-  owner @{HOME}/Dropbox*/ rw,
-  owner @{HOME}/Dropbox*/** rw,
-
-  # Dropbox share files
-  @{SHARE_DIR}/ rw,
-  @{SHARE_DIR}/** rw,
+  # Shared files
+  owner @{SHARE_DIR}/ rw,
+  owner @{SHARE_DIR}/** rw,
 
   # Dropbox proprietary demon files
-  owner @{DEMON_DIR}/** r,
+  owner @{DEMON_DIR}/ rw,
+  owner @{DEMON_DIR}/** rw,
   owner @{DEMON_DIR}/dropboxd rix,
   owner @{DEMON_DIR}/dropbox-lnx.*/dropbox rix,
   owner @{DEMON_DIR}/dropbox-lnx.*/dropboxd rix,
@@ -63,6 +62,21 @@
   # Open Dropbox folder
   /usr/bin/xdg-open rPUx,
 
+  # Needed for updating Dropbox
+  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropboxd rix,
+  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropboxd rix,
+  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropbox rix,
+  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/*.so* mr,
+  owner @{HOME}/.dropbox-dist-old*/ rw,
+  owner @{HOME}/.dropbox-dist-old*/** rw,
+  owner @{HOME}/.dropbox-dist-tmp-*/ rw,
+  owner @{HOME}/.dropbox-dist-tmp-*/** rw,
+  /bin/mount rix,
+  @{PROC}/@{pid}/mountinfo r,
+  /sys/devices/virtual/block/dm-[0-9]*/dm/name r,
+  # Silencer
+  deny ptrace (trace),
+
   /etc/gai.conf r,
   /etc/host.conf r,
   /etc/hosts r,
@@ -78,10 +92,13 @@
   @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/io r,
-  owner @{PROC}/@{pid}/tcp r,
+  @{PROC}/@{pid}/net/tcp{,6} r,
+  @{PROC}/@{pid}/net/udp{,6} r,
   owner @{PROC}/@{pid}/fdinfo/* r,
   @{PROC}/version r,
   @{PROC}/vmstat r,
+
+  /usr/lib/firefox/firefox rPUx,
 
   # Silencer
   deny @{HOME}/ r,

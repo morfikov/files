@@ -17,13 +17,13 @@
   #include <abstractions/dbus>
   #include <abstractions/nameservice>
 
+  capability chown,             # for ownership of pid file
   capability net_bind_service,
   capability setgid,
   capability setuid,
   capability dac_override,
   capability net_admin,         # for DHCP server
   capability net_raw,           # for DHCP server ping checks
-  capability chown,             # for ownership of pid file
   network inet raw,
   network inet6 raw,
 

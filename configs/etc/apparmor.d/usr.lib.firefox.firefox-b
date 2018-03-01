@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2015-2017 Mikhail Morfikov
+#    Copyright (C) 2015-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -128,11 +128,6 @@
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
-
-  # Firefox v58
-  /etc/ld.so.conf r,
-  /etc/ld.so.conf.d/ r,
-  /etc/ld.so.conf.d/* r,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

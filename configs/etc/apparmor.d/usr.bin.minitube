@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2015-2017 Mikhail Morfikov
+#    Copyright (C) 2015-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -76,6 +76,9 @@
   /usr/bin/xdg-open rPUx,
   /usr/lib/firefox/firefox rPUx,
   /usr/bin/proxy rix,
+
+  #
+  /usr/bin/xdg-screensaver rix,
 
   # Silencer
   /usr/lib/x86_64-linux-gnu/vlc/plugins/** w,
