@@ -43,6 +43,9 @@
   # don't allow access to any gnome-keyring modules
   audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
 
+  # Needed when /proc is mounted with hidepid=2
+  ptrace peer=@{profile_name},
+
   # Firefox files
   @{MOZ_LIBDIR}/ r,
   @{MOZ_LIBDIR}/**  mrix,

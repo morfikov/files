@@ -34,4 +34,10 @@
 
   owner @{HOME}/.xsession-errors rw,
 
+  # Needed when /proc is mounted with hideproc=2
+  owner @{HOME}/.cache/keyring-*/ rw,
+  owner @{HOME}/.cache/keyring-*/control rw,
+  owner @{HOME}/.cache/keyring-*/ssh rw,
+  owner @{HOME}/.cache/keyring-*/pkcs11 rw,
+
 }

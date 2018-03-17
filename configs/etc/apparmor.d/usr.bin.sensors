@@ -41,5 +41,6 @@
   deny @{PROC}/diskstats r,
   deny @{PROC}/loadavg r,
   deny @{PROC}/@{pid}/io r,
+  deny /dev/tty rw,
 
 }

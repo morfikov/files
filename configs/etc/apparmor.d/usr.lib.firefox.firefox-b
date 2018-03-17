@@ -45,6 +45,9 @@
   # don't allow access to any gnome-keyring modules
   audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
 
+  # Needed when /proc is mounted with hidepid=2
+  ptrace peer=@{profile_name},
+
   # Firefox files
   @{MOZ_LIBDIR}/ r,
   @{MOZ_LIBDIR}/**  mrix,
@@ -133,13 +136,13 @@
   deny /var/cache/fontconfig/ w,
 
   # Launch external apps
-  /usr/bin/exo-open rPUx,
-  /usr/bin/geany rPUx,
-  /usr/bin/okular rPUx,
-  /usr/bin/spacefm rPUx,
-  /usr/bin/viewnior rPUx,
-  /usr/bin/xarchiver rPUx,
-  /opt/thunderbird/thunderbird rPUx,
-  /usr/bin/lsb_release rPUx,				# Firefox v51
+  /usr/bin/exo-open    rPUx,
+  /usr/bin/geany       rPUx,
+  /usr/bin/okular      rPUx,
+  /usr/bin/spacefm     rPUx,
+  /usr/bin/viewnior    rPUx,
+  /usr/bin/xarchiver   rPUx,
+  /usr/bin/thunderbird rPUx,
+  /usr/bin/lsb_release rPUx,    # Firefox v51
 
 }

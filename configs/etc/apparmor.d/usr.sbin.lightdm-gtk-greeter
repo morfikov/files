@@ -33,7 +33,9 @@
 
   # List of X sessions
   /usr/share/xsessions/ r,
-  /usr/share/xsessions/* r,
+  /usr/share/xsessions/*.desktop r,
+  /usr/share/wayland-sessions/ r,
+  /usr/share/wayland-sessions/*.desktop r,
 
   # Greeter theme
   /var/lib/AccountsService/ r,
@@ -59,7 +61,6 @@
   /sys/devices/pci[0-9]*/**/device r,
   /sys/devices/pci[0-9]*/**/subsystem_device r,
 
-
   /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
   profile launcher {
     #include <abstractions/base>
@@ -80,8 +81,6 @@
     /var/lib/lightdm/.cache/dconf/user rw,
 
     /usr/share/glib-2.0/schemas/gschemas.compiled r,
-
-    /etc/machine-id r,
 
     # file_inherit (lightdm)
     /var/log/lightdm/seat[0-9]*-greeter.log rw,

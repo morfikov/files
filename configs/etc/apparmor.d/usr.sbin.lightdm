@@ -55,6 +55,7 @@
   signal (send) set=(term, kill, usr1) peer=/usr/lib/xorg/Xorg,
   signal (receive) set=(usr1) peer=/usr/lib/xorg/Xorg,
   signal (send) set=(term) peer=/usr/sbin/lightdm-gtk-greeter,
+  signal (send) set=(term) peer=unconfined,
 
   /usr/sbin/lightdm mrix,
 
@@ -78,7 +79,9 @@
 
   # List of X sessions
   /usr/share/xsessions/ r,
-  /usr/share/xsessions/* r,
+  /usr/share/xsessions/*.desktop r,
+  /usr/share/wayland-sessions/ r,
+  /usr/share/wayland-sessions/*.desktop r,
 
   /tmp/.X[0-9]*-lock r,
 
@@ -109,11 +112,11 @@
   /dev/tty0 r,
 
   owner @{HOME}/.Xauthority rw,
-  
-  owner @{HOME}/.dmrc* r,
+
+  owner @{HOME}/.dmrc* rw,
   /var/cache/lightdm/dmrc/*.dmrc* rw,
 
-  
+
   /usr/lib/at-spi2-core/at-spi-bus-launcher Cx -> launcher,
   profile launcher {
     #include <abstractions/base>
