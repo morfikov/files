@@ -81,8 +81,8 @@ deb https://linux.dropbox.com/debian sid main
 # deb http://apt.spideroak.com/ubuntu-spideroak-hardy/ release restricted
 
 ### MEGA (cloud storage) ###
-# deb https://mega.co.nz/linux/MEGAsync/Debian_9.0/ ./
-deb https://mega.co.nz/linux/MEGAsync/xUbuntu_16.10/ ./
+#deb https://mega.co.nz/linux/MEGAsync/Debian_9.0/ ./
+deb https://mega.co.nz/linux/MEGAsync/xUbuntu_17.10/ ./
 
 ### Gajim (jabber) ###
 # deb ftp://ftp.gajim.org/debian unstable main
@@ -112,91 +112,75 @@ deb https://deb.torproject.org/torproject.org sid main
 # deb http://repository.spotify.com stable non-free
 
 ### Docker ###
-deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
-# deb-src [arch=amd64] https://download.docker.com/linux/debian stretch stable edge test
+deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+# deb-src [arch=amd64] https://download.docker.com/linux/debian buster stable edge test
 
 ####################### PPAs ############################
 
 # GNS3 (network)
-deb http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
-#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu zesty main
+#deb http://ppa.launchpad.net/gns3/ppa/ubuntu artful main
+#deb-src http://ppa.launchpad.net/gns3/ppa/ubuntu artful main
 
 ### Haguichi (vpn) ###
-# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu zesty main
+# deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu artful main
+# deb-src http://ppa.launchpad.net/webupd8team/haguichi/ubuntu artful main
 
 ### i2p (anonymity) ###
-# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu zesty main
+# deb http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/i2p-maintainers/i2p/ubuntu bionic main
 
 ### Java (oracle) ###
-# deb http://ppa.launchpad.net/webupd8team/java/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu zesty main
+# deb http://ppa.launchpad.net/webupd8team/java/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu bionic main
 
 ### qBitorrent (p2p) ###
-#deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu zesty main
+#deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu bionic main
 
 ### PSI (jabber) ###
-deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
-#deb-src http://ppa.launchpad.net/psi-plus/ppa/ubuntu artful main
+deb http://ppa.launchpad.net/psi-plus/ppa/ubuntu bionic main
+#deb-src http://ppa.launchpad.net/psi-plus/ppa/ubuntu bionic main
 
 ### Grub Customizer (bootloader) ###
-# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu zesty main
+# deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu bionic main
 
 ### SMPlayer (video) ###
-# deb http://ppa.launchpad.net/rvm/smplayer/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu zesty main
+# deb http://ppa.launchpad.net/rvm/smplayer/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/rvm/smplayer/ubuntu bionic main
 
 ### Keepass2 (passwords) ###
-# deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu zesty main
+# deb http://ppa.launchpad.net/jtaylor/keepass/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/jtaylor/keepass/ubuntu bionic main
 
 ### Desktop recorder ###
-# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
-# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu yakkety main
+# deb http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/maarten-baert/simplescreenrecorder/ubuntu bionic main
 
 ### inxi (system info) ###
-# deb http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu zesty main
+# deb http://ppa.launchpad.net/unit193/inxi/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/unit193/inxi/ubuntu bionic main
 
 ### Spacefm (file manager) ###
-# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
-# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu zesty main
+# deb http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu bionic main
+# deb-src http://ppa.launchpad.net/mati75/spacefm-unstable/ubuntu bionic main
 
 ### WineHQ ###
-# deb https://dl.winehq.org/wine-builds/ubuntu/ zesty main
-# deb-src https://dl.winehq.org/wine-builds/ubuntu/ zesty main
-
-### Openshot ###
-deb http://ppa.launchpad.net/openshot.developers/ppa/ubuntu zesty main
-#deb-src http://ppa.launchpad.net/openshot.developers/ppa/ubuntu zesty main
-#deb http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu zesty main
-#deb-src http://ppa.launchpad.net/jonoomph/openshot-edge/ubuntu zesty main
-#deb http://ppa.launchpad.net/openshot.developers/libopenshot-daily/ubuntu zesty main
-#deb-src http://ppa.launchpad.net/openshot.developers/libopenshot-daily/ubuntu zesty main
+# deb https://dl.winehq.org/wine-builds/ubuntu/ artful main
+# deb-src https://dl.winehq.org/wine-builds/ubuntu/ artful main
 
 ### Vidcutter ###
-#deb http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
-#deb-src http://ppa.launchpad.net/ozmartian/apps/ubuntu zesty main
-
-### Shutter ###
-#deb http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
-#deb-src http://ppa.launchpad.net/shutter/ppa/ubuntu xenial main
-#deb http://ppa.launchpad.net/shutter-testing-team/dailybuilds/ubuntu xenial main
-#deb-src http://ppa.launchpad.net/shutter-testing-team/dailybuilds/ubuntu xenial main
-#deb http://ppa.launchpad.net/shutter-testing-team/ppa/ubuntu artful main
-#deb-src http://ppa.launchpad.net/shutter-testing-team/ppa/ubuntu artful main
+deb http://ppa.launchpad.net/ozmartian/apps/ubuntu bionic main
+#deb-src http://ppa.launchpad.net/ozmartian/apps/ubuntu bionic main
 
 ### WoeUSB (Windows USB stick installer) ###
-deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu artful main
+#deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu artful main
 #deb-src http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu artful main
 
 
 ### Ubuntu ###
-# deb http://archive.ubuntu.com/ubuntu/ zesty main
-# deb http://archive.canonical.com/ubuntu zesty partner
+# deb http://archive.ubuntu.com/ubuntu/ bionic main
+# deb http://archive.canonical.com/ubuntu bionic partner
 
 ### Debian snapshot ###
 # deb     [check-valid-until=no] http://snapshot.debian.org/archive/debian/20161102T033150Z/ testing main contrib non-free
