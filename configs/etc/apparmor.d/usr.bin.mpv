@@ -43,13 +43,6 @@
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
 
-  /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/pci[0-9]*/**/vendor r,
-  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  /sys/devices/pci[0-9]*/**/device r,
-  /sys/devices/pci[0-9]*/**/subsystem_device r,
-
-
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/task/ r,
 

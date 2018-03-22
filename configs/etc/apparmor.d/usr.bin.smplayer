@@ -41,21 +41,22 @@
   /**/*.{TXT,SRT,txt,srt} r,
   /**/*.{PLS,M3U,pls,m3u} r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
-
-  /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/pci[0-9]*/**/vendor r,
-  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  /sys/devices/pci[0-9]*/**/device r,
-  /sys/devices/pci[0-9]*/**/subsystem_device r,
-
-  owner @{PROC}/@{pid}/stat r,
-
   # SMPlayer config files
   owner @{HOME}/.config/smplayer/ rw,
   owner @{HOME}/.config/smplayer/* rwk,
   owner @{HOME}/.config/.* rwk,
+
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
+  owner @{PROC}/@{pid}/stat r,
+  owner @{PROC}/@{pid}/cmdline r,
+
+  /dev/tty r,
+
+  /usr/bin/mpv rPUx,
+  /usr/bin/smtube rPUx,
+  /usr/bin/youtube-dl rPUx,
 
   # PulseAudio (to use "pacmd")
   /usr/bin/pacmd rCx -> pacmd,
@@ -76,13 +77,5 @@
     owner @{PROC}/@{pids}/stat r,
 
   }
-
-  owner @{PROC}/@{pid}/cmdline r,
-
-  /dev/tty r,
-
-  /usr/bin/mpv rPUx,
-  /usr/bin/smtube rPUx,
-  /usr/bin/youtube-dl rPUx,
 
 }

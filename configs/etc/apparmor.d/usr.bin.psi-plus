@@ -52,12 +52,6 @@
   deny /dev/v4l/by-path/ r,
   deny /dev/snd/pcmC0D0c rw,
 
-  /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/pci[0-9]*/**/vendor r,
-  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  /sys/devices/pci[0-9]*/**/device r,
-  /sys/devices/pci[0-9]*/**/subsystem_device r,
-
   # Silencer
   deny owner @{HOME}/ r,
 

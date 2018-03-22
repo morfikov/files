@@ -83,12 +83,6 @@
 
     /usr/bin/glxinfo mr,
 
-    /sys/devices/pci[0-9]*/**/uevent r,
-    /sys/devices/pci[0-9]*/**/vendor r,
-    /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-    /sys/devices/pci[0-9]*/**/device r,
-    /sys/devices/pci[0-9]*/**/subsystem_device r,
-
   }
 
 }

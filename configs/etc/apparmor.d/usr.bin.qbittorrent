@@ -57,12 +57,6 @@
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mounts r,
 
-  /sys/devices/pci[0-9]*/**/uevent r,
-  /sys/devices/pci[0-9]*/**/vendor r,
-  /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  /sys/devices/pci[0-9]*/**/device r,
-  /sys/devices/pci[0-9]*/**/subsystem_device r,
-
   /dev/disk/by-label/ r,
 
   /dev/tty r,

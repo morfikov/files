@@ -3,6 +3,7 @@
 #
 #    Copyright (C) 2002-2009 Novell/SUSE
 #    Copyright (C) 2009-2011 Canonical Ltd.
+#    Copyright (C) 2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -62,6 +63,9 @@
   /etc/X11/cursors/               r,
   /etc/X11/cursors/**             r,
 
+
+  # for libdrm (Direct Rendering Manager)
+  /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
 
   # logs
   owner @{HOME}/.xsession-errors* rw,

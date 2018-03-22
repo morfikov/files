@@ -46,18 +46,11 @@
 
   deny /dev/tty r,
 
-  deny owner @{PROC}/@{pids}/cmdline r,
-  deny owner @{PROC}/@{pids}/mountinfo r,
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/mountinfo r,
 
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
-
-  deny /sys/devices/pci[0-9]*/**/uevent r,
-  deny /sys/devices/pci[0-9]*/**/config r,
-  deny /sys/devices/pci[0-9]*/**/vendor r,
-  deny /sys/devices/pci[0-9]*/**/subsystem_vendor r,
-  deny /sys/devices/pci[0-9]*/**/device r,
-  deny /sys/devices/pci[0-9]*/**/subsystem_device r,
 
   deny /sys/devices/system/node/ r,
   deny /sys/devices/system/node/node[0-9]*/meminfo r,
