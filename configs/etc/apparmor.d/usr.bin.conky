@@ -115,4 +115,7 @@
   # Display network data transfer status
   /usr/bin/vnstat rPUx,
 
+  # file_receive (Xorg related?)
+  /dev/shm/#* rw,
+
 }

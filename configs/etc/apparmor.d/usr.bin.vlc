@@ -42,10 +42,15 @@
 
   # VLC files
   /usr/share/vlc/** r,
+  /usr/share/glvnd/egl_vendor.d/50_mesa.json r,
 
   # VLC config files
-  owner @{HOME}/.config/vlc/* rwk,
-  owner @{HOME}/.local/share/vlc/** rwk,
+  owner @{HOME}/.config/vlc/ rw,
+  owner @{HOME}/.config/vlc/* rw,
+  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.lock rwk,
+  owner @{HOME}/.config/vlc/.* rwk,
+  owner @{HOME}/.local/share/vlc/ rw,
+  owner @{HOME}/.local/share/vlc/* rw,
 
   # Art Cache
   owner @{HOME}/.cache/vlc/ rw,

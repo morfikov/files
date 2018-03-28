@@ -45,6 +45,8 @@
 
   owner @{HOME}/.local/share/Trash/ rw,
   owner @{HOME}/.local/share/Trash/** rw,
+  owner /**/.Trash-[0-9]*/ rw,
+  owner /**/.Trash-[0-9]*/** rw,
 
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mounts r,

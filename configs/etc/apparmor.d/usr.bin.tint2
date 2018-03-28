@@ -48,4 +48,7 @@
   /sys/class/power_supply/ r,
   /sys/devices/**/power_supply/{BAT[0-9]*,ADP[0-9]*}/* r,
 
+  # file_receive (Xorg related?)
+  /dev/shm/#* rw,
+
 }
