@@ -1,0 +1,43 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/sbin/dhclient flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+
+#  capability net_bind_service,
+  capability net_raw,
+#  capability dac_override,
+#  capability net_admin,
+
+#  network packet,
+#  network raw,
+
+#  @{PROC}/[0-9]*/net/ r,
+#  @{PROC}/[0-9]*/net/** r,
+
+  /sbin/dhclient mr,
+
+  # Run dhclient scripts
+  /sbin/dhclient-script rPx,
+
+  /etc/dhclient.conf r,
+  /etc/dhcp/ r,
+  /etc/dhcp/** r,
+
+  /var/lib/dhcp{,3}/dhclient* lrw,
+  /{,var/}run/dhclient*.pid lrw,
+  /{,var/}run/dhclient*.lease* lrw,
+
+}

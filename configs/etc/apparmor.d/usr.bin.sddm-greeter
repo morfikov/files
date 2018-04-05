@@ -1,0 +1,74 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/sddm-greeter flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+
+  /usr/bin/sddm-greeter mr,
+
+  # SDDM themes
+  /usr/share/sddm/themes/** r,
+
+  # List of X and Wayland sessions
+  /usr/share/xsessions/ r,
+  /usr/share/xsessions/*.desktop r,
+  /usr/share/wayland-sessions/ r,
+  /usr/share/wayland-sessions/*.desktop r,
+
+  # SDDM files
+  owner /var/lib/sddm/**/ rw,
+  owner /var/lib/sddm/.cache/** rw,
+  owner /var/lib/sddm/.cache/icon-cache.kcache mrwk,
+  owner /var/lib/sddm/.cache/plasma_theme_default_v*.kcache mrwk,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.jsc mr,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.qmlc mr,
+  owner /var/lib/sddm/.local/share/sddm/xorg-session.log rw,
+  owner /var/lib/sddm/#* mrw,
+        /var/lib/sddm/state.conf r,
+
+  # SDDM config files
+  /etc/sddm.conf.d/ r,
+  /etc/sddm.conf.d/* r,
+  /etc/sddm.conf r,
+
+  # User avatars
+  /usr/share/sddm/faces/*.icon r,
+  /var/lib/AccountsService/icons/*.icon r,
+
+  # QT
+  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
+  /usr/lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
+
+  #
+  /usr/share/desktop-base/softwaves-theme/login/*.svg r,
+  /usr/share/plasma/desktoptheme/default/*.desktop r,
+  /usr/share/plasma/desktoptheme/default/widgets/*.svgz r,
+
+  owner /run/sddm/ rw,
+  owner /run/sddm/* rw,
+
+  /lib/@{multiarch}/ld-*.so mr,
+  owner @{PROC}/@{pid}/mounts r,
+
+  /var/lib/dbus/machine-id r,
+
+  /proc/sys/kernel/core_pattern r,
+
+}

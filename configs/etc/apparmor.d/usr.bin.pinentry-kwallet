@@ -1,0 +1,50 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/pinentry-kwallet flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/freedesktop.org>
+
+  /usr/bin/pinentry-kwallet mr,
+
+  /usr/bin/pinentry-qt rPx,
+  /usr/bin/kwalletcli_getpin rix,
+
+  # when wrong PIN is provided
+  /bin/date rix,
+
+  /bin/mksh rix,
+  /usr/bin/env rix,
+
+  /dev/tty rw,
+
+  owner @{HOME}/.Xauthority r,
+
+  /usr/bin/kwalletcli rCx -> kwalletcli,
+  profile kwalletcli flags=(complain) {
+    #include <abstractions/base>
+
+    /usr/bin/kwalletcli mr,
+
+    owner @{HOME}/.config/kdeglobals r,
+    owner @{HOME}/.config/kwalletrc r,
+
+    /sys/devices/system/cpu/online r,
+    /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemKWaylandPlugin.so mr,
+    /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
+
+   owner @{HOME}/.Xauthority r,
+
+  }
+
+}

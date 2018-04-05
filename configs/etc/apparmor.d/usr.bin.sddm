@@ -1,0 +1,134 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/sddm flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/authentication>
+  #include <abstractions/wutmp>
+
+  capability chown,
+  capability dac_read_search,
+  capability audit_write,
+  capability setgid,
+  capability setuid,
+  capability sys_resource,
+  capability sys_tty_config,
+  deny capability net_admin,
+
+  signal (send) set=(kill, term) peer=/usr/lib/xorg/Xorg,
+
+  /usr/bin/sddm mr,
+
+  /usr/lib/@{multiarch}/sddm/sddm-helper rix,
+  /bin/dash mrix,
+
+  /usr/bin/sddm-greeter rPx,
+  /etc/sddm/Xsession rPUx,
+  /usr/bin/Xorg rPUx,
+  /usr/bin/xauth rPUx,
+  /usr/bin/xsetroot rPUx,
+  /usr/bin/sway rPUx,
+
+  # System keyrings
+  /usr/bin/gnome-keyring-daemon rPUx,
+  /usr/bin/kwalletd5 rPUx,
+
+  # Create kwallet dirs and files
+  @{HOME}/.local/share/kwalletd/ rw,
+  @{HOME}/.local/share/kwalletd/kdewallet.salt rw,
+  /run/user/[0-9]*/kwallet5.socket rw,
+  /var/log/btmp rwk,
+  capability dac_override,
+
+  # SDDM themes
+  /usr/share/sddm/themes/** r,
+
+  # List of X and Wayland sessions
+  /usr/share/xsessions/ r,
+  /usr/share/xsessions/*.desktop r,
+  /usr/share/wayland-sessions/ r,
+  /usr/share/wayland-sessions/*.desktop r,
+
+  # SDDM files
+  owner /var/lib/sddm/**/ rw,
+  owner /var/lib/sddm/.cache/** rw,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.jsc mr,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.qmlc mr,
+  owner /var/lib/sddm/.local/share/sddm/xorg-session.log rw,
+        /var/lib/sddm/state.conf rw,
+
+  # SDDM config files
+  /etc/sddm.conf.d/ r,
+  /etc/sddm.conf.d/* r,
+  /etc/sddm.conf r,
+
+  # User avatars
+  /usr/share/sddm/faces/.*.icon r,
+  /var/lib/AccountsService/icons/*.icon r,
+
+  # QT
+  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
+  /usr/lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
+  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
+
+  #
+  /usr/share/desktop-base/softwaves-theme/login/*.svg r,
+  /usr/share/plasma/desktoptheme/default/*.desktop r,
+
+  # TMP files
+  owner /tmp/sddm-auth* rw,
+  /tmp/sddm-* rw,
+  owner /tmp/**/ rw,
+  owner /tmp/**/s rw,
+
+  owner /run/sddm/ rw,
+  /run/sddm/* rwl,
+
+  # Session error logs
+  owner @{HOME}/.local/share/sddm/xorg-session.log rw,
+  owner @{HOME}/.local/share/sddm/wayland-session.log rw,
+
+  /lib/@{multiarch}/ld-*.so mr,
+
+  /etc/security/limits.d/ r,
+
+  owner @{HOME}/.Xauthority rw,
+
+  /etc/default/locale r,
+  /etc/drirc r,
+  /etc/environment r,
+
+  owner @{PROC}/@{pid}/loginuid rw,
+  owner @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/uid_map r,
+  owner @{PROC}/1/limits r,
+  owner @{PROC}/filesystems r,
+
+  /proc/sys/kernel/core_pattern r,
+  / r,
+
+  # SDDM scripts
+  /usr/share/sddm/scripts/Xsetup rPUx,
+  /usr/share/sddm/scripts/Xstop  rPUx,
+  /usr/share/sddm/scripts/wayland-session rPUx,
+  /usr/share/sddm/scripts/Xsession rPUx,
+
+  # Run SDDM on a specific TTY
+  /dev/tty[0-9]* rw,
+
+}

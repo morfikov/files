@@ -1,0 +1,57 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/sbin/dhclient-script flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  /sbin/dhclient-script mr,
+  /bin/dash mrix,
+
+  # To read scripts
+  /bin/run-parts rix,
+  /etc/dhcp/dhclient-enter-hooks.d/ r,
+  /etc/dhcp/dhclient-enter-hooks.d/* r,
+  /etc/dhcp/dhclient-exit-hooks.d/ r,
+  /etc/dhcp/dhclient-exit-hooks.d/* r,
+
+  # For debug script
+  /bin/date rix,
+  /etc/dhcp/debug r,
+  /tmp/dhclient-script.debug rw,
+
+  # For ddclient script
+  /usr/sbin/ddclient rix,
+  /usr/bin/logger rix,
+  /etc/ddclient.conf r,
+  /etc/default/ddclient r,
+  /var/cache/ddclient/ddclient.cache r,
+  /usr/share/perl/[0-9].[0-9][0-9].[0-9]/*.pm r,
+  /usr/share/perl/[0-9].[0-9][0-9].[0-9]/**/*.pm r,
+  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Socket/Socket.so mr,
+  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/IO/IO.so mr,
+  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Sys/Hostname/Hostname.so mr,
+
+  # For samba script
+  /bin/mv rix,
+  /etc/samba/dhcp.conf.new rw,
+  /etc/samba/dhcp.conf rw,
+
+  # Many scripts can use ip command
+  capability net_admin,
+  /bin/ip rix,
+
+  # Silencer
+  deny / r,
+
+}
