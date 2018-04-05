@@ -185,9 +185,9 @@ function conky_main_bars()
 			angle=90,
 			smooth=true
 			},
-		{	--[ Graph for Gusto ]--
+		{	--[ Graph for Dropbox ]--
 			name="fs_used_perc",
-			arg="/media/Gusto",
+			arg="/media/Dropbox",
 			max=100,
 			alarm=50,
 			alarm_colour={0xFF0000,0.90},

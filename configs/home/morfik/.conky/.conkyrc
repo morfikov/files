@@ -142,7 +142,7 @@ conky.config = {
 };
 
 conky.text = [[
-${image $HOME/.conky/debian.png -p 18,28 -s 40x40}${color1}${hr 1}${font monospace:size=8}
+${image $HOME/.conky/debian.png -p 8,20 -s 40x40}${color1}${hr 1}${font monospace:size=8}
 #${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^NAME' | awk -F'=' '{print $2}' | tr -d '"'} ${execi 300 cat /etc/*release | grep 'VERSION_ID' | awk -F'=' '{print $2}' | tr -d '"'}
 ${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^PRETTY_NAME' | awk -F'=' '{print $2}' | tr -d '"'}
 ${alignr}${offset -5}${execi 3600 uname -r}
@@ -177,6 +177,8 @@ ${color1}$hr
 ${color1}${font StyleBats:size=8}u${font} Hard Disk:
 ${color0}sda: ${execi 3600 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C
 ${color1}Read ${offset 27}${color0}${diskio_read /dev/sda}${color1}${offset 3}|${alignr}${color0}${diskio_write /dev/sda}${color} ${color1} Write
+${color0}sdb: ${execi 3600 cat /sys/block/sdb/device/model || echo "none"} ${alignr}${hddtemp /dev/sdb}˚C
+${color1}Read ${offset 27}${color0}${diskio_read /dev/sdb}${color1}${offset 3}|${alignr}${color0}${diskio_write /dev/sdb}${color} ${color1} Write
 ${color1}$hr
 ${color1}${font StyleBats:size=8}2${font} Wi-Fi ESSID:${alignr}${color0}${wireless_essid wlan0}
 ${color1}AP:${alignr}${color0}${wireless_ap wlan0}
