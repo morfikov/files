@@ -63,9 +63,6 @@ panel_items = TSBC
 # Use all to get a separate panel per monitor.
 panel_monitor = 1
 
-# Place the primary monitor before all the other monitors in the list.
-primary_monitor_first = 1
-
 # panel_position = vertical_position (bottom, top, center) horizontal_position (left, right, center)
 # orientation (horizontal, vertical).
 panel_position = bottom center horizontal
