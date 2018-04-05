@@ -24,13 +24,20 @@
   #include <abstractions/openssl>
   #include <abstractions/user-tmp>
 
-
   # Minitube files
   /usr/bin/minitube mr,
 
   # Minitube home files
-  owner "@{HOME}/.config/Flavio Tordini/**" rwk,
-  owner "@{HOME}/.local/share/Flavio Tordini/**" rwk,
+  owner "@{HOME}/.config/Flavio Tordini/" rw,
+  owner "@{HOME}/.config/Flavio Tordini/**" rw,
+  owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.lock" rwk,
+  owner "@{HOME}/.config/Flavio Tordini/.*" rwk,
+  owner "@{HOME}/.local/share/Flavio Tordini/" rw,
+  owner "@{HOME}/.local/share/Flavio Tordini/**" rw,
+  owner "@{HOME}/.local/share/Flavio Tordini/Minitube/minitube.db" rwk,
+  owner @{HOME}/.config/Minituberc* rw,
+  owner @{HOME}/.config/Minituberc.lock rwk,
+  owner @{HOME}/.config/.* rwk,
 
   # Cache
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rwk,
@@ -70,8 +77,25 @@
   /usr/lib/firefox/firefox rPUx,
   /usr/bin/proxy rix,
 
-  #
-  /usr/bin/xdg-screensaver rix,
+  # xdg-screensaver
+  /usr/bin/xdg-screensaver rCx -> screensaver,
+  profile screensaver {
+    #include <abstractions/base>
+
+    /usr/bin/xdg-screensaver mr,
+
+    /bin/dash rix,
+    /bin/mv rix,
+    /bin/grep rix,
+    /bin/hostname rix,
+    /bin/sed rix,
+    /bin/which rix,
+    /usr/bin/dbus-send rix,
+    /usr/bin/xset rix,
+
+    owner @{HOME}/.Xauthority r,
+
+  }
 
   # Silencer
   /usr/lib/x86_64-linux-gnu/vlc/plugins/** w,

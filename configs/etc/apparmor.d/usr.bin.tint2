@@ -16,6 +16,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
 
+  signal (receive) set=(hup) peer=/usr/bin/xinit,
 
   /usr/bin/tint2 mr,
 
@@ -26,6 +27,7 @@
   # Tint2 config files
   owner @{HOME}/.config/tint2/ rw,
   owner @{HOME}/.config/tint2/** rw,
+  owner @{HOME}/.cache/tint2/ rw,
   owner @{HOME}/.cache/tint2/icon.cache rwk,
 
   # Launcher config files
@@ -50,5 +52,9 @@
 
   # file_receive (Xorg related?)
   /dev/shm/#* rw,
+
+  # file_inherit
+  deny /dev/tty[0-9]* rw,
+
 
 }

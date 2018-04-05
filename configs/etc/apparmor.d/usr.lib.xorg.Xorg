@@ -18,7 +18,6 @@
   #include <abstractions/fonts>
   #include <abstractions/nameservice>
 
-
   capability ipc_owner,
   capability setgid,
   capability setuid,
@@ -26,9 +25,20 @@
   capability sys_rawio,
   capability dac_override,
 
+  # for KDE/SDDM
+  capability dac_read_search,
+  capability sys_tty_config,
+
   signal (receive) set=(term, kill, usr1) peer=/usr/sbin/lightdm,
-  signal (send) set=(usr1) peer=/usr/sbin/lightdm,
-  signal (send) set=(usr1) peer=unconfined,
+  signal (send)    set=(usr1)             peer=/usr/sbin/lightdm,
+
+  signal (send)    set=(usr1)             peer=/usr/bin/xinit,
+  signal (receive) set=(term)             peer=/usr/bin/xinit,
+
+  signal (receive) set=(kill, term)       peer=/usr/bin/sddm,
+
+  signal (send)    set=(usr1)             peer=unconfined,
+
 
   /usr/lib/xorg/Xorg mr,
 
@@ -75,9 +85,8 @@
   /dev/tty[1-9]* rw,
 
   # Needed for SDDM display manager
-  #/{,var/}run/sddm/ r,
-  #/{,var/}run/sddm/** rw,
-  #/tmp/server-* rwk,
+  /{,var/}run/sddm/ r,
+  /{,var/}run/sddm/** rw,
   #owner @{HOME}/.serverauth.* rw,
 
   # Needed for LightDM display manager
@@ -104,6 +113,11 @@
   @{PROC}/cmdline r,
   @{PROC}/mtrr rw,
 
+  #
+  /dev/shm/shmfd-* rw,
+  /dev/shm/#* rw,
+
+  owner @{HOME}/.fonts/fonts.dir r,
 
   /usr/bin/pkexec Cx -> pkexec,
   profile pkexec {
@@ -116,9 +130,12 @@
 
     #
     capability audit_write,
+    capability sys_tty_config,
 
     # gdbus
     capability setgid,
+
+    ptrace (trace) peer=/usr/lib/xorg/Xorg,
 
     /usr/bin/pkexec mr,
 
@@ -131,6 +148,10 @@
     @{PROC}/@{pid}/stat r,
 
     /sys/devices/pci[0-9]*/**/backlight/**/brightness rw,
+
+    # file_inherit
+    deny /dev/tty[0-9]* rw,
+    deny owner @{HOME}/.local/share/xorg/Xorg.[0-9]*.log w,
 
   }
 

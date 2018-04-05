@@ -49,8 +49,6 @@
   # Be able to turn off the screensaver while playing movies
   /usr/bin/xdg-screensaver rPUx,
 
-  /usr/share/glvnd/egl_vendor.d/50_mesa.json r,
-
   /usr/bin/youtube-dl rPUx,
 
 }

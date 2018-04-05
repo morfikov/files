@@ -20,6 +20,7 @@
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/kde>
+  #include <abstractions/gtk>
 
   signal (send) set=(term) peer=/usr/bin/kdeinit4,
   signal (receive) set=(stop,cont) peer=/usr/bin/kdeinit4,

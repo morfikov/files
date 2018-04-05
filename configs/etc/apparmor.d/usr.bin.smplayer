@@ -21,6 +21,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
+  #include <abstractions/wayland>
 
   # Needed for hardware decoding
   #include <abstractions/nvidia>

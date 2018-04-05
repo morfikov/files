@@ -126,6 +126,12 @@
 
   @{PROC}/@{pid}/mounts r,
 
+  # KDE's system keyring
+  owner @{HOME}/.config/kwalletrc r,
+  owner @{HOME}/.config/kdeglobals r,
+  /etc/xul-ext/kwallet5.js r,
+  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
+
   # Silencer
   deny /var/cache/fontconfig/ w,
 

@@ -13,10 +13,12 @@
 
 /usr/bin/light-locker {
   #include <abstractions/base>
+  #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/dconf>
   #include <abstractions/fonts>
-
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/wayland>
 
   /usr/bin/light-locker mr,
 
@@ -30,5 +32,9 @@
 
   # when locking the screen and switching/closing sessions
   /{,var/}run/systemd/sessions/[0-9]* r,
+
+  # file_inherit
+  deny /dev/tty[0-9]* rw,
+  deny @{HOME}/.local/share/sddm/wayland-session.log rw,
 
 }

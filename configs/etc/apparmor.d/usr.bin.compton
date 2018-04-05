@@ -24,4 +24,7 @@
   owner @{HOME}/.Xauthority r,
   owner @{HOME}/.xsession-errors* rw,
 
+  # file_inherit
+  deny /dev/tty[0-9]* rw,
+
 }

@@ -18,6 +18,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/gtk>
 
+  signal (receive) set=(hup) peer=/usr/bin/xinit,
 
   /usr/bin/volumeicon mr,
 
@@ -39,5 +40,9 @@
   owner @{HOME}/.local/share/mime/mime.cache r,
 
   /etc/machine-id r,
+
+  # file_inherit
+  deny /dev/tty[0-9]* rw,
+
 
 }

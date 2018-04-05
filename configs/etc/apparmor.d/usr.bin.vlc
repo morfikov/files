@@ -42,7 +42,6 @@
 
   # VLC files
   /usr/share/vlc/** r,
-  /usr/share/glvnd/egl_vendor.d/50_mesa.json r,
 
   # VLC config files
   owner @{HOME}/.config/vlc/ rw,

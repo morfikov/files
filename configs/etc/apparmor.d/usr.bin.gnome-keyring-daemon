@@ -14,6 +14,7 @@
 /usr/bin/gnome-keyring-daemon {
   #include <abstractions/base>
 
+  signal (receive) set=(hup) peer=/usr/bin/xinit,
 
   # Remove the following error:
   #  gnome-keyring-daemon: insufficient process capabilities, unsecure memory might get used
@@ -39,5 +40,8 @@
   owner @{HOME}/.cache/keyring-*/control rw,
   owner @{HOME}/.cache/keyring-*/ssh rw,
   owner @{HOME}/.cache/keyring-*/pkcs11 rw,
+
+  # file_inherit
+  deny /dev/tty[0-9]* rw,
 
 }

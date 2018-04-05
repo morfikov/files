@@ -21,7 +21,7 @@
   #include <abstractions/openssl>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
-
+  #include <abstractions/wayland>
 
   # Qbittorrent files
   /usr/bin/qbittorrent mr,

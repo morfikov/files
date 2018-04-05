@@ -19,6 +19,7 @@
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
   #include <abstractions/kde>
+  #include <abstractions/gtk>
 
   # Needed for configuring Phonon
   #include <abstractions/audio>

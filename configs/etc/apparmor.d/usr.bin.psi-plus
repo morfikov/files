@@ -39,6 +39,7 @@
 
   # Cache files
   owner @{HOME}/.cache/fontconfig/** r,
+  owner @{HOME}/.cache/psi+/ rw,
   owner @{HOME}/.cache/psi+/** rw,
 
   /etc/machine-id r,
@@ -94,6 +95,8 @@
 
     owner @{HOME}/.Xauthority r,
     owner @{HOME}/.xsession-errors* rw,
+
+    owner /tmp/xauth-[0-9]*-_[0-9] r,
 
   }
 

@@ -1,6 +1,4 @@
 # vim:syntax=apparmor
-# Last Modified: Wed Feb  3 07:58:30 2009
-# Author: Jamie Strandboge <jamie@canonical.com>
 #include <tunables/global>
 
 /usr/sbin/tcpdump {
@@ -16,7 +14,6 @@
   network packet,
 
   # for -D
-  capability sys_module,
   @{PROC}/bus/usb/ r,
   @{PROC}/bus/usb/** r,
 

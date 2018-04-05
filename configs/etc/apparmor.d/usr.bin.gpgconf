@@ -33,6 +33,11 @@
 
   /dev/tty r,
 
+  # file_inherit
   owner @{HOME}/.xsession-errors* rw,
+  deny /dev/tty[0-9]* rw,
+  deny @{HOME}/.thunderbird/** rw,
+  deny @{HOME}/.cache/thunderbird/** rw,
+  deny /usr/share/thunderbird/omni.ja r,
 
 }
