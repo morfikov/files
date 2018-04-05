@@ -2,7 +2,7 @@
 #
 #    Copyright (C) 2002-2006 Novell/SUSE
 #    Copyright (C) 2009-2011 Canonical Ltd.
-#    Copyright (C) 2017 Mikhail Morfikov
+#    Copyright (C) 2017-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
 #    modify it under the terms of version 2 of the GNU General Public
@@ -13,23 +13,21 @@
 #include <abstractions/base>
 #include <abstractions/fonts>
 #include <abstractions/X>
+#include <abstractions/qt>
+#include <abstractions/gtk>
 #include <abstractions/freedesktop.org>
 #include <abstractions/xdg-desktop>
 #include <abstractions/user-tmp>
-
 
 # kde4
 /usr/lib/kde4/*.so mr,
 /usr/lib/kde4/plugins/*/*.so mr,
 /usr/lib/kde4/plugins/*/ r,
-/usr/lib/qt4/plugins/**  mr,
-/usr/lib/@{multiarch}/qt4/plugins/**  mr,
-/usr/lib/attica_kde.so mr,
-/usr/share/qt4/** r,
 /usr/share/kde4/ r,
 /usr/share/kde4/** r,
 /usr/share/applications/kde4/ r,
 /usr/share/applications/kde4/* r,
+/usr/lib/attica_kde.so mr,
 
 # Create home KDE directory structure
 owner @{HOME}/.kde{,4}/ rw,
@@ -42,13 +40,14 @@ owner @{HOME}/.kde{,4}/tmp-* rw,
 owner @{HOME}/.kde{,4}/tmp-*/** rwk,
 owner @{HOME}/.kde{,4}/cache-* rw,
 owner @{HOME}/.kde{,4}/cache-*/** rw,
+owner @{HOME}/.cache/icon-cache.kcache rw,
 owner @{HOME}/.kde{,4}/socket-* rwk,
 owner @{HOME}/.kde{,4}/socket-*/* rw,
 owner /{,var/}run/user/[0-9]*/ksocket-*/ rw,
 owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
 
 # Common configs
-owner @{HOME}/.kde{,4}/share/config/kdeglobals rw,
+owner @{HOME}/.kde{,4}/share/config/kdeglobals rwk,
 owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
 owner @{HOME}/.kde{,4}/share/config/drkonqirc* rw,
 owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
@@ -57,10 +56,8 @@ owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
 # Phonon
 owner @{HOME}/.config/kde.org/libphonon.conf* rwk,
 
-# UI
-owner @{HOME}/.config/Trolltech.conf rwk,
-owner @{HOME}/.gtkrc-2.0 rw,
-/usr/share/themes/** r,
+# needed?
+deny /etc/fstab r,
 
 /etc/xdg/menus/ r,
 /etc/xdg/menus/* r,

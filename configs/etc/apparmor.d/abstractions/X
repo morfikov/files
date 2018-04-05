@@ -46,6 +46,9 @@
 
   # EGL
   /usr/lib/@{multiarch}/egl/*.so* mr,
+  /usr/share/glvnd/egl_vendor.d/ r,
+  /usr/share/glvnd/egl_vendor.d/50_mesa.json r,
+  /etc/glvnd/egl_vendor.d/ r,
 
   # DRI
   /usr/lib{,32,64}/dri/**         mr,
@@ -69,3 +72,6 @@
 
   # logs
   owner @{HOME}/.xsession-errors* rw,
+
+  # Available Xsessions
+  /usr/share/xsessions/*.desktop r,

@@ -9,6 +9,14 @@
 #
 # ------------------------------------------------------------------
 
+  /usr/share/qt[4,5]/** r,
+  /{usr/,}lib/@{multiarch}/qt[4,5]/plugins/**  mr,
+
+  owner @{HOME}/.config/kdeglobals r,
+  owner @{HOME}/.cache/icon-cache.kcache rw,
+  /usr/share/color-schemes/Breeze.colors r,
+  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults r,
+
   /etc/xdg/QtProject/qtlogging.ini r,
 
   owner @{HOME}/.config/QtProject.conf* rw,
@@ -17,6 +25,9 @@
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
   owner @{HOME}/.config/Trolltech.conf rwk,
+
+  # needed?
+  deny /etc/fstab r,
 
   # .Xauthority files required for X connections
   owner @{HOME}/.Xauthority r,
