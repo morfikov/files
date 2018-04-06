@@ -1,0 +1,33 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017-2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/hddtemp {
+  #include <abstractions/base>
+
+  # Needed or otherwise access permissions to the drives will be denied
+  capability sys_rawio,
+  # Needed? It looks like it works without it just fine.
+  deny capability sys_admin,
+
+  /usr/sbin/hddtemp mr,
+
+  # Monitored hard drives
+  /dev/sd[a-z]* r,
+
+  # Database file that allows hddtemp to recognize supported drives
+  /etc/hddtemp.db r,
+
+  # Needed when the hddtemp daemon is started in the TCP/IP mode
+  /etc/gai.conf r,
+
+}

@@ -1,0 +1,34 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017-2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/atftpd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  # to run atftpd daemon as nobody/nogroup
+  capability setgid,
+  capability setuid,
+
+  /usr/sbin/atftpd mr,
+
+  # FTP dirs (add "w" if you need write permissions and hence upload files)
+  /tftpboot/ r,
+  /tftpboot/** r,
+  /srv/tftp/ r,
+  /srv/tftp/** r,
+
+  # for libwrap (TCP Wrapper) support
+  /etc/hosts.allow r,
+  /etc/hosts.deny r,
+
+}

@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/sbin/dhclient flags=(complain) {
+/sbin/dhclient {
   #include <abstractions/base>
   #include <abstractions/nameservice>
   #include <abstractions/openssl>

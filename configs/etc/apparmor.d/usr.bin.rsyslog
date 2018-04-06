@@ -16,7 +16,7 @@
 # following:
 # watch -n 1 'dmesg | tail -5'
 
-/usr/sbin/rsyslogd flags=(complain) {
+/usr/sbin/rsyslogd {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 
