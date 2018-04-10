@@ -38,6 +38,8 @@
   /bin/date rix,
   /usr/bin/wget rix,
   /bin/cat rix,
+  /sbin/killall5 rix,
+  /usr/bin/wc rix,
 
   # Needed files for the aforementioned tools
   /etc/ssl/openssl.cnf r,

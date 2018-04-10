@@ -38,6 +38,9 @@
   capability setuid,
   capability setgid,
 
+  signal peer=man_groff,
+  signal peer=man_filter,
+
   # Site-specific additions and overrides.  See local/README for details.
   #include <local/usr.bin.man>
 }
@@ -63,6 +66,8 @@ profile man_groff {
   /etc/groff/** r,
   /usr/lib/groff/site-tmac/** r,
   /usr/share/groff/** r,
+
+  signal peer=/usr/bin/man,
 }
 
 profile man_filter {
@@ -80,4 +85,11 @@ profile man_filter {
   /usr/bin/lzip.lzip rm,
   /usr/bin/tr rm,
   /usr/bin/xz rm,
+
+  # Manual pages can be more or less anywhere, especially with "man -l", and
+  # there's no harm in allowing wide read access here since the worst it can
+  # do is feed data to the invoking man process.
+  /** r,
+
+  signal peer=/usr/bin/man,
 }
