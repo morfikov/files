@@ -1,0 +1,69 @@
+conky.config = {
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- fiddle with window
+	use_spacer = 'right',
+	use_xft = true,
+
+-- Update interval in seconds
+	update_interval = 3,
+
+-- Minimum size of text area
+	minimum_width = 515, minimum_height = 300,
+	maximum_width = 1030,
+
+	override_utf8_locale = true,
+
+-- Draw shades?
+	draw_shades = true,
+
+-- Text stuff
+	draw_outline = true,-- amplifies text if yes
+	draw_borders = false,
+--font freesans -12
+	font = 'Arial:size=9',
+	uppercase = false,-- set to yes if you want all text to be in uppercase
+
+-- Stippled borders?
+	stippled_borders = 3,
+
+-- border margins
+	border_inner_margin = 9,
+
+-- border width
+	border_width = 10,
+
+-- Default colors and also border colors, grey90 == #e5e5e5
+	default_color = '#cbcbcb',
+
+	own_window_colour = 'brown',
+
+-- Text alignment, other possible values are commented
+--alignment top_left
+	alignment = 'top_right',
+--alignment bottom_left
+--alignment bottom_right
+
+-- Gap between borders of screen and text
+	gap_x = 10,
+	gap_y = 30,
+
+	imlib_cache_size = 0,
+	text_buffer_size = 4096,
+
+-- stuff after 'TEXT' will be formatted on screen
+};
+
+conky.text = [[
+${font Arial:size=11}${color ffe595}HOURLY WEATHER ${font}${hr 2}${texeci 600 bash $HOME/1_accuweather/1_accuweather -h2016}
+
+${execpi 600 sed -n '1,28p' $HOME/1_accuweather/altogether16_2016}
+
+]];

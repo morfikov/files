@@ -85,7 +85,7 @@ conky.config = {
 
 -- Gap between text and screen borders.
 	gap_x = 10,-- Left / Right
-	gap_y = 100,-- Top / Bottom
+	gap_y = 80,-- Top / Bottom
 
 -- Shorten MiB/GiB to M/G in stats.
 	short_units = false,
@@ -141,8 +141,8 @@ conky.config = {
 };
 
 conky.text = [[
-${execpi 600 sed -n '1,24p' $HOME/.conky/1_accuweather/altogether8}
-${voffset -3}${color1}${hr 1}
-${voffset -35}
+${voffset -20}${color0}${texeci 600 bash $HOME/.conky/1_accuweather/1_accuweather -h2015 -h_8h -h_no_forecast}
 
+${execpi 600 sed -n '1,28p' $HOME/.conky/1_accuweather/altogether16_2015}
+${voffset -2}${color1}${hr 1}
 ]];

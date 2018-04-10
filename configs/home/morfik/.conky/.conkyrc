@@ -148,7 +148,7 @@ ${voffset -2}${alignr}${offset -5}${execi 300 cat /etc/*release | grep '^PRETTY_
 ${alignr}${offset -5}${execi 3600 uname -r}
 ${alignr}${offset -5}${execi 3600 cat /etc/hostname}
 ${alignr}${offset -5}Uptime: ${uptime}
-${voffset -5}${color1}$hr
+${voffset -4}${color1}$hr
 ${voffset 2}${font StyleBats:size=8}a${font} Processor: ${color0}${alignr}${execi 3600 cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $7}'}
 ${voffset 2}${color1}CPU 0 ${color0}${cpu cpu1}%
 ${color1}CPU 1 ${color0}${cpu cpu2}%
@@ -173,6 +173,7 @@ ${color0}${top name 5} ${alignr} ${top pid 5} ${top cpu 5} ${top mem 5}
 ${color0}${top name 6} ${alignr} ${top pid 6} ${top cpu 6} ${top mem 6}
 ${color0}${top name 7} ${alignr} ${top pid 7} ${top cpu 7} ${top mem 7}
 ${color0}${top name 8} ${alignr} ${top pid 8} ${top cpu 8} ${top mem 8}
+${color0}${top name 9} ${alignr} ${top pid 9} ${top cpu 9} ${top mem 9}
 ${color1}$hr
 ${color1}${font StyleBats:size=8}u${font} Hard Disk:
 ${color0}sda: ${execi 3600 cat /sys/block/sda/device/model || echo "none"} ${alignr}${hddtemp /dev/sda}˚C

@@ -1,0 +1,26 @@
+${color1}TIME${goto 100}Tue:12pm${goto 160}1pm${goto 220}2pm${goto 280}3pm${goto 340}4pm${goto 400}5pm${goto 460}6pm${goto 520}7pm
+
+
+${image $HOME/.conky/1_accuweather/hourly_2015/hourly_1.png -s 60x36 -p 75,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_2.png -s 60x36 -p 135,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_3.png -s 60x36 -p 195,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_4.png -s 60x36 -p 255,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_5.png -s 60x36 -p 315,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_6.png -s 60x36 -p 375,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_7.png -s 60x36 -p 435,25}${image $HOME/.conky/1_accuweather/hourly_2015/hourly_8.png -s 60x36 -p 495,25}
+${color1}${goto 100}${voffset -5}${hr 1}
+TEMPER.${color0}${goto 100}21°${goto 160}22°${goto 220}23°${goto 280}23°${goto 340}21°${goto 400}21°${goto 460}20°${goto 520}18°
+${color1}${goto 100}${voffset -5}${hr 1}
+REAL FEEL${color0}${goto 100}24°${goto 160}25°${goto 220}25°${goto 280}25°${goto 340}19°${goto 400}21°${goto 460}20°${goto 520}17°
+${color1}${goto 100}${voffset -5}${hr 1}
+WIND${color0}${goto 100}9 E${goto 160}11 E${goto 220}11 E${goto 280}11 E${goto 340}11 E${goto 400}13 E${goto 460}13 E${goto 520}15 E
+${color1}${goto 100}${voffset -5}${hr 1}
+RAIN${color0}${goto 100}5%${goto 160}8%${goto 220}43%${goto 280}47%${goto 340}51%${goto 400}14%${goto 460}10%${goto 520}14%
+${color1}${goto 100}${voffset -5}${hr 1}
+SNOW${color0}${goto 100}0%${goto 160}0%${goto 220}0%${goto 280}0%${goto 340}0%${goto 400}0%${goto 460}0%${goto 520}0%
+${color1}${goto 100}${voffset -5}${hr 1}
+ICE${color0}${goto 100}0%${goto 160}0%${goto 220}0%${goto 280}0%${goto 340}0%${goto 400}0%${goto 460}0%${goto 520}0%
+${color1}${goto 100}${voffset -5}${hr 1}
+UV INDEX${color0}${goto 100}4${goto 160}5${goto 220}4${goto 280}4${goto 340}2${goto 400}2${goto 460}1${goto 520}1
+${color1}${goto 100}${voffset -5}${hr 1}
+CLOUD COV.${color0}${goto 100}8%${goto 160}16%${goto 220}25%${goto 280}35%${goto 340}70%${goto 400}57%${goto 460}53%${goto 520}50%
+${color1}${goto 100}${voffset -5}${hr 1}
+HUMIDITY${color0}${goto 100}50%${goto 160}43%${goto 220}41%${goto 280}38%${goto 340}50%${goto 400}50%${goto 460}53%${goto 520}63%
+${color1}${goto 100}${voffset -5}${hr 1}
+DEW POINT${color0}${goto 100}10°${goto 160}10°${goto 220}9°${goto 280}8°${goto 340}10°${goto 400}10°${goto 460}10°${goto 520}11°
+${color1}${goto 100}${voffset -5}${hr 1}
+VISIBILITY${color0}${goto 100}16 km${goto 160}16 km${goto 220}16 km${goto 280}16 km${goto 340}8 km${goto 400}16 km${goto 460}16 km${goto 520}16 km

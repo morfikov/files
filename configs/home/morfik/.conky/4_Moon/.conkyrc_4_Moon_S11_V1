@@ -1,102 +1,105 @@
-###  Begin Window Settings  ##################################################
-own_window yes
-own_window_type normal
-own_window_transparent yes
-own_window_hints undecorated,below,skip_taskbar,skip_pager
-own_window_colour 000000
-own_window_class Conky
-own_window_title 4_Moon Teo Style
+conky.config = {
+--##  Begin Window Settings  ##################################################
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+	own_window_colour = '#000000',
+	own_window_class = 'Conky',
+	own_window_title = '4_Moon Teo Style',
 
-###		minimum_size 450 00  # w|h
-###		maximum_width 450
-minimum_size 400 500
-maximum_width 400
+--##		minimum_size 450 00  # w|h
+--##		maximum_width 450
+	minimum_width = 400, minimum_height = 500,
+	maximum_width = 400,
 
-gap_x 20	# l|r
-gap_y 20	# u|d
+	gap_x = 20,-- l|r
+	gap_y = 20,-- u|d
 
-alignment tr
-####################################################  End Window Settings  ###
-###  Font Settings  ##########################################################
-# Use Xft (anti-aliased font and stuff)
-use_xft yes
-xftfont Fantasque Sans Mono:bold:size=10
+	alignment = 'top_right',
+--###################################################  End Window Settings  ###
+--##  Font Settings  ##########################################################
+-- Use Xft (anti-aliased font and stuff)
+	use_xft = true,
+	font = 'Fantasque Sans Mono:bold:size=10',
 
-# Alpha of Xft font. Must be a value at or between 1 and 0 ###
-xftalpha 1.0
+-- Alpha of Xft font. Must be a value at or between 1 and 0 ###
+	xftalpha = 1.0,
 
-# Force UTF8? requires XFT ###
-override_utf8_locale yes
+-- Force UTF8? requires XFT ###
+	override_utf8_locale = true,
 
-uppercase no
-######################################################  End Font Settings  ###
-###  Color Settings  #########################################################
-draw_shades yes
-default_shade_color 000000
-draw_outline no
-default_outline_color 000000
+	uppercase = false,
+--#####################################################  End Font Settings  ###
+--##  Color Settings  #########################################################
+	draw_shades = true,
+	default_shade_color = '#000000',
+	draw_outline = false,
+	default_outline_color = '#000000',
 
-default_color DCDCDC #Gainsboro
-color0 8FBC8F #DarkSeaGreen
-color1 778899 #LightSlateGray
-color2 F5F5DC #Beige
-color3 87CEFA #LightSkyBlue
-color4 48D1CC #MediumTurquoise
-color5 FFDEAD #NavajoWhite
-color6 00BFFF #DeepSkyBlue
-color7 B0E0E6 #PowderBlue
-color8 FFD700 #Gold
-color9 CD5C5C #IndianRed
-#####################################################  End Color Settings  ###
-###  Borders Section  ########################################################
-draw_borders no
-# Stippled borders?
-stippled_borders 5
-# border margins
-border_inner_margin 5
-border_outer_margin 0
-# border width
-border_width 2
-# graph borders
-draw_graph_borders yes #no
-#default_graph_size 15 40
-#####################################################  End Borders Secton  ###
-###  Miscellaneous Section  ##################################################
-# Boolean value, if true, Conky will be forked to background when started.
-background yes
+	default_color = '#DCDCDC',--Gainsboro
+	color0 = '#8FBC8F',--DarkSeaGreen
+	color1 = '#778899',--LightSlateGray
+	color2 = '#F5F5DC',--Beige
+	color3 = '#87CEFA',--LightSkyBlue
+	color4 = '#48D1CC',--MediumTurquoise
+	color5 = '#FFDEAD',--NavajoWhite
+	color6 = '#00BFFF',--DeepSkyBlue
+	color7 = '#B0E0E6',--PowderBlue
+	color8 = '#FFD700',--Gold
+	color9 = '#CD5C5C',--IndianRed
+--####################################################  End Color Settings  ###
+--##  Borders Section  ########################################################
+	draw_borders = false,
+-- Stippled borders?
+	stippled_borders = 5,
+-- border margins
+	border_inner_margin = 5,
+	border_outer_margin = 0,
+-- border width
+	border_width = 2,
+-- graph borders
+	draw_graph_borders = true,--no
+--default_graph_size 15 40
+--####################################################  End Borders Secton  ###
+--##  Miscellaneous Section  ##################################################
+-- Boolean value, if true, Conky will be forked to background when started.
+	background = true,
 
-# Adds spaces around certain objects to stop them from moving other things
-# around, this only helps if you are using a mono font
-# Options: right, left or none
-use_spacer none
+-- Adds spaces around certain objects to stop them from moving other things
+-- around, this only helps if you are using a mono font
+-- Options: right, left or none
+	use_spacer = 'none',
 
-# Default and Minimum size is 256 - needs more for single commands that
-# "call" a lot of text IE: bash scripts
-#text_buffer_size 6144
+-- Default and Minimum size is 256 - needs more for single commands that
+-- "call" a lot of text IE: bash scripts
+--text_buffer_size 6144
 
-# Subtract (file slystem) buffers from used memory?
-no_buffers yes
+-- Subtract (file slystem) buffers from used memory?
+	no_buffers = true,
 
-# change GiB to G and MiB to M
-short_units yes
+-- change GiB to G and MiB to M
+	short_units = true,
 
-# Like it says, ot pads the decimals on % values
-# doesn't seem to work since v1.7.1
-pad_percents 2
+-- Like it says, ot pads the decimals on % values
+-- doesn't seem to work since v1.7.1
+	pad_percents = 2,
 
-# Imlib2 image cache size, in bytes. Default 4MiB Increase this value if you use
-# $image lots. Set to 0 to disable th0e image cache.
-imlib_cache_size 0
+-- Imlib2 image cache size, in bytes. Default 4MiB Increase this value if you use
+-- $image lots. Set to 0 to disable th0e image cache.
+	imlib_cache_size = 0,
 
-# Use the Xdbe extension? (eliminates flicker)
-# It is highly recommended to use own window with this one
-# so double buffer won't be so big.
-double_buffer yes
-##############################################  End Miscellaneous Section  ###
-update_interval 1
+-- Use the Xdbe extension? (eliminates flicker)
+-- It is highly recommended to use own window with this one
+-- so double buffer won't be so big.
+	double_buffer = true,
+--#############################################  End Miscellaneous Section  ###
+	update_interval = 1,
 
 
-TEXT
+};
+
+conky.text = [[
 ${font Fantasque Sans Mono:bold:size=12}${color5}Moon Phases ${membar 0}${color}${texeci 500 bash $HOME/4_Moon/moon_MoonGiant}
 ${alignc}${color5}${execi 3600 echo `date --date="0 day" | awk '{print $1" "$3" "$2" "$6}'`}${color}${font}
 ${image $HOME/4_Moon/-2.png -p 10,65 -s 60x60}
@@ -137,3 +140,4 @@ ${image $HOME/4_Moon/rise.jpg -p 0,300 -s 400x99}\
 ${image $HOME/4_Moon/0.png -p 45,350 -s 30x30}\
 ${image $HOME/4_Moon/0.png -p 325,350 -s 30x30}\
 ${image $HOME/4_Moon/0.png -p 185,300 -s 30x30}
+]];

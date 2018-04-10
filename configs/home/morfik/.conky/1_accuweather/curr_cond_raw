@@ -1,0 +1,91 @@
+                    <li class="first current { target: '#detail-now' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/current-weather/264812" class=""><span>Now</span></a>
+                    </li>
+                    <li class="{ target: '#detail-day-night' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812"><span>Daily</span></a></li>
+                    <li class="last { target: '#detail-hourly' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/hourly-weather-forecast/264812"><span>Hourly</span></a></li>
+                    <li class="{ target: '#detail-morning' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/morning-weather-forecast/264812"><span>Morning</span></a></li>
+                    <li class="{ target: '#detail-afternoon' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/afternoon-weather-forecast/264812"><span>Afternoon</span></a></li>
+                    <li class="{ target: '#detail-evening' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/evening-weather-forecast/264812"><span>Evening</span></a></li>
+                    <li class="last { target: '#detail-overnight' }"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/overnight-weather-forecast/264812"><span>Overnight</span></a></li>                      
+                  </ul>
+                  <!-- /#detail-tab-buttons.detail-tab-buttons -->
+                  <div id="detail-now" class="detail-tab-panel day">
+                    <div class="bg bg-su">
+                      <div class="forecast">
+                        <div class="icon i-1-xl"></div>
+                        <div class="info"> 
+                            <div class="temp">
+                                <span class="large-temp">21&deg;</span>
+                                <span class="small-temp"><em>RealFeel&#174;</em> 24&deg;</span>
+                            </div>
+                            <span class="cond">Sunny</span>
+                        </div>
+                        <!-- /.info -->
+                      </div>
+                      <!-- /.forecast -->
+                      <div class="more-info"> 
+                        
+                        
+<div class="wind-box-lg">
+    <div class="wind-point E"></div>
+    <div class="wind-compass"></div>
+</div>                                                 
+                                            
+                        <ul class="stats">
+                            
+<li class="wind">
+Winds from the E</li>
+<li class="wind"><strong>10 km/h</strong></li>
+
+                            <li>Humidity: <strong>50%</strong></li>
+                            <li>Pressure: <strong>1009.00 mb &darr;</strong></li>
+                            <li>UV Index: <strong>4</strong></li>
+                            <li>Cloud Cover: <strong>8%</strong></li>
+                            <li>Ceiling: <strong>9144 m</strong></li>
+                            <li>Dew Point: <strong>10&#176;&nbsp;C</strong></li>
+                            <li>Visibility: <strong>16 km</strong></li>
+                        </ul>
+                        <!-- /.stats -->
+                      </div>
+                      <!-- /.more-info -->
+                                             
+                    </div>
+                    <!-- /.bg -->
+                  </div>
+                  <!-- /.detail-tab-panel --> 
+                </div>
+                <!-- /#details -->
+
+                <div class="rise-modules">
+    <div class="row">
+        <div id="feature-sun" class="feature feature-first">
+            <div class="inner">
+                <div class="feature-title">
+                    <h3 class="lt">Sunrise/Sunset</h3>
+                </div>
+                <!-- /.feature-title -->
+
+                <ul class="time-period">
+                    <li>Sunrise: <span>5:54 AM</span></li>
+                    <li>Sunset: <span>7:27 PM</span></li>
+                    <li class="duration">Duration: <span>13:33 hr</span></li>
+                </ul>
+                <div class="icon i-1-m"></div>
+                <!-- /.content -->
+            </div>
+        </div>
+        <!-- /.feature -->
+
+        <div id="feature-moon" class="feature">
+            <div class="inner">
+                <div class="feature-title">
+                    <h3 class="lt">Moonrise/Moonset</h3>
+                </div>
+                <!-- /.feature-title -->
+
+                <ul class="time-period">
+                    <li>Moonrise: <span>3:50 AM</span></li>
+                    <li>Moonset: <span>12:58 PM</span></li>
+                    <li class="duration">Duration: <span>9:08 hr</span></li>
+                </ul>
+                <div class="icon i-33-m"></div>
+                <a href="https://www.accuweather.com/en/pl/yrardow/264812/astronomy-weather/264812" class="more rt">Astronomy <span class="arrow"></span></a>

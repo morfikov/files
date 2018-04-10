@@ -1,0 +1,110 @@
+conky.config = {
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- fiddle with window
+	use_spacer = 'right',
+	use_xft = true,
+
+-- Update interval in seconds
+	update_interval = 3,
+
+-- Minimum size of text area
+	minimum_width = 360, minimum_height = 500,
+	maximum_width = 360,
+
+	override_utf8_locale = true,
+
+-- Draw shades?
+	draw_shades = true,
+
+-- Text stuff
+	draw_outline = true,-- amplifies text if yes
+	draw_borders = false,
+--font freesans -12
+	font = 'Arial:size=9',
+	uppercase = false,-- set to yes if you want all text to be in uppercase
+
+-- Stippled borders?
+	stippled_borders = 3,
+
+-- border margins
+	border_inner_margin = 9,
+
+-- border width
+	border_width = 10,
+
+-- Default colors and also border colors, grey90 == #e5e5e5
+	default_color = '#cbcbcb',
+
+	own_window_colour = 'brown',
+	own_window_transparent = true,
+
+-- Text alignment, other possible values are commented
+--alignment top_left
+	alignment = 'top_right',
+--alignment bottom_left
+--alignment bottom_right
+
+-- Gap between borders of screen and text
+	gap_x = 10,
+	gap_y = 30,
+
+	imlib_cache_size = 0,
+-- stuff after 'TEXT' will be formatted on screen
+
+};
+
+conky.text = [[
+${font Arial:size=12}${color ffe595}WEATHER ${font}${hr 2}$color${texeci 500 bash $HOME/1_accuweather/1_accuweather -f}
+${font Arial:size=10}${execpi 600 sed -n '4p' $HOME/1_accuweather/curr_cond}
+${font conkyweather:size=130}${execi 600  sed -n '22p' $HOME/1_accuweather/curr_cond}${font}
+${voffset -170}${font}${goto 200}${color ffe595}TEMPERATURE: $color${alignr}${execpi 600 sed -n '2p' $HOME/1_accuweather/curr_cond}° (${execpi 600 sed -n '3p' $HOME/1_accuweather/curr_cond}°)
+${goto 200}${color ffe595}WIND SPEED: $color${alignr}${execpi 600 sed -n '5p' $HOME/1_accuweather/curr_cond} ${execpi 600 sed -n '6p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}HUMIDITY: $color${alignr}${execpi 600 sed -n '7p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}PRESSURE: $color${alignr}${execpi 600 sed -n '8p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}UV INDEX: $color${alignr}${execpi 600 sed -n '9p' $HOME/1_accuweather/curr_cond} 
+${goto 200}${color ffe595}CLOUD COVER: $color${alignr}${execpi 600 sed -n '10p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}CEILING: $color${alignr}${execpi 600 sed -n '11p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}DEW POINT: $color${alignr}${execpi 600 sed -n '12p' $HOME/1_accuweather/curr_cond}°
+${goto 200}${color ffe595}VISIBILITY: $color${alignr}${execpi 600 sed -n '13p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}SUN R/S: $color${alignr}${execpi 600 sed -n '14p' $HOME/1_accuweather/curr_cond}/${execpi 600 sed -n '15p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}SUN DUR: $color${alignr}${execpi 600 sed -n '16p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}MOON R/S: $color${alignr}${execpi 600 sed -n '18p' $HOME/1_accuweather/curr_cond}/${execpi 600 sed -n '19p' $HOME/1_accuweather/curr_cond}
+${goto 200}${color ffe595}MOON DUR: $color${alignr}${execpi 600 sed -n '20p' $HOME/1_accuweather/curr_cond}
+${hr 1}
+${goto 40}${font Arial:size=10}${color ffe595}${execpi 600 sed -n '1p' $HOME/1_accuweather/first_days}${goto 145}${execpi 600 sed -n '6p' $HOME/1_accuweather/first_days}${goto 270}${execpi 600 sed -n '11p' $HOME/1_accuweather/first_days}$color$font
+${font conkyweather:size=50}${execi 600  sed -n '26p' $HOME/1_accuweather/first_days}${goto 135}${execi 600  sed -n '27p' $HOME/1_accuweather/first_days}${goto 255}${execi 600  sed -n '28p' $HOME/1_accuweather/first_days}${font}
+${voffset -45}${goto 100}${execpi 600 sed -n '3p' $HOME/1_accuweather/first_days}°${goto 210}${execpi 600 sed -n '8p' $HOME/1_accuweather/first_days}°${goto 330}${execpi 600 sed -n '13p' $HOME/1_accuweather/first_days}°
+${goto 100}/${execpi 600 sed -n '4p' $HOME/1_accuweather/first_days}°${goto 210}/${execpi 600 sed -n '9p' $HOME/1_accuweather/first_days}°${goto 330}/${execpi 600 sed -n '14p' $HOME/1_accuweather/first_days}°
+
+${font Arial:size=8}${execpi 600 sed -n '5p' $HOME/1_accuweather/first_days|cut -c1-20}${goto 135}${execpi 600 sed -n '10p' $HOME/1_accuweather/first_days|cut -c1-20}${goto 255}${execpi 600 sed -n '15p' $HOME/1_accuweather/first_days|cut -c1-20}
+${execpi 600 sed -n '5p' $HOME/1_accuweather/first_days|cut -c21-40}${goto 135}${execpi 600 sed -n '10p' $HOME/1_accuweather/first_days|cut -c21-40}${goto 255}${execpi 600 sed -n '15p' $HOME/1_accuweather/first_days|cut -c21-40}$font
+${hr 1}
+${goto 40}${font Arial:size=10}${color ffe595}${execpi 600 sed -n '16p' $HOME/1_accuweather/first_days}${goto 145}${execpi 600 sed -n '21p' $HOME/1_accuweather/first_days}${goto 270}${execpi 600 sed -n '1p' $HOME/1_accuweather/last_days}$color$font
+${font conkyweather:size=50}${execi 600  sed -n '29p' $HOME/1_accuweather/first_days}${goto 135}${execi 600  sed -n '30p' $HOME/1_accuweather/first_days}${goto 255}${execi 600  sed -n '26p' $HOME/1_accuweather/last_days}${font}
+${voffset -45}${goto 100}${execpi 600 sed -n '18p' $HOME/1_accuweather/first_days}°${goto 210}${execpi 600 sed -n '23p' $HOME/1_accuweather/first_days}°${goto 330}${execpi 600 sed -n '3p' $HOME/1_accuweather/last_days}°
+${goto 100}/${execpi 600 sed -n '19p' $HOME/1_accuweather/first_days}°${goto 210}/${execpi 600 sed -n '24p' $HOME/1_accuweather/first_days}°${goto 330}/${execpi 600 sed -n '4p' $HOME/1_accuweather/last_days}°
+
+${font Arial:size=8}${execpi 600 sed -n '20p' $HOME/1_accuweather/first_days|cut -c1-20}${goto 135}${execpi 600 sed -n '25p' $HOME/1_accuweather/first_days|cut -c1-20}${goto 255}${execpi 600 sed -n '5p' $HOME/1_accuweather/last_days|cut -c1-20}
+${execpi 600 sed -n '20p' $HOME/1_accuweather/first_days|cut -c21-40}${goto 135}${execpi 600 sed -n '25p' $HOME/1_accuweather/first_days|cut -c21-40}${goto 255}${execpi 600 sed -n '5p' $HOME/1_accuweather/last_days|cut -c21-40}$font
+${hr 1}
+${goto 40}${font Arial:size=10}${color ffe595}${execpi 600 sed -n '6p' $HOME/1_accuweather/last_days}${goto 145}${execpi 600 sed -n '11p' $HOME/1_accuweather/last_days}${goto 270}${execpi 600 sed -n '16p' $HOME/1_accuweather/last_days}$color$font
+${font conkyweather:size=50}${execi 600  sed -n '27p' $HOME/1_accuweather/last_days}${goto 135}${execi 600  sed -n '28p' $HOME/1_accuweather/last_days}${goto 255}${execi 600  sed -n '29p' $HOME/1_accuweather/last_days}${font}
+${voffset -45}${goto 100}${execpi 600 sed -n '8p' $HOME/1_accuweather/last_days}°${goto 210}${execpi 600 sed -n '13p' $HOME/1_accuweather/last_days}°${goto 330}${execpi 600 sed -n '18p' $HOME/1_accuweather/last_days}°
+${goto 100}/${execpi 600 sed -n '9p' $HOME/1_accuweather/last_days}°${goto 210}/${execpi 600 sed -n '14p' $HOME/1_accuweather/last_days}°${goto 330}/${execpi 600 sed -n '19p' $HOME/1_accuweather/last_days}°
+
+${font Arial:size=8}${execpi 600 sed -n '10p' $HOME/1_accuweather/last_days|cut -c1-20}${goto 135}${execpi 600 sed -n '15p' $HOME/1_accuweather/last_days|cut -c1-20}${goto 255}${execpi 600 sed -n '20p' $HOME/1_accuweather/last_days|cut -c1-20}
+${execpi 600 sed -n '10p' $HOME/1_accuweather/last_days|cut -c21-40}${goto 135}${execpi 600 sed -n '15p' $HOME/1_accuweather/last_days|cut -c21-40}${goto 255}${execpi 600 sed -n '20p' $HOME/1_accuweather/last_days|cut -c21-40}$font
+
+
+
+
+
+]];

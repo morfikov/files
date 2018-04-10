@@ -1,0 +1,482 @@
+                  <!-- /#detail-tab-buttons.detail-tab-buttons --> 
+                  <div id="detail-hourly" class="detail-tab-panel">
+                    <div class="clearfix">
+
+                                    <div class="control-bar hourly-control">
+
+                                            <a href="https://www.accuweather.com/en/pl/zyrardow/264812/hourly-weather-forecast/264812?hour=12" class="left-float"><span class="left-arrow"></span> Previous 8 hours</a>
+                                            <a href="https://www.accuweather.com/en/pl/zyrardow/264812/hourly-weather-forecast/264812?hour=28" class="right-float">Next 8 hours <span class="right-arrow"></span></a>
+                                    </div>
+                      
+                      
+
+<div class="hourly-table overview-hourly">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Tuesday
+                    
+                </th>
+                    <td class="night first-col">
+                        <div>8pm</div>
+                        <div class="icon-weather icon i-35-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>9pm</div>
+                        <div class="icon-weather icon i-35-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>10pm</div>
+                        <div class="icon-weather icon i-42-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>11pm</div>
+                        <div class="icon-weather icon i-34-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>12am</div>
+                        <div class="icon-weather icon i-34-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>1am</div>
+                        <div class="icon-weather icon i-34-s"></div>
+                    </td>
+                    <td class="night ">
+                        <div>2am</div>
+                        <div class="icon-weather icon i-33-s"></div>
+                    </td>
+                    <td class="night last-col">
+                        <div>3am</div>
+                        <div class="icon-weather icon i-33-s"></div>
+                    </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Forecast</th>
+                    <td class="night  first-col">
+                        <span>Partly Cloudy</span>
+                    </td>
+                    <td class="night ">
+                        <span>Partly Cloudy</span>
+                    </td>
+                    <td class="night ">
+                        <span>T-storms</span>
+                    </td>
+                    <td class="night ">
+                        <span>Mostly Clear</span>
+                    </td>
+                    <td class="night ">
+                        <span>Mostly Clear</span>
+                    </td>
+                    <td class="night ">
+                        <span>Mostly Clear</span>
+                    </td>
+                    <td class="night ">
+                        <span>Clear</span>
+                    </td>
+                    <td class="night  last-col">
+                        <span>Clear</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Temp (&deg;C)</th>
+                    <td class="night first-col">
+                        <span>17&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>15&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>15&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>14&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>13&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>13&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>12&#176;</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>12&#176;</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>RealFeel&#174;</th>
+                    <td class="night first-col">
+                        <span>15&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>13&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>12&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>13&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>12&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>12&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>11&#176;</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>10&#176;</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Wind (km/h)</th>
+                    <td class="night first-col">
+                        <span>15 E</span>
+                    </td>
+                    <td class="night ">
+                        <span>13 E</span>
+                    </td>
+                    <td class="night ">
+                        <span>11 E</span>
+                    </td>
+                    <td class="night ">
+                        <span>11 ESE</span>
+                    </td>
+                    <td class="night ">
+                        <span>9 ESE</span>
+                    </td>
+                    <td class="night ">
+                        <span>9 ESE</span>
+                    </td>
+                    <td class="night ">
+                        <span>9 ESE</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>11 ESE</span>
+                    </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="hourly-table precip-hourly">
+    <table>
+        <thead>
+            <tr>
+                <th>precip</th>
+                    <td class="night first-col">
+                        <div>8pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>9pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>10pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>11pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>12am</div>
+                    </td>
+                    <td class="night ">
+                        <div>1am</div>
+                    </td>
+                    <td class="night ">
+                        <div>2am</div>
+                    </td>
+                    <td class="night last-col">
+                        <div>3am</div>
+                    </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Rain</th>
+                    <td class="night first-col">
+                        <div class="rain-block" style="height:21px;"></div>
+                        <span>43%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:23px;"></div>
+                        <span>47%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:25px;"></div>
+                        <span>51%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:19px;"></div>
+                        <span>38%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:16px;"></div>
+                        <span>32%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:15px;"></div>
+                        <span>31%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="rain-block" style="height:15px;"></div>
+                        <span>30%</span>
+                    </td>
+                    <td class="night last-col">
+                        <div class="rain-block" style="height:15px;"></div>
+                        <span>30%</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Snow</th>
+                    <td class="night first-col">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night last-col">
+                        <div class="snow-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Ice</th>
+                    <td class="night first-col">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night ">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+                    <td class="night last-col">
+                        <div class="ice-block" style="height:1px;"></div>
+                        <span>0%</span>
+                    </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="hourly-table sky-hourly">
+    <table>
+        <thead>
+            <tr>
+                <th>SKY</th>
+                    <td class="night first-col">
+                        <div>8pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>9pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>10pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>11pm</div>
+                    </td>
+                    <td class="night ">
+                        <div>12am</div>
+                    </td>
+                    <td class="night ">
+                        <div>1am</div>
+                    </td>
+                    <td class="night ">
+                        <div>2am</div>
+                    </td>
+                    <td class="night last-col">
+                        <div>3am</div>
+                    </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>UV Index</th>
+                    <td class="night first-col">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night ">
+                        <span>0</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>0</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Cloud Cover</th>
+                    <td class="night first-col">
+                        <span>46%</span>
+                    </td>
+                    <td class="night ">
+                        <span>38%</span>
+                    </td>
+                    <td class="night ">
+                        <span>70%</span>
+                    </td>
+                    <td class="night ">
+                        <span>22%</span>
+                    </td>
+                    <td class="night ">
+                        <span>16%</span>
+                    </td>
+                    <td class="night ">
+                        <span>11%</span>
+                    </td>
+                    <td class="night ">
+                        <span>6%</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>7%</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Humidity</th>
+                    <td class="night first-col">
+                        <span>67%</span>
+                    </td>
+                    <td class="night ">
+                        <span>73%</span>
+                    </td>
+                    <td class="night ">
+                        <span>73%</span>
+                    </td>
+                    <td class="night ">
+                        <span>74%</span>
+                    </td>
+                    <td class="night ">
+                        <span>75%</span>
+                    </td>
+                    <td class="night ">
+                        <span>76%</span>
+                    </td>
+                    <td class="night ">
+                        <span>76%</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>79%</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Dew Point</th>
+                    <td class="night first-col">
+                        <span>11&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>10&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>10&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>9&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>9&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>9&#176;</span>
+                    </td>
+                    <td class="night ">
+                        <span>8&#176;</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>8&#176;</span>
+                    </td>
+            </tr>
+            <tr>
+                <th>Visibility</th>
+                    <td class="night first-col">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>8 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night ">
+                        <span>16 km</span>
+                    </td>
+                    <td class="night last-col">
+                        <span>16 km</span>
+                    </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="hourly-table">

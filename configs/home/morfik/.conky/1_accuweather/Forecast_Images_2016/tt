@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for (( i=1; i<=9; i++ ))
+	  do
+          wget -O $i.svg http://vortex.accuweather.com/adc2010/images/slate/icons/0$i.svg
+	  done
+for (( i=10; i<=44; i++ ))
+	  do
+          wget -O $i.svg http://vortex.accuweather.com/adc2010/images/slate/icons/$i.svg
+	  done

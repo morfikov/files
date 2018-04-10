@@ -1,0 +1,98 @@
+                        <div class="feed-controls clearfix">
+  <span class="lt">1 - 5 of 90 days | <a href="https://www.accuweather.com/en/pl/zyrardow/264812/month/264812?view=table">All 90 days</a></span>
+  <ul class="g g-nav rt">
+          <li class="first"><a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=6">Next 5 <span class="arrow-right"></span></a></li>
+  </ul>
+</div>
+<!-- /.feed-controls -->
+
+<div id="feed-tabs" class="panel-list">
+        <a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=6" class="arrow-right">Next 5 Days<span></span></a>
+  <ul>
+    <li class="day fday1 current first cl { href: 'https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=1' }" data-href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=1">
+        <div class="bg bg-r">
+            <h3><a href="#">Today</a></h3>
+            <h4>Apr 10</h4>
+            <div class="icon i-17-l "></div>
+            <div class="info">
+                    <div class="temp ">
+                        <span class="large-temp">23&deg;</span>
+                        <span class="small-temp">/10&deg;C</span>
+                    </div>
+                <span class="cond">A p.m. t-storm in spots</span>
+            </div>
+            <!-- /.info -->
+        </div>
+        <!-- /.bg -->
+    </li>
+    <li class="day fday2 hv  cl { href: 'https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=2' }" data-href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=2">
+        <div class="bg bg-t">
+            <h3><a href="#">Wed</a></h3>
+            <h4>Apr 11</h4>
+            <div class="icon i-15-m "></div>
+            <div class="info">
+                    <div class="temp ">
+                        <span class="large-temp">21&deg;</span>
+                        <span class="small-temp">/10&deg;</span>
+                    </div>
+                <span class="cond">Mainly cloudy with a t-storm</span>
+            </div>
+            <!-- /.info -->
+                <a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=2" class="bt-more">More</a>
+        </div>
+        <!-- /.bg -->
+    </li>
+    <li class="day fday3 hv  cl { href: 'https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=3' }" data-href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=3">
+        <div class="bg bg-su">
+            <h3><a href="#">Thu</a></h3>
+            <h4>Apr 12</h4>
+            <div class="icon i-3-m "></div>
+            <div class="info">
+                    <div class="temp ">
+                        <span class="large-temp">21&deg;</span>
+                        <span class="small-temp">/11&deg;</span>
+                    </div>
+                <span class="cond">Partly sunny and mild</span>
+            </div>
+            <!-- /.info -->
+                <a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=3" class="bt-more">More</a>
+        </div>
+        <!-- /.bg -->
+    </li>
+    <li class="day fday4 hv  cl { href: 'https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=4' }" data-href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=4">
+        <div class="bg bg-t">
+            <h3><a href="#">Fri</a></h3>
+            <h4>Apr 13</h4>
+            <div class="icon i-16-m "></div>
+            <div class="info">
+                    <div class="temp ">
+                        <span class="large-temp">22&deg;</span>
+                        <span class="small-temp">/9&deg;</span>
+                    </div>
+                <span class="cond">A shower and t-storm around</span>
+            </div>
+            <!-- /.info -->
+                <a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=4" class="bt-more">More</a>
+        </div>
+        <!-- /.bg -->
+    </li>
+    <li class="day fday5 hv last cl { href: 'https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=5' }" data-href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=5">
+        <div class="bg bg-c">
+            <h3><a href="#">Sat</a></h3>
+            <h4>Apr 14</h4>
+            <div class="icon i-6-m "></div>
+            <div class="info">
+                    <div class="temp ">
+                        <span class="large-temp">20&deg;</span>
+                        <span class="small-temp">/10&deg;</span>
+                    </div>
+                <span class="cond">Mostly cloudy and mild</span>
+            </div>
+            <!-- /.info -->
+                <a href="https://www.accuweather.com/en/pl/zyrardow/264812/daily-weather-forecast/264812?day=5" class="bt-more">More</a>
+        </div>
+        <!-- /.bg -->
+    </li>
+  </ul>
+</div>
+<!-- /.feed-tabs -->
