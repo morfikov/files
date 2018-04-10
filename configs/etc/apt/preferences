@@ -21,6 +21,9 @@
 # Pin: release c=main
 #
 
+Package: libpolkit-* policykit-*
+Pin: release o=Debian,a=experimental
+Pin-Priority: 995
 
 #Package: firefox
 #Pin: release o=Debian,a=experimental
