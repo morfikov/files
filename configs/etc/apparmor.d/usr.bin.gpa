@@ -1,0 +1,59 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/gpa flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/gtk>
+
+  /usr/bin/gpa mr,
+
+  /usr/bin/gpg-connect-agent rix,
+  /usr/bin/gpg rPx,
+  /usr/bin/gpgconf rPx,
+  /usr/bin/gpgsm rPx,
+
+  /usr/share/gpa/ r,
+  /usr/share/gpa/* r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{HOME}/.gnupg/gpa.conf rw,
+  owner @{HOME}/.gnupg/S.uiserver rw,
+
+  # For file browser
+  owner @{PROC}/@{pid}/mountinfo r,
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
+
+  # TMP folder
+  /tmp/ r,
+
+  # To create/verify singatures
+  owner /tmp/**.asc rw,
+  owner /tmp/**.sig rw,
+
+  # To encrypt/decrypt files
+  owner /tmp/**.gpg rw,
+  owner /tmp/**.txt rw,
+
+}

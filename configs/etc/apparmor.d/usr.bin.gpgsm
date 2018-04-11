@@ -1,0 +1,24 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/gpgsm flags=(complain) {
+  #include <abstractions/base>
+
+  /usr/bin/gpgsm mr,
+
+  owner @{HOME}/.gnupg/gpgsm.conf rw,
+
+  # Logs
+  /dev/log-gnupg rw,
+
+}
