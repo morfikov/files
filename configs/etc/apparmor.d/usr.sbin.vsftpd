@@ -1,0 +1,74 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/vsftpd flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  # Only for local users authentication
+  #include <abstractions/authentication>
+
+  # If vsftpd is maintaining sessions (session_support=YES), it will try and update utmp and wtmp
+  #include <abstractions/wutmp>
+
+  # To be able to listen on ports < 1024
+  capability net_bind_service,
+
+  # To be able to chroot local users
+  capability sys_chroot,
+
+  # To run vsftpd as ftp:ftp
+  capability setgid,
+  capability setuid,
+
+  # To change ownership of uploaded files
+  capability chown,
+
+  # something to do with local users (?)
+  capability audit_write,
+
+  # Needed? It looks like it's working just fine without it.
+  #capability sys_admin,
+
+  # To validate allowed users shells
+  /etc/shells r,
+
+  # List of users disallowed FTP access
+  /etc/ftpusers r,
+
+  # For libwrap (TCP Wrapper) support
+  /etc/hosts.allow r,
+  /etc/hosts.deny r,
+
+  # vsftpd config files
+  /etc/vsftpd.conf r,
+  /etc/vsftpd/**/ r,
+  /etc/vsftpd/* r,
+  /etc/vsftpd/users/* r,
+
+  # Certs for SSL/TLS conection
+  /etc/vsftpd/certs/ r,
+  /etc/vsftpd/certs/*.crt r,
+  /etc/vsftpd/certs/*.key r,
+
+  # Logs
+  /var/log/vsftpd.log wk,
+  /var/log/xferlog w,
+
+  # A directory which vsftpd will try to change into after a user login
+  # Set "rw" when vsftpd allows users to send files
+  # The "k" flag is needed when lock_upload_files=YES
+  /media/ftp/ r,
+  /media/ftp/** rwk,
+
+}

@@ -1,0 +1,53 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/mumble flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/audio>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/gtk>
+
+  /usr/bin/mumble mr,
+
+  /usr/bin/lsb_release rPUx,
+
+  # Mumble home files
+  owner @{HOME}/.config/Mumble/ rw,
+  owner @{HOME}/.config/Mumble/**/ rw,
+  owner @{HOME}/.config/Mumble/Mumble.conf rwk,
+  owner @{HOME}/.local/share/data/Mumble/ rw,
+  owner @{HOME}/.local/share/data/Mumble/**/ rw,
+  owner @{HOME}/.local/share/data/Mumble/Mumble/.mumble.sqlite-journal rw,
+  owner @{HOME}/.local/share/data/Mumble/Mumble/.mumble.sqlite rwk,
+  owner @{HOME}/.config/Trolltech.conf rk,
+  owner @{HOME}/.MumbleOverlayPipe rw,
+  owner @{HOME}/.MumbleSocket rw,
+
+  # KDE/Plasma5
+  owner @{HOME}/morfik/.kde/share/config/kdeglobals r,
+
+  /etc/machine-id r,
+
+  /dev/shm/MumbleLink.[0-9]* rw,
+
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  # External apps
+  /usr/bin/xdg-open rPUx,
+  /usr/lib/firefox/firefox rPUx,
+
+}
+

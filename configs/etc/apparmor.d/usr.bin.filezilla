@@ -1,0 +1,72 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/filezilla flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/gtk>
+  #include <abstractions/nameservice>
+
+  signal (send) set=(term) peer=/usr/bin/fzsftp,
+
+  /usr/bin/filezilla mr,
+
+  /bin/dash rPUx,
+
+  # When using SFTP protocol
+  /usr/bin/fzsftp rPx,
+
+  owner @{HOME}/.config/filezilla/ rw,
+  owner @{HOME}/.config/filezilla/**/ rw,
+  owner @{HOME}/.config/filezilla/*.xml rw,
+  owner @{HOME}/.config/filezilla/*.xml~ rwl,
+  owner @{HOME}/.config/filezilla/lockfile rwk,
+  owner @{HOME}/.config/filezilla/queue.sqlite3 rwk,
+
+  owner @{HOME}/.config/filezilla/ rw,
+  owner @{HOME}/.config/filezilla/**/ rw,
+
+  owner @{HOME}/.cache/filezilla/ rw,
+  owner @{HOME}/.cache/filezilla/**/ rw,
+  owner @{HOME}/.cache/filezilla/**.png rw,
+
+  /usr/share/filezilla/ r,
+  /usr/share/filezilla/** r,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
+
+  # When opening URLs
+  @{PROC}/@{pid}/fd/ r,
+
+  # Creating new files on FTP
+  /tmp/ r,
+  owner /tmp/fz[0-9]temp-[0-9]*/ rw,
+  owner /tmp/fz[0-9]temp-[0-9]*/fz*-lockfile rwk,
+  owner /tmp/fz[0-9]temp-[0-9]*/empty_file_* rw,
+
+  # External apps
+  /usr/lib/firefox/firefox rPUx,
+
+  # Silencer
+  deny / r,
+  deny /home/ r,
+  deny owner @{HOME}/ r,
+
+}

@@ -1,0 +1,36 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/sbin/wpa_supplicant flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability net_admin,
+  capability net_raw,
+  capability fsetid,
+  capability chown,
+
+  # To load a bridge kernel modules (like bonding) when an interface isn't ready yet
+  #capability sys_module,
+
+  /sbin/wpa_supplicant mr,
+
+  /run/wpa_supplicant/ rw,
+  /run/wpa_supplicant/wlan* rw,
+  /run/wpa_supplicant.wlan*.pid rw,
+
+  /etc/wpa_supplicant/wpa_supplicant.conf r,
+
+  /dev/rfkill r,
+
+}

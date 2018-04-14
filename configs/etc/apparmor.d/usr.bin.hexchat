@@ -1,0 +1,47 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/hexchat flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/enchant>
+  #include <abstractions/python>
+  #include <abstractions/fonts>
+  #include <abstractions/gtk>
+
+  /usr/bin/hexchat mr,
+
+  # Hexchat plugins
+  /usr/lib/@{multiarch}/hexchat/** r,
+  /usr/lib/@{multiarch}/hexchat/plugins/*.so mr,
+
+  # Hexchat home files
+  owner @{HOME}/.config/hexchat/ rw,
+  owner @{HOME}/.config/hexchat/**/ rw,
+  owner @{HOME}/.config/hexchat/*.conf rw,
+  owner @{HOME}/.config/hexchat/hexchat.conf.new rw,
+  owner @{HOME}/.config/hexchat/logs/**/*.log rw,
+  owner @{HOME}/.config/hexchat/scrollback/**/#*.txt rw,
+
+  # Download dir
+  owner @{HOME}/Downloads/ r,
+  owner @{HOME}/Downloads/** rw,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mountinfo r,
+
+  # External apps
+  /usr/lib/firefox/firefox rPUx,
+
+}

@@ -1,0 +1,45 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/fzsftp flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  signal (receive) set=(term) peer=/usr/bin/filezilla,
+
+  /usr/bin/fzsftp mr,
+  /bin/dash mrix,
+
+  /bin/ps rix,
+  /bin/ls rix,
+
+  @{PROC}/ r,
+  @{PROC}/uptime r,
+  @{PROC}/sys/kernel/osrelease r,
+  @{PROC}/sys/kernel/pid_max r,
+
+  /dev/tty r,
+  /proc/tty/drivers r,
+  /tmp/ r,
+
+  owner @{HOME}/.putty/randomseed rw,
+
+  # needed?
+  deny @{PROC}/@{pids}/stat r,
+  deny @{PROC}/@{pids}/cmdline r,
+  deny ptrace (trace),
+
+  # file_inherit
+  deny @{HOME}/.cache/filezilla/** rw,
+
+}

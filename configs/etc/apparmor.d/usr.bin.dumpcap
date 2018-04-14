@@ -1,0 +1,37 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/dumpcap flags=(complain) {
+  #include <abstractions/base>
+
+  # To capture packekts
+  capability net_raw,
+  capability net_admin,
+
+  signal (receive) set=(term, int) peer=/usr/bin/wireshark,
+
+  /usr/bin/dumpcap mr,
+
+  /sys/class/net/ r,
+  /sys/bus/usb/devices/ r,
+
+  @{PROC}/@{pid}/net/dev r,
+  @{PROC}/@{pid}/net/psched r,
+
+  #
+  /tmp/wireshark_*_[0-9]*_*.pcapng rw,
+
+  # file_inherited
+  deny /usr/share/GeoIP/* r,
+
+}

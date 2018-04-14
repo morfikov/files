@@ -1,0 +1,26 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/sbin/wpa_cli flags=(complain) {
+  #include <abstractions/base>
+
+  /sbin/wpa_cli mr,
+
+  /run/wpa_supplicant/ r,
+  /tmp/wpa_ctrl_@{pid}-[0-9] rw,
+
+  # for interactive mode
+  /etc/inputrc r,
+  /root/.wpa_cli_history rw,
+
+}

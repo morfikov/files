@@ -1,0 +1,76 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2005 Novell/SUSE
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/wireshark flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/X>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/qt>
+  #include <abstractions/gtk>
+
+  signal (send) set=(term, int) peer=/usr/bin/dumpcap,
+
+  /usr/bin/wireshark mr,
+  /usr/bin/dumpcap rPx,
+
+  # Wireshark files
+  /usr/share/wireshark/** r,
+  /usr/lib/@{multiarch}/wireshark/extcap/* ix,
+  /usr/lib/@{multiarch}/wireshark/plugins/**/   r,
+  /usr/lib/@{multiarch}/wireshark/plugins/**.so mr,
+  /etc/wireshark/init.lua r,
+
+  # Wireshark home files
+  owner @{HOME}/.wireshark/ rw,
+  owner @{HOME}/.wireshark/* rw,
+  owner @{HOME}/.config/wireshark/ rw,
+  owner @{HOME}/.config/wireshark/* rw,
+  owner @{HOME}/.config/#* rwk,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
+
+  # for reading pcaps
+  /**.pcap r,
+
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
+  @{PROC}/@{pid}/net/dev r,
+
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  /usr/share/GeoIP/ r,
+  /usr/share/GeoIP/** r,
+
+  /tmp/wireshark_*_[0-9]*_*.pcapng rw,
+
+  /dev/tty r,
+
+  /var/lib/dbus/machine-id r,
+
+  # Silencer
+  deny owner @{HOME} r,
+
+  # External apps
+  /usr/lib/firefox/firefox rPUx,
+  /usr/bin/xdg-open rPUx,
+
+}
