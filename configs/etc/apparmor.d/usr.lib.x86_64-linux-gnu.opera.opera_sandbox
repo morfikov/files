@@ -1,0 +1,56 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/@{multiarch}/opera/opera_sandbox flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+
+  capability setuid,
+  capability setgid,
+  capability sys_chroot,
+
+  # Needed, otherwise Opera crashes
+  capability sys_admin,
+
+  # optional
+  capability sys_resource,
+
+  signal (receive) set=(term) peer=/usr/lib/@{multiarch}/opera/opera,
+
+  /usr/lib/@{multiarch}/opera/opera_sandbox mr,
+  /usr/lib/@{multiarch}/opera/opera rix,
+
+  # Flash
+  deny @{HOME}/.config/google-chrome/PepperFlash/**/manifest.json r,
+  deny @{HOME}/.config/google-chrome/PepperFlash/latest-component-updated-flash r,
+  deny @{HOME}/.config/google-chrome/PepperFlash/**/libpepflashplayer.so mr,
+
+  # Needed or otherwise opera gets out of memory crash
+  owner /dev/shm/.org.chromium.Chromium.* rw,
+
+  # What is this for?
+  deny /opt/google/chrome/libwidevinecdm.so mr,
+  deny /opt/google/chrome/libwidevinecdmadapter.so mr,
+
+        @{PROC}/ r,
+        @{PROC}/@{pids}/ r,
+  owner @{PROC}/@{pid}/stat r,
+        @{PROC}/sys/kernel/yama/ptrace_scope r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
+
+  /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+
+  # Spellcheck
+  owner @{HOME}/.config/opera/dictionaries/*.zip r,
+
+}
