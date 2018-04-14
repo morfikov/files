@@ -66,7 +66,7 @@
   owner @{HOME}/.cache/opera/**/ rw,
   owner @{HOME}/.cache/opera/**/index rw,
   owner @{HOME}/.cache/opera/**/*-index rw,
-  owner @{HOME}/.cache/opera/Cache/[a-f0-9]*_[0-9] rw,
+  owner @{HOME}/.cache/opera/Cache/[a-f0-9]*_? rw,
 
   # For importing data (bookmarks, cookies, etc) from Firefox
   deny @{HOME}/.mozilla/firefox/profiles.ini r,
