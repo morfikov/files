@@ -23,7 +23,6 @@
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/psi-plus mr,
 
   # PSI files
@@ -32,9 +31,9 @@
 
   # PSI config files
   owner @{HOME}/.config/psi+/ rw,
-  owner @{HOME}/.config/psi+/** rwkl,
+  owner @{HOME}/.config/psi+/** rw,
   owner @{HOME}/.local/share/psi+/ rw,
-  owner @{HOME}/.local/share/psi+/** rwkl,
+  owner @{HOME}/.local/share/psi+/** rw,
   owner @{HOME}/.config/.* rwk,
 
   # Cache files

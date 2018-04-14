@@ -36,8 +36,8 @@
   /etc/dhcp/ r,
   /etc/dhcp/** r,
 
-  /var/lib/dhcp{,3}/dhclient* lrw,
-  /{,var/}run/dhclient*.pid lrw,
-  /{,var/}run/dhclient*.lease* lrw,
+  /var/lib/dhcp{,3}/dhclient* rwl,
+  /{,var/}run/dhclient*.pid rwl,
+  /{,var/}run/dhclient*.lease* rwl,
 
 }

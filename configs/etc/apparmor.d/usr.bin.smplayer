@@ -44,7 +44,15 @@
 
   # SMPlayer config files
   owner @{HOME}/.config/smplayer/ rw,
-  owner @{HOME}/.config/smplayer/* rwk,
+  owner @{HOME}/.config/smplayer/* rw,
+  owner @{HOME}/.config/smplayer/hdpi.ini.* rwl,
+  owner @{HOME}/.config/smplayer/hdpi.ini.lock rwk,
+  owner @{HOME}/.config/smplayer/#* rwk,
+  owner @{HOME}/.config/smplayer/smplayer.ini.* rwl,
+  owner @{HOME}/.config/smplayer/smplayer.ini.lock rwk,
+  owner @{HOME}/.config/smplayer/playlist.ini.* rwl,
+  owner @{HOME}/.config/smplayer/playlist.ini.lock rwk,
+
   owner @{HOME}/.config/.* rwk,
 
   /etc/machine-id r,
@@ -70,6 +78,7 @@
     ptrace (trace) peer=/usr/bin/pulseaudio,
 
     signal (send) set=(usr2) peer=/usr/bin/pulseaudio,
+    signal (send) set=(usr2) peer=unconfined,
 
     owner /{,var/}run/user/[0-9]*/pulse/  rw,
     owner /{,var/}run/user/[0-9]*/pulse/*  r,

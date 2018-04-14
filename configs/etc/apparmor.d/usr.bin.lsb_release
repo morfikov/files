@@ -15,7 +15,6 @@
   #include <abstractions/base>
   #include <abstractions/python>
 
-
   /usr/bin/ r,
   /usr/bin/lsb_release mr,
   /usr/bin/python3.[0-9] mr,

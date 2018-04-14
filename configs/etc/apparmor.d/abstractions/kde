@@ -56,8 +56,8 @@ owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
 # Phonon
 owner @{HOME}/.config/kde.org/libphonon.conf* rwk,
 
-# needed?
-deny /etc/fstab r,
+# Many KDE apps use this file
+/etc/fstab r,
 
 /etc/xdg/menus/ r,
 /etc/xdg/menus/* r,

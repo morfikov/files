@@ -11,7 +11,13 @@
 
 # GPG config files
 owner @{HOME}/.gnupg/ rw,
-owner @{HOME}/.gnupg/** rwkl,
+owner @{HOME}/.gnupg/** rw,
+owner @{HOME}/.gnupg/random_seed rwk,
+owner @{HOME}/.gnupg/.#lk0x*.*.* rwkl,
+owner @{HOME}/.gnupg/*.lock rwkl,
+owner @{HOME}/.gnupg/*.tmp rw,
+owner @{HOME}/.gnupg/tofu.db rwk,
+
 owner /{,var/}run/user/[0-9]*/gnupg/ rw,
 owner /{,var/}run/user/[0-9]*/gnupg/* rw,
 

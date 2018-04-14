@@ -46,8 +46,9 @@
   # VLC config files
   owner @{HOME}/.config/vlc/ rw,
   owner @{HOME}/.config/vlc/* rw,
-  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.lock rwk,
   owner @{HOME}/.config/vlc/.* rwk,
+  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.* rwl,
+  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.lock rwk,
   owner @{HOME}/.local/share/vlc/ rw,
   owner @{HOME}/.local/share/vlc/* rw,
 

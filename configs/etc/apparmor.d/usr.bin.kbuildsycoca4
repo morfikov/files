@@ -17,7 +17,6 @@
   #include <abstractions/user-tmp>
   #include <abstractions/kde>
 
-
   /usr/bin/kbuildsycoca4 mr,
 
   owner @{HOME}/.local/share/applications/ r,

@@ -13,18 +13,13 @@
 
 /usr/bin/ccze {
   #include <abstractions/base>
+  #include <abstractions/nameservice>
   #include <abstractions/consoles>
-
 
   /usr/bin/ccze mr,
 
   /{usr/,}lib/@{multiarch}/ccze/*.so mr,
 
   /etc/cczerc r,
-
-  /etc/services r,
-  /etc/protocols r,
-  /etc/passwd r,
-  /etc/nsswitch.conf r,
 
 }

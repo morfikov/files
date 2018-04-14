@@ -24,6 +24,7 @@
 
   signal (send) set=(term) peer=/usr/bin/kdeinit4,
   signal (receive) set=(stop,cont) peer=/usr/bin/kdeinit4,
+  signal (send) set=(term) peer=unconfined,
 
   /usr/bin/amarok mr,
 
@@ -48,7 +49,9 @@
   /**/*.{PLS,M3U,pls,m3u} rw,
 
   # Amarok home files
-  owner @{HOME}/.kde/share/apps/amarok/** mrwlk,
+  owner @{HOME}/.kde/share/apps/amarok/** rw,
+  owner @{HOME}/.kde/share/apps/amarok/mysqle/aria_log_control rwk,
+
   owner @{HOME}/.kde/share/apps/knewstuff3/amarok.knsregistry rw,
   owner @{HOME}/.kde/share/config/amarokrc* rw,
   owner @{HOME}/.kde/share/config/amarok_homerc* rw,

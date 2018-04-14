@@ -14,20 +14,26 @@
 
   owner @{HOME}/.config/kdeglobals r,
   owner @{HOME}/.cache/icon-cache.kcache rw,
-  /usr/share/color-schemes/Breeze.colors r,
-  /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults r,
+  /usr/share/color-schemes/** r,
+  /usr/share/plasma/look-and-feel/** r,
+  /usr/share/themes/** r,
 
   /etc/xdg/QtProject/qtlogging.ini r,
 
   owner @{HOME}/.config/QtProject.conf* rw,
   owner @{HOME}/.config/QtProject.conf.lock rwk,
+  owner @{HOME}/.config/QtProject.conf.* rwl,
+
+  # To configure Qt5 settings (theme, font, icons, etc.) under DE/WM without Qt integration
+  owner @{HOME}/.config/qt5ct/ r,
+  owner @{HOME}/.config/qt5ct/** r,
 
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
 
   owner @{HOME}/.config/Trolltech.conf rwk,
 
-  # needed?
-  deny /etc/fstab r,
+  # Many QT apps use this file
+  /etc/fstab r,
 
   # .Xauthority files required for X connections
   owner @{HOME}/.Xauthority r,

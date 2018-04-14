@@ -19,7 +19,6 @@
   #include <abstractions/user-tmp>
   #include <abstractions/kde>
 
-
   /usr/bin/kglobalaccel mr,
 
   owner @{HOME}/.kde/share/config/kglobalshortcutsrc* rw,

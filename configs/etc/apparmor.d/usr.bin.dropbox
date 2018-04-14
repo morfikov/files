@@ -9,7 +9,6 @@
 #
 # ------------------------------------------------------------------
 
-
 @{DEMON_DIR}=@{HOME}/.dropbox-dist/
 @{HOME_DIR}=@{HOME}/.dropbox/
 @{SHARE_DIR}=@{HOME}/Dropbox*/
@@ -25,8 +24,8 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/ssl_certs>
   #include <abstractions/user-tmp>
+  #include <abstractions/nameservice>
   #include <abstractions/python>
-
 
   /usr/bin/dropbox mr,
   /usr/bin/python2.7 rix,
@@ -74,16 +73,10 @@
   /bin/mount rix,
   @{PROC}/@{pid}/mountinfo r,
   /sys/devices/virtual/block/dm-[0-9]*/dm/name r,
-  # Silencer
-  deny ptrace (trace),
+  ptrace (trace),
 
-  /etc/gai.conf r,
-  /etc/host.conf r,
-  /etc/hosts r,
-  /etc/nsswitch.conf r,
-  /etc/passwd r,
-  /etc/resolv.conf r,
-  /etc/group r,
+  # KDE
+  owner @{HOME}/.kde/share/config/kdeglobals r,
 
   @{PROC} r,
   @{PROC}/@{pid}/stat r,

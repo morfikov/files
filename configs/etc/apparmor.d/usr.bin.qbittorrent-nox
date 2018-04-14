@@ -18,15 +18,19 @@
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
 
-
   # Qbittorrent dirs/files
   /usr/bin/qbittorrent-nox mr,
 
   # Qbittorrent home dirs
   owner @{HOME}/.config/qBittorrent/ rw,
-  owner @{HOME}/.config/qBittorrent/** rwk,
+  owner @{HOME}/.config/qBittorrent/** rw,
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
+  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume.* rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.* rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
 
   # Torrent dirs/files
   owner /media/ r,

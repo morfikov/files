@@ -31,6 +31,8 @@
   owner "@{HOME}/.config/Flavio Tordini/" rw,
   owner "@{HOME}/.config/Flavio Tordini/**" rw,
   owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.lock" rwk,
+  owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.*" rwl,
+
   owner "@{HOME}/.config/Flavio Tordini/.*" rwk,
   owner "@{HOME}/.local/share/Flavio Tordini/" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/**" rw,
@@ -40,10 +42,10 @@
   owner @{HOME}/.config/.* rwk,
 
   # Cache
-  owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rwk,
-  owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rwk,
-  owner "@{HOME}/.cache/Flavio Tordini/" rwk,
-  owner "@{HOME}/.cache/Flavio Tordini/**" rwk,
+  owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
+  owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rw,
+  owner "@{HOME}/.cache/Flavio Tordini/" rw,
+  owner "@{HOME}/.cache/Flavio Tordini/**" rw,
 
   # Phonon Gstreamer Backend
   #/usr/lib/frei0r-1/*.so mr,
@@ -77,7 +79,10 @@
   /usr/lib/firefox/firefox rPUx,
   /usr/bin/proxy rix,
 
-  # xdg-screensaver
+  # Silencer
+  /usr/lib/@{multiarch}/vlc/plugins/** w,
+
+  # Be able to turn off the screensaver while playing movies
   /usr/bin/xdg-screensaver rCx -> screensaver,
   profile screensaver {
     #include <abstractions/base>
@@ -96,8 +101,5 @@
     owner @{HOME}/.Xauthority r,
 
   }
-
-  # Silencer
-  /usr/lib/x86_64-linux-gnu/vlc/plugins/** w,
 
 }

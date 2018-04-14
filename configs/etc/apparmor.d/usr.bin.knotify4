@@ -19,7 +19,6 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/knotify4 mr,
 
   /usr/bin/kbuildsycoca4 rPUx,

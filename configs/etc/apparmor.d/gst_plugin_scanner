@@ -1,4 +1,13 @@
 # vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
 
 #include <tunables/global>
 
@@ -19,9 +28,10 @@ profile gst_plugin_scanner {
 
   /etc/wildmidi/wildmidi.cfg r,
 
-  /usr/lib/frei0r-[0-9]/*.so m,
+  /usr/lib/frei0r-[0-9]/*.so mr,
+  /usr/lib/ladspa/*.so mr,
   # /usr/lib/@{multiarch}/dri/** mr,
   /usr/lib/@{multiarch}/gstreamer[0-9].[0-9]/gstreamer-[0-9].[0-9]/gst-plugin-scanner mr,
   /usr/lib/@{multiarch}/libproxy/*/modules/*.so mr,
-  /usr/lib/@{multiarch}/libvisual-[0-9].[0-9]/*/*.so m,
+  /usr/lib/@{multiarch}/libvisual-[0-9].[0-9]/*/*.so mr,
 }

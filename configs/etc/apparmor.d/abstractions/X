@@ -75,3 +75,6 @@
 
   # Available Xsessions
   /usr/share/xsessions/*.desktop r,
+
+  # Many X-apps want this
+  /usr/share/hwdata/pnp.ids r,

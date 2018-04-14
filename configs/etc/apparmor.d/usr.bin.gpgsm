@@ -13,10 +13,9 @@
 
 /usr/bin/gpgsm flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/gnupg>
 
   /usr/bin/gpgsm mr,
-
-  owner @{HOME}/.gnupg/gpgsm.conf rw,
 
   # Logs
   /dev/log-gnupg rw,

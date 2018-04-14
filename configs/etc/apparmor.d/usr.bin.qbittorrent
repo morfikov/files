@@ -28,9 +28,15 @@
 
   # Qbittorrent home dirs
   owner @{HOME}/.config/qBittorrent/ rw,
-  owner @{HOME}/.config/qBittorrent/** rwk,
+  owner @{HOME}/.config/qBittorrent/** rw,
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
+  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume.* rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.* rwl,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
+
   owner @{HOME}/.config/.* rw,
 
   # Torrent files
@@ -61,17 +67,21 @@
 
   /dev/tty r,
 
+  # KDE/Plasma5
+  /usr/share/kservices5/ r,
+  /usr/share/kservices5/*.protocol r,
+
   # Launch external apps
-  /usr/bin/python* rPUx,
+  /usr/bin/python*  rPUx,
   /usr/bin/exo-open rPUx,
   /usr/bin/xdg-open rPUx,
   /usr/bin/xdg-mime rPUx,
   /usr/bin/smplayer rPUx,
-  /usr/bin/vlc rPUx,
-  /usr/bin/mpv rPUx,
-  /usr/bin/geany rPUx,
-  /usr/bin/okular rPUx,
-  /usr/bin/spacefm rPUx,
+  /usr/bin/vlc      rPUx,
+  /usr/bin/mpv      rPUx,
+  /usr/bin/geany    rPUx,
+  /usr/bin/okular   rPUx,
+  /usr/bin/spacefm  rPUx,
   /usr/bin/viewnior rPUx,
 
   # Silencer

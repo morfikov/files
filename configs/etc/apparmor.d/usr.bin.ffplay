@@ -18,7 +18,6 @@
   #include <abstractions/audio>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/ffplay mr,
 
   # Which files ffplay should be able to open

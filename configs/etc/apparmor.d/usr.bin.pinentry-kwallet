@@ -30,6 +30,8 @@
 
   owner @{HOME}/.Xauthority r,
 
+  /usr/share/hwdata/pnp.ids r,
+
   /usr/bin/kwalletcli rCx -> kwalletcli,
   profile kwalletcli flags=(complain) {
     #include <abstractions/base>

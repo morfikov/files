@@ -35,5 +35,6 @@
   owner @{HOME}/.config/redshift.conf rw,
 
   owner @{HOME}/.Xauthority r,
+  owner /tmp/xauth-[0-9]*-_[0-9] r,
 
 }

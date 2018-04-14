@@ -39,7 +39,6 @@
 
   signal (send)    set=(usr1)             peer=unconfined,
 
-
   /usr/lib/xorg/Xorg mr,
 
   /bin/dash rix,
@@ -116,8 +115,6 @@
   #
   /dev/shm/shmfd-* rw,
   /dev/shm/#* rw,
-
-  owner @{HOME}/.fonts/fonts.dir r,
 
   /usr/bin/pkexec Cx -> pkexec,
   profile pkexec {

@@ -33,8 +33,6 @@
   # potentially extremely sensitive files
   audit deny @{HOME}/.gnupg/** mrwkl,
   audit deny @{HOME}/.ssh/** mrwkl,
-  audit deny @{HOME}/.gnome2_private/** mrwkl,
-  audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
   audit deny @{HOME}/.config/chromium/** mrwkl,
   audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
   audit deny @{HOME}/.evolution/** mrwkl,
@@ -50,34 +48,50 @@
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,
-  @{MOZ_LIBDIR}/**  mrix,
+  @{MOZ_LIBDIR}/**  r,
+  @{MOZ_LIBDIR}/*.so  mr,
+  @{MOZ_LIBDIR}/firefox* mrix,
   /usr/share/firefox/ r,
   /usr/share/firefox/** r,
   /etc/firefox/ r,
   /etc/firefox/** r,
 
   # Firefox plugins & extensions
-  deny /usr/lib/mozilla/plugins/*.so mr,
-  deny /usr/share/mozilla/extensions/** r,
+  /usr/lib/mozilla/plugins/ r,
+  /usr/lib/mozilla/plugins/libvlcplugin.so mr,
+  /usr/share/mozilla/extensions/ r,
+  /usr/share/mozilla/extensions/**/ r,
 
   # Fix problems with empty pages
   owner /dev/shm/org.chromium.* rw,
 
   # Firefox home files
   owner @{MOZ_HOMEDIR}/ r,
-  owner @{MOZ_HOMEDIR}/** rwkl,
-  owner @{MOZ_HOMEDIR}/firefox/**/extensions/** mrix,
+  owner @{MOZ_HOMEDIR}/** rw,
+  owner @{MOZ_HOMEDIR}/firefox/**/.parentlock rwk,
+  owner @{MOZ_HOMEDIR}/firefox/**/*.sqlite{,-shm} rwk,
+  owner @{MOZ_HOMEDIR}/firefox/**/cert9.db rwk,
+  owner @{MOZ_HOMEDIR}/firefox/**/key4.db rwk,
+
+  owner @{HOME}/.mozilla/firefox/profiles.ini r,
   deny @{HOME}/.mozilla/firefox/**/ rw,
   deny @{HOME}/.mozilla/firefox/**/** rw,
-  owner @{HOME}/.mozilla/firefox/profiles.ini r,
 
   # Cache
-  owner /tmp/morfik_cache/.cache/mozilla/ rwk,
+  owner /tmp/morfik_cache/.cache/mozilla/ rw,
   owner /tmp/morfik_cache/.cache/mozilla/** rwk,
-  owner @{HOME}/.cache/mozilla/ rwk,
+  owner @{HOME}/.cache/mozilla/ rw,
   owner @{HOME}/.cache/mozilla/** rwk,
-  owner @{HOME}/.cache/fontconfig/ rwk,
+  owner @{HOME}/.cache/fontconfig/ rw,
   owner @{HOME}/.cache/fontconfig/** rwk,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
 
   # Devices
   /sys/devices/system/cpu/** r,
@@ -130,6 +144,7 @@
 
   # Silencer
   deny /var/cache/fontconfig/ w,
+  deny /usr/lib/firefox/fonts/** w,
 
   # Launch external apps
   /usr/bin/exo-open    rPUx,

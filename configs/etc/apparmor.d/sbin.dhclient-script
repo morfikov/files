@@ -55,4 +55,7 @@
   # Silencer
   deny / r,
 
+  # file_inherit
+  deny /var/lib/dhcp/dhclient.leases r,
+
 }

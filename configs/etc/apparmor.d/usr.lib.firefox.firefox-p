@@ -35,8 +35,6 @@
   # potentially extremely sensitive files
   audit deny @{HOME}/.gnupg/** mrwkl,
   audit deny @{HOME}/.ssh/** mrwkl,
-  audit deny @{HOME}/.gnome2_private/** mrwkl,
-  audit deny @{HOME}/.gnome2/keyrings/** mrwkl,
   audit deny @{HOME}/.config/chromium/** mrwkl,
   deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
   audit deny /media/Kabi/.mozilla/ mrwkl,
@@ -54,23 +52,31 @@
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,
-  @{MOZ_LIBDIR}/**  mrix,
+  @{MOZ_LIBDIR}/**  r,
+  @{MOZ_LIBDIR}/*.so  mr,
+  @{MOZ_LIBDIR}/firefox* mrix,
   /usr/share/firefox/ r,
   /usr/share/firefox/** r,
   /etc/firefox/ r,
   /etc/firefox/** r,
 
   # Firefox plugins & extensions
-  deny /usr/lib/mozilla/plugins/*.so mr,
-  deny /usr/share/mozilla/extensions/** r,
+  /usr/lib/mozilla/plugins/ r,
+  /usr/lib/mozilla/plugins/libvlcplugin.so mr,
+  /usr/share/mozilla/extensions/ r,
+  /usr/share/mozilla/extensions/**/ r,
 
   # Fix problems with empty pages
   owner /dev/shm/org.chromium.* rw,
 
   # Firefox home files
   owner @{MOZ_HOMEDIR}/ r,
-  owner @{MOZ_HOMEDIR}/** rwkl,
-  owner @{MOZ_HOMEDIR}/firefox/**/extensions/** mrix,
+  owner @{MOZ_HOMEDIR}/** rw,
+  owner @{MOZ_HOMEDIR}/**/.parentlock rwk,
+  owner @{MOZ_HOMEDIR}/**/*.sqlite{,-shm} rwk,
+  owner @{MOZ_HOMEDIR}/**/cert9.db rwk,
+  owner @{MOZ_HOMEDIR}/**/key4.db rwk,
+
   owner @{HOME}/.mozilla/firefox/profiles.ini r,
   deny @{HOME}/.mozilla/firefox/**/ rw,
   deny @{HOME}/.mozilla/firefox/**/** rw,
@@ -133,6 +139,7 @@
 
   # Silencer
   deny /var/cache/fontconfig/ w,
+  deny /usr/lib/firefox/fonts/** w,
 
   # Launch external apps
   /usr/bin/vlc                rPUx,

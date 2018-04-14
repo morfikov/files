@@ -29,7 +29,7 @@
   # Logs
   owner @{HOME}/.xsession-errors* rw,
 
-  # file_inherit (conky)
+  # file_inherit
   deny @{PROC}/@{pid}/net/dev r,
   deny @{PROC}/@{pid}/stat r,
   deny @{PROC}/@{pid}/net/tcp{,6} r,
@@ -39,5 +39,6 @@
   deny @{PROC}/uptime r,
   deny @{PROC}/diskstats r,
   deny @{PROC}/loadavg r,
+  deny /dev/tty[0-9]* rw,
 
 }

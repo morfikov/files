@@ -66,7 +66,7 @@
   /usr/bin/xdg-open rPUx,
   /usr/bin/xdg-mime rPUx,
   /usr/bin/viewnior rPUx,
-  /usr/bin/vlc rPUx,
+  /usr/bin/vlc      rPUx,
   /usr/bin/smplayer rPUx,
 
 }

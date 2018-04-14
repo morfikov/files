@@ -18,7 +18,6 @@
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/ristretto mr,
 
   # Which files ristretto should be able to open

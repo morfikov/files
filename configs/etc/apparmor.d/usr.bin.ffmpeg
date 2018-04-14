@@ -15,7 +15,6 @@
   #include <abstractions/base>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/ffmpeg  mr,
 
   # Which files ffmpeg should be able to open

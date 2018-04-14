@@ -38,9 +38,9 @@
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
   # Deny access to webcam and mic
-  deny /dev/video0 rw,
-  deny /dev/v4l/by-path/ r,
-  deny /dev/snd/pcmC0D0c rw,
+  audit deny /dev/video0 rw,
+  audit deny /dev/v4l/by-path/ r,
+  audit deny /dev/snd/pcmC0D0c rw,
 
   /etc/ssl/openssl.cnf r,
 

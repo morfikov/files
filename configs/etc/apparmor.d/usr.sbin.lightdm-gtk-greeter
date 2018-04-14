@@ -17,7 +17,6 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
 
-
   signal (receive) set=(term) peer=/usr/sbin/lightdm,
   signal (send) set=(term) peer=/usr/sbin/lightdm-gtk-greeter//launcher,
 

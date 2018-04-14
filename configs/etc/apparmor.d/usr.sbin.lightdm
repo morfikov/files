@@ -20,7 +20,6 @@
   #include <abstractions/authentication>
   #include <abstractions/wutmp>
 
-
   # Required to start LightDM
   capability setgid,
   capability setuid,

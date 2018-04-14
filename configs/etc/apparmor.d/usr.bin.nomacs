@@ -20,7 +20,6 @@
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
 
-
   /usr/bin/nomacs mrix,
 
   # Which files nomacs should be able to open

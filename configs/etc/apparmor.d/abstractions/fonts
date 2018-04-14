@@ -18,6 +18,7 @@
   /usr/share/fonts/**                   r,
 
   /etc/fonts/**                         r,
+  /usr/share/fontconfig/conf.avail/     r,
   /usr/share/fontconfig/conf.avail/**   r,
 
   /opt/kde3/share/fonts/**              r,
@@ -39,6 +40,7 @@
   owner @{HOME}/.fonts.conf             r,
   owner @{HOME}/.fonts/                 r,
   owner @{HOME}/.fonts/**               r,
+  owner @{HOME}/.fonts/fonts.dir        r,
   owner @{HOME}/.local/share/fonts/     r,
   owner @{HOME}/.local/share/fonts/**   r,
   owner @{HOME}/.fonts.cache-2          mr,

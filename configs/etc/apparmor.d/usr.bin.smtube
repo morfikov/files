@@ -14,6 +14,7 @@
 /usr/bin/smtube {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/gtk>
   #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
@@ -23,16 +24,32 @@
 
   /usr/bin/smtube mr,
 
+  /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner rPx -> gst_plugin_scanner,
+
   # SMTube config files
-  owner @{HOME}/.config/smtube/* rwk,
+  owner @{HOME}/.config/smtube/ rw,
+  owner @{HOME}/.config/smtube/* rw,
+  owner @{HOME}/.config/smtube/smtube2.ini.lock rwk,
+  owner @{HOME}/.config/smtube/cookies.ini.lock rwk,
+  owner @{HOME}/.config/smtube/.* rwk,
 
   # Needed for updating YT code
   owner @{HOME}/.config/smplayer/yt.js rw,
 
+  # Cache
+  owner @{HOME}/.cache/gstreamer-1.0/ rw,
+  owner @{HOME}/.cache/gstreamer-1.0/registry.* rw,
+
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
+  /dev/ r,
   /dev/tty r,
+
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  /sys/devices/system/node/ r,
 
   # Players
   /usr/bin/mpv rPUx,
@@ -40,5 +57,8 @@
   /usr/bin/vlc rPUx,
   /usr/bin/cvlc rPUx,
   /usr/bin/youtube-dl rPUx,
+
+  # To open URLs in a browser
+  /usr/bin/xdg-open rPUx,
 
 }

@@ -16,6 +16,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/gtk>
+  #include <abstractions/gnupg>
 
   /usr/bin/gpa mr,
 
@@ -28,9 +29,6 @@
   /usr/share/gpa/* r,
 
   owner @{PROC}/@{pid}/fd/ r,
-
-  owner @{HOME}/.gnupg/gpa.conf rw,
-  owner @{HOME}/.gnupg/S.uiserver rw,
 
   # For file browser
   owner @{PROC}/@{pid}/mountinfo r,
@@ -55,5 +53,10 @@
   # To encrypt/decrypt files
   owner /tmp/**.gpg rw,
   owner /tmp/**.txt rw,
+
+  owner /tmp/xauth-[0-9]*-_[0-9] r,
+
+  # External apps
+  /usr/lib/firefox/firefox rPUx,
 
 }

@@ -14,7 +14,6 @@
 /usr/bin/xsel {
   #include <abstractions/base>
 
-
   /usr/bin/xsel mr,
 
   /dev/ptmx rw,
@@ -22,6 +21,7 @@
   owner @{HOME}/.xsel.log rw,
 
   owner @{HOME}/.Xauthority r,
+  owner /tmp/xauth-[0-9]*-_[0-9] r,
 
   # file_inherit
   owner @{HOME}/.xsession-errors rw,

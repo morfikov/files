@@ -11,19 +11,18 @@
 
 #include <tunables/global>
 
-/usr/bin/gpgconf {
+/usr/bin/gpgconf flags=(complain)  {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
   #include <abstractions/nameservice>
   #include <abstractions/gnupg>
-
 
   /usr/bin/gpg rPx,
   /usr/bin/gpgconf mrix,
   /usr/bin/gpg-connect-agent rix,
   /usr/bin/gpg-agent rPx,
   /usr/bin/dirmngr rPx,
-  /usr/bin/gpgsm rix,
+  /usr/bin/gpgsm rPx,
   /usr/lib/gnupg/scdaemon rPx,
 
   owner @{PROC}/@{pid}/task/[0-9]*/stat rw,

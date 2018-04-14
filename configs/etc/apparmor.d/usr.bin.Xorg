@@ -14,7 +14,6 @@
 /usr/bin/Xorg {
   #include <abstractions/base>
 
-
   /usr/bin/Xorg mr,
 
   /bin/dash mrix,
@@ -23,6 +22,5 @@
 
   # file_inherit (lightdm)
   /var/log/lightdm/x-[0-9]*.log rw,
-
 
 }
