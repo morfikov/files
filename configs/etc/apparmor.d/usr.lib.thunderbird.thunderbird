@@ -62,6 +62,10 @@
   /etc/thunderbird/ r,
   /etc/thunderbird/** r,
 
+  # Extensions
+  /usr/share/mozilla/extensions/ r,
+  /usr/share/mozilla/extensions/**/ r,
+
   # Cache
   owner @{HOME}/.cache/thunderbird/ rw,
   owner @{HOME}/.cache/thunderbird/** rw,
@@ -157,6 +161,8 @@
   /usr/bin/xarchiver rPUx,
 
   # Needed for enigmail
+  /usr/share/xul-ext/enigmail/ r,
+  /usr/share/xul-ext/enigmail/** r,
   /usr/bin/gpg rPUx,
   /usr/bin/gpgconf rPUx,
   /usr/bin/gpg-connect-agent rPUx,

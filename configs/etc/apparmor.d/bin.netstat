@@ -29,8 +29,7 @@ profile netstat /{usr/,}bin/netstat flags=(complain) {
 
   # For the "-p" option
   capability sys_ptrace,
-  ptrace (trace) peer=unconfined,
-#  ptrace (trace) peer=confined,
+  ptrace (trace),
 
   @{PROC}/@{pid}/attr/current r,
 

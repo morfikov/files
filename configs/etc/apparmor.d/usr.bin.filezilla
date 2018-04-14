@@ -22,8 +22,6 @@
 
   /usr/bin/filezilla mr,
 
-  /bin/dash rPUx,
-
   # When using SFTP protocol
   /usr/bin/fzsftp rPx,
 
@@ -68,5 +66,16 @@
   deny / r,
   deny /home/ r,
   deny owner @{HOME}/ r,
+
+  /bin/dash rCx -> dash,
+  profile dash flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+
+    /bin/uname rix,
+    /usr/bin/lsb_release rPUx,
+
+  }
 
 }
