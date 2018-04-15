@@ -7,7 +7,7 @@
 #
 
 ### Stretch - stable ###
-deb https://deb.debian.org/debian/ stable main non-free contrib
+#deb https://deb.debian.org/debian/ stable main non-free contrib
 # deb-src https://deb.debian.org/debian/ stable main non-free contrib
 #deb http://security.debian.org/ stable/updates main contrib non-free
 # deb-src http://security.debian.org/ stable/updates main contrib non-free
@@ -22,7 +22,7 @@ deb https://deb.debian.org/debian/ stable main non-free contrib
 # deb http://http.debian.net/debian stable-backports main
 
 ### Buster - testing ###
-deb https://deb.debian.org/debian/ testing main non-free contrib
+#deb https://deb.debian.org/debian/ testing main non-free contrib
 # deb-src https://deb.debian.org/debian/ testing main non-free contrib
 # deb http://security.debian.org/ testing/updates main contrib non-free
 # deb-src http://security.debian.org/ testing/updates main contrib non-free
@@ -71,7 +71,7 @@ deb https://deb.debian.org/debian/ experimental main contrib non-free
 # deb https://dl.google.com/linux/chrome/deb/ stable main
 
 ### Opera (browser) ###
-# deb https://deb.opera.com/opera-stable/ stable non-free
+deb https://deb.opera.com/opera-stable/ stable non-free
 
 ### Dropbox (cloud storage) ###
 deb https://linux.dropbox.com/debian sid main
