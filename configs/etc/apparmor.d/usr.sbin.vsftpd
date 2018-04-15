@@ -37,8 +37,8 @@
   # something to do with local users (?)
   capability audit_write,
 
-  # Needed? It looks like it's working just fine without it.
-  #capability sys_admin,
+  # Needed when container isolation is set (isolate=YES and isolate_network=YES)
+  capability sys_admin,
 
   # To validate allowed users shells
   /etc/shells r,
@@ -46,7 +46,7 @@
   # List of users disallowed FTP access
   /etc/ftpusers r,
 
-  # For libwrap (TCP Wrapper) support
+  # For libwrap (TCP Wrapper) support (tcp_wrappers=YES)
   /etc/hosts.allow r,
   /etc/hosts.deny r,
 
