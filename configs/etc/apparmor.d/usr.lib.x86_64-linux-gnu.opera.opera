@@ -25,6 +25,7 @@
   signal (send) set=(term) peer=/usr/lib/@{multiarch}/opera/opera_sandbox,
 
   ptrace (trace) peer=@{profile_name},
+  ptrace (trace) peer=/usr/bin/lsb_release,
   # Needed?
   deny ptrace (trace) peer=unconfined,
 
@@ -66,7 +67,7 @@
   owner @{HOME}/.cache/opera/**/ rw,
   owner @{HOME}/.cache/opera/**/index rw,
   owner @{HOME}/.cache/opera/**/*-index rw,
-  owner @{HOME}/.cache/opera/Cache/[a-f0-9]*_? rw,
+  owner @{HOME}/.cache/opera/**/[a-f0-9]*_? rw,
 
   # For importing data (bookmarks, cookies, etc) from Firefox
   deny @{HOME}/.mozilla/firefox/profiles.ini r,
@@ -105,6 +106,7 @@
         @{PROC}/ r,
   owner @{PROC}/@{pid}/fd/ r,
         @{PROC}/@{pid}/stat r,
+        @{PROC}/@{pids}/statm r,
         @{PROC}/sys/kernel/yama/ptrace_scope r,
   owner @{PROC}/@{pid}/oom_score_adj rw,
   owner @{PROC}/@{pids}/cmdline r,
@@ -116,8 +118,9 @@
   # Needed or otherwise opera gets out of memory crash
   owner /dev/shm/.org.chromium.Chromium.* rw,
 
-  # What is this for?
+  # To play DRM media (protected content)
   deny /opt/google/chrome/libwidevinecdm.so mr,
+  deny /opt/google/chrome/libwidevinecdmadapter.so mr,
 
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
