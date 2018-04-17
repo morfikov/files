@@ -1,0 +1,167 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/opt/google/chrome/chrome flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio>
+  #include <abstractions/gtk>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+
+  ptrace (trace) peer=@{profile_name},
+  ptrace (trace) peer=/usr/bin/lsb_release,
+  # Needed?
+  deny ptrace (trace) peer=unconfined,
+
+  /opt/google/chrome/chrome mrix,
+  /opt/google/chrome/chrome-sandbox rPx,
+  /opt/google/chrome/google-chrome rPx,
+
+  #include <abstractions/ssl_certs>
+  # To remove the following error:
+  #  Error initializing NSS with a persistent database
+  owner @{HOME}/.pki/nssdb/** r,
+  owner @{HOME}/.pki/nssdb/cert9.db rwk,
+  owner @{HOME}/.pki/nssdb/key4.db rwk,
+
+  # Google Chrome files
+  /opt/google/chrome/ r,
+  /opt/google/chrome/** r,
+
+  # Google Chrome home files
+  owner @{HOME}.config/google-chrome/ rw,
+  owner @{HOME}.config/google-chrome/** rw,
+  owner @{HOME}/.config/google-chrome/**/History rwk,
+  owner @{HOME}/.config/google-chrome/**/Favicons rwk,
+  owner @{HOME}/.config/google-chrome/**/previews_opt_out.db rwk,
+  owner @{HOME}/.config/google-chrome/**/crash_count.txt rwk,
+  owner @{HOME}/.config/google-chrome/**/Shortcuts rwk,
+  owner @{HOME}/.config/google-chrome/**/Cookies rwk,
+  owner @{HOME}/.config/google-chrome/**/QuotaManager rwk,
+  owner @{HOME}/.config/google-chrome/**/Sessions/session_*.raw.lock rwk,
+  owner @{HOME}/.config/google-chrome/**/autoupdate_checker.sqlite rwk,
+  owner @{HOME}/.config/google-chrome/**/**/LOCK rwk,
+  owner @{HOME}/.config/google-chrome/**/ssdfp[0-9]*.[0-9].[0-9]*.lock rwk,
+  owner @{HOME}/.config/google-chrome/**/databases/Databases.db rwk,
+  owner "@{HOME}/.config/google-chrome/**/Network Action Predictor" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Web Data" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Login Data" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Origin Bound Certs" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Extension Cookies" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Application Cache/Index" rwk,
+  owner "@{HOME}/.config/google-chrome/**/Top Sites" rwk,
+  owner "@{HOME}/.config/google-chrome/Safe Browsing Cookies" rwk,
+  owner "@{HOME}/.config/google-chrome/Safe Browsing Channel IDs" rwk,
+
+  # Cache files
+  owner @{HOME}/.cache/google-chrome/ rw,
+  owner @{HOME}/.cache/google-chrome/**/ rw,
+  owner @{HOME}/.cache/google-chrome/**/index rw,
+  owner @{HOME}/.cache/google-chrome/**/*-index rw,
+  owner @{HOME}/.cache/google-chrome/**/[a-f0-9]*_? rw,
+
+  # For importing data (bookmarks, cookies, etc) from Firefox
+  deny @{HOME}/.mozilla/firefox/profiles.ini r,
+  deny @{HOME}/.mozilla/firefox/**/compatibility.ini r,
+  deny @{HOME}/.mozilla/firefox/**/.parentlock rwk,
+  deny @{HOME}/.mozilla/firefox/**/places.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/**/cookies.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/**/favicons.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/**/cert9.db rwk,
+  deny @{HOME}/.mozilla/firefox/**/key4.db rwk,
+  deny @{HOME}/.mozilla/firefox/**/logins.json r,
+
+  # Flash
+  deny owner @{HOME}.config/google-chrome/PepperFlash/**/libpepflashplayer.so mr,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
+
+        @{PROC}/ r,
+  owner @{PROC}/@{pid}/fd/ r,
+        @{PROC}/@{pid}/stat r,
+#        @{PROC}/@{pids}/statm r,
+        @{PROC}/sys/kernel/yama/ptrace_scope r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
+#  owner @{PROC}/@{pids}/cmdline r,
+#  owner @{PROC}/@{pids}/environ r,
+  owner @{PROC}/@{pids}/task/ r,
+        @{PROC}/@{pids}/task/@{pids}/stat r,
+        @{PROC}/@{pids}/task/@{pids}/status r,
+        @{PROC}/vmstat r,
+
+  owner /dev/shm/.com.google.Chrome.* rw,
+
+  # To play DRM media (protected content)
+  deny /opt/google/chrome/libwidevinecdm.so mr,
+  deny /opt/google/chrome/libwidevinecdmadapter.so mr,
+
+  /var/lib/dbus/machine-id r,
+  /etc/machine-id r,
+
+  # webcam & mic
+  audit deny /dev/video0 rw,
+  audit deny /dev/v4l/by-path/ r,
+  audit deny /dev/snd/pcmC0D0c rw,
+
+  # Needed?
+#  deny /dev/ r,
+  deny /{,var/}run/udev/data/ r,
+  deny /{,var/}run/udev/data/** r,
+  deny /sys/bus/ r,
+  deny /sys/class/ r,
+  deny /sys/devices/ r,
+  deny /sys/devices/virtual/ r,
+  deny /sys/devices/virtual/tty/tty0/active r,
+       /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+       /sys/devices/pci[0-9]*/**/{class,resource,irq} r,
+       /sys/bus/pci/devices/ r,
+
+  # Silencer
+  /opt/google/chrome/** w,
+
+  /usr/bin/lsb_release rPUx,
+
+  /usr/bin/xdg-desktop-menu rPUx,
+  /usr/bin/xdg-settings rPUx,
+  /usr/bin/xdg-icon-resource rPUx,
+
+  /opt/google/chrome/xdg-mime rCx -> xdgmime,
+  profile xdgmime flags=(complain) {
+    #include <abstractions/base>
+
+    /opt/google/chrome/xdg-mime mr,
+
+  }
+
+  /opt/google/chrome/xdg-settings rCx -> xdgsettings,
+  profile xdgsettings flags=(complain) {
+    #include <abstractions/base>
+
+    /opt/google/chrome/xdg-settings mr,
+
+    /bin/dash rix,
+    /bin/grep rix,
+    /usr/bin/cut rix,
+
+  }
+
+}

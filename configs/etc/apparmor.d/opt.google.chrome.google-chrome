@@ -1,0 +1,32 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/opt/google/chrome/google-chrome flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+
+  /bin/bash ix,
+  /opt/google/chrome/google-chrome r,
+  /opt/google/chrome/chrome rPx,
+
+  /bin/readlink rix,
+  /bin/which rix,
+  /usr/bin/dirname rix,
+  /bin/mkdir rix,
+  /bin/cat rix,
+
+  owner @{PROC}/@{pid}/fd/* rw,
+
+  /dev/tty rw,
+
+}
