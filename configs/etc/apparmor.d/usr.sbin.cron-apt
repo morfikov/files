@@ -1,0 +1,75 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/cron-apt flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+  #include <abstractions/nameservice>
+
+  /usr/sbin/cron-apt r,
+
+  /bin/dash rix,
+  /usr/bin/dotlockfile rix,
+  /bin/sed rix,
+  /bin/mktemp rix,
+  /usr/bin/diff rix,
+  /usr/bin/mkdir rix,
+  /bin/rmdir rix,
+  /bin/rm rix,
+  /bin/grep rix,
+  /usr/bin/md5sum rix,
+  /usr/bin/stat rix,
+  /bin/date rix,
+  /bin/cat rix,
+  /usr/bin/expr rix,
+  /bin/cp rix,
+  /bin/dd rix,
+  /usr/bin/cksum rix,
+  /usr/bin/gawk rix,
+  /bin/sleep rix,
+
+  /usr/bin/apt-get rPUx,
+
+  /usr/share/cron-apt/ r,
+  /usr/share/cron-apt/functions r,
+
+  /etc/cron-apt/ r,
+  /etc/cron-apt/config r,
+  /etc/cron-apt/**/ r,
+  /etc/cron-apt/action.d/0-update r,
+  /etc/cron-apt/action.d/3-download r,
+  /etc/cron-apt/action.d/9-notify r,
+
+  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/0-update-* r,
+  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/3-download-* r,
+
+  /var/lib/cron-apt/.lk* rw,
+  /var/lib/cron-apt/lockfile rwl,
+
+  /tmp/cron-apt.*/ rw,
+  /tmp/cron-apt.*/difftemp rw,
+  /tmp/cron-apt.*/lockfile rwl,
+  /tmp/cron-apt.*/initlog rw,
+  /tmp/cron-apt.*/runlog rw,
+  /tmp/cron-apt.*/runerror rw,
+  /tmp/cron-apt.*/runmail rw,
+  /tmp/cron-apt.*/runsyslog rw,
+  /tmp/cron-apt.*/actionlog rw,
+  /tmp/cron-apt.*/actionerror rw,
+  /tmp/cron-apt.*/actionmail rw,
+  /tmp/cron-apt.*/actionsyslog rw,
+
+  /var/log/cron-apt/ r,
+  /var/log/cron-apt/temp rw,
+
+}

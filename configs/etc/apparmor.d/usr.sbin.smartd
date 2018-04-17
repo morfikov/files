@@ -1,0 +1,45 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/smartd flags=(complain) {
+  #include <abstractions/base>
+
+  #
+  capability sys_rawio,
+
+  #
+  #capability sys_admin,
+  #capability mknod,
+
+  /usr/sbin/smartd mr,
+
+  /etc/smartd.conf r,
+
+  /dev/sd[a-z] r,
+
+  /var/lib/smartmontools/smartd.*.state rw,
+  /var/lib/smartmontools/smartd.*.state~ rw,
+  /var/lib/smartmontools/attrlog.*.csv rw,
+
+  # Plugin directory for smartd warning script
+  /etc/smartmontools/smartd_warning.d/ r,
+
+  # Drive database location
+  /var/lib/smartmontools/drivedb/drivedb.h r,
+  /etc/smart_drivedb.h r,
+
+  # Needed when smartd-runner scans for drives
+  /dev/ r,
+  /proc/devices r,
+
+}
