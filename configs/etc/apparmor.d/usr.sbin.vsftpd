@@ -18,9 +18,6 @@
   # Only for local users authentication
   #include <abstractions/authentication>
 
-  # If vsftpd is maintaining sessions (session_support=YES), it will try and update utmp and wtmp
-  #include <abstractions/wutmp>
-
   # To be able to listen on ports < 1024
   capability net_bind_service,
 
@@ -35,10 +32,18 @@
   capability chown,
 
   # something to do with local users (?)
-  capability audit_write,
+  #capability audit_write,
 
-  # Needed when container isolation is set (isolate=YES and isolate_network=YES)
+  # Needed when container isolation is set (isolate=YES and isolate_network=YES), but vsftpd can
+  # work witout it as its code is set up to continue happily if container isolation is not
+  # available (when first written, many kernels didn't have the underlying support).
   capability sys_admin,
+
+  # Needed when vsftpd maintains sessions (session_support=YES)
+  #capability net_admin,
+  #capability dac_read_search,
+  # If session_support=YES, vsftpd will also try and update utmp and wtmp
+  ##include <abstractions/wutmp>
 
   # To validate allowed users shells
   /etc/shells r,

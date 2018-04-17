@@ -15,6 +15,8 @@
   #include <abstractions/base>
   #include <abstractions/freedesktop.org>
 
+  signal (send) set=(term) peer=/usr/bin/gpg-agent,
+
   /usr/bin/pinentry-kwallet mr,
 
   /usr/bin/pinentry-qt rPx,
@@ -46,6 +48,8 @@
     /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
 
    owner @{HOME}/.Xauthority r,
+
+   /usr/share/hwdata/pnp.ids r,
 
   }
 

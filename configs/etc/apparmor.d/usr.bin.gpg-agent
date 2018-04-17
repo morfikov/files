@@ -16,6 +16,8 @@
   #include <abstractions/user-tmp>
   #include <abstractions/gnupg>
 
+  signal (receive) set=(term) peer=/usr/bin/pinentry-kwallet,
+
   /usr/bin/gpg-agent mr,
   /usr/lib/gnupg/scdaemon rPx,
 

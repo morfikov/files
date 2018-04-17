@@ -26,6 +26,7 @@
 
   ptrace (trace) peer=@{profile_name},
   ptrace (trace) peer=/usr/bin/lsb_release,
+  ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
   # Needed?
   deny ptrace (trace) peer=unconfined,
 
@@ -146,11 +147,24 @@
        /sys/bus/pci/devices/ r,
 
   #
-  /usr/bin/xdg-settings rPUx,
   /usr/bin/lsb_release rPUx,
   /bin/which rix,
 
   # Silencer
   deny /usr/lib/@{multiarch}/opera/opera_autoupdate w,
+
+  /usr/bin/xdg-settings Cx,
+  profile /usr/bin/xdg-settings flags=(complain) {
+    #include <abstractions/base>
+
+    /usr/bin/xdg-settings mr,
+
+    /bin/dash rix,
+    /bin/grep rix,
+    /usr/bin/cut rix,
+
+    owner @{HOME}/.config/xfce4/helpers.rc r,
+
+  }
 
 }

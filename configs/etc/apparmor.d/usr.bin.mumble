@@ -36,7 +36,7 @@
   owner @{HOME}/.MumbleSocket rw,
 
   # KDE/Plasma5
-  owner @{HOME}/morfik/.kde/share/config/kdeglobals r,
+  owner @{HOME}/.kde/share/config/kdeglobals r,
 
   /etc/machine-id r,
 

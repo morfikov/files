@@ -131,16 +131,16 @@
   # QT
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
 
-  @{PROC}/@{pid}/net/arp r,
-
-  @{PROC}/@{pid}/fd/ r,
+        @{PROC}/@{pid}/net/arp r,
+        @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/fd/* r,
-  @{PROC}/@{pid}/stat r,
+        @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/task/ r,
-  @{PROC}/@{pid}/task/[0-9]*/stat r,
-  @{PROC}/@{pid}/mountinfo r,
+        @{PROC}/@{pid}/task/[0-9]*/stat r,
+        @{PROC}/@{pid}/mountinfo r,
 
   /sys/devices/system/cpu/** r,
+  /sys/devices/system/node/node0/meminfo r,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
