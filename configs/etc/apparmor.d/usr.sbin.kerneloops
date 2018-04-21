@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/kerneloops flags=(complain) {
+/usr/sbin/kerneloops {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 

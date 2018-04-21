@@ -37,6 +37,8 @@
   /usr/bin/cksum rix,
   /usr/bin/gawk rix,
   /bin/sleep rix,
+  /bin/mv rix,
+  /usr/bin/logger rix,
 
   /usr/bin/apt-get rPUx,
 
@@ -50,8 +52,8 @@
   /etc/cron-apt/action.d/3-download r,
   /etc/cron-apt/action.d/9-notify r,
 
-  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/0-update-* r,
-  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/3-download-* r,
+  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/0-update-* rw,
+  /var/lib/cron-apt/_-_etc_-_cron-apt_-_config/mailchanges/3-download-* rw,
 
   /var/lib/cron-apt/.lk* rw,
   /var/lib/cron-apt/lockfile rwl,

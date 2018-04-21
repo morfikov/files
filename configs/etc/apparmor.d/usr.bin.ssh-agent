@@ -13,7 +13,11 @@
 
 /usr/bin/ssh-agent flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/openssl>
 
   /usr/bin/ssh-agent mr,
+
+  owner /tmp/ssh-*/ rw,
+  owner /tmp/ssh-*/agent.* rw,
 
 }

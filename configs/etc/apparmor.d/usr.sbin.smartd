@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/smartd flags=(complain) {
+/usr/sbin/smartd {
   #include <abstractions/base>
 
   #

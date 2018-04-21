@@ -26,6 +26,7 @@
   /var/lib/flatpak/exports/share/icons/** r,
 
   # this should probably go elsewhere
+  /usr/share/mime/ r,
   /{usr,var/lib/flatpak/exports}/share/mime/** r,
 
   # per-user configurations

@@ -14,7 +14,7 @@
 
 #include <tunables/global>
 
-/usr/lib/thunderbird/thunderbird{,-bin} flags=(complain) {
+/usr/lib/thunderbird/thunderbird{,-bin} {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>

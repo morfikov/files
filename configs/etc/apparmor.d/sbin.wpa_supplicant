@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/sbin/wpa_supplicant flags=(complain) {
+/sbin/wpa_supplicant {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 

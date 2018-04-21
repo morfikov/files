@@ -35,6 +35,7 @@
   owner @{HOME}/.local/share/psi+/ rw,
   owner @{HOME}/.local/share/psi+/** rw,
   owner @{HOME}/.config/.* rwk,
+  owner @{HOME}/.config/#[0-9]* rw,
 
   # Cache files
   owner @{HOME}/.cache/fontconfig/** r,

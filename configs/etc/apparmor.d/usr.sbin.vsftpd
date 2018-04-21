@@ -32,7 +32,7 @@
   capability chown,
 
   # something to do with local users (?)
-  #capability audit_write,
+  capability audit_write,
 
   # Needed when container isolation is set (isolate=YES and isolate_network=YES), but vsftpd can
   # work witout it as its code is set up to continue happily if container isolation is not

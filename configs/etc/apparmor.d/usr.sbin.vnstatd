@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/sbin/vnstatd flags=(complain) {
+/usr/sbin/vnstatd {
   #include <abstractions/base>
 
   /usr/sbin/vnstatd mr,

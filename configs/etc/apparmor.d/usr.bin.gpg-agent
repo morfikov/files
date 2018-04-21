@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg-agent flags=(complain) {
+/usr/bin/gpg-agent {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
   #include <abstractions/gnupg>
@@ -34,5 +34,8 @@
   #/usr/bin/pinentry-gnome3 rPUx,
   /usr/bin/pinentry-qt rPUx,
   /usr/bin/pinentry-kwallet rPUx,
+
+  # Silencer
+  deny /bin/.gnupg/ w,
 
 }

@@ -15,7 +15,7 @@
   #include <abstractions/base>
   #include <abstractions/bash>
 
-  /bin/bash ix,
+  /bin/bash rix,
   /opt/google/chrome/google-chrome r,
   /opt/google/chrome/chrome rPx,
 

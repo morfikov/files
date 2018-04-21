@@ -32,6 +32,7 @@
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
   owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume.* rwl,
+  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume rwl,
   owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf rwl,
   owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
   owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.* rwl,
