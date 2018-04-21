@@ -1,0 +1,32 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/polkit-1/polkit-agent-helper-1 flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/authentication>
+
+  signal (receive) set=(term) peer=/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1,
+
+  capability setgid,
+  capability setuid,
+
+  capability audit_write,
+
+  /{usr/,}lib/polkit-1/polkit-agent-helper-1 mr,
+
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  /etc/login.defs r,
+
+}

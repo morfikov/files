@@ -1,0 +1,47 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/polkit-1/polkitd flags=(complain) {
+  #include <abstractions/base>
+
+  # Tu run as polkitd:nogroup
+  capability setuid,
+  capability setgid,
+
+  /usr/lib/polkit-1/polkitd mr,
+
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+  /etc/group r,
+
+  @{PROC}/@{pids}/stat r,
+  @{PROC}/@{pids}/cmdline r,
+  @{PROC}/@{pids}/task/@{pids}/stat r,
+  @{PROC}/@{pids}/cgroup r,
+
+  # System rules
+  /etc/polkit-1/rules.d/ r,
+  /etc/polkit-1/rules.d/[0-9][0-9]-*.rules r,
+
+  # Vendor rules
+  /usr/share/polkit-1/rules.d/ r,
+  /usr/share/polkit-1/rules.d/*.rules r,
+
+  # Vendor policies
+  /usr/share/polkit-1/actions/ r,
+  /usr/share/polkit-1/actions/*.policy r,
+
+  /run/systemd/sessions/[0-9]* r,
+  /run/systemd/users/[0-9]* r,
+
+}
