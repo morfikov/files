@@ -1,0 +1,134 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/udisks2/udisksd flags=(complain) {
+  #include <abstractions/base>
+
+  capability sys_rawio,
+  capability sys_admin,
+
+  /usr/lib/udisks2/udisksd mr,
+
+  /sbin/lvm rPUx,
+  /sbin/dumpe2fs rPUx,
+  /bin/systemctl rPUx,
+  /bin/systemd-escape rPUx,
+  /usr/bin/eject rPUx,
+
+  # Allow mounting of removable devices
+  mount fstype={ext*,vfat,iso9660} /dev/sd?? -> /media/*/*/,
+  # Allow mounting of loop devices (ISO files)
+  mount fstype={ext*,vfat,iso9660} /dev/loop[0-9]* -> /media/*/*/,
+  mount fstype={ext*,vfat,iso9660} /dev/loop[0-9]*p[0-9]* -> /media/*/*/,
+  # Allow unmounting
+  umount /media/*/,
+  umount /media/*/*/,
+
+  # Be able to create/delete dirs for removable media
+  /media/*/ rw,
+  /media/*/*/ rw,
+
+  # Udisks2 config files
+  /etc/udisks2/ r,
+  /etc/udisks2/udisks2.conf r,
+
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+
+  /etc/libblockdev/conf.d/ r,
+  /etc/libblockdev/conf.d/00-default.cfg r,
+
+  owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/fd/ r,
+        @{PROC}/swaps r,
+        @{PROC}/devices r,
+
+  # Devices that udisks2 can operate on
+  /dev/sd[a-z] r,
+  /dev/loop[0-9]* r,
+  /dev/dm-[0-9]* rw,
+
+  # To be able to initialize device-mapper disk devices
+  /dev/mapper/control rw,
+
+  # To be able to dynamically find a free loop device, and to add and remove loop devices from the
+  # system
+  /dev/loop-control rw,
+
+  # To check whether the x-udisks-auth option was used to specify that additional authorization is
+  # required to mount/unlock a device
+  /etc/fstab r,
+  /etc/crypttab r,
+
+  # To be able to operate on encryted devices
+  /run/cryptsetup/ r,
+  /run/cryptsetup/L* rwk,
+
+  /sys/fs/ r,
+  /sys/bus/ r,
+  /sys/class/ r,
+  /sys/class/block/ r,
+
+  # USB and other block devices
+  /sys/devices/pci*/**/block/**/{ro,size,removable,rotational,uevent,stat} r,
+  /sys/devices/pci*/**/usb[1-3]/**/uevent r,
+  /sys/devices/pci*/**/usb[1-3]/**/block/sd[a-z]/ r,
+  # For powering off USB devices
+  /sys/devices/pci*/**/usb[1-3]/**/remove rw,
+
+  # Device-Mapper devices
+  /sys/devices/virtual/block/dm-[0-9]*/ r,
+  /sys/devices/virtual/block/dm-[0-9]*/{ro,size,removable,uevent} r,
+  /sys/devices/virtual/block/dm-[0-9]*/{slaves,holders}/ r,
+  /sys/devices/virtual/block/dm-[0-9]*/dm/{uuid,name} r,
+
+  # Loop devices
+  /sys/devices/virtual/block/loop[0-9]*/ r,
+  /sys/devices/virtual/block/loop[0-9]*/{ro,size,removable,uevent} r,
+  /sys/devices/virtual/block/loop[0-9]*/loop/{autoclear,backing_file,offset} r,
+  /sys/devices/virtual/block/loop[0-9]*/loop[0-9]*p[0-9]*/{ro,size,uevent} r,
+
+  # ZRAM devices
+  /sys/devices/virtual/block/zram[0-9]/ r,
+  /sys/devices/virtual/block/zram[0-9]/{ro,size,removable,uevent} r,
+
+  /{,var/}run/ r,
+  /{,var/}run/udev/data/b* r,
+
+  # Info on mounted devices
+  /{,var/}run/mount/utab rw,
+  /{,var/}run/mount/utab.* rw,
+  /{,var/}run/mount/utab.lock rwk,
+  /var/lib/udisks2/mounted-fs rw,
+  /var/lib/udisks2/mounted-fs.* rw,
+
+  /{,var/}run/udisks2/ rw,
+  /{,var/}run/udisks2/loop rw,
+  /{,var/}run/udisks2/loop.* rw,
+
+  /{,var/}run/systemd/seats/seat[0-9]* r,
+
+  /bin/dash rCx -> dash,
+  profile dash flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+
+    /usr/sbin/dmidecode rix,
+
+    /sys/firmware/dmi/tables/smbios_entry_point r,
+    /sys/firmware/dmi/tables/DMI r,
+
+  }
+
+}
