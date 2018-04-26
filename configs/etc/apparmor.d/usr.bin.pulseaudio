@@ -46,10 +46,9 @@
   /sys/devices/pci[0-9]*/**/sound/**/uevent r,
   /sys/devices/pci[0-9]*/**/sound/**/pcm*/pcm_class r,
   /sys/devices/virtual/dmi/id/{bios_vendor,board_vendor,sys_vendor} r,
-  /sys/devices/virtual/sound/timer/uevent r,
-  /sys/devices/virtual/sound/seq/uevent r,
+  /sys/devices/virtual/sound/**/uevent r,
 
-  /{,var/}run/udev/data/+sound:card* r,
+  /{,var/}run/udev/data/+sound* r,
   /{,var/}run/udev/data/c* r,
 
   /{,var/}run/systemd/users/[0-9]* r,

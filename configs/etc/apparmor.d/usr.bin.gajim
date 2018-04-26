@@ -50,11 +50,6 @@
   owner @{HOME}/.cache/gajim/ rwk,
   owner @{HOME}/.cache/gajim/** rwk,
 
-  # Deny access to webcam and mic
-  deny /dev/video0 rw,
-  deny /dev/v4l/by-path/ r,
-  deny /dev/snd/pcmC0D0c rw,
-
   owner @{PROC}/@{pid}/mounts r,
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/mountinfo r,
@@ -77,7 +72,7 @@
   /usr/bin/pacat Cx -> audio,
   profile audio {
     #include <abstractions/base>
-    #include <abstractions/audio>
+    #include <abstractions/audio-strict>
 
     /usr/bin/aplay mr,
     /usr/bin/pacat mr,

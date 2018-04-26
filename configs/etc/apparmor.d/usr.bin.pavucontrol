@@ -16,7 +16,7 @@
   #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
 
   /usr/bin/pavucontrol mr,
 

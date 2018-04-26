@@ -14,7 +14,7 @@
 /usr/bin/mpv {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/nameservice>

@@ -18,38 +18,35 @@
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
+  #include <abstractions/kde5-plasma5>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/enchant>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
-  #include <abstractions/private-files>
+
+  deny ptrace peer=@{profile_name},
 
   # potentially extremely sensitive files
+  #include <abstractions/private-files>
   audit deny @{HOME}/.gnupg/** mrwkl,
   audit deny @{HOME}/.ssh/** mrwkl,
   audit deny @{HOME}/.mozilla/** mrwkl,
   audit deny @{HOME}/.config/chromium/** mrwkl,
   audit deny @{HOME}/.evolution/** mrwkl,
   audit deny @{HOME}/.config/evolution/** mrwkl,
-  audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
 
   @{MOZ_LIBDIR}/thunderbird{,-bin} mrix,
   /usr/bin/thunderbird mrix,
 
+  # Thunderbird files
   /usr/share/thunderbird/ r,
   /usr/share/thunderbird/** r,
+  /etc/thunderbird/ r,
+  /etc/thunderbird/** r,
 
-  # Fix error in libglib while saving files as
-  /usr/share/glib-2.0/schemas/gschemas.compiled r,
-
-  # About:memory
-  owner @{PROC}/@{pid}/statm r,
-  owner @{PROC}/@{pid}/smaps r,
-
-  # Needed for Release Notes
-  /sys/devices/system/node/ r,
+  # Extensions
+  /usr/share/mozilla/extensions/ r,
+  /usr/share/mozilla/extensions/**/ r,
 
   # Thunderbird home files
   owner @{MOZ_HOMEDIR}/ rw,
@@ -58,29 +55,21 @@
   owner @{MOZ_HOMEDIR}/**/storage.sdb rwk,
   owner @{MOZ_HOMEDIR}/**/*.sqlite{,-shm} rwk,
 
-  # Thunderbird etc files
-  /etc/thunderbird/ r,
-  /etc/thunderbird/** r,
-
-  # Extensions
-  /usr/share/mozilla/extensions/ r,
-  /usr/share/mozilla/extensions/**/ r,
-
   # Cache
   owner @{HOME}/.cache/thunderbird/ rw,
-  owner @{HOME}/.cache/thunderbird/** rw,
-  owner /tmp/morfik_cache/.cache/thunderbird/ rw,
-  owner /tmp/morfik_cache/.cache/thunderbird/** rw,
+  owner @{HOME}/.cache/thunderbird/** rwk,
   owner @{HOME}/.cache/fontconfig/** rwk,
+  owner /tmp/morfik_cache/.cache/thunderbird/ rw,
+  owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
 
-  # Deny access to webcam and mic
-  audit deny /dev/video0 rw,
-  audit deny /dev/v4l/by-path/ r,
-  audit deny /dev/snd/pcmC0D0c rw,
-
-  # Needed for file browsing to work
-  owner @{HOME}/.{cache,config}/dconf/user rw,
-  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+  # Nameservice
+  /etc/hosts r,
+  /etc/host.conf r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/gai.conf r,
+  deny @{PROC}/@{pid}/net/route r,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
@@ -88,64 +77,69 @@
   owner @{HOME}/[dD]esktop/ r,
   owner @{HOME}/[dD]esktop/** rwl,
 
-  # Needed for the crash reporter
-  /usr/lib/thunderbird/crashreporter ix,
-  owner @{PROC}/@{pid}/environ r,
-  owner @{PROC}/@{pid}/cmdline r,
-  ptrace (trace) peer=/usr/lib/thunderbird/thunderbird{,-bin},
-  /dev/tty rw,
-  /bin/sed rix,
-  /bin/date rix,
-  /usr/bin/tr rix,
-
-  # Needed for Developer Toolbox
-  /etc/mime.types r,
-  owner @{HOME}/.cache/thunderbird/** k,
-  owner /tmp/morfik_cache/.cache/thunderbird/** k,
-
   # Needed for system mails
   owner /var/mail/* rwlk,
+
+  # Needed for file browsing to work
+  owner @{HOME}/.{cache,config}/dconf/user rw,
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+
+  # Fix error in libglib while saving files as
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   # Spellcheck
   /usr/bin/locale rix,
 
   # System integration
-  /usr/share/applications/kde4/ r,
-  /usr/share/applications/kde4/* r,
-  owner @{HOME}/.config/mimeapps.list* rw,
-  owner @{HOME}/.local/share/mime/** rw,
-  /usr/bin/update-mime-database rPUx,
-
-  # KDE/Plasma5
-  /usr/lib/@{multiarch}/qt5/plugins/platformthemes/KDEPlasmaPlatformTheme.so mr,
-  /usr/share/plasma/look-and-feel/** r,
-  owner @{HOME}/.cache/icon-cache.kcache rw,
+  /etc/mime.types r,
+  owner @{HOME}/.config/mimeapps.list rw,
+  owner @{HOME}/.config/mimeapps.list.* rw,
 
   # KDE system keyring
-  owner @{HOME}/.config/kwalletrc r,
-  owner @{HOME}/.config/kdeglobals r,
-  /etc/xul-ext/kwallet5.js r,
   /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
   /usr/share/xul-ext/kwallet5/* r,
+  /etc/xul-ext/kwallet5.js r,
 
-  # QT
+  # QT5
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
 
-        @{PROC}/@{pid}/net/arp r,
-        @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/fd/* r,
-        @{PROC}/@{pid}/stat r,
-  owner @{PROC}/@{pid}/task/ r,
-        @{PROC}/@{pid}/task/[0-9]*/stat r,
-        @{PROC}/@{pid}/mountinfo r,
+  deny       @{PROC}/@{pid}/net/arp r,
+  deny owner @{PROC}/@{pid}/fd/ r,
+  deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
-  /sys/devices/system/cpu/** r,
-  /sys/devices/system/node/node0/meminfo r,
+  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
+  deny /sys/devices/system/cpu/present r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
-  @{PROC}/@{pid}/mounts r,
+  /dev/tty r,
+
+  # TMP files
+        /var/tmp/ r,
+        /tmp/ r,
+  owner /tmp/thunderbird_*/ rw,
+  owner /tmp/thunderbird_*/.parentlock rwk,
+  owner /tmp/thunderbird_*/lock rw,
+  owner /tmp/mozilla_audio_sample rw,
+  owner /tmp/mozilla_audio_sample-[0-9]* rw,
+  # To send e-mails
+  owner /tmp/nsemail.eml rw,
+  owner /tmp/nscopy.tmp rw,
+
+  deny /dev/ r,
+  deny /dev/shm/ r,
+
+  # for thunderbird-wrapper-helper.sh
+  #/dev/tty rw,
+  #/bin/which rix,
+  #/bin/date rix,
+  #/bin/sed rix,
+  #/usr/bin/tr rix,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

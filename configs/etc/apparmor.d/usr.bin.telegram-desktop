@@ -18,10 +18,9 @@
   #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
-
 
   /usr/bin/telegram-desktop mr,
 
@@ -36,11 +35,6 @@
   # Telegram's profile (via telegram -many -workdir ~/some/dir/)
   #owner @{HOME}/.local/share/TelegramDesktop/ rw,
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
-
-  # Allow access to webcam and mic
-  audit /dev/video0 rw,
-  audit /dev/v4l/by-path/ r,
-  audit /dev/snd/pcmC0D0c rw,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
@@ -59,7 +53,7 @@
   /var/lib/dbus/machine-id r,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/node/node[0-9]*/meminfo r,
+  /sys/devices/system/node/node[0-9]/meminfo r,
 
   # Launch external apps
   /usr/bin/exo-open rPUx,

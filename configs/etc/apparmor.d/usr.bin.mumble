@@ -14,7 +14,7 @@
 /usr/bin/mumble flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/fonts>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
   #include <abstractions/gtk>
@@ -35,7 +35,7 @@
   owner @{HOME}/.MumbleOverlayPipe rw,
   owner @{HOME}/.MumbleSocket rw,
 
-  # KDE/Plasma5
+  # KDE4
   owner @{HOME}/.kde/share/config/kdeglobals r,
 
   /etc/machine-id r,
@@ -50,4 +50,3 @@
   /usr/lib/firefox/firefox rPUx,
 
 }
-

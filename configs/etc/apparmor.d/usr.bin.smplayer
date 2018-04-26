@@ -16,7 +16,7 @@
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/nameservice>
@@ -71,6 +71,7 @@
   /usr/bin/pacmd rCx -> pacmd,
   profile pacmd {
     #include <abstractions/base>
+    #include <abstractions/audio-strict>
 
     /usr/bin/pacmd mr,
 
@@ -79,10 +80,6 @@
 
     signal (send) set=(usr2) peer=/usr/bin/pulseaudio,
     signal (send) set=(usr2) peer=unconfined,
-
-    owner /{,var/}run/user/[0-9]*/pulse/  rw,
-    owner /{,var/}run/user/[0-9]*/pulse/*  r,
-    owner /{,var/}run/user/[0-9]*/pulse/pid rk,
 
     owner @{PROC}/@{pids}/stat r,
 

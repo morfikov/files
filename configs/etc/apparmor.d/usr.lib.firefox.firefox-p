@@ -1,7 +1,6 @@
 # vim:syntax=apparmor
 # ------------------------------------------------------------------
 #
-#    Copyright (C) 2009-2011 Canonical Ltd.
 #    Copyright (C) 2015-2018 Mikhail Morfikov
 #
 #    This program is free software; you can redistribute it and/or
@@ -22,33 +21,25 @@
   #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/enchant>
-  #include <abstractions/gstreamer>
-  #include <abstractions/nvidia>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/dconf>
-  #include <abstractions/nameservice>
-  #include <abstractions/private-files>
-  #include <abstractions/user-tmp>
+#  #include <abstractions/nvidia>
+#  #include <abstractions/ssl_certs>
+
+  deny ptrace peer=@{profile_name},
 
   # potentially extremely sensitive files
+  #include <abstractions/private-files>
   audit deny @{HOME}/.gnupg/** mrwkl,
   audit deny @{HOME}/.ssh/** mrwkl,
   audit deny @{HOME}/.config/chromium/** mrwkl,
-  deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
-  audit deny /media/Kabi/.mozilla/ mrwkl,
+        deny @{HOME}/.mozilla/firefox/m-*/** mrwkl,
   audit deny @{HOME}/.{,mozilla-}thunderbird/** mrwkl,
   audit deny @{HOME}/.evolution/** mrwkl,
   audit deny @{HOME}/.config/evolution/** mrwkl,
-  audit deny @{HOME}/.kde{,4}/share/apps/kmail{,2}/** mrwkl,
-  audit deny @{HOME}/.kde{,4}/share/apps/kwallet/** mrwkl,
 
   # don't allow access to any gnome-keyring modules
   audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
-
-  # Needed when /proc is mounted with hidepid=2
-  ptrace peer=@{profile_name},
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,
@@ -61,16 +52,13 @@
   /etc/firefox/** r,
 
   # Firefox plugins & extensions
-  /usr/lib/mozilla/plugins/ r,
-  /usr/lib/mozilla/plugins/libvlcplugin.so mr,
-  /usr/share/mozilla/extensions/ r,
-  /usr/share/mozilla/extensions/**/ r,
-
-  # Fix problems with empty pages
-  owner /dev/shm/org.chromium.* rw,
+  deny /usr/lib/mozilla/plugins/ r,
+  deny /usr/lib/mozilla/plugins/libvlcplugin.so mr,
+  deny /usr/share/mozilla/extensions/ r,
+  deny /usr/share/mozilla/extensions/**/ r,
 
   # Firefox home files
-  owner @{MOZ_HOMEDIR}/ r,
+  owner @{MOZ_HOMEDIR}/ rw,
   owner @{MOZ_HOMEDIR}/** rw,
   owner @{MOZ_HOMEDIR}/**/.parentlock rwk,
   owner @{MOZ_HOMEDIR}/**/*.sqlite{,-shm} rwk,
@@ -81,6 +69,15 @@
   deny @{HOME}/.mozilla/firefox/**/ rw,
   deny @{HOME}/.mozilla/firefox/**/** rw,
 
+  # Nameservice
+  /etc/hosts r,
+  /etc/host.conf r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/gai.conf r,
+  deny @{PROC}/@{pid}/net/route r,
+
   # Torrent files
   owner /media/ r,
   owner /media/Grafi/ r,
@@ -89,53 +86,53 @@
   owner /media/Grafi/raw/** rw,
 
   # Devices
-  /sys/devices/system/cpu/** r,
-  /sys/devices/system/node/ r,
-  /sys/devices/system/node/node0/meminfo r,
-  /sys/devices/virtual/block/**/dm/name r,
-
-  # since v54.0
-  /dev/ r,
-
-  # webcam & mic
-  audit deny /dev/video0 rw,
-  audit deny /dev/v4l/by-path/ r,
-  audit deny /dev/snd/pcmC0D0c rw,
+  deny /sys/devices/system/cpu/present r,
+  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
 
   # Proc files
-  owner @{PROC}/@{pid}/cmdline r,
-  owner @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/fd/* r,
-  owner @{PROC}/@{pid}/smaps r,
-  owner @{PROC}/@{pid}/mountinfo r,
-  owner @{PROC}/@{pid}/stat r,
-  owner @{PROC}/@{pid}/statm r,
-  owner @{PROC}/@{pid}/task/ r,
-  owner @{PROC}/@{pid}/task/[0-9]*/stat r,
-
+  deny owner @{PROC}/@{pid}/fd/ r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
+  # About:memory
+  deny owner @{PROC}/@{pid}/statm r,
+  deny owner @{PROC}/@{pid}/smaps r,
   # Link Monitor (since 49.0.1)
-  @{PROC}/@{pid}/net/arp r,
+  deny       @{PROC}/@{pid}/net/arp r,
 
   # Gstreamer
+  #include <abstractions/gstreamer>
   owner @{HOME}/.cache/gstreamer*/**  rw,
   owner @{HOME}/.gstreamer*/ rw,
   owner @{HOME}/.gstreamer*/** rw,
 
-  /usr/share/glib-2.0/schemas/gschemas.compiled r,
-
-  owner /{,var/}run/user/[0-9]*/dconf/user w,
-
-  /etc/mailcap r,
+  # Dconf
+  #include <abstractions/dconf>
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
 
   # MIME types
   /etc/mime.types r,
+  /etc/mailcap r,
 
-  # KDE
-  /usr/share/applications/kde4/ r,
-  /usr/share/applications/kde4/** r,
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
+
+  # TMP files
+  /var/tmp/ r,
+  /tmp/ r,
+  owner /tmp/firefox_*/ rw,
+  owner /tmp/firefox_*/.parentlock rwk,
+  owner /tmp/firefox_*/lock rw,
+  # In order to play some streaming videos
+  owner /tmp/mozilla-temp-[0-9]* rw,
+
+  # Needed, or pages will fail to be rendered
+   deny /dev/ r,
+   deny /dev/shm/ r,
+  owner /dev/shm/org.chromium.* rw,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

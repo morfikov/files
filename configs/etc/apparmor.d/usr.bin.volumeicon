@@ -14,7 +14,7 @@
 /usr/bin/volumeicon {
   #include <abstractions/base>
   #include <abstractions/fonts>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/gtk>
 
@@ -41,8 +41,10 @@
 
   /etc/machine-id r,
 
+  #
+  /dev/snd/controlC[0-9] rw,
+
   # file_inherit
   deny /dev/tty[0-9]* rw,
-
 
 }

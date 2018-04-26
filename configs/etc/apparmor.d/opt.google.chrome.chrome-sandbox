@@ -26,7 +26,7 @@
   /opt/google/chrome/chrome-sandbox mr,
   /opt/google/chrome/chrome rPx,
 
-  /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+  /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
 
   @{PROC}/@{pids}/ r,
   owner @{PROC}/@{pid}/oom_score_adj rw,
@@ -40,7 +40,7 @@
           @{PROC}/ r,
     owner @{PROC}/@{pid}/fd/ r,
 
-    /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+    /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
 
   }
 

@@ -48,11 +48,6 @@
   # Autostart
   owner @{HOME}/.config/autostart/psi-plus.desktop rw,
 
-  # Deny access to webcam and mic
-  deny /dev/video0 rw,
-  deny /dev/v4l/by-path/ r,
-  deny /dev/snd/pcmC0D0c rw,
-
   # Silencer
   deny owner @{HOME}/ r,
 
@@ -81,15 +76,13 @@
   /usr/bin/aplay rCx -> aplay,
   profile aplay {
     #include <abstractions/base>
-    #include <abstractions/audio>
+    #include <abstractions/audio-strict>
 
     /usr/bin/aplay mr,
+    /usr/bin/pulseaudio rix,
 
     /etc/machine-id r,
     /var/lib/dbus/machine-id r,
-
-    /usr/share/alsa/** r,
-    /usr/bin/pulseaudio rix,
 
     /usr/share/psi-plus/sound/** r,
 

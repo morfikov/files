@@ -15,7 +15,7 @@
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/user-tmp>
 
   /usr/bin/ffplay mr,
@@ -31,6 +31,6 @@
   /var/lib/dbus/machine-id r,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/node/node0/meminfo r,
+  /sys/devices/system/node/node[0-9]/meminfo r,
 
 }

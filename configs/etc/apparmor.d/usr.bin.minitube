@@ -16,7 +16,8 @@
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/audio>
+  #include <abstractions/kde5-plasma5>
+  #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/dbus-session>
@@ -32,7 +33,6 @@
   owner "@{HOME}/.config/Flavio Tordini/**" rw,
   owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.lock" rwk,
   owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.*" rwl,
-
   owner "@{HOME}/.config/Flavio Tordini/.*" rwk,
   owner "@{HOME}/.local/share/Flavio Tordini/" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/**" rw,
@@ -44,6 +44,7 @@
   # Cache
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rw,
+  owner @{HOME}/.cache/ rw,
   owner "@{HOME}/.cache/Flavio Tordini/" rw,
   owner "@{HOME}/.cache/Flavio Tordini/**" rw,
 
@@ -65,14 +66,14 @@
   /usr/share/vlc/** r,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/node/node0/meminfo r,
+  /sys/devices/system/node/node[0-9]/meminfo r,
 
   /dev/tty r,
 
+  owner /{var/,}run/user/[0-9]*/#[0-9]* rw,
+
   # Proc filesystem
   owner @{PROC}/@{pid}/cmdline r,
-
-  owner @{HOME}/.config/kde.org/libphonon.conf r,
 
   # Open in the browser
   /usr/bin/xdg-open rPUx,

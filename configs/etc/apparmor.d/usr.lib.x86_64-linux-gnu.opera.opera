@@ -16,17 +16,15 @@
   #include <abstractions/X>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/gtk>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
   #include <abstractions/openssl>
 
   signal (send) set=(term) peer=/usr/lib/@{multiarch}/opera/opera_sandbox,
 
-  ptrace (trace) peer=@{profile_name},
-  ptrace (trace) peer=/usr/bin/lsb_release,
-  ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
+  deny ptrace (trace) peer=@{profile_name},
+  deny ptrace (trace) peer=/usr/bin/lsb_release,
+  deny ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
   # Needed?
   deny ptrace (trace) peer=unconfined,
 
@@ -34,6 +32,9 @@
   /usr/lib/@{multiarch}/opera/opera_sandbox rPx,
   /usr/lib/@{multiarch}/opera/opera_crashreporter rPx,
   /usr/lib/@{multiarch}/opera/opera_autoupdate krix,
+
+  /usr/bin/lsb_release rPUx,
+  /bin/which rix,
 
   #include <abstractions/ssl_certs>
   # To remove the following error:
@@ -64,6 +65,7 @@
   owner "@{HOME}/.config/opera/Extension Cookies" rwk,
 
   # Cache files
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/opera/ rw,
   owner @{HOME}/.cache/opera/**/ rw,
   owner @{HOME}/.cache/opera/**/index rw,
@@ -77,19 +79,28 @@
 
   # For importing data (bookmarks, cookies, etc) from Firefox
   deny @{HOME}/.mozilla/firefox/profiles.ini r,
-  deny @{HOME}/.mozilla/firefox/**/compatibility.ini r,
-  deny @{HOME}/.mozilla/firefox/**/.parentlock rwk,
-  deny @{HOME}/.mozilla/firefox/**/places.sqlite{,-wal,-shm} rwk,
-  deny @{HOME}/.mozilla/firefox/**/cookies.sqlite{,-wal,-shm} rwk,
-  deny @{HOME}/.mozilla/firefox/**/favicons.sqlite{,-wal,-shm} rwk,
-  deny @{HOME}/.mozilla/firefox/**/cert9.db rwk,
-  deny @{HOME}/.mozilla/firefox/**/key4.db rwk,
-  deny @{HOME}/.mozilla/firefox/**/logins.json r,
+  deny @{HOME}/.mozilla/firefox/*/compatibility.ini r,
+  deny @{HOME}/.mozilla/firefox/*/.parentlock rwk,
+  deny @{HOME}/.mozilla/firefox/*/places.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/cookies.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/favicons.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/cert9.db rwk,
+  deny @{HOME}/.mozilla/firefox/*/key4.db rwk,
+  deny @{HOME}/.mozilla/firefox/*/logins.json r,
 
   # Flash
   deny @{HOME}/.config/google-chrome/PepperFlash/**/manifest.json r,
   deny @{HOME}/.config/google-chrome/PepperFlash/latest-component-updated-flash r,
   deny @{HOME}/.config/google-chrome/PepperFlash/**/libpepflashplayer.so mr,
+
+  # Nameservice
+  # Nameservice
+  /etc/hosts r,
+  /etc/host.conf r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/gai.conf r,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/	r,
@@ -99,7 +110,7 @@
   owner /media/Kabi/download/ r,
   owner /media/Kabi/download/** rw,
 
-  # KDE/Plasma5
+  # KDE4
   owner @{HOME}/.kde/share/config/kioslaverc r,
 
   # For file browser
@@ -109,17 +120,19 @@
   /{,var/}run/user/[0-9]*/dconf/user rw,
   /etc/fstab r,
 
-        @{PROC}/ r,
-  owner @{PROC}/@{pid}/fd/ r,
-        @{PROC}/@{pid}/stat r,
-        @{PROC}/@{pids}/statm r,
-        @{PROC}/sys/kernel/yama/ptrace_scope r,
-  owner @{PROC}/@{pid}/oom_score_adj rw,
-  owner @{PROC}/@{pids}/cmdline r,
-  owner @{PROC}/@{pids}/environ r,
-  owner @{PROC}/@{pids}/task/ r,
-        @{PROC}/@{pids}/task/@{pids}/status r,
-        @{PROC}/vmstat r,
+  # Needed or opera crashes with the following error:
+  #  illegal hardware instruction
+             @{PROC}/ r,
+  deny owner @{PROC}/@{pid}/fd/ r,
+  deny       @{PROC}/@{pid}/stat r,
+  deny       @{PROC}/@{pids}/statm r,
+  deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
+  deny owner @{PROC}/@{pid}/oom_score_adj rw,
+  deny owner @{PROC}/@{pids}/cmdline r,
+  deny owner @{PROC}/@{pids}/environ r,
+  deny owner @{PROC}/@{pids}/task/ r,
+  deny       @{PROC}/@{pids}/task/@{pids}/status r,
+  deny       @{PROC}/vmstat r,
 
   # Needed or otherwise opera gets out of memory crash
   owner /dev/shm/.org.chromium.Chromium.* rw,
@@ -130,23 +143,20 @@
 
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
-  /var/lib/dbus/machine-id r,
-  /etc/machine-id r,
-
-  # webcam & mic
-  audit deny /dev/video0 rw,
-  audit deny /dev/v4l/by-path/ r,
-  audit deny /dev/snd/pcmC0D0c rw,
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # Udev enumeration
   # If needed, uncomment the following:
   # /sys/bus/ r,
   # /sys/bus/**/devices/ r,
   # /sys/devices/**/uevent r,
+  # /sys/devices/pci*/**/usb[1-3]/descriptors r,
   # /sys/devices/pci*/**/usb[1-3]/**/{descriptors,manufacturer,product,bConfigurationValue} r,
   # /sys/devices/virtual/tty/tty0/active r,
+  # /sys/class/ r,
   # /sys/class/**/ r,
-  # /{,var/}/run/udev/data/* r,
+  # /{,var/}run/udev/data/* r,
   # If not needed, deny the following:
   deny /dev/ r,
   deny /{,var/}run/udev/data/ r,
@@ -160,11 +170,15 @@
        /sys/devices/pci[0-9]*/**/{class,resource,irq} r,
        /sys/bus/pci/devices/ r,
   #
-       /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
 
-  #
-  /usr/bin/lsb_release rPUx,
-  /bin/which rix,
+  # TMP files
+  /var/tmp/ r,
+  /tmp/ r,
+  owner /tmp/.org.chromium.Chromium.* rw,
+  owner /tmp/.org.chromium.Chromium.*/ rw,
+  owner /tmp/.org.chromium.Chromium.*/SingletonSocket rw,
+  owner /tmp/.org.chromium.Chromium.*/SingletonCookie rw,
 
   # Silencer
   deny /usr/lib/@{multiarch}/opera/** w,

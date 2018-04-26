@@ -18,10 +18,9 @@
   #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/audio>
+  #include <abstractions/audio-strict>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
-
 
   /usr/bin/telegram-desktop-p mr,
 
@@ -37,11 +36,6 @@
   #owner @{HOME}/.local/share/TelegramDesktop/ rw,
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
-  # Deny access to webcam and mic
-  audit deny /dev/video0 rw,
-  audit deny /dev/v4l/by-path/ r,
-  audit deny /dev/snd/pcmC0D0c rw,
-
   /etc/ssl/openssl.cnf r,
 
   deny /dev/tty r,
@@ -53,7 +47,7 @@
   deny /var/lib/dbus/machine-id r,
 
   deny /sys/devices/system/node/ r,
-  deny /sys/devices/system/node/node[0-9]*/meminfo r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
   # Launch external apps
   /usr/bin/exo-open rPUx,
