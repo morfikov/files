@@ -1,0 +1,38 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+  # KDE/Plasma5 themes
+  /usr/lib/@{multiarch}/qt5/plugins/platformthemes/KDEPlasmaPlatformTheme.so mr,
+  /usr/share/plasma/look-and-feel/** r,
+
+  # Sound
+  owner @{HOME}/.config/kde.org/libphonon.conf r,
+
+  # Common KDE config files
+  owner @{HOME}/.config/kwalletrc r,
+  owner @{HOME}/.config/kdeglobals r,
+
+  # Many apps need these
+  /usr/share/hwdata/pnp.ids r,
+  /dev/tty r,
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  /usr/share/xsessions/*.desktop r,
+  /usr/share/knotifications5/plasma_workspace.notifyrc r,
+
+  /usr/share/kservices5/ r,
+
+  # Common cache files
+  owner @{HOME}/.cache/icon-cache.kcache rw,
+
+  # TMP files
+  owner /tmp/startkdeinitlock rwk,
