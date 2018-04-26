@@ -1,0 +1,169 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/chromium/chromium flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio-strict>
+  #include <abstractions/gtk>
+
+  deny ptrace (trace) peer=@{profile_name},
+  deny ptrace (trace) peer=/usr/bin/lsb_release,
+  # Needed?
+  deny ptrace (trace) peer=unconfined,
+
+  /usr/lib/chromium/chromium mrix,
+  /usr/lib/chromium/chrome-sandbox rPx,
+
+  /usr/bin/xdg-settings rPUx,
+  /usr/bin/lsb_release rPUx,
+
+  #include <abstractions/ssl_certs>
+  # To remove the following error:
+  #  Error initializing NSS with a persistent database
+  owner @{HOME}/.pki/nssdb/** r,
+  owner @{HOME}/.pki/nssdb/cert9.db rwk,
+  owner @{HOME}/.pki/nssdb/key4.db rwk,
+
+  # Chromium files
+  /usr/share/chromium/ r,
+  /usr/share/chromium/* r,
+
+  # Chromium home files
+  owner @{HOME}/.config/chromium/ rw,
+  owner @{HOME}/.config/chromium/** rw,
+  owner @{HOME}/.config/chromium/*/History rwk,
+  owner @{HOME}/.config/chromium/*/Favicons rwk,
+  owner @{HOME}/.config/chromium/*/previews_opt_out.db rwk,
+  owner @{HOME}/.config/chromium/*/crash_count.txt rwk,
+  owner @{HOME}/.config/chromium/*/Shortcuts rwk,
+  owner @{HOME}/.config/chromium/*/Cookies rwk,
+  owner @{HOME}/.config/chromium/*/QuotaManager rwk,
+  owner @{HOME}/.config/chromium/*/Sessions/session_*.raw.lock rwk,
+  owner @{HOME}/.config/chromium/*/autoupdate_checker.sqlite rwk,
+  owner @{HOME}/.config/chromium/*/**/LOCK rwk,
+  owner @{HOME}/.config/chromium/*/ssdfp[0-9]*.[0-9].[0-9]*.lock rwk,
+  owner @{HOME}/.config/chromium/*/databases/Databases.db rwk,
+  owner "@{HOME}/.config/chromium/*/Network Action Predictor" rwk,
+  owner "@{HOME}/.config/chromium/*/Web Data" rwk,
+  owner "@{HOME}/.config/chromium/*/Login Data" rwk,
+  owner "@{HOME}/.config/chromium/*/Origin Bound Certs" rwk,
+  owner "@{HOME}/.config/chromium/*/Extension Cookies" rwk,
+  owner "@{HOME}/.config/chromium/*/Application Cache/Index" rwk,
+  owner "@{HOME}/.config/chromium/*/Top Sites" rwk,
+  owner "@{HOME}/.config/chromium/Safe Browsing Cookies" rwk,
+  owner "@{HOME}/.config/chromium/Safe Browsing Channel IDs" rwk,
+
+  # Cache files
+  owner @{HOME}/.cache/ rw,
+  owner @{HOME}/.cache/chromium/ rw,
+  owner @{HOME}/.cache/chromium/**/ rw,
+  owner @{HOME}/.cache/chromium/**/index rw,
+  owner @{HOME}/.cache/chromium/**/*-index rw,
+  owner @{HOME}/.cache/chromium/**/[a-f0-9]*_? rw,
+  owner @{HOME}/.cache/chromium/**/Cache/todelete_* rw,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
+
+  # For importing data (bookmarks, cookies, etc) from Firefox
+  deny @{HOME}/.mozilla/firefox/profiles.ini r,
+  deny @{HOME}/.mozilla/firefox/*/compatibility.ini r,
+  deny @{HOME}/.mozilla/firefox/*/.parentlock rwk,
+  deny @{HOME}/.mozilla/firefox/*/places.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/cookies.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/favicons.sqlite{,-wal,-shm} rwk,
+  deny @{HOME}/.mozilla/firefox/*/cert9.db rwk,
+  deny @{HOME}/.mozilla/firefox/*/key4.db rwk,
+  deny @{HOME}/.mozilla/firefox/*/logins.json r,
+
+  # Nameservice
+  /etc/hosts r,
+  /etc/host.conf r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/gai.conf r,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/	r,
+  owner @{HOME}/[dD]ownload{,s}/**	rwl,
+  owner @{HOME}/[dD]esktop/	r,
+  owner @{HOME}/[dD]esktop/**	rwl,
+  owner /media/Kabi/download/ r,
+  owner /media/Kabi/download/** rw,
+
+  # Needed or chromium gets crash with the following error:
+  #  FATAL:sandbox_linux.cc(172)] Check failed: proc_fd_ >= 0 (-1 vs. 0)
+             @{PROC}/ r,
+  deny owner @{PROC}/@{pid}/fd/ r,
+  deny       @{PROC}/@{pid}/stat r,
+  deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
+  deny owner @{PROC}/@{pid}/oom_score_adj rw,
+  deny owner @{PROC}/@{pids}/task/ r,
+  deny       @{PROC}/@{pids}/task/@{pids}/stat r,
+  deny       @{PROC}/@{pids}/task/@{pids}/status r,
+  deny       @{PROC}/vmstat r,
+  deny owner @{PROC}/@{pid}/mem r,
+
+  # Needed or otherwise chromium gets out of memory crash
+   deny /dev/shm/ r,
+  owner /dev/shm/.org.chromium.Chromium.* rw,
+
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+
+  # Udev enumeration
+  # If needed, uncomment the following:
+  # /sys/bus/ r,
+  # /sys/bus/**/devices/ r,
+  # /sys/devices/**/uevent r,
+  # /sys/devices/pci*/**/usb[1-3]/descriptors r,
+  # /sys/devices/pci*/**/usb[1-3]/**/{descriptors,manufacturer,product,bConfigurationValue} r,
+  # /sys/devices/virtual/tty/tty0/active r,
+  # /sys/class/ r,
+  # /sys/class/**/ r,
+  # /{,var/}run/udev/data/* r,
+  # If not needed, deny the following:
+  deny /dev/ r,
+  deny /{,var/}run/udev/data/ r,
+  deny /{,var/}run/udev/data/* r,
+  deny /sys/bus/ r,
+  deny /sys/class/ r,
+  deny /sys/devices/ r,
+  deny /sys/devices/virtual/ r,
+  deny /sys/devices/virtual/tty/tty0/active r,
+  # These are needed, otherwise chromium has some issues related to GPU
+       /sys/devices/pci[0-9]*/**/{class,resource,irq} r,
+       /sys/bus/pci/devices/ r,
+  #
+  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
+
+  # TMP files
+  /var/tmp/ r,
+  /tmp/ r,
+  owner /tmp/.org.chromium.Chromium.*/ rw,
+  owner /tmp/.org.chromium.Chromium.*/SingletonSocket rw,
+  owner /tmp/.org.chromium.Chromium.*/SingletonCookie rw,
+
+  # Silencer
+  deny /usr/lib/chromium/extensions/ w,
+  deny /var/cache/fontconfig/ w,
+
+}

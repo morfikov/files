@@ -1,0 +1,32 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/chromium/chrome-sandbox flags=(complain) {
+  #include <abstractions/base>
+
+  capability setuid,
+  capability setgid,
+  capability sys_chroot,
+
+  capability sys_admin,
+
+  # optional
+  capability sys_resource,
+
+  /usr/lib/chromium/chrome-sandbox mr,
+  /usr/lib/chromium/chromium rPx,
+
+  @{PROC}/@{pids}/ r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
+
+}
