@@ -111,14 +111,18 @@
   #  FATAL:sandbox_linux.cc(172)] Check failed: proc_fd_ >= 0 (-1 vs. 0)
              @{PROC}/ r,
   #
+  deny       @{PROC}/vmstat r,
+  deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
        owner @{PROC}/@{pid}/fd/ r,
   deny       @{PROC}/@{pids}/stat r,
-  deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
+  deny owner @{PROC}/@{pid}/statm r,
   deny owner @{PROC}/@{pid}/oom_score_adj rw,
+  deny       @{PROC}/@{pids}/cmdline r,
+  deny owner @{PROC}/@{pids}/environ r,
        owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
-  deny       @{PROC}/vmstat r,
+  deny owner @{PROC}/@{pid}/limits r,
   deny owner @{PROC}/@{pid}/mem r,
 
   # Needed or otherwise chromium gets out of memory crash
