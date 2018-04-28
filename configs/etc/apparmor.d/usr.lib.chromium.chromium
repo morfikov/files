@@ -19,7 +19,7 @@
   #include <abstractions/audio-strict>
   #include <abstractions/gtk>
 
-  deny ptrace (trace) peer=@{profile_name},
+  ptrace (trace) peer=@{profile_name},
   deny ptrace (trace) peer=/usr/bin/lsb_release,
   # Needed?
   deny ptrace (trace) peer=unconfined,
@@ -110,12 +110,13 @@
   # Needed or chromium gets crash with the following error:
   #  FATAL:sandbox_linux.cc(172)] Check failed: proc_fd_ >= 0 (-1 vs. 0)
              @{PROC}/ r,
-  deny owner @{PROC}/@{pid}/fd/ r,
-  deny       @{PROC}/@{pid}/stat r,
+  #
+       owner @{PROC}/@{pid}/fd/ r,
+  deny       @{PROC}/@{pids}/stat r,
   deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
   deny owner @{PROC}/@{pid}/oom_score_adj rw,
-  deny owner @{PROC}/@{pids}/task/ r,
-  deny       @{PROC}/@{pids}/task/@{pids}/stat r,
+       owner @{PROC}/@{pid}/task/ r,
+  deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny       @{PROC}/vmstat r,
   deny owner @{PROC}/@{pid}/mem r,

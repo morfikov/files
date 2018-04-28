@@ -22,7 +22,7 @@
 
   signal (send) set=(term) peer=/usr/lib/@{multiarch}/opera/opera_sandbox,
 
-  deny ptrace (trace) peer=@{profile_name},
+  ptrace (trace) peer=@{profile_name},
   deny ptrace (trace) peer=/usr/bin/lsb_release,
   deny ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
   # Needed?
@@ -123,14 +123,15 @@
   # Needed or opera crashes with the following error:
   #  illegal hardware instruction
              @{PROC}/ r,
-  deny owner @{PROC}/@{pid}/fd/ r,
-  deny       @{PROC}/@{pid}/stat r,
+  #
+       owner @{PROC}/@{pid}/fd/ r,
+  deny       @{PROC}/@{pids}/stat r,
   deny       @{PROC}/@{pids}/statm r,
   deny       @{PROC}/sys/kernel/yama/ptrace_scope r,
   deny owner @{PROC}/@{pid}/oom_score_adj rw,
   deny owner @{PROC}/@{pids}/cmdline r,
   deny owner @{PROC}/@{pids}/environ r,
-  deny owner @{PROC}/@{pids}/task/ r,
+       owner @{PROC}/@{pid}/task/ r,
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny       @{PROC}/vmstat r,
 

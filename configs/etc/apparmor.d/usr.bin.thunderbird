@@ -14,9 +14,9 @@
 /usr/bin/thunderbird {
   #include <abstractions/base>
 
-
   /usr/bin/thunderbird mrix,
   /usr/lib/thunderbird/thunderbird{,-bin} rPx,
+  /usr/lib/thunderbird/thunderbird-wrapper-helper.sh rix,
 
   /bin/bash rix,
   /bin/sed rix,

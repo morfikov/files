@@ -25,7 +25,7 @@
 #  #include <abstractions/nvidia>
 #  #include <abstractions/ssl_certs>
 
-  deny ptrace peer=@{profile_name},
+  ptrace peer=@{profile_name},
 
   # potentially extremely sensitive files
   #include <abstractions/private-files>
@@ -98,10 +98,13 @@
   deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
 
   # Proc files
-  deny owner @{PROC}/@{pid}/fd/ r,
-  deny owner @{PROC}/@{pid}/mountinfo r,
+       owner @{PROC}/@{pid}/fd/ r,
   deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pids}/cmdline r,
+  deny owner @{PROC}/@{pids}/environ r,
+       owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
+       owner @{PROC}/@{pid}/mountinfo r,
   # About:memory
   deny owner @{PROC}/@{pid}/statm r,
   deny owner @{PROC}/@{pid}/smaps r,
@@ -142,6 +145,8 @@
   owner /tmp/firefox_*/lock rw,
   # In order to play some streaming videos
   owner /tmp/mozilla-temp-[0-9]* rw,
+  # Needed when addons are upgraded
+  owner /tmp/tmp-*.xpi rw,
 
   # Needed, or pages will fail to be rendered
    deny /dev/ r,

@@ -24,7 +24,7 @@
   #include <abstractions/audio-strict>
   #include <abstractions/enchant>
 
-  deny ptrace peer=@{profile_name},
+  ptrace peer=@{profile_name},
 
   # potentially extremely sensitive files
   #include <abstractions/private-files>
@@ -36,7 +36,7 @@
   audit deny @{HOME}/.config/evolution/** mrwkl,
 
   @{MOZ_LIBDIR}/thunderbird{,-bin} mrix,
-  /usr/bin/thunderbird mrix,
+  /usr/bin/thunderbird rPx,
 
   # Thunderbird files
   /usr/share/thunderbird/ r,
@@ -104,11 +104,14 @@
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
 
   deny       @{PROC}/@{pid}/net/arp r,
-  deny owner @{PROC}/@{pid}/fd/ r,
+       owner @{PROC}/@{pid}/fd/ r,
   deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pids}/cmdline r,
+  deny owner @{PROC}/@{pids}/environ r,
+       owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
-  deny owner @{PROC}/@{pid}/mountinfo r,
-  deny owner @{PROC}/@{pid}/mounts r,
+       owner @{PROC}/@{pid}/mountinfo r,
+       owner @{PROC}/@{pid}/mounts r,
 
   deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
   deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
@@ -130,16 +133,11 @@
   # To send e-mails
   owner /tmp/nsemail.eml rw,
   owner /tmp/nscopy.tmp rw,
+  # Needed when addons are upgraded
+  owner /tmp/tmp-*.xpi rw,
 
   deny /dev/ r,
   deny /dev/shm/ r,
-
-  # for thunderbird-wrapper-helper.sh
-  #/dev/tty rw,
-  #/bin/which rix,
-  #/bin/date rix,
-  #/bin/sed rix,
-  #/usr/bin/tr rix,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

@@ -46,7 +46,7 @@
   /etc/passwd r,
 
   /etc/libblockdev/conf.d/ r,
-  /etc/libblockdev/conf.d/00-default.cfg r,
+  /etc/libblockdev/conf.d/[0-9][0-9]-default.cfg r,
 
   owner @{PROC}/@{pid}/mountinfo r,
   owner @{PROC}/@{pid}/fd/ r,
@@ -81,6 +81,7 @@
 
   # USB and other block devices
   /sys/devices/pci*/**/block/**/{ro,size,removable,rotational,uevent,stat} r,
+  /sys/devices/pci*/**/usb[1-3]/uevent r,
   /sys/devices/pci*/**/usb[1-3]/**/uevent r,
   /sys/devices/pci*/**/usb[1-3]/**/block/sd[a-z]/ r,
   # For powering off USB devices

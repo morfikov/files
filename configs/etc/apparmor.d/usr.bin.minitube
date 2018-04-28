@@ -45,6 +45,7 @@
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rw,
   owner @{HOME}/.cache/ rw,
+  owner @{HOME}/.cache/#[0-9]* rw,
   owner "@{HOME}/.cache/Flavio Tordini/" rw,
   owner "@{HOME}/.cache/Flavio Tordini/**" rw,
 
