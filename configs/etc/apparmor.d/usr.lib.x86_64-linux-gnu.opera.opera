@@ -58,6 +58,7 @@
   owner @{HOME}/.config/opera/**/LOCK rwk,
   owner @{HOME}/.config/opera/ssdfp[0-9]*.[0-9].[0-9]*.lock rwk,
   owner @{HOME}/.config/opera/databases/Databases.db rwk,
+  owner @{HOME}/.config/opera/databases/chrome-extension_* rwk,
   owner "@{HOME}/.config/opera/Network Action Predictor" rwk,
   owner "@{HOME}/.config/opera/Web Data" rwk,
   owner "@{HOME}/.config/opera/Login Data" rwk,
@@ -133,7 +134,7 @@
   deny owner @{PROC}/@{pids}/cmdline r,
   deny owner @{PROC}/@{pids}/environ r,
        owner @{PROC}/@{pid}/task/ r,
-  deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
+  deny       @{PROC}/@{pids}/task/@{pids}/stat r,
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny owner @{PROC}/@{pid}/limits r,
   deny owner @{PROC}/@{pid}/mem r,
@@ -179,10 +180,24 @@
   # TMP files
   /var/tmp/ r,
   /tmp/ r,
+  # What's this for?
   owner /tmp/.org.chromium.Chromium.* rw,
   owner /tmp/.org.chromium.Chromium.*/ rw,
   owner /tmp/.org.chromium.Chromium.*/SingletonSocket rw,
   owner /tmp/.org.chromium.Chromium.*/SingletonCookie rw,
+  owner /tmp/.org.chromium.Chromium.*/manifest.json rw,
+  owner /tmp/.org.chromium.Chromium.*/_metadata/ rw,
+  owner /tmp/.org.chromium.Chromium.*/_metadata/verified_contents.json rw,
+  owner /tmp/.org.chromium.Chromium.*/crl-set rw,
+  owner /tmp/.org.chromium.Chromium.*/[0-9]*_all_crl-set-[0-9]*.data.crx3 rw,
+  # For installing/updating extensions
+  owner /tmp/scoped_dir*/ rw,
+  owner /tmp/scoped_dir*/*.crx rw,
+  owner /tmp/scoped_dir*/**/ rw,
+  owner /tmp/scoped_dir*/CRX_INSTALL/** rw,
+  owner /tmp/scoped_dir*/DECODED_MESSAGE_CATALOGS rw,
+  owner /tmp/scoped_dir*/DECODED_IMAGES rw,
+  owner /tmp/.org.chromium.Chromium.*/chrome_app_indicator_*.png rw,
 
   # Silencer
   deny /usr/lib/@{multiarch}/opera/** w,
