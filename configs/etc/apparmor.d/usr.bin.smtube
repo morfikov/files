@@ -11,16 +11,16 @@
 
 #include <tunables/global>
 
-/usr/bin/smtube {
+/usr/bin/smtube flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
+  #include <abstractions/fonts>
+  #include <abstractions/drm>
   #include <abstractions/openssl>
-  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/smtube mr,
 
@@ -29,27 +29,39 @@
   # SMTube config files
   owner @{HOME}/.config/smtube/ rw,
   owner @{HOME}/.config/smtube/* rw,
+  owner @{HOME}/.config/smtube/smtube2.ini.* rw,
   owner @{HOME}/.config/smtube/smtube2.ini.lock rwk,
+   link @{HOME}/.config/smtube/smtube2.ini.* -> /home/*/.config/smtube/#[0-9]*,
+  owner @{HOME}/.config/smtube/cookies.ini.* rw,
   owner @{HOME}/.config/smtube/cookies.ini.lock rwk,
+   link @{HOME}/.config/smtube/cookies.ini.* -> /home/*/.config/smtube/#[0-9]*,
   owner @{HOME}/.config/smtube/.* rwk,
 
   # Needed for updating YT code
   owner @{HOME}/.config/smplayer/yt.js rw,
 
   # Cache
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/gstreamer-1.0/ rw,
   owner @{HOME}/.cache/gstreamer-1.0/registry.* rw,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
-  /dev/ r,
-  /dev/tty r,
+  deny /dev/ r,
+  deny /dev/tty r,
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
 
-  /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/ r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
   # Players
   /usr/bin/mpv rPUx,

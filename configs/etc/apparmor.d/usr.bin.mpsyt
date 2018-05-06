@@ -11,20 +11,23 @@
 
 #include <tunables/global>
 
-/usr/bin/mpsyt {
+/usr/bin/mpsyt flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
   #include <abstractions/python>
-  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/ r,
   /usr/bin/mpsyt mr,
+  /usr/bin/python3.[0-6] mrix,
+
+  /sbin/ldconfig mrix,
 
   # MPV config files
   /etc/mpv/* r,
   owner @{HOME}/.config/mpv/* r,
 
   # mps-yt config files
+  owner @{HOME}/.config/mps-youtube/ rw,
   owner @{HOME}/.config/mps-youtube/* rw,
 
   # Download DIR
@@ -34,15 +37,25 @@
   /etc/inputrc r,
   /etc/mime.types r,
 
-  @{PROC}/@{pid}/fd/ r,
-  @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mounts r,
 
-  /usr/bin/python3.[0-6] mrix,
-  /sbin/ldconfig mrix,
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # TMP
+  owner /tmp/[a-z0-9]* rw,
+  owner /tmp/mpsyt-input* rw,
+  owner /tmp/mpsyt-mpv*.sock rw,
 
   # Silencer
   deny /usr/lib/python3/dist-packages/** w,
 
+  # External apps
   /usr/bin/mpv mrPUx,
   /usr/bin/ffmpeg rPUx,
   /usr/bin/ffprobe rPUx,

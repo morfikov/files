@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/pinentry-qt flags=(complain)  {
+/usr/bin/pinentry-qt flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/qt>

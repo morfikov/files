@@ -14,7 +14,6 @@
 
 /usr/bin/redshift {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
 
   /usr/bin/redshift mr,
 

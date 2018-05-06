@@ -12,16 +12,17 @@
 #include <tunables/global>
 
 /usr/bin/kglobalaccel {
-  #include <abstractions/X>
   #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/user-tmp>
+  #include <abstractions/X>
   #include <abstractions/kde>
+  #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
 
   /usr/bin/kglobalaccel mr,
 
   owner @{HOME}/.kde/share/config/kglobalshortcutsrc* rw,
+
   @{PROC}/@{pid}/cmdline r,
 
 }

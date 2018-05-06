@@ -13,9 +13,8 @@
 
 /usr/bin/kbuildsycoca4 {
   #include <abstractions/base>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/user-tmp>
   #include <abstractions/kde>
+  #include <abstractions/freedesktop.org>
 
   /usr/bin/kbuildsycoca4 mr,
 
@@ -25,5 +24,9 @@
 
   /usr/share/desktop-directories/ r,
   /usr/share/desktop-directories/* r,
+
+  owner /var/tmp/kdecache-*/ksycoca4stamp rw,
+  owner /var/tmp/kdecache-*/ksycoca*.new rw,
+  owner /var/tmp/kdecache-*/ksycoca4 rw,
 
 }

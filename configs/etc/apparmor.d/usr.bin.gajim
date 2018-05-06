@@ -40,15 +40,18 @@
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
   owner @{HOME}/[dD]esktop/ r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # Cache
-  owner /tmp/morfik_cache/.cache/gajim/ rwk,
-  owner /tmp/morfik_cache/.cache/gajim/** rwk,
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/gajim/ rwk,
   owner @{HOME}/.cache/gajim/** rwk,
+  owner /tmp/morfik_cache/.cache/gajim/ rwk,
+  owner /tmp/morfik_cache/.cache/gajim/** rwk,
 
   owner @{PROC}/@{pid}/mounts r,
   owner @{PROC}/@{pid}/fd/ r,

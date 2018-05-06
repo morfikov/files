@@ -18,24 +18,26 @@
   #include <abstractions/qt>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
+#  #include <abstractions/user-tmp>
 
   /usr/bin/nomacs mrix,
 
-  # Which files nomacs should be able to open
-  deny / r,
-  /**/ r,
-  /**/*.{JPG,JPEG,PNG,GIF,BMP} r,
-  /**/*.{jpg,jpeg,png,gif,bmp} r,
-  # Write permissions needed only when manipulating/deleting files
-  #/**/*.{JPG,JPEG,PNG,GIF,BMP}* rw,
-  #/**/*.{jpg,jpeg,png,gif,bmp}* rw,
+  # Which media files nomacs should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{IMAGE_EXT} rw,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
   owner @{HOME}/[dD]esktop/ r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # Nomacs config files
   owner @{HOME}/.config/nomacs/ rw,
@@ -47,7 +49,7 @@
   /tmp/nomacs-screenshots/ rw,
   /tmp/nomacs-screenshots/* rw,
 
-  # Metadata info
+  # Nameservice
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /etc/group r,

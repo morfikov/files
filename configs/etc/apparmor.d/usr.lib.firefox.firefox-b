@@ -21,6 +21,7 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio-strict>
+  #include <abstractions/drm>
   #include <abstractions/enchant>
 #  #include <abstractions/nvidia>
 #  #include <abstractions/ssl_certs>
@@ -64,16 +65,20 @@
   owner @{MOZ_HOMEDIR}/firefox/**/key4.db rwk,
 
   owner @{HOME}/.mozilla/firefox/profiles.ini r,
-  deny @{HOME}/.mozilla/firefox/**/ rw,
-  deny @{HOME}/.mozilla/firefox/**/** rw,
+   deny @{HOME}/.mozilla/firefox/**/ rw,
+   deny @{HOME}/.mozilla/firefox/**/** rw,
 
   # Cache
-  owner /tmp/morfik_cache/.cache/mozilla/ rw,
-  owner /tmp/morfik_cache/.cache/mozilla/** rwk,
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/mozilla/ rw,
   owner @{HOME}/.cache/mozilla/** rwk,
+  owner /tmp/morfik_cache/.cache/mozilla/ rw,
+  owner /tmp/morfik_cache/.cache/mozilla/** rwk,
+
+  # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
-  owner @{HOME}/.cache/fontconfig/** rwk,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
   # Nameservice
   /etc/hosts r,
@@ -85,12 +90,12 @@
   deny @{PROC}/@{pid}/net/route r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
-  owner /media/Kabi/download/ r,
-  owner /media/Kabi/download/** rw,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # Devices
   deny /sys/devices/system/cpu/present r,
@@ -147,6 +152,11 @@
   owner /tmp/mozilla-temp-[0-9]* rw,
   # Needed when addons are upgraded
   owner /tmp/tmp-*.xpi rw,
+  # For downloading files and opening them in other apps
+  owner /tmp/*.* rw,
+  owner /tmp/mozilla_*/ rw,
+  owner /tmp/mozilla_*/*.* rw,
+  owner /tmp/mozilla_*/*.*.part rw,
 
   # Needed, or pages will fail to be rendered
    deny /dev/ r,

@@ -16,7 +16,8 @@
 
   /usr/bin/light-locker-command mr,
 
-  # file_inherit
-  @{HOME}/.xsession-errors rw,
+  # Logs
+  owner @{HOME}/.xsession-errors rw,
+  owner /dev/log-xsession rw,
 
 }

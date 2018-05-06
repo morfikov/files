@@ -14,17 +14,22 @@
 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
+  #include <abstractions/kde5-plasma5>
+  #include <abstractions/gtk>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/gtk>
+  #include <abstractions/wayland>
 
   signal (send) set=(term) peer=/usr/lib/polkit-1/polkit-agent-helper-1,
+
+  signal (receive) set=(hup) peer=/usr/bin/xinit,
 
   /{usr/,}lib/@{multiarch}/libexec/polkit-kde-authentication-agent-1 mr,
   /{usr/,}lib/polkit-1/polkit-agent-helper-1 rPx,
 
   /{usr/,}lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
 
+  # Nameservice
   /etc/passwd r,
   /etc/nsswitch.conf r,
 
@@ -35,14 +40,28 @@
   /var/lib/dbus/machine-id r,
 
   # KDE5 abstraction
-  /usr/share/xsessions/*.desktop r,
-  /usr/share/hwdata/pnp.ids r,
   owner @{HOME}/.Xauthority r,
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
-  owner @{HOME}/.config/kdeglobals r,
-  owner @{HOME}/.cache/icon-cache.kcache rw,
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
   /dev/tty r,
+
   @{PROC}/sys/kernel/core_pattern r,
+
+  owner /tmp/#[0-9]* rw,
+  owner /tmp/polkit-kde-authentication-agent-1.* rw,
+   link /tmp/polkit-kde-authentication-agent-1.* -> /tmp/#[0-9]*,
+
+  # Logs
+  owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
+
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # File_inherit
+  deny /dev/tty[0-9]* rw,
 
 }

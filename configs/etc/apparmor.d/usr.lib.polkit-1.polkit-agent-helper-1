@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/polkit-1/polkit-agent-helper-1 flags=(complain) {
+/usr/lib/polkit-1/polkit-agent-helper-1 {
   #include <abstractions/base>
   #include <abstractions/authentication>
 

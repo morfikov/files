@@ -15,7 +15,6 @@
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
-  #include <abstractions/dconf>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/wayland>
@@ -27,6 +26,8 @@
         @{PROC}/1/cgroup r,
   owner @{PROC}/@{pid}/cgroup r,
 
+  # Dconf
+  #include <abstractions/dconf>
   /{,var/}run/user/[0-9]*/dconf/ rw,
   /{,var/}run/user/[0-9]*/dconf/user rw,
 

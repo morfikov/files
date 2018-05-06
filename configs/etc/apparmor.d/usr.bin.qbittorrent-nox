@@ -11,12 +11,11 @@
 
 #include <tunables/global>
 
-/usr/bin/qbittorrent-nox {
+/usr/bin/qbittorrent-nox flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/qt>
   #include <abstractions/openssl>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
 
   # Qbittorrent dirs/files
   /usr/bin/qbittorrent-nox mr,
@@ -24,14 +23,19 @@
   # Qbittorrent home dirs
   owner @{HOME}/.config/qBittorrent/ rw,
   owner @{HOME}/.config/qBittorrent/** rw,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
+   link @{HOME}/.config/qBittorrent/qBittorrent* -> /home/*/.config/qBittorrent/#[0-9]*,
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
-  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume.* rwl,
-  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
-  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.* rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
+   link @{HOME}/.local/share/data/qBittorrent/BT_backup/[a-f0-9]*.fastresume* -> /home/*/.local/share/data/qBittorrent/BT_backup/#[0-9]*,
+
+  # Cache dir
+  owner @{HOME}/.cache/ rw,
+  owner @{HOME}/.cache/qBittorrent/ rw,
+  owner @{HOME}/.cache/qBittorrent/** rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
   # Torrent dirs/files
   owner /media/ r,
@@ -42,10 +46,19 @@
   owner /media/Grafi/torrent/ rw,
   owner /media/Grafi/torrent/** rw,
 
-  # Cache dir
-  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
-  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
-  owner @{HOME}/.cache/qBittorrent/ rw,
-  owner @{HOME}/.cache/qBittorrent/** rw,
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # TMP
+  owner /tmp/qtsingleapp-qBitto-* rw,
+  owner /tmp/qtsingleapp-qBitto-*-lockfile rwk,
+  owner /tmp/.qBittorrent/ rw,
+  owner /tmp/.qBittorrent/#[0-9]* rw,
+  owner /tmp/.qBittorrent/[a-zA-Z]* rw,
+   link /tmp/.qBittorrent/[a-zA-Z]* -> /tmp/.qBittorrent/#[0-9]*,
 
 }

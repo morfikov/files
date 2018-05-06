@@ -11,34 +11,54 @@
 
 #include <tunables/global>
 
-/usr/bin/megasync {
+/usr/bin/megasync flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
   #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
 
-  # MegaRsync files
   /usr/bin/megasync mrix,
 
   # MegaRsync home files
-  owner "@{HOME}/.local/share/data/Mega Limited/**" rwk,
+  owner "@{HOME}/.local/share/data/Mega Limited/**" rw,
+  owner "@{HOME}/.local/share/data/Mega Limited/MEGAsync/megasync.lock" rwk,
+  owner "@{HOME}/.local/share/data/Mega Limited/MEGAsync/MEGAsync.cfg.lock" rwk,
+   link "@{HOME}/.local/share/data/Mega Limited/MEGAsync/MEGAsync.cfg.*" -> "/home/*/.local/share/data/Mega Limited/MEGAsync/#[0-9]*",
+  owner "@{HOME}/.local/share/data/Mega Limited/MEGAsync/megaclient_statecache11_transfers_*.db{,-shm}" rwk,
+  owner "@{HOME}/.local/share/data/Mega Limited/MEGAsync/megaclient_statecache11_*.db{,-shm}" rwk,
 
   # Sync folder
   owner /media/Kabi/cloud_storage/ r,
   owner /media/Kabi/cloud_storage/** rw,
 
   # Proc filesystem
-  @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/cmdline r,
 
-  # Open in the browser
+  /dev/tty r,
+
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # External apps
   /usr/bin/xdg-open rPUx,
   /usr/lib/firefox/firefox rPUx,
-
-  # Open the sync folder in the file manager
   /usr/bin/spacefm rPUx,
 
 }

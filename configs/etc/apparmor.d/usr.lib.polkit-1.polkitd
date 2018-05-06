@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/polkit-1/polkitd flags=(complain) {
+/usr/lib/polkit-1/polkitd {
   #include <abstractions/base>
 
   # Tu run as polkitd:nogroup

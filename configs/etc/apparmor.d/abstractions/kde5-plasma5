@@ -10,8 +10,10 @@
 # ------------------------------------------------------------------
 
   # KDE/Plasma5 themes
-  /usr/lib/@{multiarch}/qt5/plugins/platformthemes/KDEPlasmaPlatformTheme.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/platformthemes/KDEPlasmaPlatformTheme.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/styles/breeze.so mr,
   /usr/share/plasma/look-and-feel/** r,
+  /usr/share/color-schemes/*.colors r,
 
   # Sound
   owner @{HOME}/.config/kde.org/libphonon.conf r,
@@ -19,12 +21,13 @@
   # Common KDE config files
   owner @{HOME}/.config/kwalletrc r,
   owner @{HOME}/.config/kdeglobals r,
+  owner @{HOME}/.config/kcminputrc r,
+  owner @{HOME}/.config/Trolltech.conf r,
+  owner @{HOME}/.config/Trolltech.conf.lock rk,
+  owner @{HOME}/.kde/share/config/kdeglobals.lock rk,
 
   # Many apps need these
   /usr/share/hwdata/pnp.ids r,
-  /dev/tty r,
-  /etc/passwd r,
-  /etc/nsswitch.conf r,
 
   /usr/share/xsessions/*.desktop r,
   /usr/share/knotifications5/plasma_workspace.notifyrc r,

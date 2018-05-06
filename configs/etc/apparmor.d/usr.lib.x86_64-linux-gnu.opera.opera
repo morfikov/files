@@ -14,11 +14,12 @@
 /usr/lib/@{multiarch}/opera/opera flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/audio-strict>
   #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/audio-strict>
   #include <abstractions/openssl>
+  #include <abstractions/drm>
 
   signal (send) set=(term) peer=/usr/lib/@{multiarch}/opera/opera_sandbox,
 
@@ -104,12 +105,12 @@
   /etc/gai.conf r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
-  owner /media/Kabi/download/ r,
-  owner /media/Kabi/download/** rw,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # KDE4
   owner @{HOME}/.kde/share/config/kioslaverc r,

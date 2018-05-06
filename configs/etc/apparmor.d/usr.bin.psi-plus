@@ -16,14 +16,19 @@
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/enchant>
   #include <abstractions/fonts>
-  #include <abstractions/ssl_certs>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/enchant>
+  #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/psi-plus mr,
+
+  /usr/bin/lsb_release rPUx,
+  /usr/bin/xdg-open rPUx,
+
+  # Needed for GPG/PGP support
+  /usr/bin/gpg rPUx,
 
   # PSI files
   /usr/share/psi-plus/ r,
@@ -38,6 +43,7 @@
   owner @{HOME}/.config/#[0-9]* rw,
 
   # Cache files
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/fontconfig/** r,
   owner @{HOME}/.cache/psi+/ rw,
   owner @{HOME}/.cache/psi+/** rw,
@@ -48,29 +54,35 @@
   # Autostart
   owner @{HOME}/.config/autostart/psi-plus.desktop rw,
 
-  # Silencer
-  deny owner @{HOME}/ r,
-
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   /etc/debian_version r,
 
   /dev/tty r,
 
-  # Needed for GPG/PGP support
-  /usr/bin/gpg rPUx,
-
   owner @{PROC}/@{pid}/cmdline r,
 
-  /usr/bin/lsb_release rPUx,
-  /usr/bin/xdg-open rPUx,
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
-  # Needed for some plugins
-  /etc/ssl/openssl.cnf r,
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # Silencer
+  deny owner @{HOME}/ r,
 
   # Needed for playing sound events
   /usr/bin/aplay rCx -> aplay,

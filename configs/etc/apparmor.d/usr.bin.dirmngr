@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/dirmngr {
+/usr/bin/dirmngr flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/gnupg>
   #include <abstractions/ssl_certs>
@@ -22,7 +22,7 @@
   /tmp/apt-key-gpghome.*/ rw,
   /tmp/apt-key-gpghome.*/** rw,
   /etc/hosts r,
-  @{PROC}/@{pid}/task/[0-9]*/comm rw,
+  owner @{PROC}/@{pid}/task/@{pids}/comm rw,
 
   # conn fd=5 (?)
   /etc/resolv.conf r,

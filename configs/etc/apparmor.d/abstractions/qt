@@ -9,27 +9,30 @@
 #
 # ------------------------------------------------------------------
 
-  /usr/share/qt[4,5]/** r,
-  /{usr/,}lib/@{multiarch}/qt[4,5]/plugins/**  mr,
-
-  owner @{HOME}/.config/kdeglobals r,
-  owner @{HOME}/.cache/icon-cache.kcache rw,
-  /usr/share/color-schemes/** r,
-  /usr/share/plasma/look-and-feel/** r,
+  /usr/share/themes/ r,
   /usr/share/themes/** r,
+
+  /usr/share/color-schemes/*.colors r,
+  /usr/share/plasma/look-and-feel/** r,
+
+  /usr/share/qt[4,5]/** r,
 
   /etc/xdg/QtProject/qtlogging.ini r,
 
   owner @{HOME}/.config/QtProject.conf* rw,
   owner @{HOME}/.config/QtProject.conf.lock rwk,
-  owner @{HOME}/.config/QtProject.conf.* rwl,
+  owner @{HOME}/.config/QtProject.conf.* rw,
+   link @{HOME}/.config/QtProject.conf.* -> /home/*/.config/#[0-9]*,
 
   # To configure Qt5 settings (theme, font, icons, etc.) under DE/WM without Qt integration
   owner @{HOME}/.config/qt5ct/ r,
   owner @{HOME}/.config/qt5ct/** r,
 
+  owner @{HOME}/.cache/icon-cache.kcache rw,
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
+   link @{HOME}/.cache/qt_compose_cache_little_endian_* -> /home/*/.cache/#[0-9]*,
 
+  owner @{HOME}/.config/kdeglobals r,
   owner @{HOME}/.config/Trolltech.conf rwk,
 
   # Many QT apps use this file
@@ -40,3 +43,4 @@
 
   # X errors
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,

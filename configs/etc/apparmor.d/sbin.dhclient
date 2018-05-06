@@ -11,15 +11,15 @@
 
 #include <tunables/global>
 
-/sbin/dhclient {
+/sbin/dhclient flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
   #include <abstractions/openssl>
 
-#  capability net_bind_service,
+  capability net_bind_service,
   capability net_raw,
 #  capability dac_override,
-#  capability net_admin,
+  capability net_admin,
+  capability sys_module,
 
 #  network packet,
 #  network raw,
@@ -36,8 +36,15 @@
   /etc/dhcp/ r,
   /etc/dhcp/** r,
 
-  /var/lib/dhcp{,3}/dhclient* rwl,
-  /{,var/}run/dhclient*.pid rwl,
-  /{,var/}run/dhclient*.lease* rwl,
+  /var/lib/dhcp{,3}/dhclient* rw,
+  /{,var/}run/dhclient*.pid rw,
+  /{,var/}run/dhclient*.lease* rw,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/default/nss r,
+  /etc/services r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
 }

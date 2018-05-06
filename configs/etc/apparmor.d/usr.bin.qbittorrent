@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/qbittorrent {
+/usr/bin/qbittorrent flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
@@ -19,8 +19,7 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/openssl>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
   #include <abstractions/wayland>
 
   # Qbittorrent files
@@ -29,16 +28,19 @@
   # Qbittorrent home dirs
   owner @{HOME}/.config/qBittorrent/ rw,
   owner @{HOME}/.config/qBittorrent/** rw,
+  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
+  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
+   link @{HOME}/.config/qBittorrent/qBittorrent* -> /home/*/.config/qBittorrent/#[0-9]*,
   owner @{HOME}/.local/share/data/qBittorrent/ rw,
   owner @{HOME}/.local/share/data/qBittorrent/** rw,
-  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume.* rwl,
-  owner @{HOME}/.local/share/data/qBittorrent/BT_backup/*.fastresume rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent_new.conf.lock rwk,
-  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.* rwl,
-  owner @{HOME}/.config/qBittorrent/qBittorrent-data.conf.lock rwk,
+   link @{HOME}/.local/share/data/qBittorrent/BT_backup/[a-f0-9]*.fastresume* -> /home/*/.local/share/data/qBittorrent/BT_backup/#[0-9]*,
 
-  owner @{HOME}/.config/.* rw,
+  # Cache dir
+  owner @{HOME}/.cache/ rw,
+  owner @{HOME}/.cache/qBittorrent/ rw,
+  owner @{HOME}/.cache/qBittorrent/** rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
+  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
   # Torrent files
   owner /media/ r,
@@ -51,18 +53,12 @@
   owner @{HOME}/Desktop/ r,
   owner @{HOME}/Desktop/* r,
 
-  # Cache dir
-  owner /tmp/morfik_cache/.cache/qBittorrent/ rw,
-  owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
-  owner @{HOME}/.cache/qBittorrent/ rw,
-  owner @{HOME}/.cache/qBittorrent/** rw,
-
   # GeoIP settings
   /usr/share/GeoIP/GeoIP.dat r,
 
   # Proc files
-  @{PROC}/@{pid}/cmdline r,
-  @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/mounts r,
 
   /dev/disk/by-label/ r,
 
@@ -71,6 +67,27 @@
   # KDE/Plasma5
   /usr/share/kservices5/ r,
   /usr/share/kservices5/*.protocol r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # TMP
+  owner /tmp/qtsingleapp-qBitto-* rw,
+  owner /tmp/qtsingleapp-qBitto-*-lockfile rwk,
+  owner /tmp/.qBittorrent/ rw,
+  owner /tmp/.qBittorrent/#[0-9]* rw,
+  owner /tmp/.qBittorrent/[a-zA-Z]* rw,
+   link /tmp/.qBittorrent/[a-zA-Z]* -> /tmp/.qBittorrent/#[0-9]*,
 
   # Launch external apps
   /usr/bin/python*  rPUx,

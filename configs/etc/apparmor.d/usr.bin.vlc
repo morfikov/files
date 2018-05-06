@@ -11,34 +11,36 @@
 
 #include <tunables/global>
 
-/usr/bin/vlc {
+/usr/bin/vlc flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/audio-strict>
+  #include <abstractions/drm>
   #include <abstractions/nvidia>
 
   /usr/bin/vlc rmix,
 
-  # Which files VLC should be able to open
-  / r,
-  /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T,WMA} rw,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t,wma} rw,
-  /**/*.{m2ts,m2t,part} r,
-  /**/*.{TXT,SRT,txt,srt} r,
-  /**/*.{PLS,M3U,pls,m3u} r,
+  # Which media files VLC should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.@{TEXT_EXT} rw,
+  owner /{home,media}/**.@{OTHER_MEDIA_EXT} rw,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/node/node[0-9]*/meminfo r,
+  /sys/devices/system/node/node[0-9]/meminfo r,
 
   # VLC files
   /usr/share/vlc/** r,
@@ -47,12 +49,14 @@
   owner @{HOME}/.config/vlc/ rw,
   owner @{HOME}/.config/vlc/* rw,
   owner @{HOME}/.config/vlc/.* rwk,
-  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.* rwl,
+  owner @{HOME}/.config/vlc/vlc-qt-interface.conf.* rw,
+   link @{HOME}/.config/vlc/vlc-qt-interface.conf.* -> /home/*/.config/vlc/#[0-9]*,
   owner @{HOME}/.config/vlc/vlc-qt-interface.conf.lock rwk,
   owner @{HOME}/.local/share/vlc/ rw,
   owner @{HOME}/.local/share/vlc/* rw,
 
   # Art Cache
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/vlc/ rw,
   owner @{HOME}/.cache/vlc/** rw,
 
@@ -66,6 +70,24 @@
   deny /{usr/,}lib/@{multiarch}/vlc/** w,
 
   # Be able to turn off the screensaver while playing movies
-  /usr/bin/xdg-screensaver rPUx,
+  /usr/bin/xdg-screensaver rCx -> screensaver,
+  profile screensaver {
+    #include <abstractions/base>
+
+    /usr/bin/xdg-screensaver mr,
+
+    /bin/dash rix,
+    /bin/mv rix,
+    /bin/grep rix,
+    /bin/hostname rix,
+    /bin/sed rix,
+    /bin/which rix,
+    /usr/bin/dbus-send rix,
+    /usr/bin/xset rix,
+
+    owner @{HOME}/.Xauthority r,
+    owner /tmp/xauth-[0-9]*-_[0-9] r,
+
+  }
 
 }

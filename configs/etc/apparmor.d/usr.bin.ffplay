@@ -11,21 +11,24 @@
 
 #include <tunables/global>
 
-/usr/bin/ffplay {
+/usr/bin/ffplay flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio-strict>
-  #include <abstractions/user-tmp>
 
   /usr/bin/ffplay mr,
 
-  # Which files ffplay should be able to open
-  / r,
-  /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} r,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} r,
-  /**/*.{TXT,SRT,txt,srt} r,
+  # Which media files ffplay should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.@{TEXT_EXT} rw,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,

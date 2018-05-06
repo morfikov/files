@@ -20,24 +20,22 @@
 
   /usr/bin/ristretto mr,
 
-  # Which files ristretto should be able to open
-  / r,
-  /**/ r,
-  /**/*.{JPG,JPEG,PNG,GIF,BMP} r,
-  /**/*.{jpg,jpeg,png,gif,bmp} r,
-  # Write permissions needed only when manipulating/deleting files
-  #/**/*.{JPG,JPEG,PNG,GIF,BMP}* rw,
-  #/**/*.{jpg,jpeg,png,gif,bmp}* rw,
-
-  # Silencer
-  deny /**/*mp4.0* r,
-  deny /**/*avi.0* r,
+  # Which media files ristretto should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{IMAGE_EXT} rw,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
   owner @{HOME}/[dD]esktop/ r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   #
   /etc/magic r,
@@ -55,7 +53,7 @@
   /**/.Trash-[0-9]*/ rw,
   /**/.Trash-[0-9]*/** rw,
 
-  # Set as wallpaper
+  # Set image as a wallpaper
   /usr/bin/gsettings rPUx,
 
 }

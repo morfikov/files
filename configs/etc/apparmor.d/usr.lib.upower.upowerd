@@ -23,7 +23,7 @@
   /var/lib/upower/history-*.dat rw,
   /var/lib/upower/history-*.dat.* rw,
 
-  # All of these are needed?
+  # Are all of these needed?
   /dev/bus/usb/ r,
   /dev/input/event* r,
   /sys/bus/ r,

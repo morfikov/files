@@ -14,23 +14,30 @@
 /usr/bin/knotify4 {
   #include <abstractions/base>
   #include <abstractions/kde>
+  #include <abstractions/gtk>
   #include <abstractions/audio-strict>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/user-tmp>
+  #include <abstractions/fonts>
 
   /usr/bin/knotify4 mr,
 
   /usr/bin/kbuildsycoca4 rPUx,
 
+  /{usr/,}lib/@{multiarch}/qt4/plugins/phonon_backend/phonon_vlc.so mr,
+
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mounts r,
 
+  /usr/share/X11/XErrorDB r,
+
   # Silencer
   deny /{usr/,}lib/@{multiarch}/vlc/plugins/* w,
-  deny /{,var/}run/udev/data/** r,
-  deny /sys/devices/** r,
+
+  # Udev silencer
   deny /sys/bus/ r,
   deny /sys/class/ r,
+  deny /sys/devices/ r,
+  deny /sys/devices/system/node/ r,
+  deny /{,var/}run/udev/data/* r,
 
 }

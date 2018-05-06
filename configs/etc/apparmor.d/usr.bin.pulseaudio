@@ -53,12 +53,13 @@
 
   /{,var/}run/systemd/users/[0-9]* r,
 
-  @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/stat r,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
 
+  # Nameservice
   /etc/hosts r,
   /etc/host.conf r,
   /etc/resolv.conf r,
@@ -69,7 +70,9 @@
   /tmp/orcexec.* mrw,
   /{,var/}run/user/[0-9]*/orcexec.* mrw,
 
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   # Needed when /proc is mounted with hidepid=2
   /tmp/pulse-*/pid rwk,

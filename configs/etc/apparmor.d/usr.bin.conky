@@ -13,9 +13,9 @@
 
 /usr/bin/conky {
   #include <abstractions/base>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
+  #include <abstractions/fonts>
+  #include <abstractions/ssl_certs>
 
   signal (receive) set=(hup) peer=/usr/bin/xinit,
 
@@ -109,6 +109,7 @@
 
   # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   /dev/tty rw,
 
@@ -124,6 +125,13 @@
   owner /tmp/xauth-[0-9]*-_[0-9] r,
 
   /usr/share/X11/XErrorDB r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
   # Silencer
   deny @{HOME} r,

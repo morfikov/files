@@ -12,13 +12,12 @@
 #include <tunables/global>
 
 /usr/bin/kdeinit4 {
-  #include <abstractions/X>
   #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/X>
   #include <abstractions/kde>
+  #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
 
   # Needed for configuring Phonon
   #include <abstractions/audio-strict>
@@ -53,18 +52,30 @@
 
   /etc/timezone r,
 
+  owner /var/tmp/kdecache-*/http/[a-f0-9]* rw,
+  owner /var/tmp/kdecache-*/http/scoreboard rw,
+
+  # Nameservice
+  deny /etc/nsswitch.conf r,
+  deny /etc/service r,
+  deny /etc/passwd r,
+  deny /etc/group r,
+  deny /etc/services r,
+  deny /etc/hosts r,
+  deny /etc/host.conf r,
+  deny /etc/resolv.conf r,
+  deny /etc/gai.conf r,
+  deny /etc/default/nss r,
+
   # Silencer
   deny @{HOME}/ r,
   @{HOME}/avatar/ r,
   deny /tftpboot r,
   deny /boot/vmlinuz-* r,
 
-
   /bin/dash rCx -> dash,
   profile dash {
     #include <abstractions/base>
-    #include <abstractions/nameservice>
-    #include <abstractions/user-tmp>
     #include <abstractions/kde>
 
     /bin/dash mrix,
@@ -82,6 +93,10 @@
     owner @{HOME}/.kde/share/config/phonondevicesrc* rw,
     owner @{HOME}/.kde/share/config/phonondevicesrc.lock rwk,
 
+    # Nameservice
+    deny /etc/nsswitch.conf r,
+    deny /etc/passwd r,
+
   }
 
   # To generate the crash log info in Amarok
@@ -89,7 +104,6 @@
   profile gdb flags=(attach_disconnected) {
     #include <abstractions/base>
     #include <abstractions/python>
-    #include <abstractions/user-tmp>
 
     /usr/bin/gdb mr,
     /usr/share/glib-2.0/gdb/ r,

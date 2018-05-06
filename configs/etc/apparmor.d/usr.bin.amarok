@@ -11,15 +11,15 @@
 
 #include <tunables/global>
 
-/usr/bin/amarok {
+/usr/bin/amarok flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/audio-strict>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
   #include <abstractions/kde>
+  #include <abstractions/qt>
+  #include <abstractions/gtk>
+  #include <abstractions/audio-strict>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
 
   signal (send) set=(term) peer=/usr/bin/kdeinit4,
   signal (receive) set=(stop,cont) peer=/usr/bin/kdeinit4,
@@ -37,37 +37,47 @@
   /usr/bin/lsb_release rPUx,
 
   /usr/lib/kde4/libexec/drkonqi rix,
+
   ptrace (trace) peer=@{profile_name},
 
-  # Which files Amarok should be able to open
-  / r,
-  /**/ r,
-  /**/*.{MP3,WAV,WMA} rw,
-  /**/*.{mp3,wav,wma} rw,
-  /**/*.{JPG,JPEG,PNG,jpg,jpeg,png} rw,
-  /**/*.{PLS,M3U,pls,m3u} rw,
+  # Which media files Amarok should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{IMAGE_EXT} rw,
+  owner /{home,media}/**.@{OTHER_MEDIA_EXT} rw,
 
   # Amarok home files
-  owner @{HOME}/.kde/share/apps/amarok/** rw,
-  owner @{HOME}/.kde/share/apps/amarok/mysqle/aria_log_control rwk,
+  owner @{HOME}/.kde{,4}/share/apps/amarok/** rw,
+  owner @{HOME}/.kde{,4}/share/apps/amarok/mysqle/aria_log_control rwk,
 
-  owner @{HOME}/.kde/share/apps/knewstuff3/amarok.knsregistry rw,
-  owner @{HOME}/.kde/share/config/amarokrc* rw,
-  owner @{HOME}/.kde/share/config/amarok_homerc* rw,
-  owner @{HOME}/.kde/share/config/amarok-appletsrcm* rw,
-  owner @{HOME}/.kde/share/config/amarok-appletsrc* rw,
+  owner @{HOME}/.kde{,4}/share/apps/knewstuff3/amarok.knsregistry rw,
+  owner @{HOME}/.kde{,4}/share/config/amarokrc* rw,
+  owner @{HOME}/.kde{,4}/share/config/amarok_homerc* rw,
+  owner @{HOME}/.kde{,4}/share/config/amarok-appletsrcm* rw,
+  owner @{HOME}/.kde{,4}/share/config/amarok-appletsrc* rw,
 
-  owner @{HOME}/.kde/share/config/kcookiejarrc r,
-  owner @{HOME}/.kde/share/config/kio_httprc r,
-  owner @{HOME}/.kde/share/config/kioslaverc r,
-  owner @{HOME}/.kde/share/config/ktimezonedrc r,
+  owner @{HOME}/.kde{,4}/share/config/kcookiejarrc r,
+  owner @{HOME}/.kde{,4}/share/config/kio_httprc r,
+  owner @{HOME}/.kde{,4}/share/config/kioslaverc r,
+  owner @{HOME}/.kde{,4}/share/config/ktimezonedrc r,
+
+  # Phonon
+  /{usr/,}lib/@{multiarch}/qt4/plugins/phonon_backend/phonon_vlc.so mr,
 
   # VLC backend
-  owner /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* rw,
+  /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* r,
   /usr/share/vlc/** r,
 
   # Cache for art images
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/**/ rw,
+  owner @{HOME}/.kde{,4}/share/apps/amarok/albumcovers/cache/** rw,
+  owner /tmp/morfik_cache/.kde{,4}/share/apps/amarok/albumcovers/cache/** rw,
 
   owner @{HOME}/.local/share/Trash/ rw,
   owner @{HOME}/.local/share/Trash/** rw,
@@ -84,31 +94,55 @@
   owner @{PROC}/@{pid}/loginuid r,
   owner @{PROC}/@{pid}/mounts r,
 
+  # TMP
+  owner /tmp/#sql_*.{MAI,MAD} rw,
+  owner /tmp/qipc_systemsem_AmarokScannerMemory[a-f0-9]* rw,
+  owner /tmp/qipc_sharedmemory_AmarokScannerMemory[a-f0-9]* rw,
+  owner /tmp/qt_temp.* rw,
+
+  # Nameservice
+  deny /etc/nsswitch.conf r,
+  deny /etc/service r,
+  deny /etc/passwd r,
+  deny /etc/group r,
+  deny /etc/services r,
+  deny /etc/hosts r,
+  deny /etc/host.conf r,
+  deny /etc/resolv.conf r,
+  deny /etc/gai.conf r,
+  deny /etc/default/nss r,
+
   # Silencer
   deny /tftpboot r,
   deny /boot/vmlinuz-* r,
-  deny /{,var/}run/udev/data/** r,
-  deny /sys/devices/** r,
+
+  # Udev silencer
+  deny /sys/bus/ r,
+  deny /sys/class/ r,
+  deny /sys/devices/ r,
+  deny /sys/devices/virtual/net/**/{uevent,type} r,
+  deny /sys/devices/pci[0-9]*/**/usb[1-3]/**/{manufacturer,product,uevent} r,
+  deny /sys/devices/system/node/ r,
+  deny /{,var/}run/udev/data/* r,
 
   /bin/dash rCx -> dash,
-  profile dash {
+  profile dash flags=(complain) {
     #include <abstractions/base>
-    #include <abstractions/nameservice>
-    #include <abstractions/user-tmp>
     #include <abstractions/kde>
 
     /bin/dash mrix,
 
     /usr/lib/kde4/libexec/lnusertemp rix,
 
+    owner /tmp/kde-*/ rw,
+
   }
 
   # To generate the crash log info in Amarok
   /usr/bin/gdb rCx -> gdb,
-  profile gdb {
+  profile gdb flags=(complain) {
     #include <abstractions/base>
     #include <abstractions/python>
-    #include <abstractions/user-tmp>
 
     /usr/bin/gdb mr,
     /usr/share/glib-2.0/gdb/ r,
@@ -135,9 +169,7 @@
    /usr/share/gcc-7/python/** r,
 
     # Silencer
-    deny /usr/share/gdb/python/** w,
-    deny /usr/share/gcc-7/python/** w,
-    deny /usr/share/glib-2.0/gdb/** w,
+    deny /usr/share/** w,
 
   }
 

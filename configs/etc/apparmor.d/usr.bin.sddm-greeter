@@ -14,9 +14,11 @@
 /usr/bin/sddm-greeter flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
+  #include <abstractions/fonts>
+
+  # Needed or there will be a blank screen
+  #include <abstractions/drm>
 
   /usr/bin/sddm-greeter mr,
 
@@ -73,5 +75,14 @@
   /var/lib/dbus/machine-id r,
 
   /proc/sys/kernel/core_pattern r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/default/nss r,
+  #/etc/resolv.conf r,
+  #/etc/host.conf r,
+  #/etc/hosts r,
+  #/etc/gai.conf r,
+  /etc/passwd r,
 
 }

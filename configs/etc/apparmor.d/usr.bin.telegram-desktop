@@ -19,8 +19,8 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio-strict>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/telegram-desktop mr,
 
@@ -36,24 +36,48 @@
   #owner @{HOME}/.local/share/TelegramDesktop/ rw,
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
+  # What's this for?
+  deny owner @{HOME}/.cache/#[0-9]* rw,
+
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
   owner @{HOME}/[dD]esktop/ r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
-  /etc/ssl/openssl.cnf r,
+  deny /dev/tty r,
 
-  /dev/tty r,
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/mountinfo r,
 
-  owner @{PROC}/@{pids}/cmdline r,
-  owner @{PROC}/@{pids}/mountinfo r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
-  /sys/devices/system/node/ r,
-  /sys/devices/system/node/node[0-9]/meminfo r,
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # Dconf
+  #include <abstractions/dconf>
+  /{,var/}run/user/[0-9]*/dconf/ rw,
+  /{,var/}run/user/[0-9]*/dconf/user rw,
+
+  # Needed when saving files as, or otherwise the app crashes
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   # Launch external apps
   /usr/bin/exo-open rPUx,

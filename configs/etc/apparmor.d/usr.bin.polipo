@@ -13,7 +13,6 @@
 
 /usr/bin/polipo {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
 
   /etc/polipo/* r,
 
@@ -25,5 +24,8 @@
   owner /var/cache/polipo/* rw,
   owner @{HOME}/.polipo-cache/ rw,
   owner @{HOME}/.polipo-cache/* rw,
+
+  # Nameservice
+  /etc/resolv.conf r,
 
 }

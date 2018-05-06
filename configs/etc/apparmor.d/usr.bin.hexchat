@@ -13,12 +13,12 @@
 
 /usr/bin/hexchat flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
+  #include <abstractions/gtk>
   #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
   #include <abstractions/enchant>
   #include <abstractions/python>
-  #include <abstractions/fonts>
-  #include <abstractions/gtk>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/hexchat mr,
 
@@ -40,6 +40,14 @@
 
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/mountinfo r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+  /etc/passwd r,
 
   # External apps
   /usr/lib/firefox/firefox rPUx,

@@ -14,11 +14,10 @@
 
 #include <tunables/global>
 
-/usr/lib/thunderbird/thunderbird{,-bin} {
+/usr/lib/thunderbird/thunderbird{,-bin} flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
-  #include <abstractions/kde5-plasma5>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/audio-strict>
@@ -56,11 +55,24 @@
   owner @{MOZ_HOMEDIR}/**/*.sqlite{,-shm} rwk,
 
   # Cache
+  owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/thunderbird/ rw,
   owner @{HOME}/.cache/thunderbird/** rwk,
-  owner @{HOME}/.cache/fontconfig/** rwk,
   owner /tmp/morfik_cache/.cache/thunderbird/ rw,
   owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
+
+  # User downloads
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # Nameservice
   /etc/hosts r,
@@ -71,14 +83,14 @@
   /etc/gai.conf r,
   deny @{PROC}/@{pid}/net/route r,
 
-  # User downloads
-  owner @{HOME}/[dD]ownload{,s}/ r,
-  owner @{HOME}/[dD]ownload{,s}/** rwl,
-  owner @{HOME}/[dD]esktop/ r,
-  owner @{HOME}/[dD]esktop/** rwl,
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
 
   # Needed for system mails
-  owner /var/mail/* rwlk,
+  owner /var/mail/* rwk,
 
   # Needed for file browsing to work
   owner @{HOME}/.{cache,config}/dconf/user rw,
@@ -99,11 +111,20 @@
   /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
   /usr/share/xul-ext/kwallet5/* r,
   /etc/xul-ext/kwallet5.js r,
+  owner @{HOME}/.config/kwalletrc r,
+
+  # KDE/Plasma5
+  owner @{HOME}/.config/kdeglobals r,
 
   # QT5
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
 
-  deny       @{PROC}/@{pid}/net/arp r,
+  deny /sys/devices/system/cpu/present r,
+  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
+
        owner @{PROC}/@{pid}/fd/ r,
   deny owner @{PROC}/@{pid}/stat r,
   deny owner @{PROC}/@{pids}/cmdline r,
@@ -112,10 +133,8 @@
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
        owner @{PROC}/@{pid}/mountinfo r,
        owner @{PROC}/@{pid}/mounts r,
+  deny       @{PROC}/@{pid}/net/arp r,
 
-  deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
-  deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
-  deny /sys/devices/system/cpu/present r,
 
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
@@ -135,9 +154,21 @@
   owner /tmp/nscopy.tmp rw,
   # Needed when addons are upgraded
   owner /tmp/tmp-*.xpi rw,
+  # Loading remote content in a message (images, etc)
+  owner /tmp/nsma rw,
+  #owner /tmp/nsma-[0-9]* rw,
+  # Save attachments as
+  owner /tmp/* rw,
+  owner /tmp/mozilla_*/*.part rw,
 
   deny /dev/ r,
   deny /dev/shm/ r,
+
+  deny /etc/fstab r,
+
+  # Logs
+  owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

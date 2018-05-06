@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/ssh-agent flags=(complain) {
+/usr/bin/ssh-agent {
   #include <abstractions/base>
   #include <abstractions/openssl>
 

@@ -10,66 +10,61 @@
 #
 # ------------------------------------------------------------------
 
-#include <abstractions/base>
-#include <abstractions/fonts>
-#include <abstractions/X>
-#include <abstractions/qt>
-#include <abstractions/gtk>
-#include <abstractions/freedesktop.org>
-#include <abstractions/xdg-desktop>
-#include <abstractions/user-tmp>
+  # kde4
+  /usr/lib/kde4/*.so mr,
+  /usr/lib/kde4/plugins/*/*.so mr,
+  /usr/lib/kde4/plugins/*/ r,
+  /usr/share/kde4/ r,
+  /usr/share/kde4/** r,
+  /usr/share/applications/kde4/ r,
+  /usr/share/applications/kde4/* r,
+  /usr/lib/attica_kde.so mr,
 
-# kde4
-/usr/lib/kde4/*.so mr,
-/usr/lib/kde4/plugins/*/*.so mr,
-/usr/lib/kde4/plugins/*/ r,
-/usr/share/kde4/ r,
-/usr/share/kde4/** r,
-/usr/share/applications/kde4/ r,
-/usr/share/applications/kde4/* r,
-/usr/lib/attica_kde.so mr,
+  # Create home KDE directory structure
+  owner @{HOME}/.kde{,4}/ rw,
+  owner @{HOME}/.kde{,4}/**/ rw,
+  owner @{HOME}/.config/kde.org/ rw,
+  owner @{HOME}/.config/kde.org/**/ rw,
 
-# Create home KDE directory structure
-owner @{HOME}/.kde{,4}/ rw,
-owner @{HOME}/.kde{,4}/**/ rw,
-owner @{HOME}/.config/kde.org/ rw,
-owner @{HOME}/.config/kde.org/**/ rw,
+  # TMP files
+  owner @{HOME}/.kde{,4}/tmp-* rw,
+  owner @{HOME}/.kde{,4}/tmp-*/** rwk,
+  owner @{HOME}/.kde{,4}/cache-* rw,
+  owner @{HOME}/.kde{,4}/cache-*/** rw,
+  owner @{HOME}/.kde{,4}/socket-* rwk,
+  owner @{HOME}/.kde{,4}/socket-*/* rw,
+  owner /{,var/}run/user/[0-9]*/ksocket-*/ rw,
+  owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
+  owner /var/tmp/ r,
+  owner /var/tmp/kdecache-*/ rw,
+  owner /var/tmp/kdecache-*/**/ rw,
+  owner /var/tmp/kdecache-*/*.kcache rw,
+  owner /var/tmp/kdecache-*/plasma-* rw,
+  owner /var/tmp/kdecache-*/ksycoca4 r,
+  owner @{HOME}/.cache/icon-cache.kcache rw,
 
-# TMP files
-owner @{HOME}/.kde{,4}/tmp-* rw,
-owner @{HOME}/.kde{,4}/tmp-*/** rwk,
-owner @{HOME}/.kde{,4}/cache-* rw,
-owner @{HOME}/.kde{,4}/cache-*/** rw,
-owner @{HOME}/.cache/icon-cache.kcache rw,
-owner @{HOME}/.kde{,4}/socket-* rwk,
-owner @{HOME}/.kde{,4}/socket-*/* rw,
-owner /{,var/}run/user/[0-9]*/ksocket-*/ rw,
-owner /{,var/}run/user/[0-9]*/ksocket-*/* rw,
+  # Common configs
+  owner @{HOME}/.kde{,4}/share/config/kdeglobals rwk,
+  owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
+  owner @{HOME}/.kde{,4}/share/config/drkonqirc* rw,
+  owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
+  owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
 
-# Common configs
-owner @{HOME}/.kde{,4}/share/config/kdeglobals rwk,
-owner @{HOME}/.kde{,4}/share/config/kdebugrc* rw,
-owner @{HOME}/.kde{,4}/share/config/drkonqirc* rw,
-owner @{HOME}/.kde{,4}/share/config/*.lock rwkl,
-owner @{HOME}/.kde{,4}/share/config/servicetype_profilerc* r,
+  # Phonon
+  owner @{HOME}/.config/kde.org/libphonon.conf* rwk,
 
-# Phonon
-owner @{HOME}/.config/kde.org/libphonon.conf* rwk,
+  # Many KDE apps use this file
+  /etc/fstab r,
 
-# Many KDE apps use this file
-/etc/fstab r,
+  /etc/ssl/certs/ r,
 
-/etc/xdg/menus/ r,
-/etc/xdg/menus/* r,
-owner @{HOME}/.config/menus/ r,
-owner @{HOME}/.config/menus/* r,
-owner @{HOME}/.config/menus/applications-merged/ r,
+  /etc/xdg/menus/ r,
+  /etc/xdg/menus/* r,
+  owner @{HOME}/.config/menus/ r,
+  owner @{HOME}/.config/menus/* r,
+  owner @{HOME}/.config/menus/applications-merged/ r,
 
-/usr/share/icons/ r,
-/usr/share/icons/** rk,
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
 
-/usr/share/mime/ r,
-owner @{HOME}/.local/share/mime/* r,
-
-/etc/machine-id r,
-/var/lib/dbus/machine-id r,
+  owner @{HOME}/.config/Trolltech.conf rwk,

@@ -11,9 +11,8 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg-agent {
+/usr/bin/gpg-agent flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/user-tmp>
   #include <abstractions/gnupg>
 
   signal (receive) set=(term) peer=/usr/bin/pinentry-kwallet,

@@ -14,10 +14,11 @@
 /usr/lib/chromium/chromium flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
-  #include <abstractions/fonts>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/audio-strict>
   #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/audio-strict>
+  #include <abstractions/drm>
 
   ptrace (trace) peer=@{profile_name},
   deny ptrace (trace) peer=/usr/bin/lsb_release,
@@ -71,10 +72,10 @@
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/chromium/ rw,
   owner @{HOME}/.cache/chromium/**/ rw,
-  owner @{HOME}/.cache/chromium/**/index rw,
-  owner @{HOME}/.cache/chromium/**/*-index rw,
-  owner @{HOME}/.cache/chromium/**/[a-f0-9]*_? rw,
-  owner @{HOME}/.cache/chromium/**/Cache/todelete_* rw,
+  owner @{HOME}/.cache/chromium/*/Cache/index rw,
+  owner @{HOME}/.cache/chromium/*/Cache/index-dir/*-index rw,
+  owner @{HOME}/.cache/chromium/*/Cache/[a-f0-9]*_? rw,
+  owner @{HOME}/.cache/chromium/*/Cache/todelete_* rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -101,12 +102,12 @@
   /etc/gai.conf r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
-  owner /media/Kabi/download/ r,
-  owner /media/Kabi/download/** rw,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # Needed or chromium gets crash with the following error:
   #  FATAL:sandbox_linux.cc(172)] Check failed: proc_fd_ >= 0 (-1 vs. 0)

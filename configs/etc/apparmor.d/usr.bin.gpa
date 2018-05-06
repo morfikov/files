@@ -13,9 +13,9 @@
 
 /usr/bin/gpa flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/gtk>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/gtk>
   #include <abstractions/gnupg>
 
   /usr/bin/gpa mr,
@@ -36,12 +36,12 @@
   /etc/nsswitch.conf r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
-  owner /media/Kabi/download/ r,
-  owner /media/Kabi/download/** rw,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # TMP folder
   /tmp/ r,

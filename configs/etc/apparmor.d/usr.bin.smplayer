@@ -11,20 +11,19 @@
 
 #include <tunables/global>
 
-/usr/bin/smplayer {
+/usr/bin/smplayer flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/audio-strict>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
+  #include <abstractions/audio-strict>
+  #include <abstractions/drm>
   #include <abstractions/wayland>
 
   # Needed for hardware decoding
-  #include <abstractions/nvidia>
+  ##include <abstractions/nvidia>
 
   # Needed for support for video sites (in the Network options)
   #include <abstractions/openssl>
@@ -33,36 +32,49 @@
 
   /usr/bin/smplayer mrix,
 
-  # Which files SMPlayer should be able to open
-  / r,
-  /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A,MP2T,WMA} r,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a,mp2t,wma} r,
-  /**/*.{m2ts,m2t,part} r,
-  /**/*.{TXT,SRT,txt,srt} r,
-  /**/*.{PLS,M3U,pls,m3u} r,
+  # Which media files SMPlayer should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.@{TEXT_EXT} rw,
+  owner /{home,media}/**.@{OTHER_MEDIA_EXT} rw,
 
   # SMPlayer config files
   owner @{HOME}/.config/smplayer/ rw,
   owner @{HOME}/.config/smplayer/* rw,
-  owner @{HOME}/.config/smplayer/hdpi.ini.* rwl,
+  owner @{HOME}/.config/smplayer/hdpi.ini.* rw,
+   link @{HOME}/.config/smplayer/hdpi.ini.* -> /home/*/.config/smplayer/#[0-9]*,
   owner @{HOME}/.config/smplayer/hdpi.ini.lock rwk,
-  owner @{HOME}/.config/smplayer/#* rwk,
-  owner @{HOME}/.config/smplayer/smplayer.ini.* rwl,
+  owner @{HOME}/.config/smplayer/smplayer.ini.* rw,
+   link @{HOME}/.config/smplayer/smplayer.ini.* -> /home/*/.config/smplayer/#[0-9]*,
   owner @{HOME}/.config/smplayer/smplayer.ini.lock rwk,
-  owner @{HOME}/.config/smplayer/playlist.ini.* rwl,
+  owner @{HOME}/.config/smplayer/playlist.ini.* rw,
+   link @{HOME}/.config/smplayer/playlist.ini.* -> /home/*/.config/smplayer/#[0-9]*,
   owner @{HOME}/.config/smplayer/playlist.ini.lock rwk,
 
-  owner @{HOME}/.config/.* rwk,
+  owner @{HOME}/.cache/#[0-9]* rw,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
-  owner @{PROC}/@{pid}/stat r,
-  owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pid}/cmdline r,
 
-  /dev/tty r,
+  deny /dev/ r,
+  deny /dev/tty r,
 
+  # TMP
+  owner /tmp/qtsingleapp-smplay-* rw,
+  owner /tmp/qtsingleapp-smplay-*-lockfile rwk,
+  # Media downloaded by firefox
+  #deny owner /tmp/mozilla_*/* r,
+
+  # External apps
   /usr/bin/mpv rPUx,
   /usr/bin/smtube rPUx,
   /usr/bin/youtube-dl rPUx,
@@ -81,7 +93,7 @@
     signal (send) set=(usr2) peer=/usr/bin/pulseaudio,
     signal (send) set=(usr2) peer=unconfined,
 
-    owner @{PROC}/@{pids}/stat r,
+    owner @{PROC}/@{pid}/stat r,
 
   }
 

@@ -12,8 +12,15 @@
   /usr/share/themes/ r,
   /usr/share/themes/** r,
 
+  /etc/gtk-2.0/gtkrc r,
+  /etc/gtk/gtkrc r,
+
+  owner @{HOME}/.gtkrc r,
   owner @{HOME}/.gtkrc-2.0 r,
+  owner @{HOME}/.config/gtkrc r,
+   link @{HOME}/.config/gtkrc.* -> /home/*/.config/#[0-9]*,
   owner @{HOME}/.config/gtkrc-2.0 r,
+   link @{HOME}/.config/gtkrc-2.0.* -> /home/*/.config/#[0-9]*,
   owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* rw,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
@@ -25,3 +32,4 @@
 
   # X errors
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,

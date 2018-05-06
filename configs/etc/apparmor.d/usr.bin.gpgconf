@@ -13,8 +13,6 @@
 
 /usr/bin/gpgconf flags=(complain)  {
   #include <abstractions/base>
-  #include <abstractions/user-tmp>
-  #include <abstractions/nameservice>
   #include <abstractions/gnupg>
 
   /usr/bin/gpg rPx,
@@ -25,9 +23,9 @@
   /usr/bin/gpgsm rPx,
   /usr/lib/gnupg/scdaemon rPx,
 
-  owner @{PROC}/@{pid}/task/[0-9]*/stat rw,
-  owner @{PROC}/@{pid}/task/[0-9]*/comm rw,
-  @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/task/@{pids}/stat rw,
+  owner @{PROC}/@{pid}/task/@{pids}/comm rw,
+  owner @{PROC}/@{pid}/fd/ r,
   /etc/inputrc r,
 
   /dev/tty r,

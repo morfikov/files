@@ -23,6 +23,7 @@
 
   /usr/sbin/smartd mr,
 
+  # The SMART daemon config file
   /etc/smartd.conf r,
 
   /dev/sd[a-z] r,
@@ -40,6 +41,6 @@
 
   # Needed when smartd-runner scans for drives
   /dev/ r,
-  /proc/devices r,
+  @{PROC}/devices r,
 
 }

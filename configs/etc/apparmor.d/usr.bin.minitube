@@ -16,14 +16,14 @@
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/kde5-plasma5>
-  #include <abstractions/audio-strict>
-  #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/dbus-session>
-  #include <abstractions/nameservice>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio-strict>
+  #include <abstractions/drm>
+  #include <abstractions/kde5-plasma5>
+#  #include <abstractions/dbus-session>
   #include <abstractions/openssl>
-  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
 
   # Minitube files
   /usr/bin/minitube mr,
@@ -32,22 +32,28 @@
   owner "@{HOME}/.config/Flavio Tordini/" rw,
   owner "@{HOME}/.config/Flavio Tordini/**" rw,
   owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.lock" rwk,
-  owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.*" rwl,
+   link "@{HOME}/.config/Flavio Tordini/Minitube.conf.*" -> "/home/*/.config/Flavio Tordini/#[0-9]*",
   owner "@{HOME}/.config/Flavio Tordini/.*" rwk,
   owner "@{HOME}/.local/share/Flavio Tordini/" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/**" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/Minitube/minitube.db" rwk,
   owner @{HOME}/.config/Minituberc* rw,
   owner @{HOME}/.config/Minituberc.lock rwk,
-  owner @{HOME}/.config/.* rwk,
+
+  owner @{HOME}/.config/#[0-9]* rw,
 
   # Cache
-  owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
-  owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rw,
   owner @{HOME}/.cache/ rw,
-  owner @{HOME}/.cache/#[0-9]* rw,
+#  owner @{HOME}/.cache/#[0-9]* rw,
   owner "@{HOME}/.cache/Flavio Tordini/" rw,
   owner "@{HOME}/.cache/Flavio Tordini/**" rw,
+  owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
+  owner "/tmp/morfik_cache/.cache/Flavio Tordini/**" rw,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
   # Phonon Gstreamer Backend
   #/usr/lib/frei0r-1/*.so mr,
@@ -60,7 +66,8 @@
   #/sys/bus/ r,
 
   # Phonon VLC backend
-  /{usr/,}lib/@{multiarch}/qt*/plugins/**/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/phonon4qt5_backend/phonon_vlc.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/phonon_platform/kde.so mr,
 
   # VLC plugins
   /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* r,
@@ -76,13 +83,45 @@
   # Proc filesystem
   owner @{PROC}/@{pid}/cmdline r,
 
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  # TMP
+  owner /tmp/qtsingleapp-minitu-* rw,
+  owner /tmp/qtsingleapp-minitu-*-lockfile rwk,
+
   # Open in the browser
   /usr/bin/xdg-open rPUx,
   /usr/lib/firefox/firefox rPUx,
   /usr/bin/proxy rix,
 
+  # What's this for?
+  /usr/share/kservices5/**/ r,
+  /usr/share/kservices5/*.protocol r,
+  owner @{HOME}/.cache/kio_http/ rw,
+  owner @{HOME}/.cache/ksycoca5_* r,
+  /etc/xdg/menus/ r,
+  owner @{HOME}/.config/menus/ r,
+  owner @{HOME}/.config/menus/applications-merged/ r,
+  owner /{var/,}/run/user/[0-9]*/Minitube*.slave-socket rw,
+  /etc/xdg/accept-languages.codes r,
+
+  # Snapshot
+  owner @{HOME}/Pictures/*.png rw,
+  owner /tmp/#[0-9]* rw,
+  owner /tmp/phonon-vlc-snapshot.* rw,
+  link /tmp/phonon-vlc-snapshot.* -> /tmp/#[0-9]*,
+
   # Silencer
   /usr/lib/@{multiarch}/vlc/plugins/** w,
+  /var/cache/fontconfig/ w,
 
   # Be able to turn off the screensaver while playing movies
   /usr/bin/xdg-screensaver rCx -> screensaver,

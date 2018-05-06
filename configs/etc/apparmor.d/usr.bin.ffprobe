@@ -11,20 +11,23 @@
 
 #include <tunables/global>
 
-/usr/bin/ffprobe {
+/usr/bin/ffprobe flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/user-tmp>
 
   /usr/bin/ffprobe mr,
 
-  # Which files ffprobe should be able to open
-  / r,
-  /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} r,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} r,
-  /**/*.{TXT,SRT,txt,srt} r,
+  # Which media files ffprobe should be able to open
+        / r,
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.@{TEXT_EXT} rw,
 
   /sys/devices/system/node/ r,
-  /sys/devices/system/node/node0/meminfo r,
+  /sys/devices/system/node/node[0-9]/meminfo r,
 
 }

@@ -21,7 +21,10 @@
 
   /usr/share/X11/XErrorDB r,
   owner @{HOME}/.Xauthority r,
+
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   # file_inherit
   deny /dev/tty[0-9]* rw,

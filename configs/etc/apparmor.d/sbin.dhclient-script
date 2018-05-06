@@ -13,7 +13,6 @@
 
 /sbin/dhclient-script flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
 
   /sbin/dhclient-script mr,
   /bin/dash mrix,
@@ -51,6 +50,13 @@
   # Many scripts can use ip command
   capability net_admin,
   /bin/ip rix,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
   # Silencer
   deny / r,

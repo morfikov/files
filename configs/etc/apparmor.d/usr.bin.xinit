@@ -11,20 +11,13 @@
 
 #include <tunables/global>
 
-/usr/bin/xinit {
+/usr/bin/xinit flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
 
   signal (receive) set=(usr1) peer=/usr/lib/xorg/Xorg,
+
   signal (send) set=(term) peer=/usr/lib/xorg/Xorg,
-
-  signal (send) set=(hup) peer=/usr/bin/conky,
-  signal (send) set=(hup) peer=/usr/bin/tint2,
-  signal (send) set=(hup) peer=/usr/bin/volumeicon,
-  signal (send) set=(hup) peer=/usr/bin/gnome-keyring-daemon,
-
-  signal (send) set=(hup) peer=unconfined,
+  signal (send) set=(hup),
 
   /etc/X11/xinit/xinitrc rix,
   /etc/X11/xinit/xserverrc rix,
@@ -58,10 +51,19 @@
 
   /etc/default/ r,
   /etc/default/** r,
+
+  # Nameservice
   /etc/passwd r,
   /etc/nsswitch.conf r,
 
+  # TMP
+  owner /tmp/file* rw,
+
+
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
+
   owner @{HOME}/.Xauthority r,
 
   /bin/udevadm Cx -> udevadm,
@@ -85,9 +87,12 @@
     @{PROC}/1/sched r,
     @{PROC}/cmdline r,
 
+    # Logs
+    owner @{HOME}/.xsession-errors* rw,
+    owner /dev/log-xsession rw,
+
     # file_inherit
     deny /dev/tty[0-9]* rw,
-    owner @{HOME}/.xsession-errors rw,
 
   }
 

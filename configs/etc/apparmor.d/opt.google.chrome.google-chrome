@@ -13,7 +13,6 @@
 
 /opt/google/chrome/google-chrome flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/bash>
 
   /bin/bash rix,
   /opt/google/chrome/google-chrome r,

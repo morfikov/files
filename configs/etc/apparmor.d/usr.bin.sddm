@@ -13,9 +13,8 @@
 
 /usr/bin/sddm flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
+  #include <abstractions/fonts>
   #include <abstractions/authentication>
   #include <abstractions/wutmp>
 
@@ -27,6 +26,8 @@
   capability sys_resource,
   capability sys_tty_config,
   deny capability net_admin,
+
+  ptrace (trace) peer=@{profile_name},
 
   signal (send) set=(kill, term) peer=/usr/lib/xorg/Xorg,
 
@@ -47,9 +48,10 @@
   /usr/bin/kwalletd5 rPUx,
 
   # Create kwallet dirs and files
-  @{HOME}/.local/share/kwalletd/ rw,
-  @{HOME}/.local/share/kwalletd/kdewallet.salt rw,
-  /run/user/[0-9]*/kwallet5.socket rw,
+  owner @{HOME}/.local/share/kwalletd/ rw,
+  owner @{HOME}/.local/share/kwalletd/kdewallet.salt rw,
+        @{HOME}/.local/share/kwalletd/kdewallet.salt r,
+  owner /run/user/[0-9]*/kwallet5.socket rw,
   /var/log/btmp rwk,
   capability dac_override,
 
@@ -90,14 +92,19 @@
   /usr/share/desktop-base/softwaves-theme/login/*.svg r,
   /usr/share/plasma/desktoptheme/default/*.desktop r,
 
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/group r,
+  /etc/passwd r,
+
   # TMP files
   owner /tmp/sddm-auth* rw,
-  /tmp/sddm-* rw,
+        /tmp/sddm-* rw,
   owner /tmp/**/ rw,
   owner /tmp/**/s rw,
 
   owner /run/sddm/ rw,
-  /run/sddm/* rwl,
+        /run/sddm/* rwl,
 
   # Session error logs
   owner @{HOME}/.local/share/sddm/xorg-session.log rw,

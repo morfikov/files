@@ -17,33 +17,42 @@
   #include <abstractions/audio-strict>
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
   #include <abstractions/python>
-  #include <abstractions/user-tmp>
 
   /usr/bin/ r,
   /usr/bin/youtube-dl mr,
-
-  # Which files youtube-dl should be able to open
-#  / r,
-#  /**/ r,
-  /**/*.{ASF,AVI,MKV,MOV,MP4,MP3,MPEG,MPG,WMV,WEBM,OGG,M4V,M4A} rw,
-  /**/*.{asf,avi,mkv,mov,mp4,mp3,mpeg,mpg,wmv,webm,ogg,m4v,m4a} rw,
-  /**/*.{ytdl,part,part-*} rw,
-
-  @{PROC}/@{pid}/fd/ r,
-  @{PROC}/@{pid}/mounts r,
-
-  /etc/mime.types r,
-
-  owner @{HOME}/.cache/youtube-dl/ rw,
-  owner @{HOME}/.cache/youtube-dl/** rw,
+  /usr/bin/python3.[0-6] mrix,
 
   /usr/bin/gcc rix,
   /sbin/ldconfig rix,
 
-  /usr/bin/python3.[0-6] mrix,
+  # Which files youtube-dl should be able to open
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.{ytdl,part,part-*,temp} rw,
 
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mounts r,
+
+  /etc/mime.types r,
+
+  owner @{HOME}/.cache/ rw,
+  owner @{HOME}/.cache/youtube-dl/ rw,
+  owner @{HOME}/.cache/youtube-dl/** rw,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  /usr/share/ca-certificates/mozilla/*.crt r,
+
+  # External apps
   /usr/bin/ffmpeg rPUx,
   /usr/bin/ffprobe rPUx,
 

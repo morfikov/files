@@ -13,7 +13,6 @@
 
 /usr/bin/mumble-overlay flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/bash>
 
   /bin/bash ix,
   /usr/bin/mumble-overlay r,

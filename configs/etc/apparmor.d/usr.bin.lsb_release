@@ -11,13 +11,13 @@
 
 #include <tunables/global>
 
-/usr/bin/lsb_release {
+/usr/bin/lsb_release flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/python>
 
   /usr/bin/ r,
   /usr/bin/lsb_release mr,
-  /usr/bin/python3.[0-9] mr,
+  /usr/bin/python3.[0-6] mr,
 
   /usr/bin/apt-cache rPUx,
   /usr/bin/dpkg-query rPUx,
@@ -34,9 +34,10 @@
   /usr/local/lib/python3.[0-9]/dist-packages/ r,
   /usr/local/lib/python3.[0-9]/dist-packages/** rw,
 
-  @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/fd/* r,
+  owner @{PROC}/@{pid}/fd/ r,
 
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
 }

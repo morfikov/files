@@ -11,12 +11,14 @@
 
 #include <tunables/global>
 
-/usr/lib/xorg/Xorg {
+/usr/lib/xorg/Xorg flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/nameservice>
+
+  # Needed or otherwise there will be no mouse/keyboard support in X
+  #include <abstractions/drm>
 
   capability ipc_owner,
   capability setgid,
@@ -63,9 +65,9 @@
 
   # TMP files
   /tmp/.X11-unix/ rw,
-  /tmp/.X11-unix/X* mrwlk,
-  /tmp/.X*-lock mrwlk,
-  /tmp/.tX*-lock mrwlk,
+  /tmp/.X11-unix/X* mrwk,
+  /tmp/.X*-lock mrwk,
+  /tmp/.tX*-lock mrwk,
   /tmp/server-* rwk,
   /tmp/serverauth.* r,
 
@@ -86,7 +88,6 @@
   # Needed for SDDM display manager
   /{,var/}run/sddm/ r,
   /{,var/}run/sddm/** rw,
-  #owner @{HOME}/.serverauth.* rw,
 
   # Needed for LightDM display manager
   /{,var/}run/lightdm/ r,
@@ -96,14 +97,12 @@
   /sys/bus/ r,
   /sys/bus/pci/devices/ r,
   /sys/class/ r,
-  /sys/class/{drm,tty,input}/ r,
+  /sys/class/{tty,input}/ r,
   /sys/devices/**/{uevent,name,id,config} r,
   /sys/devices/pci[0-9]*/**/ r,
   /sys/devices/pci[0-9]*/**/{resource,boot_vga} r,
-  /sys/devices/pci[0-9]*/**/drm/card[0-9]*/error r,
   /sys/devices/pci[0-9]*/**/class r,
 
-  /{,var/}run/udev/data/+drm:card* r,
   /{,var/}run/udev/data/+input:input* r,
   /{,var/}run/udev/data/+platform:serial8250 r,
   /{,var/}run/udev/data/c* r,
@@ -116,10 +115,21 @@
   /dev/shm/shmfd-* rw,
   /dev/shm/#* rw,
 
+  # Nameservice
+  /etc/nsswitch.conf r,
+  #/etc/resolv.conf r,
+  #/etc/host.conf r,
+  #/etc/hosts r,
+  #/etc/gai.conf r,
+  /etc/passwd r,
+
+  # Under KDE/Plasma5 (without owner)
+  @{HOME}/.fonts/fonts.dir r,
+
   /usr/bin/pkexec Cx -> pkexec,
-  profile pkexec {
+  profile pkexec flags=(complain) {
     #include <abstractions/base>
-    #include <abstractions/nameservice>
+    ##include <abstractions/nameservice>
     #include <abstractions/authentication>
 
     # optional

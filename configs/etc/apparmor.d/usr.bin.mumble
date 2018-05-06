@@ -13,11 +13,11 @@
 
 /usr/bin/mumble flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/audio-strict>
-  #include <abstractions/freedesktop.org>
-  #include <abstractions/nameservice>
-  #include <abstractions/gtk>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/mumble mr,
 
@@ -31,12 +31,12 @@
   owner @{HOME}/.local/share/data/Mumble/**/ rw,
   owner @{HOME}/.local/share/data/Mumble/Mumble/.mumble.sqlite-journal rw,
   owner @{HOME}/.local/share/data/Mumble/Mumble/.mumble.sqlite rwk,
-  owner @{HOME}/.config/Trolltech.conf rk,
   owner @{HOME}/.MumbleOverlayPipe rw,
   owner @{HOME}/.MumbleSocket rw,
 
   # KDE4
   owner @{HOME}/.kde/share/config/kdeglobals r,
+  owner @{HOME}/.config/Trolltech.conf rwk,
 
   /etc/machine-id r,
 
@@ -44,6 +44,17 @@
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
+
+  #
+  /dev/snd/controlC[0-9] rw,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+  /etc/passwd r,
 
   # External apps
   /usr/bin/xdg-open rPUx,

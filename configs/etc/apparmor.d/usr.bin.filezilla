@@ -13,9 +13,9 @@
 
 /usr/bin/filezilla flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/gtk>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
-  #include <abstractions/gtk>
   #include <abstractions/nameservice>
 
   signal (send) set=(term) peer=/usr/bin/fzsftp,
@@ -28,7 +28,7 @@
   owner @{HOME}/.config/filezilla/ rw,
   owner @{HOME}/.config/filezilla/**/ rw,
   owner @{HOME}/.config/filezilla/*.xml rw,
-  owner @{HOME}/.config/filezilla/*.xml~ rwl,
+  owner @{HOME}/.config/filezilla/*.xml~ rw,
   owner @{HOME}/.config/filezilla/lockfile rwk,
   owner @{HOME}/.config/filezilla/queue.sqlite3 rwk,
 
@@ -39,22 +39,23 @@
   owner @{HOME}/.cache/filezilla/**/ rw,
   owner @{HOME}/.cache/filezilla/**.png rw,
 
+  # FIlezilla files
   /usr/share/filezilla/ r,
   /usr/share/filezilla/** r,
 
   # User downloads
-  owner @{HOME}/[dD]ownload{,s}/	r,
-  owner @{HOME}/[dD]ownload{,s}/**	rwl,
-  owner @{HOME}/[dD]esktop/	r,
-  owner @{HOME}/[dD]esktop/**	rwl,
-  owner /media/Kabi/download/ r,
-  owner /media/Kabi/download/** rw,
+  owner @{HOME}/[dD]ownload{,s}/ r,
+  owner @{HOME}/[dD]ownload{,s}/** rw,
+   link @{HOME}/[dD]ownload{,s}/** -> /home/*/[dD]ownload{,s}/**,
+  owner @{HOME}/[dD]esktop/ r,
+  owner @{HOME}/[dD]esktop/** rw,
+   link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
   # When opening URLs
-  @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/fd/ r,
 
   # Creating new files on FTP
-  /tmp/ r,
+        /tmp/ r,
   owner /tmp/fz[0-9]temp-[0-9]*/ rw,
   owner /tmp/fz[0-9]temp-[0-9]*/fz*-lockfile rwk,
   owner /tmp/fz[0-9]temp-[0-9]*/empty_file_* rw,

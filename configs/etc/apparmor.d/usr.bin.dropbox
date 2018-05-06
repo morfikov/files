@@ -15,17 +15,17 @@
 
 #include <tunables/global>
 
-/usr/bin/dropbox {
+/usr/bin/dropbox flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
   #include <abstractions/qt>
-  #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
   #include <abstractions/ssl_certs>
-  #include <abstractions/user-tmp>
-  #include <abstractions/nameservice>
   #include <abstractions/python>
+
+  ptrace peer=@{profile_name},
 
   /usr/bin/dropbox mr,
   /usr/bin/python2.7 rix,
@@ -41,12 +41,13 @@
   # Dropbox proprietary demon files
   owner @{DEMON_DIR}/ rw,
   owner @{DEMON_DIR}/** rw,
-  owner @{DEMON_DIR}/dropboxd rix,
-  owner @{DEMON_DIR}/dropbox-lnx.*/dropbox rix,
-  owner @{DEMON_DIR}/dropbox-lnx.*/dropboxd rix,
-  owner @{DEMON_DIR}/dropbox-lnx.*/wmctrl rix,
-  owner @{DEMON_DIR}/dropbox-lnx.*/*.so* mr,
-  owner @{DEMON_DIR}/dropbox-lnx.*/**/*.so mr,
+  owner @{DEMON_DIR}/dropboxd rwix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/dropbox rwix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/dropboxd rwix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/dropbox_py3 rwix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/wmctrl rwix,
+  owner @{DEMON_DIR}/dropbox-lnx.*/*.so* mrw,
+  owner @{DEMON_DIR}/dropbox-lnx.*/**/*.so mrw,
 
   /bin/dash rix,
   /bin/readlink rix,
@@ -62,38 +63,67 @@
   /usr/bin/xdg-open rPUx,
 
   # Needed for updating Dropbox
-  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropboxd rix,
-  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropboxd rix,
-  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropbox rix,
-  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/*.so* mr,
+  owner /tmp/.dropbox-dist-new-*/ rw,
+  owner /tmp/.dropbox-dist-new-*/** rw,
+#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropboxd rwix,
+#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropboxd rwix,
+#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropbox rwix,
   owner @{HOME}/.dropbox-dist-old*/ rw,
   owner @{HOME}/.dropbox-dist-old*/** rw,
   owner @{HOME}/.dropbox-dist-tmp-*/ rw,
   owner @{HOME}/.dropbox-dist-tmp-*/** rw,
-  /bin/mount rix,
-  @{PROC}/@{pid}/mountinfo r,
+
+  # For autostart
+  deny owner @{HOME}/ r,
+  deny owner @{HOME}/.config/autostart/dropbox.desktop rw,
+
+  # What's this for?
+  /bin/mount mrix,
   /sys/devices/virtual/block/dm-[0-9]*/dm/name r,
-  ptrace (trace),
+  /sys/devices/virtual/block/loop[0-9]/ r,
+  /sys/devices/virtual/block/loop[0-9]/loop/{autoclear,backing_file} r,
+
+  owner @{HOME}/.local/lib/python2.[0-9]/site-packages/ r,
 
   # KDE
   owner @{HOME}/.kde/share/config/kdeglobals r,
 
-  @{PROC} r,
-  @{PROC}/@{pid}/stat r,
-  @{PROC}/@{pid}/mounts r,
-  @{PROC}/@{pid}/statm r,
-  @{PROC}/@{pid}/cmdline r,
-  owner @{PROC}/@{pid}/fd/ r,
-  owner @{PROC}/@{pid}/io r,
-  @{PROC}/@{pid}/net/tcp{,6} r,
-  @{PROC}/@{pid}/net/udp{,6} r,
-  owner @{PROC}/@{pid}/fdinfo/* r,
-  @{PROC}/version r,
-  @{PROC}/vmstat r,
+  deny       @{PROC} r,
+  deny owner @{PROC}/@{pid}/stat r,
+  deny owner @{PROC}/@{pid}/statm r,
+  deny owner @{PROC}/@{pid}/io r,
+  deny       @{PROC}/@{pid}/net/tcp{,6} r,
+  deny       @{PROC}/@{pid}/net/udp{,6} r,
+# when "cmdline" is blocked, Dropbox has some issues while starting
+#  The Dropbox daemon is not installed! Run "dropbox start -i" to install the daemon
+             @{PROC}/@{pid}/cmdline r,
+#
+       owner @{PROC}/@{pid}/fd/ r,
+       owner @{PROC}/@{pid}/fdinfo/* r,
+       owner @{PROC}/@{pid}/mounts r,
+       owner @{PROC}/@{pid}/mountinfo r,
+  deny       @{PROC}/version r,
+# To remove the following error:
+#  RuntimeWarning: 'sin' and 'sout' swap memory stats couldn't be determined and were set to 0
+#  ([Errno 13] Permission denied: '/proc/vmstat')
+             @{PROC}/vmstat r,
 
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+  /etc/passwd r,
+  /etc/group r,
+
+  # Dropbox first tries the /tmp/ dir, and if it's denied it uses the /var/tmp/ dir instead
+  owner /tmp/dropbox-antifreeze-* rw,
+  owner /tmp/[a-zA-z0-9]* rw,
+  owner /var/tmp/[a-zA-z0-9]* rw,
+  owner /var/tmp/etilqs_* rw,
+
+  # External apps
   /usr/lib/firefox/firefox rPUx,
-
-  # Silencer
-  deny @{HOME}/ r,
 
 }

@@ -11,7 +11,9 @@
 
 #include <tunables/global>
 
-/usr/bin/xsel {
+# The "attach_disconnected" flag is needed when Xserver is started via the "startx" command.
+# Without it there's no way to manipulate the X selection.
+/usr/bin/xsel flags=(attach_disconnected) {
   #include <abstractions/base>
 
   /usr/bin/xsel mr,
@@ -23,7 +25,11 @@
   owner @{HOME}/.Xauthority r,
   owner /tmp/xauth-[0-9]*-_[0-9] r,
 
+  # Logs
+  owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
+
   # file_inherit
-  owner @{HOME}/.xsession-errors rw,
+  deny /dev/tty[0-9]* rw,
 
 }

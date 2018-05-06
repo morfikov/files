@@ -66,12 +66,9 @@
   /etc/X11/cursors/               r,
   /etc/X11/cursors/**             r,
 
-
-  # for libdrm (Direct Rendering Manager)
-  /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
-
-  # logs
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   # Available Xsessions
   /usr/share/xsessions/*.desktop r,
