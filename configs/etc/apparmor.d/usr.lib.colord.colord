@@ -1,0 +1,51 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/colord/colord flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/drm>
+
+  /usr/lib/colord/colord mr,
+
+  /usr/lib/colord/colord rw,
+  /usr/lib/colord/colord-sane rPx,
+
+  owner /var/lib/colord/** r,
+  owner /var/lib/colord/mapping.db rwk,
+  owner /var/lib/colord/storage.db rwk,
+
+  /etc/udev/hwdb.bin r,
+
+  /usr/share/color/icc/ r,
+  /usr/share/color/icc/** r,
+
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  /sys/bus/ r,
+  /sys/bus/usb/devices/ r,
+  /sys/class/ r,
+  /sys/devices/pci*/**/usb[1-3]/{uevent,bDeviceClass,removable} r,
+  /sys/devices/pci*/**/usb[1-3]/**/{uevent,bDeviceClass,removable} r,
+  /sys/devices/virtual/dmi/id/{sys_vendor,product_version,product_name} r,
+
+  /{,var/}run/udev/data/+usb* r,
+  /{,var/}run/udev/data/c* r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+        @{PROC}/@{pids}/cgroup r,
+        @{PROC}/@{pids}/cmdline r,
+
+  /usr/share/mime/mime.cache r,
+
+}

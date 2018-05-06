@@ -1,0 +1,38 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/lib/colord/colord-sane flags=(complain) {
+  #include <abstractions/base>
+
+  /usr/lib/colord/colord-sane mr,
+
+  /etc/sane.d/ r,
+  /etc/sane.d/**/ r,
+  /etc/sane.d/*.conf r,
+
+  /dev/bus/usb/ r,
+
+  /sys/bus/ r,
+  /sys/bus/usb/devices/ r,
+  /sys/bus/scsi/devices/ r,
+  /sys/class/ r,
+  /sys/devices/pci*/**/usb[1-3]/{uevent,busnum,devnum,speed,descriptors} r,
+  /sys/devices/pci*/**/usb[1-3]/**/{uevent,busnum,devnum,speed,descriptors} r,
+  /sys/devices/pci*/**/{vendor,model,type} r,
+
+  /{,var/}run/udev/data/+usb* r,
+  /{,var/}run/udev/data/c* r,
+
+  @{PROC}/sys/dev/parport/ r,
+
+}
