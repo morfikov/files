@@ -1,0 +1,51 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/ytdl flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/python>
+  #include <abstractions/ssl_certs>
+
+  /usr/bin/ r,
+  /usr/bin/ytdl r,
+  /usr/bin/python3.[0-6] rix,
+
+  /sbin/ldconfig rix,
+  /etc/ld.so.cache r,
+
+  # Which files youtube-dl should be able to open
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+  owner /{home,media}/**.@{VIDEO_EXT} rw,
+  owner /{home,media}/**.{ytdl,part,part-*,temp} rw,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mounts r,
+
+  /etc/mime.types r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+
+  /dev/null r,
+
+  # Needed when displaying info on available formats
+  owner @{HOME}/.cache/youtube-dl/youtube-sigfuncs/js*.json r,
+
+}

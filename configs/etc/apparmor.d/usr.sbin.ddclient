@@ -1,0 +1,43 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017-2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/ddclient flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/perl>
+
+  /usr/sbin/ddclient r,
+  /usr/bin/perl ix,
+
+  /etc/ddclient.conf r,
+
+  /{var/,}run/ddclient.pid rw,
+
+  /var/cache/ddclient/ddclient.cache rw,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+
+  /bin/dash rCx -> dash,
+  profile dash flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+
+    /usr/bin/logger rix,
+
+  }
+
+}

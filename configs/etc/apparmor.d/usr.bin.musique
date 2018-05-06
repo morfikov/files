@@ -1,0 +1,104 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/musique flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/gtk>
+  #include <abstractions/qt>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/audio-strict>
+  #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
+
+  /usr/bin/musique mr,
+
+  owner "@{HOME}/.config/Flavio Tordini/" rw,
+  owner "@{HOME}/.config/Flavio Tordini/#[0-9]*" rw,
+  owner "@{HOME}/.config/Flavio Tordini/Musique.conf" rw,
+   link "@{HOME}/.config/Flavio Tordini/Musique.conf" -> "/home/*/.config/Flavio Tordini/#[0-9]*",
+  owner "@{HOME}/.config/Flavio Tordini/Musique.conf.*" rw,
+   link "@{HOME}/.config/Flavio Tordini/Musique.conf.*" -> "/home/*/.config/Flavio Tordini/#[0-9]*",
+  owner "@{HOME}/.config/Flavio Tordini/Musique.conf.lock" rwk,
+  owner "@{HOME}/.local/share/Flavio Tordini/" rw,
+  owner "@{HOME}/.local/share/Flavio Tordini/Musique/" rw,
+  owner "@{HOME}/.local/share/Flavio Tordini/Musique/**" rw,
+  owner "@{HOME}/.local/share/Flavio Tordini/Musique/musique.db" rwk,
+
+  owner @{HOME}/.config/#[0-9]* rw,
+
+  owner @{HOME}/.config/Musiquerc rw,
+  owner @{HOME}/.config/Musiquerc.lock rwk,
+
+  # Media dir
+        /media/ r,
+  owner /media/Kabi/ r,
+  owner /media/Kabi/mp3/ r,
+  owner /media/Kabi/mp3/** rw,
+
+  # TMP
+  owner /tmp/qtsingleapp-musiqu-* rw,
+  owner /tmp/qtsingleapp-musiqu-*-lockfile rwk,
+
+  deny /var/lib/dbus/machine-id r,
+  deny owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
+
+  # Phonon
+  owner @{HOME}/.config/kde.org/libphonon.conf r,
+
+  # Phonon VLC backend
+  /{usr/,}lib/@{multiarch}/qt5/plugins/phonon4qt5_backend/phonon_vlc.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/phonon_platform/kde.so mr,
+
+  owner  @{HOME}/.cache/ rw,
+  owner "@{HOME}/.cache/Flavio Tordini/" rw,
+  owner "@{HOME}/.cache/Flavio Tordini/Musique/**" rw,
+  owner @{HOME}/.cache/vlc/**/ rw,
+  owner @{HOME}/.cache/vlc/**/art.jpg rw,
+
+  deny /etc/machine-id r,
+  deny /usr/share/hwdata/pnp.ids r,
+  deny /usr/share/xsessions/*.desktop r,
+  deny /dev/tty r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
+  /etc/passwd r,
+
+  # If the following rule is denied, an error will be returned, but the app works fine though:
+  #  MESA-LOADER: failed to retrieve device information
+  deny /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  # If that rule is needed, uncomment the following abstraction
+  ##include <abstractions/drm>
+
+  # External apps
+  /usr/bin/xdg-open rPUx,
+
+  # Silencer
+  deny owner @{HOME}/ r,
+
+}
