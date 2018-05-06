@@ -18,6 +18,7 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
   #include <abstractions/python>
+  #include <abstractions/ssl_certs>
 
   /usr/bin/ r,
   /usr/bin/youtube-dl mr,
@@ -49,8 +50,6 @@
   /etc/host.conf r,
   /etc/hosts r,
   /etc/gai.conf r,
-
-  /usr/share/ca-certificates/mozilla/*.crt r,
 
   # External apps
   /usr/bin/ffmpeg rPUx,

@@ -36,8 +36,7 @@
   #owner @{HOME}/.local/share/TelegramDesktop/ rw,
   #owner @{HOME}/.local/share/TelegramDesktop/** rw,
 
-  # What's this for?
-  deny owner @{HOME}/.cache/#[0-9]* rw,
+  owner @{HOME}/.cache/#[0-9]* rw,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,

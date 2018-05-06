@@ -44,9 +44,13 @@
 
   # Cache files
   owner @{HOME}/.cache/ rw,
-  owner @{HOME}/.cache/fontconfig/** r,
   owner @{HOME}/.cache/psi+/ rw,
   owner @{HOME}/.cache/psi+/** rw,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
   /etc/machine-id r,
   /var/lib/dbus/machine-id r,
