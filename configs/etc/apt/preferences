@@ -21,6 +21,11 @@
 # Pin: release c=main
 #
 
+#Package: libpam-kwallet*
+#Pin: release o=Debian
+#Pin: version 5.12.1-3
+#Pin-Priority: 995
+
 Package: libpolkit-* policykit-*
 Pin: release o=Debian,a=experimental
 Pin-Priority: 995
