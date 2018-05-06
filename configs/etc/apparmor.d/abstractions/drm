@@ -1,0 +1,20 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+
+  # libdrm (Direct Rendering Manager)
+
+  /sys/class/drm/ r,
+  /sys/devices/pci[0-9]*/**/{revision,vendor,device,subsystem_vendor,subsystem_device,uevent} r,
+  /sys/devices/pci[0-9]*/**/drm/card[0-9]*/error r,
+  /sys/devices/pci[0-9]*/**/drm/card[0-9]*/card[0-9]-*/{enabled,edid} r,
+
+  /{,var/}run/udev/data/+drm:card* r,

@@ -18,3 +18,5 @@
 #include <tunables/alias>
 #include <tunables/kernelvars>
 #include <tunables/xdg-user-dirs>
+
+#include <tunables/media-extensions>
