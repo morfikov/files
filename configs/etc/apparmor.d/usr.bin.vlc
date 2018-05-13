@@ -20,6 +20,7 @@
   #include <abstractions/fonts>
   #include <abstractions/audio-strict>
   #include <abstractions/drm>
+  #include <abstractions/ssl_certs>
   #include <abstractions/nvidia>
 
   /usr/bin/vlc rmix,
@@ -64,6 +65,13 @@
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/mounts r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/resolv.conf r,
+  /etc/host.conf r,
+  /etc/hosts r,
+  /etc/gai.conf r,
 
   # Silencer
   deny /{usr/,}lib/@{multiarch}/vlc/ w,

@@ -36,10 +36,11 @@
   owner /var/lib/sddm/.cache/** rw,
   owner /var/lib/sddm/.cache/icon-cache.kcache mrwk,
   owner /var/lib/sddm/.cache/plasma_theme_default_v*.kcache mrwk,
-  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.jsc mr,
-  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/*.qmlc mr,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.jsc mrw,
+  owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.qmlc mrw,
+   link /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.qmlc.* -> /var/lib/sddm/.cache/sddm-greeter/qmlcache/#[0-9]*,
   owner /var/lib/sddm/.local/share/sddm/xorg-session.log rw,
-  owner /var/lib/sddm/#* mrw,
+  owner /var/lib/sddm/#[0-9]* mrw,
         /var/lib/sddm/state.conf r,
 
   # SDDM config files

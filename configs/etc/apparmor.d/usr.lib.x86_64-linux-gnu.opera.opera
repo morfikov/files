@@ -69,10 +69,10 @@
   # Cache files
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/opera/ rw,
-  owner @{HOME}/.cache/opera/**/ rw,
-  owner @{HOME}/.cache/opera/**/index rw,
-  owner @{HOME}/.cache/opera/**/*-index rw,
-  owner @{HOME}/.cache/opera/**/[a-f0-9]*_? rw,
+  owner @{HOME}/.cache/opera/*/ rw,
+  owner @{HOME}/.cache/opera/*/index rw,
+  owner @{HOME}/.cache/opera/*/index-dir/*-index rw,
+  owner @{HOME}/.cache/opera/*/[a-f0-9]*_? rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -204,8 +204,8 @@
   deny /usr/lib/@{multiarch}/opera/** w,
   deny /var/cache/fontconfig/ w,
 
-  /usr/bin/xdg-settings Cx,
-  profile /usr/bin/xdg-settings flags=(complain) {
+  /usr/bin/xdg-settings rCx -> xdgsettings,
+  profile xdgsettings flags=(complain) {
     #include <abstractions/base>
 
     /usr/bin/xdg-settings mr,

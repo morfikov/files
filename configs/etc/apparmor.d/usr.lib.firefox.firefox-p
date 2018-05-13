@@ -139,11 +139,16 @@
   owner /tmp/mozilla_*/ rw,
   owner /tmp/mozilla_*/*.* rw,
   owner /tmp/mozilla_*/*.*.part rw,
+  owner /tmp/Temp-[-0-9a-f]*/ rw,
+  # Fixes sound issues in FF-60
+  owner /tmp/cubeb-shm-[0-9]*-{input,output} rw,
 
   # Needed, or pages will fail to be rendered
    deny /dev/ r,
    deny /dev/shm/ r,
   owner /dev/shm/org.chromium.* rw,
+
+  deny /etc/fstab r,
 
   # Silencer
   deny /var/cache/fontconfig/ w,

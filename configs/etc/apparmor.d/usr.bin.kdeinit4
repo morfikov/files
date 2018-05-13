@@ -36,6 +36,14 @@
   /usr/lib/kde4/libexec/drkonqi rix,
   ptrace (trace) peer=/usr/bin/amarok,
 
+  # For dragging files and dropping them into Amarok
+        /home/ r,
+  owner @{HOME}/ r,
+  owner @{HOME}/**/ r,
+        /media/ r,
+  owner /media/**/ r,
+  owner /{home,media}/**.@{AUDIO_EXT} rw,
+
   owner @{HOME}/.kde/share/config/** rwk,
   owner @{HOME}/.kde/share/apps/kcookiejar/cookies* rw,
   owner @{HOME}/.kde/share/apps/kconf_update/log/update.log rw,

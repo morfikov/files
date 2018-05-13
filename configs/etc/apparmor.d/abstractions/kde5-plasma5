@@ -26,7 +26,6 @@
   owner @{HOME}/.config/Trolltech.conf.lock rk,
   owner @{HOME}/.kde/share/config/kdeglobals.lock rk,
 
-  # Many apps need these
   /usr/share/hwdata/pnp.ids r,
 
   /usr/share/xsessions/*.desktop r,

@@ -13,7 +13,6 @@
 
 /usr/bin/qbittorrent-nox flags=(complain) {
   #include <abstractions/base>
-  #include <abstractions/qt>
   #include <abstractions/openssl>
   #include <abstractions/ssl_certs>
 
@@ -38,7 +37,7 @@
   owner /tmp/morfik_cache/.cache/qBittorrent/** rw,
 
   # Torrent dirs/files
-  owner /media/ r,
+        /media/ r,
   owner /media/Kabi/ r,
   owner /media/Kabi/torrent/ rw,
   owner /media/Kabi/torrent/** rw,
@@ -60,5 +59,6 @@
   owner /tmp/.qBittorrent/#[0-9]* rw,
   owner /tmp/.qBittorrent/[a-zA-Z]* rw,
    link /tmp/.qBittorrent/[a-zA-Z]* -> /tmp/.qBittorrent/#[0-9]*,
+  owner /tmp/mozilla_*/*.torrent rw,
 
 }

@@ -13,6 +13,7 @@
 
 /usr/sbin/ddclient flags=(complain) {
   #include <abstractions/base>
+  #include <abstractions/ssl_certs>
   #include <abstractions/perl>
 
   /usr/sbin/ddclient r,
@@ -29,6 +30,7 @@
   /etc/resolv.conf r,
   /etc/host.conf r,
   /etc/hosts r,
+  /etc/protocols r,
 
   /bin/dash rCx -> dash,
   profile dash flags=(complain) {
@@ -37,6 +39,8 @@
     /bin/dash mr,
 
     /usr/bin/logger rix,
+
+    / r,
 
   }
 

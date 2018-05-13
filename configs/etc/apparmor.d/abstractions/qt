@@ -15,6 +15,10 @@
   /usr/share/color-schemes/*.colors r,
   /usr/share/plasma/look-and-feel/** r,
 
+  # QT
+  /{usr/,}lib/@{multiarch}/qt5/plugins/platformthemes/KDEPlasmaPlatformTheme.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/styles/breeze.so mr,
+
   /usr/share/qt[4,5]/** r,
 
   /etc/xdg/QtProject/qtlogging.ini r,

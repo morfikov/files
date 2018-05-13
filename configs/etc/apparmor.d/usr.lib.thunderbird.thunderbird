@@ -8,6 +8,9 @@
 #    License published by the Free Software Foundation.
 #
 # ------------------------------------------------------------------
+# Useful info:
+# http://kb.mozillazine.org/Files_and_folders_in_the_profile_-_Thunderbird
+#
 
 @{MOZ_LIBDIR}=/usr/lib/thunderbird
 @{MOZ_HOMEDIR}=@{HOME}/.thunderbird
@@ -60,6 +63,11 @@
   owner @{HOME}/.cache/thunderbird/** rwk,
   owner /tmp/morfik_cache/.cache/thunderbird/ rw,
   owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
+
+  # Cache for thumbnails for attached images
+  owner @{HOME}/.cache/thumbnails/ rw,
+  owner @{HOME}/.cache/thumbnails/**/ rw,
+  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -156,10 +164,12 @@
   owner /tmp/tmp-*.xpi rw,
   # Loading remote content in a message (images, etc)
   owner /tmp/nsma rw,
-  #owner /tmp/nsma-[0-9]* rw,
-  # Save attachments as
-  owner /tmp/* rw,
-  owner /tmp/mozilla_*/*.part rw,
+  # Saving or viewing attachments
+  #owner /tmp/* rw,
+  owner /tmp/mozilla_*/* rw,
+  #
+  owner /tmp/MozillaMailnews/ rw,
+  owner /tmp/MozillaMailnews/*.msf rw,
 
   deny /dev/ r,
   deny /dev/shm/ r,

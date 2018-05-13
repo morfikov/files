@@ -48,8 +48,9 @@
 
   deny /dev/tty r,
 
-  owner @{PROC}/@{pid}/cmdline r,
-  owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
