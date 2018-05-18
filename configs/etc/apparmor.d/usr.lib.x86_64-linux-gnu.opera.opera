@@ -35,6 +35,12 @@
   /usr/lib/@{multiarch}/opera/opera_autoupdate krix,
 
   /usr/bin/lsb_release rPUx,
+  /usr/bin/xdg-mime rPUx,
+  /usr/bin/xdg-open rPUx,
+  /usr/bin/xdg-settings rPUx,
+  /usr/bin/xdg-desktop-menu rPUx,
+  /usr/bin/xdg-icon-resource rPUx,
+
   /bin/which rix,
 
   #include <abstractions/ssl_certs>
@@ -59,12 +65,14 @@
   owner @{HOME}/.config/opera/**/LOCK rwk,
   owner @{HOME}/.config/opera/ssdfp[0-9]*.[0-9].[0-9]*.lock rwk,
   owner @{HOME}/.config/opera/databases/Databases.db rwk,
-  owner @{HOME}/.config/opera/databases/chrome-extension_* rwk,
+  owner @{HOME}/.config/opera/databases/chrome-extension* rwk,
   owner "@{HOME}/.config/opera/Network Action Predictor" rwk,
   owner "@{HOME}/.config/opera/Web Data" rwk,
   owner "@{HOME}/.config/opera/Login Data" rwk,
   owner "@{HOME}/.config/opera/Origin Bound Certs" rwk,
   owner "@{HOME}/.config/opera/Extension Cookies" rwk,
+
+  owner @{HOME}/.local/share/.org.chromium.Chromium.* rw,
 
   # Cache files
   owner @{HOME}/.cache/ rw,
@@ -73,6 +81,12 @@
   owner @{HOME}/.cache/opera/*/index rw,
   owner @{HOME}/.cache/opera/*/index-dir/*-index rw,
   owner @{HOME}/.cache/opera/*/[a-f0-9]*_? rw,
+  owner @{HOME}/.cache/opera/*/todelete_* rw,
+
+  # Cache for thumbnails
+  owner @{HOME}/.cache/thumbnails/ rw,
+  owner @{HOME}/.cache/thumbnails/**/ rw,
+  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -96,13 +110,21 @@
   deny @{HOME}/.config/google-chrome/PepperFlash/**/libpepflashplayer.so mr,
 
   # Nameservice
-  # Nameservice
   /etc/hosts r,
   /etc/host.conf r,
   /etc/resolv.conf r,
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /etc/gai.conf r,
+
+  # When saving files
+  deny /etc/fstab r,
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  # Dconf
+  #include <abstractions/dconf>
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+  owner @{HOME}/.config/dconf/user r,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
@@ -114,13 +136,6 @@
 
   # KDE4
   owner @{HOME}/.kde/share/config/kioslaverc r,
-
-  # For file browser
-  owner @{PROC}/@{pid}/mountinfo r,
-  #include <abstractions/dconf>
-  /{,var/}run/user/[0-9]*/dconf/ rw,
-  /{,var/}run/user/[0-9]*/dconf/user rw,
-  /etc/fstab r,
 
   # Needed or opera crashes with the following error:
   #  illegal hardware instruction
@@ -139,6 +154,8 @@
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny owner @{PROC}/@{pid}/limits r,
   deny owner @{PROC}/@{pid}/mem r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
   # Needed or otherwise opera gets out of memory crash
   owner /dev/shm/.org.chromium.Chromium.* rw,
@@ -146,8 +163,6 @@
   # To play DRM media (protected content)
   deny /opt/google/chrome/libwidevinecdm.so mr,
   deny /opt/google/chrome/libwidevinecdmadapter.so mr,
-
-  /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   deny /var/lib/dbus/machine-id r,
   deny /etc/machine-id r,
@@ -177,20 +192,16 @@
        /sys/bus/pci/devices/ r,
   #
   deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
   # TMP files
   /var/tmp/ r,
   /tmp/ r,
-  # What's this for?
   owner /tmp/.org.chromium.Chromium.* rw,
   owner /tmp/.org.chromium.Chromium.*/ rw,
-  owner /tmp/.org.chromium.Chromium.*/SingletonSocket rw,
-  owner /tmp/.org.chromium.Chromium.*/SingletonCookie rw,
-  owner /tmp/.org.chromium.Chromium.*/manifest.json rw,
-  owner /tmp/.org.chromium.Chromium.*/_metadata/ rw,
-  owner /tmp/.org.chromium.Chromium.*/_metadata/verified_contents.json rw,
-  owner /tmp/.org.chromium.Chromium.*/crl-set rw,
-  owner /tmp/.org.chromium.Chromium.*/[0-9]*_all_crl-set-[0-9]*.data.crx3 rw,
+  owner /tmp/.org.chromium.Chromium.*/** rw,
+
   # For installing/updating extensions
   owner /tmp/scoped_dir*/ rw,
   owner /tmp/scoped_dir*/*.crx rw,
@@ -198,24 +209,10 @@
   owner /tmp/scoped_dir*/CRX_INSTALL/** rw,
   owner /tmp/scoped_dir*/DECODED_MESSAGE_CATALOGS rw,
   owner /tmp/scoped_dir*/DECODED_IMAGES rw,
-  owner /tmp/.org.chromium.Chromium.*/chrome_app_indicator_*.png rw,
 
   # Silencer
   deny /usr/lib/@{multiarch}/opera/** w,
   deny /var/cache/fontconfig/ w,
-
-  /usr/bin/xdg-settings rCx -> xdgsettings,
-  profile xdgsettings flags=(complain) {
-    #include <abstractions/base>
-
-    /usr/bin/xdg-settings mr,
-
-    /bin/dash rix,
-    /bin/grep rix,
-    /usr/bin/cut rix,
-
-    owner @{HOME}/.config/xfce4/helpers.rc r,
-
-  }
+  deny owner @{HOME}/ r,
 
 }

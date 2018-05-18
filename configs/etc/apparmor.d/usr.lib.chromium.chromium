@@ -20,6 +20,8 @@
   #include <abstractions/audio-strict>
   #include <abstractions/drm>
 
+  capability sys_nice,
+
   ptrace (trace) peer=@{profile_name},
   deny ptrace (trace) peer=/usr/bin/lsb_release,
   # Needed?
@@ -28,8 +30,12 @@
   /usr/lib/chromium/chromium mrix,
   /usr/lib/chromium/chrome-sandbox rPx,
 
-  /usr/bin/xdg-settings rPUx,
   /usr/bin/lsb_release rPUx,
+  /usr/bin/xdg-mime rPUx,
+  /usr/bin/xdg-open rPUx,
+  /usr/bin/xdg-settings rPUx,
+  /usr/bin/xdg-desktop-menu rPUx,
+  /usr/bin/xdg-icon-resource rPUx,
 
   #include <abstractions/ssl_certs>
   # To remove the following error:
@@ -68,14 +74,21 @@
   owner "@{HOME}/.config/chromium/Safe Browsing Cookies" rwk,
   owner "@{HOME}/.config/chromium/Safe Browsing Channel IDs" rwk,
 
+  owner @{HOME}/.local/share/.org.chromium.Chromium.* rw,
+
   # Cache files
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/chromium/ rw,
-  owner @{HOME}/.cache/chromium/**/ rw,
+  owner @{HOME}/.cache/chromium/*/ rw,
   owner @{HOME}/.cache/chromium/*/Cache/index rw,
   owner @{HOME}/.cache/chromium/*/Cache/index-dir/*-index rw,
   owner @{HOME}/.cache/chromium/*/Cache/[a-f0-9]*_? rw,
   owner @{HOME}/.cache/chromium/*/Cache/todelete_* rw,
+
+  # Cache for thumbnails
+  owner @{HOME}/.cache/thumbnails/ rw,
+  owner @{HOME}/.cache/thumbnails/**/ rw,
+  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -100,6 +113,15 @@
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /etc/gai.conf r,
+
+  # When saving files
+  deny /etc/fstab r,
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  # Dconf
+  #include <abstractions/dconf>
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+  owner @{HOME}/.config/dconf/user r,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
@@ -126,6 +148,8 @@
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny owner @{PROC}/@{pid}/limits r,
   deny owner @{PROC}/@{pid}/mem r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
   # Needed or otherwise chromium gets out of memory crash
    deny /dev/shm/ r,
@@ -165,23 +189,10 @@
   # TMP files
   /var/tmp/ r,
   /tmp/ r,
-  owner /tmp/.org.chromium.Chromium.*/ rw,
-  # What's this for?
   owner /tmp/.org.chromium.Chromium.* rw,
-  owner /tmp/.org.chromium.Chromium.*/[a-f0-9]*.crxd rw,
-  owner /tmp/.org.chromium.Chromium.*/f[0-9]* rw,
-  owner /tmp/.org.chromium.Chromium.*/SingletonSocket rw,
-  owner /tmp/.org.chromium.Chromium.*/SingletonCookie rw,
-  owner /tmp/.org.chromium.Chromium.*/manifest.json rw,
-  owner /tmp/.org.chromium.Chromium.*/manifest.fingerprint rw,
-  owner /tmp/.org.chromium.Chromium.*/_metadata/ rw,
-  owner /tmp/.org.chromium.Chromium.*/_metadata/verified_contents.json rw,
-  owner /tmp/.org.chromium.Chromium.*/_platform_specific/ rw,
-  owner /tmp/.org.chromium.Chromium.*/_platform_specific/**/ rw,
-  owner /tmp/.org.chromium.Chromium.*/_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe rw,
-  owner /tmp/.org.chromium.Chromium.*/_platform_specific/all/sths/[a-f0-9]*.sth rw,
-  owner /tmp/.org.chromium.Chromium.*/crl-set rw,
-  owner /tmp/.org.chromium.Chromium.*/[0-9]*_all_crl-set-[0-9]*.data.crx3 rw,
+  owner /tmp/.org.chromium.Chromium.*/ rw,
+  owner /tmp/.org.chromium.Chromium.*/** rw,
+
   # For installing/updating extensions
   owner /tmp/scoped_dir*/ rw,
   owner /tmp/scoped_dir*/*.crx rw,
@@ -189,10 +200,10 @@
   owner /tmp/scoped_dir*/CRX_INSTALL/** rw,
   owner /tmp/scoped_dir*/DECODED_MESSAGE_CATALOGS rw,
   owner /tmp/scoped_dir*/DECODED_IMAGES rw,
-  owner /tmp/.org.chromium.Chromium.*/chrome_app_indicator_*.png rw,
 
   # Silencer
-  deny /usr/lib/chromium/extensions/ w,
+  deny /usr/lib/chromium/** w,
   deny /var/cache/fontconfig/ w,
+  deny owner @{HOME}/ r,
 
 }

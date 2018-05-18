@@ -29,8 +29,10 @@
   /opt/google/chrome/chrome-sandbox rPx,
   /opt/google/chrome/google-chrome rPx,
 
-  /usr/bin/xdg-settings rPUx,
   /usr/bin/lsb_release rPUx,
+  /usr/bin/xdg-mime rPUx,
+  /usr/bin/xdg-open rPUx,
+  /usr/bin/xdg-settings rPUx,
   /usr/bin/xdg-desktop-menu rPUx,
   /usr/bin/xdg-icon-resource rPUx,
 
@@ -71,14 +73,21 @@
   owner "@{HOME}/.config/google-chrome/Safe Browsing Cookies" rwk,
   owner "@{HOME}/.config/google-chrome/Safe Browsing Channel IDs" rwk,
 
+  owner @{HOME}/.local/share/.com.google.Chrome.MKFu05 rw,
+
   # Cache files
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/google-chrome/ rw,
-  owner @{HOME}/.cache/google-chrome/**/ rw,
+  owner @{HOME}/.cache/google-chrome/*/ rw,
   owner @{HOME}/.cache/google-chrome/*/Cache/index rw,
   owner @{HOME}/.cache/google-chrome/*/Cache/index-dir/*-index rw,
   owner @{HOME}/.cache/google-chrome/*/Cache/[a-f0-9]*_? rw,
   owner @{HOME}/.cache/google-chrome/*/Cache/todelete_* rw,
+
+  # Cache for thumbnails
+  owner @{HOME}/.cache/thumbnails/ rw,
+  owner @{HOME}/.cache/thumbnails/**/ rw,
+  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -107,6 +116,15 @@
   /etc/passwd r,
   /etc/gai.conf r,
 
+  # When saving files
+  deny /etc/fstab r,
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  # Dconf
+  #include <abstractions/dconf>
+  owner /{,var/}run/user/[0-9]*/dconf/user rw,
+  owner @{HOME}/.config/dconf/user r,
+
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
   owner @{HOME}/[dD]ownload{,s}/** rw,
@@ -132,6 +150,8 @@
   deny       @{PROC}/@{pids}/task/@{pids}/status r,
   deny owner @{PROC}/@{pid}/limits r,
   deny owner @{PROC}/@{pid}/mem r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
   # Needed or otherwise Google Chrome gets out of memory crash
   owner /dev/shm/.com.google.Chrome.* rw,
@@ -168,30 +188,15 @@
        /sys/bus/pci/devices/ r,
   #
   deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
   # TMP files
   /var/tmp/ r,
   /tmp/ r,
-  owner /tmp/.com.google.Chrome.*/ rw,
-  # What's this for?
   owner /tmp/.com.google.Chrome.* rw,
-  owner /tmp/.com.google.Chrome.*/[0-9]*_*.crx rw,
-  owner /tmp/.com.google.Chrome.*/[a-f0-9]*.crxd rw,
-  owner /tmp/.com.google.Chrome.*/f[0-9]* rw,
-  owner /tmp/.com.google.Chrome.*/SingletonSocket rw,
-  owner /tmp/.com.google.Chrome.*/SingletonCookie rw,
-  owner /tmp/.com.google.Chrome.*/commands.json rw,
-  owner /tmp/.com.google.Chrome.*/manifest.json rw,
-  owner /tmp/.com.google.Chrome.*/manifest.fingerprint rw,
-  owner /tmp/.com.google.Chrome.*/crl-set rw,
-  owner /tmp/.com.google.Chrome.*/_metadata/ rw,
-  owner /tmp/.com.google.Chrome.*/_metadata/verified_contents.json rw,
-  owner /tmp/.com.google.Chrome.*/_platform_specific/ rw,
-  owner /tmp/.com.google.Chrome.*/_platform_specific/**/ rw,
-  owner /tmp/.com.google.Chrome.*/_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe rw,
-  owner /tmp/.com.google.Chrome.*/_platform_specific/all/sths/[a-f0-9]*.sth rw,
-  owner /tmp/.com.google.Chrome.*/chrome-*-*.desktop rw,
-  owner /tmp/.com.google.Chrome.*/chrome-*-*.png rw,
+  owner /tmp/.com.google.Chrome.*/ rw,
+  owner /tmp/.com.google.Chrome.*/** rw,
   # For installing/updating extensions
   owner /tmp/scoped_dir*/ rw,
   owner /tmp/scoped_dir*/*.crx rw,
@@ -200,15 +205,11 @@
   owner /tmp/scoped_dir*/DECODED_MESSAGE_CATALOGS rw,
   owner /tmp/scoped_dir*/DECODED_IMAGES rw,
   owner /tmp/scoped_dir*/.com.google.Chrome.* rw,
-  owner /tmp/.com.google.Chrome.*/chrome_app_indicator_*.png rw,
-
-  # For Flash update
-  owner /tmp/.com.google.Chrome.*/*_linux_PepperFlashPlayer.crx3 rw,
-  owner /tmp/.com.google.Chrome.*/libpepflashplayer.so rw,
 
   # Silencer
   deny /opt/google/chrome/** w,
   deny /var/cache/fontconfig/ w,
+  deny owner @{HOME}/ r,
 
   /opt/google/chrome/xdg-mime rCx -> xdgmime,
   profile xdgmime flags=(complain) {

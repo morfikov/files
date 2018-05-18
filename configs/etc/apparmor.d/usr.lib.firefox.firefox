@@ -134,7 +134,8 @@
   deny owner @{PROC}/@{pids}/environ r,
        owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
-       owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
   # About:memory
   deny owner @{PROC}/@{pid}/statm r,
   deny owner @{PROC}/@{pid}/smaps r,

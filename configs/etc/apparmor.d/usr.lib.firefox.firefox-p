@@ -90,6 +90,8 @@
   deny /sys/devices/system/cpu/present r,
   deny /sys/devices/system/cpu/cpufreq/policy[0-9]/cpuinfo_max_freq r,
   deny /sys/devices/system/cpu/cpu[0-9]/cache/index[0-9]/size r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
   # Proc files
        owner @{PROC}/@{pid}/fd/ r,
@@ -98,7 +100,8 @@
   deny owner @{PROC}/@{pids}/environ r,
        owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
-       owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
   # About:memory
   deny owner @{PROC}/@{pid}/statm r,
   deny owner @{PROC}/@{pid}/smaps r,
