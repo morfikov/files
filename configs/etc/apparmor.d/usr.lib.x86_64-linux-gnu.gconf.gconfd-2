@@ -1,0 +1,28 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2017-2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/{usr/,}lib/@{multiarch}/gconf/gconfd-2 flags=(complain) {
+  #include <abstractions/base>
+
+  /{usr/,}lib/@{multiarch}/gconf/gconfd-2 mr,
+
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+
+  /var/lib/gconf/** r,
+  /etc/gconf/** r,
+
+  owner @{HOME}/.gconf/ rw,
+  owner @{HOME}/.gconf/.testing.writeability rw,
+
+}

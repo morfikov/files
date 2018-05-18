@@ -1,0 +1,38 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/sbin/gsmartcontrol flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/gtk>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+
+  capability dac_read_search,
+
+  /usr/sbin/gsmartcontrol mr,
+  /usr/sbin/smartctl rPx,
+
+  owner @{HOME}/.config/gsmartcontrol/gsmartcontrol.conf rw,
+
+  # As it's started as root
+  @{HOME}/.Xauthority r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/partitions r,
+  owner @{PROC}/devices r,
+
+  # Help menu
+  /usr/lib/chromium/chromium rPUx,
+  /usr/bin/dbus-launch rPUx,
+
+}
