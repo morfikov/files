@@ -46,6 +46,8 @@
   /bin/mv rix,
   /etc/samba/dhcp.conf.new rw,
   /etc/samba/dhcp.conf rw,
+  # For netbios name servers settings from a DHCP server
+  /var/lib/samba/dhcp.conf{,.new} rw,
 
   # Many scripts can use ip command
   capability net_admin,

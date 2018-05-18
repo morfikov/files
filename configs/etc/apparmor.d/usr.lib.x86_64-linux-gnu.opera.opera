@@ -124,7 +124,6 @@
   # Dconf
   #include <abstractions/dconf>
   owner /{,var/}run/user/[0-9]*/dconf/user rw,
-  owner @{HOME}/.config/dconf/user r,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
