@@ -11,13 +11,14 @@
 
 #include <tunables/global>
 
-/usr/bin/kdeinit4 {
+/usr/bin/kdeinit4 flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/kde>
   #include <abstractions/gtk>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
+  #include <abstractions/ssl_certs>
 
   # Needed for configuring Phonon
   #include <abstractions/audio-strict>
@@ -82,7 +83,7 @@
   deny /boot/vmlinuz-* r,
 
   /bin/dash rCx -> dash,
-  profile dash {
+  profile dash flags=(complain) {
     #include <abstractions/base>
     #include <abstractions/kde>
 
@@ -109,7 +110,7 @@
 
   # To generate the crash log info in Amarok
   /usr/bin/gdb rCx -> gdb,
-  profile gdb flags=(attach_disconnected) {
+  profile gdb flags=(complain) {
     #include <abstractions/base>
     #include <abstractions/python>
 

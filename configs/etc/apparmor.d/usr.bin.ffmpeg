@@ -32,4 +32,7 @@
   /sys/devices/system/node/ r,
   /sys/devices/system/node/node[0-9]/meminfo r,
 
+  # To generate thumbnails in some apps
+  owner /tmp/*.jpg rw,
+
 }

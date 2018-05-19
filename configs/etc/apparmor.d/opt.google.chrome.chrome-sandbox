@@ -14,11 +14,11 @@
 /opt/google/chrome/chrome-sandbox flags=(complain) {
   #include <abstractions/base>
 
+  # For kernel unprivileged user namespaces
+  capability sys_admin,
+  capability sys_chroot,
   capability setuid,
   capability setgid,
-  capability sys_chroot,
-
-  capability sys_admin,
 
   # optional
   capability sys_resource,

@@ -20,7 +20,7 @@
 #rewrite /opt/firefox/firefox -> /usr/share/firefox/firefox,
 #rewrite /opt/firefox/ -> /usr/share/firefox/,
 
-/usr/lib/firefox/firefox{,-bin} {
+/usr/lib/firefox/firefox{,-bin} flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
@@ -45,6 +45,16 @@
 
   # don't allow access to any gnome-keyring modules
   audit deny /{,var/}run/user/[0-9]*/keyring** mrwkl,
+
+  # For sandbox (since v60).
+  # The following rules are needed only when the kernel.unprivileged_userns_clone option is set
+  # to "1". Otherwise, User Namespaces in about:support will be set to "false", and FF won't be
+  # asking for the following.
+  #capability sys_admin,
+  #capability sys_chroot,
+  #owner @{PROC}/@{pid}/setgroups w,
+  #owner @{PROC}/@{pid}/gid_map w,
+  #owner @{PROC}/@{pid}/uid_map w,
 
   # Firefox files
   @{MOZ_LIBDIR}/ r,

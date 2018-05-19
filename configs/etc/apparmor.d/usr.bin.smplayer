@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/smplayer flags=(complain) {
+/usr/bin/smplayer {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
@@ -67,6 +67,10 @@
 
   deny /dev/ r,
   deny /dev/tty r,
+
+  # Nameservice
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
 
   # TMP
   owner /tmp/qtsingleapp-smplay-* rw,

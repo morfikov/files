@@ -37,6 +37,7 @@
   owner /var/lib/sddm/.cache/icon-cache.kcache mrwk,
   owner /var/lib/sddm/.cache/plasma_theme_default_v*.kcache mrwk,
   owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.jsc mrw,
+   link /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.jsc.* -> /var/lib/sddm/.cache/sddm-greeter/qmlcache/#[0-9]*,
   owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.qmlc mrw,
    link /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.qmlc.* -> /var/lib/sddm/.cache/sddm-greeter/qmlcache/#[0-9]*,
   owner /var/lib/sddm/.local/share/sddm/xorg-session.log rw,

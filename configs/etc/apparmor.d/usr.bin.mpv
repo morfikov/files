@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/mpv flags=(complain) {
+/usr/bin/mpv {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>

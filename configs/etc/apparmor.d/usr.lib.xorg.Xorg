@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/xorg/Xorg flags=(complain) {
+/usr/lib/xorg/Xorg {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/freedesktop.org>

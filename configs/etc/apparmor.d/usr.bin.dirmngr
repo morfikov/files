@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/dirmngr flags=(complain) {
+/usr/bin/dirmngr {
   #include <abstractions/base>
   #include <abstractions/gnupg>
   #include <abstractions/ssl_certs>

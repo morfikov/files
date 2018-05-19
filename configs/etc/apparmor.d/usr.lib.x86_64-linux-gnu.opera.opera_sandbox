@@ -15,12 +15,11 @@
   #include <abstractions/base>
   #include <abstractions/fonts>
 
+  # For kernel unprivileged user namespaces
+  capability sys_admin,
+  capability sys_chroot,
   capability setuid,
   capability setgid,
-  capability sys_chroot,
-
-  # Needed, otherwise Opera crashes
-  capability sys_admin,
 
   # optional
   capability sys_resource,

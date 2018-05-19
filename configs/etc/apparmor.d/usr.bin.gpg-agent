@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/bin/gpg-agent flags=(complain) {
+/usr/bin/gpg-agent {
   #include <abstractions/base>
   #include <abstractions/gnupg>
 

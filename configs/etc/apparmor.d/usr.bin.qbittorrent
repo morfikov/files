@@ -74,6 +74,7 @@
   /etc/host.conf r,
   /etc/hosts r,
   /etc/gai.conf r,
+  /etc/passwd r,
 
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,

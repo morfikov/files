@@ -84,21 +84,22 @@
 
   owner @{HOME}/.local/share/user-places.xbel rw,
 
-  /etc/rpc r,
+  deny /etc/rpc r,
 
-  /etc/gnome-vfs-2.0/modules/default-modules.conf r,
+  deny /etc/gnome-vfs-2.0/modules/default-modules.conf r,
 
-  /dev/tty rw,
+  deny /dev/tty rw,
 
-  owner @{PROC}/@{pid}/cmdline r,
-  owner @{PROC}/@{pid}/loginuid r,
-  owner @{PROC}/@{pid}/mounts r,
+  deny owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/loginuid r,
+  deny owner @{PROC}/@{pid}/mounts r,
 
   # TMP
   owner /tmp/#sql_*.{MAI,MAD} rw,
   owner /tmp/qipc_systemsem_AmarokScannerMemory[a-f0-9]* rw,
   owner /tmp/qipc_sharedmemory_AmarokScannerMemory[a-f0-9]* rw,
   owner /tmp/qt_temp.* rw,
+  owner /tmp/xauth-[0-9]*-_[0-9] r,
 
   # Nameservice
   deny /etc/nsswitch.conf r,
@@ -111,6 +112,11 @@
   deny /etc/resolv.conf r,
   deny /etc/gai.conf r,
   deny /etc/default/nss r,
+
+  /usr/share/icons/hicolor/index.theme rk,
+
+  # What's this for?
+  deny /etc/mysql/** r,
 
   # Silencer
   deny /tftpboot r,

@@ -38,6 +38,7 @@
   /bin/mv rix,
   /usr/bin/logger rix,
   /bin/ls rix,
+  /bin/touch rix,
 
   /usr/bin/apt-get rPUx,
 
@@ -59,6 +60,11 @@
        /var/lib/cron-apt/lockfile rw,
   link /var/lib/cron-apt/lockfile -> /var/lib/cron-apt/.lk*,
 
+  # Logs
+  /var/log/cron-apt/ r,
+  /var/log/cron-apt/error rw,
+  /var/log/cron-apt/temp rw,
+
   # For the "ls" command
   /etc/ld.so.cache r,
   /usr/lib/locale/locale-archive r,
@@ -69,20 +75,18 @@
   /etc/passwd r,
 
   # TMP
-  /tmp/cron-apt.*/ rw,
-  /tmp/cron-apt.*/difftemp rw,
-  /tmp/cron-apt.*/lockfile rw,
-  /tmp/cron-apt.*/initlog rw,
-  /tmp/cron-apt.*/runlog rw,
-  /tmp/cron-apt.*/runerror rw,
-  /tmp/cron-apt.*/runmail rw,
-  /tmp/cron-apt.*/runsyslog rw,
-  /tmp/cron-apt.*/actionlog rw,
-  /tmp/cron-apt.*/actionerror rw,
-  /tmp/cron-apt.*/actionmail rw,
-  /tmp/cron-apt.*/actionsyslog rw,
-
-  /var/log/cron-apt/ r,
-  /var/log/cron-apt/temp rw,
+  owner /tmp/cron-apt.*/ rw,
+  owner /tmp/cron-apt.*/difftemp rw,
+  owner /tmp/cron-apt.*/lockfile rw,
+  owner /tmp/cron-apt.*/initlog rw,
+  owner /tmp/cron-apt.*/runlog rw,
+  owner /tmp/cron-apt.*/runerror rw,
+  owner /tmp/cron-apt.*/runmail rw,
+  owner /tmp/cron-apt.*/runsyslog rw,
+  owner /tmp/cron-apt.*/actionlog rw,
+  owner /tmp/cron-apt.*/actionerror rw,
+  owner /tmp/cron-apt.*/actionmail rw,
+  owner /tmp/cron-apt.*/actionsyslog rw,
+  owner /tmp/cron-apt.*/status rw,
 
 }

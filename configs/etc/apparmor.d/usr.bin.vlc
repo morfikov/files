@@ -72,6 +72,7 @@
   /etc/host.conf r,
   /etc/hosts r,
   /etc/gai.conf r,
+  /etc/passwd r,
 
   # Silencer
   deny /{usr/,}lib/@{multiarch}/vlc/ w,
