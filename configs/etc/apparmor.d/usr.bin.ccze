@@ -22,9 +22,10 @@
   /etc/cczerc r,
 
   # Nameservice
-  /etc/nsswitch.conf r,
-  /etc/services r,
-  /etc/protocols r,
-  /etc/passwd r,
+  deny /etc/nsswitch.conf r,
+  deny /etc/services r,
+  deny /etc/protocols r,
+  deny /etc/passwd r,
+  deny /etc/default/nss r,
 
 }

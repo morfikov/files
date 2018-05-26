@@ -16,15 +16,15 @@
 
   /usr/lib/dconf/dconf-service mr,
 
-  owner /run/user/[0-9]*/dconf/ rw,
-  owner /run/user/[0-9]*/dconf/user rw,
+  owner /{var/,}run/user/[0-9]*/dconf/ rw,
+  owner /{var/,}run/user/[0-9]*/dconf/user rw,
 
   owner @{HOME}/.config/dconf/ rw,
   owner @{HOME}/.config/dconf/user rw,
   owner @{HOME}/.config/dconf/user.* rw,
 
-  /root/.cache/dconf/ rw,
-  /root/.cache/dconf/user rw,
+  owner @{HOME}/.cache/dconf/ rw,
+  owner @{HOME}/.cache/dconf/user rw,
 
   @{PROC}/cmdline r,
 

@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 flags=(complain) {
+/{usr/,}lib/@{multiarch}/libexec/polkit-kde-authentication-agent-1 flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/kde5-plasma5>

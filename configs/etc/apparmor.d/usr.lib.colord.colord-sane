@@ -17,7 +17,7 @@
   /usr/lib/colord/colord-sane mr,
 
   /etc/sane.d/ r,
-  /etc/sane.d/**/ r,
+  /etc/sane.d/dll.d/ r,
   /etc/sane.d/*.conf r,
 
   /dev/bus/usb/ r,

@@ -28,6 +28,7 @@
 
   # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
   # file_inherit
   deny @{PROC}/@{pid}/net/dev r,

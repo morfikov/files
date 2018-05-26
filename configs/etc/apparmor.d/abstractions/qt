@@ -25,6 +25,7 @@
 
   owner @{HOME}/.config/QtProject.conf* rw,
   owner @{HOME}/.config/QtProject.conf.lock rwk,
+  owner @{HOME}/.config/#[0-9]* rw,
   owner @{HOME}/.config/QtProject.conf.* rw,
    link @{HOME}/.config/QtProject.conf.* -> /home/*/.config/#[0-9]*,
 
@@ -38,9 +39,6 @@
 
   owner @{HOME}/.config/kdeglobals r,
   owner @{HOME}/.config/Trolltech.conf rwk,
-
-  # Many QT apps use this file
-  /etc/fstab r,
 
   # .Xauthority files required for X connections
   owner @{HOME}/.Xauthority r,

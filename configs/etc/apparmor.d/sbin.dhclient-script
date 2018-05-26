@@ -38,9 +38,9 @@
   /var/cache/ddclient/ddclient.cache rw,
   /usr/share/perl/[0-9].[0-9][0-9].[0-9]/*.pm r,
   /usr/share/perl/[0-9].[0-9][0-9].[0-9]/**/*.pm r,
-  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Socket/Socket.so mr,
-  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/IO/IO.so mr,
-  /usr/lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Sys/Hostname/Hostname.so mr,
+  /{usr/,}lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Socket/Socket.so mr,
+  /{usr/,}lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/IO/IO.so mr,
+  /{usr/,}lib/@{multiarch}/perl/[0-9].[0-9][0-9].[0-9]/auto/Sys/Hostname/Hostname.so mr,
 
   # For samba script
   /bin/mv rix,

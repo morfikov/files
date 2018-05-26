@@ -50,7 +50,7 @@
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/task/ r,
 
-  # #include <abstractions/nvidia>
+  ##include <abstractions/nvidia>
   /etc/vdpau_wrapper.cfg r,
 
   # Nameservice
@@ -63,30 +63,10 @@
   # Media downloaded by firefox
   #deny owner /tmp/mozilla_*/* r,
 
+  # Be able to turn off the screensaver while playing movies
+  /usr/bin/xdg-screensaver rPUx,
+
   # External apps
   /usr/bin/youtube-dl rPUx,
-
-  # Be able to turn off the screensaver while playing movies
-  /usr/bin/xdg-screensaver rCx -> screensaver,
-  profile screensaver {
-    #include <abstractions/base>
-
-    /usr/bin/xdg-screensaver mr,
-
-    /bin/dash rix,
-    /bin/mv rix,
-    /bin/grep rix,
-    /bin/hostname rix,
-    /bin/sed rix,
-    /bin/which rix,
-    /usr/bin/dbus-send rix,
-    /usr/bin/xset rix,
-
-    /dev/dri/card[0-9] rw,
-
-    owner @{HOME}/.Xauthority r,
-    owner /tmp/xauth-[0-9]*-_[0-9] r,
-
-  }
 
 }

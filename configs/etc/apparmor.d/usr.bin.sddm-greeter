@@ -54,11 +54,11 @@
   /var/lib/AccountsService/icons/*.icon r,
 
   # QT
-  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
-  /usr/lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
 
   #
   /usr/share/desktop-base/softwaves-theme/login/*.svg r,
@@ -71,7 +71,7 @@
   owner /run/sddm/ rw,
   owner /run/sddm/* rw,
 
-  /lib/@{multiarch}/ld-*.so mr,
+  /{usr/,}lib/@{multiarch}/ld-*.so mr,
   owner @{PROC}/@{pid}/mounts r,
 
   /var/lib/dbus/machine-id r,
@@ -81,10 +81,6 @@
   # Nameservice
   /etc/nsswitch.conf r,
   /etc/default/nss r,
-  #/etc/resolv.conf r,
-  #/etc/host.conf r,
-  #/etc/hosts r,
-  #/etc/gai.conf r,
   /etc/passwd r,
 
 }

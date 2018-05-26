@@ -17,6 +17,7 @@
 
   owner @{HOME}/.gtkrc r,
   owner @{HOME}/.gtkrc-2.0 r,
+  owner @{HOME}/.config/#[0-9]* rwk,
   owner @{HOME}/.config/gtkrc r,
    link @{HOME}/.config/gtkrc.* -> /home/*/.config/#[0-9]*,
   owner @{HOME}/.config/gtkrc-2.0 r,

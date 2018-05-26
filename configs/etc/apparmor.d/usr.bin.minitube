@@ -40,11 +40,8 @@
   owner @{HOME}/.config/Minituberc* rw,
   owner @{HOME}/.config/Minituberc.lock rwk,
 
-  owner @{HOME}/.config/#[0-9]* rw,
-
   # Cache
   owner @{HOME}/.cache/ rw,
-#  owner @{HOME}/.cache/#[0-9]* rw,
   owner "@{HOME}/.cache/Flavio Tordini/" rw,
   owner "@{HOME}/.cache/Flavio Tordini/**" rw,
   owner "/tmp/morfik_cache/.cache/Flavio Tordini/" rw,
@@ -73,18 +70,17 @@
   /{usr/,}lib/@{multiarch}/vlc/plugins/plugins.dat.* r,
   /usr/share/vlc/** r,
 
-  /sys/devices/system/node/ r,
-  /sys/devices/system/node/node[0-9]/meminfo r,
+  deny /sys/devices/system/node/ r,
+  deny /sys/devices/system/node/node[0-9]/meminfo r,
 
   /dev/tty r,
 
   owner /{var/,}run/user/[0-9]*/#[0-9]* rw,
 
-  # Proc filesystem
-  owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/cmdline r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
   # Nameservice
   /etc/nsswitch.conf r,
@@ -117,30 +113,13 @@
   owner @{HOME}/Pictures/*.png rw,
   owner /tmp/#[0-9]* rw,
   owner /tmp/phonon-vlc-snapshot.* rw,
-  link /tmp/phonon-vlc-snapshot.* -> /tmp/#[0-9]*,
-
-  # Silencer
-  /usr/lib/@{multiarch}/vlc/plugins/** w,
-  /var/cache/fontconfig/ w,
+   link /tmp/phonon-vlc-snapshot.* -> /tmp/#[0-9]*,
 
   # Be able to turn off the screensaver while playing movies
-  /usr/bin/xdg-screensaver rCx -> screensaver,
-  profile screensaver {
-    #include <abstractions/base>
+  /usr/bin/xdg-screensaver rPUx,
 
-    /usr/bin/xdg-screensaver mr,
-
-    /bin/dash rix,
-    /bin/mv rix,
-    /bin/grep rix,
-    /bin/hostname rix,
-    /bin/sed rix,
-    /bin/which rix,
-    /usr/bin/dbus-send rix,
-    /usr/bin/xset rix,
-
-    owner @{HOME}/.Xauthority r,
-
-  }
+  # Silencer
+  /{usr/,}lib/@{multiarch}/vlc/** w,
+  /var/cache/fontconfig/ w,
 
 }

@@ -28,7 +28,7 @@
   owner /tmp/xauth-[0-9]*-_[0-9] r,
 
   # When found a kernel OOPS make a tmp file and fill it with the OOPS message
-  /tmp/kerneloops.* rw,
+  owner /tmp/kerneloops.* rw,
 
   # Fonts
   /usr/share/poppler/cMap/Adobe-Japan2/ r,

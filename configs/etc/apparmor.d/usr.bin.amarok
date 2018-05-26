@@ -20,6 +20,7 @@
   #include <abstractions/audio-strict>
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
+  #include <abstractions/trash>
 
   signal (send) set=(term) peer=/usr/bin/kdeinit4,
   signal (receive) set=(stop,cont) peer=/usr/bin/kdeinit4,
@@ -79,9 +80,6 @@
   owner @{HOME}/.kde{,4}/share/apps/amarok/albumcovers/cache/** rw,
   owner /tmp/morfik_cache/.kde{,4}/share/apps/amarok/albumcovers/cache/** rw,
 
-  owner @{HOME}/.local/share/Trash/ rw,
-  owner @{HOME}/.local/share/Trash/** rw,
-
   owner @{HOME}/.local/share/user-places.xbel rw,
 
   deny /etc/rpc r,
@@ -127,6 +125,7 @@
   deny /sys/class/ r,
   deny /sys/devices/ r,
   deny /sys/devices/virtual/net/**/{uevent,type} r,
+  deny /sys/devices/virtual/sound/seq/uevent r,
   deny /sys/devices/pci[0-9]*/**/usb[1-3]/**/{manufacturer,product,uevent} r,
   deny /sys/devices/system/node/ r,
   deny /{,var/}run/udev/data/* r,

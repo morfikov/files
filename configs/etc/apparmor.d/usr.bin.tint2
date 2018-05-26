@@ -27,6 +27,8 @@
   # Tint2 config files
   owner @{HOME}/.config/tint2/ rw,
   owner @{HOME}/.config/tint2/** rw,
+
+  # Tint2 cache files
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/tint2/ rw,
   owner @{HOME}/.cache/tint2/icon.cache rwk,
@@ -42,7 +44,7 @@
   /bin/[a-zA-Z0-9]* mrPUx,
   /usr/lib/firefox/firefox* mrPUx,
 
-  /usr/lib/@{multiarch}/imlib2/loaders/*.so mr,
+  /{usr/,}lib/@{multiarch}/imlib2/loaders/*.so mr,
 
   owner @{HOME}/.Xauthority r,
 

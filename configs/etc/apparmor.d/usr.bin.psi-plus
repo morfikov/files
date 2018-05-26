@@ -40,7 +40,6 @@
   owner @{HOME}/.local/share/psi+/ rw,
   owner @{HOME}/.local/share/psi+/** rw,
   owner @{HOME}/.config/.* rwk,
-  owner @{HOME}/.config/#[0-9]* rw,
 
   # Cache files
   owner @{HOME}/.cache/ rw,
@@ -103,9 +102,11 @@
     /usr/share/psi-plus/sound/** r,
 
     owner @{HOME}/.Xauthority r,
-    owner @{HOME}/.xsession-errors* rw,
-
     owner /tmp/xauth-[0-9]*-_[0-9] r,
+
+    # Logs
+    owner @{HOME}/.xsession-errors* rw,
+    owner /dev/log-xsession rw,
 
   }
 

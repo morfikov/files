@@ -81,9 +81,16 @@
   # Cache
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/mozilla/ rw,
-  owner @{HOME}/.cache/mozilla/** rwk,
+  owner @{HOME}/.cache/mozilla/** rw,
+  owner @{HOME}/.cache/mozilla/firefox/*/OfflineCache/index.sqlite rwk,
   owner /tmp/morfik_cache/.cache/mozilla/ rw,
-  owner /tmp/morfik_cache/.cache/mozilla/** rwk,
+  owner /tmp/morfik_cache/.cache/mozilla/** rw,
+  owner /tmp/morfik_cache/.cache/mozilla/firefox/*/OfflineCache/index.sqlite rwk,
+
+  # Cache for thumbnails
+  owner @{HOME}/.cache/thumbnails/ rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/ rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -166,7 +173,7 @@
   # Needed when addons are upgraded
   owner /tmp/tmp-*.xpi rw,
   # For downloading files and opening them in other apps
-  owner /tmp/*.* rw,
+  #owner /tmp/*.* rw,
   owner /tmp/mozilla_*/ rw,
   owner /tmp/mozilla_*/*.* rw,
   owner /tmp/mozilla_*/*.*.part rw,
@@ -183,7 +190,7 @@
 
   # Silencer
   deny /var/cache/fontconfig/ w,
-  deny /usr/lib/firefox/fonts/** w,
+  deny /usr/lib/firefox/** w,
 
   # Launch external apps
   /usr/bin/exo-open    rPUx,

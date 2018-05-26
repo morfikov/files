@@ -19,6 +19,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/ssl_certs>
+  #include <abstractions/trash>
 
   # Needed for configuring Phonon
   #include <abstractions/audio-strict>
@@ -50,11 +51,6 @@
   owner @{HOME}/.kde/share/apps/kconf_update/log/update.log rw,
 
   /etc/rpc r,
-
-  owner @{HOME}/.local/share/Trash/ rw,
-  owner @{HOME}/.local/share/Trash/** rw,
-  owner /**/.Trash-[0-9]*/ rw,
-  owner /**/.Trash-[0-9]*/** rw,
 
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mounts r,

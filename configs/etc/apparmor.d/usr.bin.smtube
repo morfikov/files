@@ -24,7 +24,7 @@
 
   /usr/bin/smtube mr,
 
-  /usr/lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner rPx -> gst_plugin_scanner,
+  /{usr/,}lib/@{multiarch}/gstreamer[0-9]*.[0-9]*/gstreamer-[0-9]*.[0-9]*/gst-plugin-scanner rPx -> gst_plugin_scanner,
 
   # SMTube config files
   owner @{HOME}/.config/smtube/ rw,

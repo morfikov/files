@@ -18,6 +18,7 @@
   /usr/bin/gpgsm mr,
 
   # Logs
-  /dev/log-gnupg rw,
+  owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-gnupg rw,
 
 }

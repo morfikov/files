@@ -26,6 +26,8 @@
 
   /dev/tty rw,
 
+  # Logs
   owner @{HOME}/.xsession-errors* rw,
+  owner /dev/log-xsession rw,
 
 }

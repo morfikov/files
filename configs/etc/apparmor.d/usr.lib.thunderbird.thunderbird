@@ -32,7 +32,7 @@
   #include <abstractions/private-files>
   audit deny @{HOME}/.gnupg/** mrwkl,
   audit deny @{HOME}/.ssh/** mrwkl,
-  audit deny @{HOME}/.mozilla/** mrwkl,
+        deny @{HOME}/.mozilla/** mrwkl,
   audit deny @{HOME}/.config/chromium/** mrwkl,
   audit deny @{HOME}/.evolution/** mrwkl,
   audit deny @{HOME}/.config/evolution/** mrwkl,
@@ -53,21 +53,21 @@
   # Thunderbird home files
   owner @{MOZ_HOMEDIR}/ rw,
   owner @{MOZ_HOMEDIR}/** rw,
-  owner @{MOZ_HOMEDIR}/**/.parentlock rwk,
-  owner @{MOZ_HOMEDIR}/**/storage.sdb rwk,
-  owner @{MOZ_HOMEDIR}/**/*.sqlite{,-shm} rwk,
+  owner @{MOZ_HOMEDIR}/*.*/.parentlock rwk,
+  owner @{MOZ_HOMEDIR}/*.*/storage.sdb rwk,
+  owner @{MOZ_HOMEDIR}/*.*/**.sqlite{,-shm} rwk,
 
   # Cache
   owner @{HOME}/.cache/ rw,
   owner @{HOME}/.cache/thunderbird/ rw,
-  owner @{HOME}/.cache/thunderbird/** rwk,
+  owner @{HOME}/.cache/thunderbird/** rw,
   owner /tmp/morfik_cache/.cache/thunderbird/ rw,
-  owner /tmp/morfik_cache/.cache/thunderbird/** rwk,
+  owner /tmp/morfik_cache/.cache/thunderbird/** rw,
 
   # Cache for thumbnails for attached images
   owner @{HOME}/.cache/thumbnails/ rw,
-  owner @{HOME}/.cache/thumbnails/**/ rw,
-  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/ rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -100,9 +100,10 @@
   # Needed for system mails
   owner /var/mail/* rwk,
 
-  # Needed for file browsing to work
-  owner @{HOME}/.{cache,config}/dconf/user rw,
+  # Dconf
+  #include <abstractions/dconf>
   owner /{,var/}run/user/[0-9]*/dconf/user rw,
+  owner @{HOME}/.config/dconf/user r,
 
   # Fix error in libglib while saving files as
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
@@ -116,7 +117,7 @@
   owner @{HOME}/.config/mimeapps.list.* rw,
 
   # KDE system keyring
-  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/KF5WindowSystemX11Plugin.so mr,
   /usr/share/xul-ext/kwallet5/* r,
   /etc/xul-ext/kwallet5.js r,
   owner @{HOME}/.config/kwalletrc r,
@@ -139,15 +140,18 @@
   deny owner @{PROC}/@{pids}/environ r,
        owner @{PROC}/@{pid}/task/ r,
   deny owner @{PROC}/@{pid}/task/@{pids}/stat r,
+  # To remove the following error:
+  #  GLib-GIO-WARNING **: Error creating IO channel for /proc/self/mountinfo: Permission denied
+  #  (g-file-error-quark, 2)
        owner @{PROC}/@{pid}/mountinfo r,
-       owner @{PROC}/@{pid}/mounts r,
+  deny owner @{PROC}/@{pid}/mounts r,
   deny       @{PROC}/@{pid}/net/arp r,
 
 
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
 
-  /dev/tty r,
+  deny /dev/tty r,
 
   # TMP files
         /var/tmp/ r,
@@ -164,9 +168,10 @@
   owner /tmp/tmp-*.xpi rw,
   # Loading remote content in a message (images, etc)
   owner /tmp/nsma rw,
-  # Saving or viewing attachments
+  # The following is needed when an attachment is doubled clicked (for opening in a specific app).
+  # If blocked, the attachment still can be saved in the desired location, but you have to open it
+  # in the external app manually.
   #owner /tmp/* rw,
-  owner /tmp/mozilla_*/* rw,
   #
   owner /tmp/MozillaMailnews/ rw,
   owner /tmp/MozillaMailnews/*.msf rw,
@@ -182,7 +187,7 @@
 
   # Silencer
   deny /var/cache/fontconfig/ w,
-  deny /usr/lib/thunderbird/fonts/** w,
+  deny /usr/lib/thunderbird/** w,
 
   # Launch external apps
   /usr/lib/firefox/firefox rPUx,

@@ -16,7 +16,7 @@
 # following:
 # watch -n 1 'dmesg | tail -5'
 
-/usr/sbin/rsyslogd {
+/usr/sbin/rsyslogd flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 
@@ -37,7 +37,7 @@
   # for creating new log files and changing their owner/group
   capability chown,
 
-  /usr/lib/@{multiarch}/rsyslog/*.so mr,
+  /{usr/,}lib/@{multiarch}/rsyslog/*.so mr,
 
   # rsyslog configuration
   /etc/rsyslog.conf r,
@@ -45,7 +45,7 @@
   /etc/rsyslog.d/** r,
   /{,var/}run/rsyslogd.pid{,.tmp} rwk,
   /var/spool/rsyslog/ r,
-  /var/spool/rsyslog/** rwk,
+  /var/spool/rsyslog/** rw,
 
   # log files and devices
   /var/log/** rw,

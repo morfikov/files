@@ -47,7 +47,7 @@
 
   /etc/cron-apt/ r,
   /etc/cron-apt/config r,
-  /etc/cron-apt/**/ r,
+  /etc/cron-apt/*/ r,
   /etc/cron-apt/action.d/ r,
   /etc/cron-apt/action.d/0-update r,
   /etc/cron-apt/action.d/3-download r,

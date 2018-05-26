@@ -16,6 +16,7 @@
 
   /{usr/,}lib/@{multiarch}/gconf/gconfd-2 mr,
 
+  # Nameservice
   /etc/nsswitch.conf r,
   /etc/passwd r,
 

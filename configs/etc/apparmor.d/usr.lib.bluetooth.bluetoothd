@@ -21,7 +21,7 @@
   /usr/sbin/bluetoothd mr,
 
   # Bluetooth plugins
-  /usr/lib/@{multiarch}/bluetooth/plugins/*.so mr,
+  /{usr/,}lib/@{multiarch}/bluetooth/plugins/*.so mr,
 
   # Bluetooth config files
   /etc/bluetooth/ r,

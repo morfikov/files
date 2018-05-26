@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/@{multiarch}/opera/opera_sandbox flags=(complain) {
+/{usr/,}lib/@{multiarch}/opera/opera_sandbox flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/fonts>
 
@@ -24,10 +24,10 @@
   # optional
   capability sys_resource,
 
-  signal (receive) set=(term) peer=/usr/lib/@{multiarch}/opera/opera,
+  signal (receive) set=(term) peer=/{usr/,}lib/@{multiarch}/opera/opera,
 
-  /usr/lib/@{multiarch}/opera/opera_sandbox mr,
-  /usr/lib/@{multiarch}/opera/opera rPx,
+  /{usr/,}lib/@{multiarch}/opera/opera_sandbox mr,
+  /{usr/,}lib/@{multiarch}/opera/opera rPx,
 
         @{PROC}/@{pids}/ r,
   owner @{PROC}/@{pid}/oom_score_adj rw,

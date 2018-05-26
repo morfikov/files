@@ -35,7 +35,6 @@
 
   # Silencer
   deny /usr/lib/python*/** w,
-  deny /usr/lib/python{2.[4-7],3.[0-6]}/** w,
-  deny /usr/local/lib{,32,64}/python{2.[4-7],3.[0-6]}/** w,
+  deny /usr/local/lib{,32,64}/python*/** w,
 
 }

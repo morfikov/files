@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/@{multiarch}/opera/opera_crashreporter flags=(complain) {
+/{usr/,}lib/@{multiarch}/opera/opera_crashreporter flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/ssl_certs>
   #include <abstractions/nameservice>
@@ -19,9 +19,9 @@
   #include <abstractions/fonts>
   #include <abstractions/freedesktop.org>
 
-  ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera,
+  ptrace (trace) peer=/{usr/,}lib/@{multiarch}/opera/opera,
 
-  /usr/lib/@{multiarch}/opera/opera_crashreporter mr,
+  /{usr/,}lib/@{multiarch}/opera/opera_crashreporter mr,
 
   owner @{HOME}/.config/opera/crash_count.txt rwk,
 

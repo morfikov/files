@@ -29,17 +29,17 @@
   owner @{HOME}/.config/volumeicon/ rw,
   owner @{HOME}/.config/volumeicon/volumeicon* rw,
 
-  # Start the PulseAudio sound mixer
-  /bin/dash rix,
-  /usr/bin/pavucontrol rPUx,
-
   # Needed when volumeicon crashes
   /usr/share/X11/XErrorDB r,
 
-  /etc/machine-id r,
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
   #
   /dev/snd/controlC[0-9] rw,
+
+  deny /{usr/,}lib/@{multiarch}/dri/swrast_dri.so mr,
+  deny /dev/dri/card[0-9] rw,
 
   # Logs
   owner @{HOME}/.xsession-errors* rw,
@@ -47,5 +47,15 @@
 
   # file_inherit
   deny /dev/tty[0-9]* rw,
+
+  # Start the PulseAudio sound mixer
+  /bin/dash rCx -> dash,
+  profile dash flags=(complain) {
+    #include <abstractions/base>
+
+    /bin/dash mr,
+    /usr/bin/pavucontrol rPUx,
+
+  }
 
 }

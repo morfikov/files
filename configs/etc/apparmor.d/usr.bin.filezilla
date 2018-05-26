@@ -26,18 +26,13 @@
   /usr/bin/fzsftp rPx,
 
   owner @{HOME}/.config/filezilla/ rw,
-  owner @{HOME}/.config/filezilla/**/ rw,
   owner @{HOME}/.config/filezilla/*.xml rw,
   owner @{HOME}/.config/filezilla/*.xml~ rw,
   owner @{HOME}/.config/filezilla/lockfile rwk,
   owner @{HOME}/.config/filezilla/queue.sqlite3 rwk,
 
-  owner @{HOME}/.config/filezilla/ rw,
-  owner @{HOME}/.config/filezilla/**/ rw,
-
   owner @{HOME}/.cache/filezilla/ rw,
-  owner @{HOME}/.cache/filezilla/**/ rw,
-  owner @{HOME}/.cache/filezilla/**.png rw,
+  owner @{HOME}/.cache/filezilla/default_*.png rw,
 
   # FIlezilla files
   /usr/share/filezilla/ r,
@@ -51,7 +46,6 @@
   owner @{HOME}/[dD]esktop/** rw,
    link @{HOME}/[dD]esktop/** -> /home/*/[dD]esktop/**,
 
-  # When opening URLs
   owner @{PROC}/@{pid}/fd/ r,
 
   # Creating new files on FTP

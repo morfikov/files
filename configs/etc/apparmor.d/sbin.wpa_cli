@@ -16,11 +16,11 @@
 
   /sbin/wpa_cli mr,
 
-  /run/wpa_supplicant/ r,
-  /tmp/wpa_ctrl_@{pid}-[0-9] rw,
+  /{var/,}run/wpa_supplicant/ r,
+  owner /tmp/wpa_ctrl_@{pid}-[0-9] rw,
 
   # for interactive mode
   /etc/inputrc r,
-  /root/.wpa_cli_history rw,
+  owner @{HOME}/.wpa_cli_history rw,
 
 }

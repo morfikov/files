@@ -23,8 +23,8 @@
   /usr/bin/hexchat mr,
 
   # Hexchat plugins
-  /usr/lib/@{multiarch}/hexchat/** r,
-  /usr/lib/@{multiarch}/hexchat/plugins/*.so mr,
+  /{usr/,}lib/@{multiarch}/hexchat/** r,
+  /{usr/,}lib/@{multiarch}/hexchat/plugins/*.so mr,
 
   # Hexchat home files
   owner @{HOME}/.config/hexchat/ rw,

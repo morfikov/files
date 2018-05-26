@@ -33,7 +33,9 @@
   /{,var/}run/user/[0-9]*/keyring/ rw,
   /{,var/}run/user/[0-9]*/keyring/* rw,
 
+  # Logs
   owner @{HOME}/.xsession-errors rw,
+  owner /dev/log-xsession rw,
 
   # Needed when /proc is mounted with hideproc=2
   owner @{HOME}/.cache/keyring-*/ rw,

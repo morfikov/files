@@ -36,10 +36,19 @@
   owner "@{HOME}/.local/share/Flavio Tordini/Musique/**" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/Musique/musique.db" rwk,
 
-  owner @{HOME}/.config/#[0-9]* rw,
-
   owner @{HOME}/.config/Musiquerc rw,
   owner @{HOME}/.config/Musiquerc.lock rwk,
+
+  owner  @{HOME}/.cache/ rw,
+  owner "@{HOME}/.cache/Flavio Tordini/" rw,
+  owner "@{HOME}/.cache/Flavio Tordini/Musique/**" rw,
+  owner @{HOME}/.cache/vlc/**/ rw,
+  owner @{HOME}/.cache/vlc/**/art.jpg rw,
+
+  # Fontconfig cache
+  owner @{HOME}/.cache/fontconfig/ rw,
+  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
+  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
   # Media dir
         /media/ r,
@@ -51,17 +60,14 @@
   owner /tmp/qtsingleapp-musiqu-* rw,
   owner /tmp/qtsingleapp-musiqu-*-lockfile rwk,
 
+  deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
+
   deny owner @{PROC}/@{pid}/cmdline r,
   deny owner @{PROC}/@{pid}/mountinfo r,
 
   deny /sys/devices/system/node/ r,
   deny /sys/devices/system/node/node[0-9]/meminfo r,
-
-  # Fontconfig cache
-  owner @{HOME}/.cache/fontconfig/ rw,
-  owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
-  owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
   # Phonon
   owner @{HOME}/.config/kde.org/libphonon.conf r,
@@ -70,13 +76,6 @@
   /{usr/,}lib/@{multiarch}/qt5/plugins/phonon4qt5_backend/phonon_vlc.so mr,
   /{usr/,}lib/@{multiarch}/qt5/plugins/phonon_platform/kde.so mr,
 
-  owner  @{HOME}/.cache/ rw,
-  owner "@{HOME}/.cache/Flavio Tordini/" rw,
-  owner "@{HOME}/.cache/Flavio Tordini/Musique/**" rw,
-  owner @{HOME}/.cache/vlc/**/ rw,
-  owner @{HOME}/.cache/vlc/**/art.jpg rw,
-
-  deny /etc/machine-id r,
   deny /usr/share/hwdata/pnp.ids r,
   deny /usr/share/xsessions/*.desktop r,
   deny /dev/tty r,

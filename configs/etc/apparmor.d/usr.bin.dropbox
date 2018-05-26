@@ -31,8 +31,12 @@
   /usr/bin/python2.7 rix,
 
   # Dropbox home files
-  @{HOME_DIR}/ rw,
-  @{HOME_DIR}/** rwk,
+  owner @{HOME_DIR}/ rw,
+  owner @{HOME_DIR}/** rw,
+  owner @{HOME_DIR}/instance_db/*.dbx rwk,
+  owner @{HOME_DIR}/instance[0-9]/*.dbx{,-shm} rwk,
+  owner @{HOME_DIR}/instance[0-9]/TO_HASH_* rwk,
+  owner @{HOME_DIR}/dropbox.pid rwk,
 
   # Shared files
   owner @{SHARE_DIR}/ rw,
@@ -47,7 +51,7 @@
   owner @{DEMON_DIR}/dropbox-lnx.*/dropbox_py3 rwix,
   owner @{DEMON_DIR}/dropbox-lnx.*/wmctrl rwix,
   owner @{DEMON_DIR}/dropbox-lnx.*/*.so* mrw,
-  owner @{DEMON_DIR}/dropbox-lnx.*/**/*.so mrw,
+  owner @{DEMON_DIR}/dropbox-lnx.*/plugins/platforms/*.so mrw,
 
   /bin/dash rix,
   /bin/readlink rix,
@@ -65,9 +69,6 @@
   # Needed for updating Dropbox
   owner /tmp/.dropbox-dist-new-*/ rw,
   owner /tmp/.dropbox-dist-new-*/** rw,
-#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropboxd rwix,
-#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropboxd rwix,
-#  owner /tmp/.dropbox-dist-new-*/.dropbox-dist/dropbox-*/dropbox rwix,
   owner @{HOME}/.dropbox-dist-old*/ rw,
   owner @{HOME}/.dropbox-dist-old*/** rw,
   owner @{HOME}/.dropbox-dist-tmp-*/ rw,

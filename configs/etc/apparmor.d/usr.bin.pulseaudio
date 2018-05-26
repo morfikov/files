@@ -20,7 +20,7 @@
   signal (receive) set=(usr2) peer=/usr/bin/smplayer//pacmd,
 
   /usr/bin/pulseaudio mrix,
-  /usr/lib/@{multiarch}/pulse/gconf-helper mrix,
+  /{usr/,}lib/@{multiarch}/pulse/gconf-helper mrix,
 
   # PulseAudio files
   /usr/share/pulseaudio/** r,
@@ -75,7 +75,7 @@
   owner /dev/log-xsession rw,
 
   # Needed when /proc is mounted with hidepid=2
-  /tmp/pulse-*/pid rwk,
+  owner /tmp/pulse-*/pid rwk,
 
   # file_inherit
   deny /dev/tty[0-9]* rw,

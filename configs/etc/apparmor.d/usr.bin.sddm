@@ -33,7 +33,7 @@
 
   /usr/bin/sddm mr,
 
-  /usr/lib/@{multiarch}/sddm/sddm-helper rix,
+  /{usr/,}lib/@{multiarch}/sddm/sddm-helper rix,
   /bin/dash mrix,
 
   /usr/bin/sddm-greeter rPx,
@@ -51,7 +51,7 @@
   owner @{HOME}/.local/share/kwalletd/ rw,
   owner @{HOME}/.local/share/kwalletd/kdewallet.salt rw,
         @{HOME}/.local/share/kwalletd/kdewallet.salt r,
-  owner /run/user/[0-9]*/kwallet5.socket rw,
+  owner /{var/,}run/user/[0-9]*/kwallet5.socket rw,
   /var/log/btmp rwk,
   capability dac_override,
 
@@ -82,11 +82,11 @@
   /var/lib/AccountsService/icons/*.icon r,
 
   # QT
-  /usr/lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
-  /usr/lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
-  /usr/lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/kf5/org.kde.kwindowsystem.platforms/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/plugins/plasma/dataengine/*.so mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/**/*.qmlc mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/*.qmlc mr,
+  /{usr/,}lib/@{multiarch}/qt5/qml/QtQuick/Controls/Private/*.jsc mr,
 
   #
   /usr/share/desktop-base/softwaves-theme/login/*.svg r,
@@ -103,14 +103,14 @@
   owner /tmp/**/ rw,
   owner /tmp/**/s rw,
 
-  owner /run/sddm/ rw,
-        /run/sddm/* rwl,
+  owner /{var/,}run/sddm/ rw,
+        /{var/,}run/sddm/* rwl,
 
   # Session error logs
   owner @{HOME}/.local/share/sddm/xorg-session.log rw,
   owner @{HOME}/.local/share/sddm/wayland-session.log rw,
 
-  /lib/@{multiarch}/ld-*.so mr,
+  /{usr/,}lib/@{multiarch}/ld-*.so mr,
 
   /etc/security/limits.d/ r,
 

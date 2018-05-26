@@ -35,6 +35,7 @@
   @{PROC}/@{pids}/task/@{pids}/stat r,
   @{PROC}/@{pids}/limits r,
 
+  # Nameservices
   /etc/nsswitch.conf r,
   /etc/passwd r,
 

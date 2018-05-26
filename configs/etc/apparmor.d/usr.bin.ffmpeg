@@ -35,4 +35,7 @@
   # To generate thumbnails in some apps
   owner /tmp/*.jpg rw,
 
+  # TMP files for apps using ffmpeg
+  owner /tmp/vidcutter/** rw,
+
 }

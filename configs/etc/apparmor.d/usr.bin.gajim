@@ -71,8 +71,8 @@
   deny @{HOME}/ r,
 
   # Sounds
-  /usr/bin/aplay Cx -> audio,
-  /usr/bin/pacat Cx -> audio,
+  /usr/bin/aplay rCx -> audio,
+  /usr/bin/pacat rCx -> audio,
   profile audio {
     #include <abstractions/base>
     #include <abstractions/audio-strict>
@@ -87,7 +87,7 @@
 
   }
 
-  /sbin/ldconfig Cx -> ldconfig,
+  /sbin/ldconfig rCx -> ldconfig,
   profile ldconfig {
     #include <abstractions/base>
 
@@ -95,7 +95,7 @@
 
   }
 
-  /bin/dash Cx -> dash,
+  /bin/dash rCx -> dash,
   profile dash {
     #include <abstractions/base>
 

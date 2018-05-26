@@ -28,9 +28,9 @@
 
   # Wireshark files
   /usr/share/wireshark/** r,
-  /usr/lib/@{multiarch}/wireshark/extcap/* ix,
-  /usr/lib/@{multiarch}/wireshark/plugins/**/   r,
-  /usr/lib/@{multiarch}/wireshark/plugins/**.so mr,
+  /{usr/,}lib/@{multiarch}/wireshark/extcap/* rix,
+  /{usr/,}lib/@{multiarch}/wireshark/plugins/*/ r,
+  /{usr/,}lib/@{multiarch}/wireshark/plugins/*/*.so mr,
   /etc/wireshark/init.lua r,
 
   # Wireshark home files
@@ -38,7 +38,6 @@
   owner @{HOME}/.wireshark/* rw,
   owner @{HOME}/.config/wireshark/ rw,
   owner @{HOME}/.config/wireshark/* rw,
-  owner @{HOME}/.config/#* rwk,
 
   # User downloads
   owner @{HOME}/[dD]ownload{,s}/ r,
@@ -53,14 +52,14 @@
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
-  @{PROC}/@{pid}/net/dev r,
+        @{PROC}/@{pid}/net/dev r,
 
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
   /usr/share/GeoIP/ r,
   /usr/share/GeoIP/** r,
 
-  /tmp/wireshark_*_[0-9]*_*.pcapng rw,
+  owner /tmp/wireshark_*_[0-9]*_*.pcapng rw,
 
   /dev/tty r,
 

@@ -11,7 +11,7 @@
 
 #include <tunables/global>
 
-/usr/lib/@{multiarch}/opera/opera flags=(complain) {
+/{usr/,}lib/@{multiarch}/opera/opera flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/X>
   #include <abstractions/gtk>
@@ -21,18 +21,18 @@
   #include <abstractions/openssl>
   #include <abstractions/drm>
 
-  signal (send) set=(term) peer=/usr/lib/@{multiarch}/opera/opera_sandbox,
+  signal (send) set=(term) peer=/{usr/,}lib/@{multiarch}/opera/opera_sandbox,
 
   ptrace (trace) peer=@{profile_name},
   deny ptrace (trace) peer=/usr/bin/lsb_release,
-  deny ptrace (trace) peer=/usr/lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
+  deny ptrace (trace) peer=/{usr/,}lib/@{multiarch}/opera/opera///usr/bin/xdg-settings,
   # Needed?
   deny ptrace (trace) peer=unconfined,
 
-  /usr/lib/@{multiarch}/opera/opera mrix,
-  /usr/lib/@{multiarch}/opera/opera_sandbox rPx,
-  /usr/lib/@{multiarch}/opera/opera_crashreporter rPx,
-  /usr/lib/@{multiarch}/opera/opera_autoupdate krix,
+  /{usr/,}lib/@{multiarch}/opera/opera mrix,
+  /{usr/,}lib/@{multiarch}/opera/opera_sandbox rPx,
+  /{usr/,}lib/@{multiarch}/opera/opera_crashreporter rPx,
+  /{usr/,}lib/@{multiarch}/opera/opera_autoupdate krix,
 
   /usr/bin/lsb_release rPUx,
   /usr/bin/xdg-mime rPUx,
@@ -65,7 +65,7 @@
   owner @{HOME}/.config/opera/**/LOCK rwk,
   owner @{HOME}/.config/opera/ssdfp[0-9]*.[0-9].[0-9]*.lock rwk,
   owner @{HOME}/.config/opera/databases/Databases.db rwk,
-  owner @{HOME}/.config/opera/databases/chrome-extension* rwk,
+  owner @{HOME}/.config/opera/databases/chrome-extension_*_[0-9]/[0-9] rwk,
   owner "@{HOME}/.config/opera/Network Action Predictor" rwk,
   owner "@{HOME}/.config/opera/Web Data" rwk,
   owner "@{HOME}/.config/opera/Login Data" rwk,
@@ -85,8 +85,8 @@
 
   # Cache for thumbnails
   owner @{HOME}/.cache/thumbnails/ rw,
-  owner @{HOME}/.cache/thumbnails/**/ rw,
-  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/ rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
@@ -208,9 +208,10 @@
   owner /tmp/scoped_dir*/CRX_INSTALL/** rw,
   owner /tmp/scoped_dir*/DECODED_MESSAGE_CATALOGS rw,
   owner /tmp/scoped_dir*/DECODED_IMAGES rw,
+  owner /tmp/scoped_dir*/.org.chromium.Chromium.* rw,
 
   # Silencer
-  deny /usr/lib/@{multiarch}/opera/** w,
+  deny /{usr/,}lib/@{multiarch}/opera/** w,
   deny /var/cache/fontconfig/ w,
   deny owner @{HOME}/ r,
 

@@ -26,6 +26,7 @@
   owner @{PROC}/@{pid}/task/@{pids}/stat rw,
   owner @{PROC}/@{pid}/task/@{pids}/comm rw,
   owner @{PROC}/@{pid}/fd/ r,
+
   /etc/inputrc r,
 
   /dev/tty r,

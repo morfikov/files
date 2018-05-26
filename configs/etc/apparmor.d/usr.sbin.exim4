@@ -35,7 +35,9 @@
   /var/log/exim4/mainlog  w,
 
   /var/spool/exim4/ r,
-  /var/spool/exim4/** rwk,
+  /var/spool/exim4/** rw,
+  /var/spool/exim4/input/*-*-*-* rwk,
+  /var/spool/exim4/db/retry.lockfile rwk,
 
        /var/mail/* rwk,
   link /var/mail/*.lock -> /var/mail/*.lock.*.*.*,

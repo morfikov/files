@@ -87,8 +87,8 @@
 
   # Cache for thumbnails
   owner @{HOME}/.cache/thumbnails/ rw,
-  owner @{HOME}/.cache/thumbnails/**/ rw,
-  owner @{HOME}/.cache/thumbnails/**/[a-f0-9]*.png rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/ rw,
+  owner @{HOME}/.cache/thumbnails/{large,normal}/[a-f0-9]*.png rw,
 
   # Fontconfig cache
   owner @{HOME}/.cache/fontconfig/ rw,
