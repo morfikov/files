@@ -36,12 +36,19 @@
   owner /media/Kabi/cloud_storage/** rw,
 
   # Proc filesystem
-  owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/cmdline r,
 
-  /dev/tty r,
+  # Autostart
+  owner @{HOME}/.config/autostart/#[0-9]* rw,
+  owner @{HOME}/.config/autostart/megasync.desktop rw,
+   link @{HOME}/.config/autostart/megasync.desktop -> /home/*/.config/autostart/#[0-9]*,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  deny /dev/tty r,
+
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
   # Nameservice
   /etc/nsswitch.conf r,
@@ -58,7 +65,5 @@
 
   # External apps
   /usr/bin/xdg-open rPUx,
-  /usr/lib/firefox/firefox rPUx,
-  /usr/bin/spacefm rPUx,
 
 }

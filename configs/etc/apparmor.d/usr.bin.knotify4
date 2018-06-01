@@ -30,8 +30,11 @@
 
   /usr/share/X11/XErrorDB r,
 
+  # For device notifications
+  /sys/devices/pci[0-9]*/**/block/**/uevent r,
+
   # Silencer
-  deny /{usr/,}lib/@{multiarch}/vlc/plugins/* w,
+  deny /{usr/,}lib/@{multiarch}/vlc/** w,
 
   # Udev silencer
   deny /sys/bus/ r,

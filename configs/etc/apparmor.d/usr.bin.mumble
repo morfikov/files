@@ -38,7 +38,10 @@
   owner @{HOME}/.kde/share/config/kdeglobals r,
   owner @{HOME}/.config/Trolltech.conf rwk,
 
-  /etc/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /etc/machine-id r,
+  deny /var/lib/dbus/machine-id r,
 
   /dev/shm/MumbleLink.[0-9]* rw,
 

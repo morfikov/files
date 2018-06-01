@@ -11,11 +11,11 @@
 
 #include <tunables/global>
 
-/usr/lib/polkit-1/polkit-agent-helper-1 {
+/{usr/,}lib/polkit-1/polkit-agent-helper-1 flags=(complain) {
   #include <abstractions/base>
   #include <abstractions/authentication>
 
-  signal (receive) set=(term) peer=/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1,
+  signal (receive) set=(term) peer=/{usr/,}lib/@{multiarch}/libexec/polkit-kde-authentication-agent-1,
 
   capability setgid,
   capability setuid,

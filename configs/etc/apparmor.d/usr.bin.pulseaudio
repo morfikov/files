@@ -56,8 +56,10 @@
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/stat r,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # Nameservice
   /etc/hosts r,

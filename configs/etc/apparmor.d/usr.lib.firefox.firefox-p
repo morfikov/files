@@ -136,8 +136,10 @@
 
   /usr/share/glib-2.0/schemas/gschemas.compiled r,
 
-  deny /etc/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # TMP files
   /var/tmp/ r,
@@ -170,12 +172,12 @@
   deny /usr/lib/firefox/** w,
 
   # Launch external apps
-  /usr/bin/vlc                rPUx,
-  /usr/bin/qbittorrent        rPUx,
-  /usr/bin/exo-open           rPUx,
-  /usr/bin/smplayer           rPUx,
-  /usr/bin/viewnior           rPUx,
-  /usr/bin/lsb_release        rPUx,    # Firefox v51
-  /usr/bin/telegram-desktop-p rPUx,
+       /usr/bin/vlc                rPUx,
+       /usr/bin/qbittorrent        rPUx,
+       /usr/bin/exo-open           rPUx,
+       /usr/bin/smplayer           rPUx,
+       /usr/bin/viewnior           rPUx,
+  deny /usr/bin/lsb_release        rx,    # Firefox v51
+       /usr/bin/telegram-desktop-p rPUx,
 
 }

@@ -51,8 +51,10 @@
   owner @{HOME}/.cache/fontconfig/CACHEDIR.TAG{,.NEW,.LCK,.TMP-*} rw,
   owner @{HOME}/.cache/fontconfig/[a-f0-9]*-*.cache-?{,.NEW,.LCK,.TMP-*} rwk,
 
-  /etc/machine-id r,
-  /var/lib/dbus/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # Autostart
   owner @{HOME}/.config/autostart/psi-plus.desktop rw,
@@ -67,9 +69,9 @@
 
   /etc/debian_version r,
 
-  /dev/tty r,
+  deny /dev/tty r,
 
-  owner @{PROC}/@{pid}/cmdline r,
+  deny owner @{PROC}/@{pid}/cmdline r,
 
   # Nameservice
   /etc/nsswitch.conf r,
@@ -96,8 +98,10 @@
     /usr/bin/aplay mr,
     /usr/bin/pulseaudio rix,
 
-    /etc/machine-id r,
-    /var/lib/dbus/machine-id r,
+    # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+    # exposed in untrusted environments, in particular on the network.
+    deny /var/lib/dbus/machine-id r,
+    deny /etc/machine-id r,
 
     /usr/share/psi-plus/sound/** r,
 

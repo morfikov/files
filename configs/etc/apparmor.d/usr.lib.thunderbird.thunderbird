@@ -147,9 +147,10 @@
   deny owner @{PROC}/@{pid}/mounts r,
   deny       @{PROC}/@{pid}/net/arp r,
 
-
-  deny /etc/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   deny /dev/tty r,
 

@@ -34,11 +34,14 @@
   owner "@{HOME}/.config/Flavio Tordini/Minitube.conf.lock" rwk,
    link "@{HOME}/.config/Flavio Tordini/Minitube.conf.*" -> "/home/*/.config/Flavio Tordini/#[0-9]*",
   owner "@{HOME}/.config/Flavio Tordini/.*" rwk,
+  owner @{HOME}/.config/Minituberc rw,
+  owner @{HOME}/.config/Minituberc.* rw,
+   link @{HOME}/.config/Minituberc.* -> /home/*/.config/#[0-9]*,
+  owner @{HOME}/.config/Minituberc.lock rwk,
+
   owner "@{HOME}/.local/share/Flavio Tordini/" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/**" rw,
   owner "@{HOME}/.local/share/Flavio Tordini/Minitube/minitube.db" rwk,
-  owner @{HOME}/.config/Minituberc* rw,
-  owner @{HOME}/.config/Minituberc.lock rwk,
 
   # Cache
   owner @{HOME}/.cache/ rw,
@@ -73,12 +76,14 @@
   deny /sys/devices/system/node/ r,
   deny /sys/devices/system/node/node[0-9]/meminfo r,
 
-  /dev/tty r,
+  deny /dev/tty r,
 
   owner /{var/,}run/user/[0-9]*/#[0-9]* rw,
 
   deny owner @{PROC}/@{pid}/cmdline r,
 
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /etc/machine-id r,
   deny /var/lib/dbus/machine-id r,
 

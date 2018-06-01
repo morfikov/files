@@ -73,7 +73,7 @@
   owner "@{HOME}/.config/google-chrome/Safe Browsing Cookies" rwk,
   owner "@{HOME}/.config/google-chrome/Safe Browsing Channel IDs" rwk,
 
-  owner @{HOME}/.local/share/.com.google.Chrome.MKFu05 rw,
+  owner @{HOME}/.local/share/.com.google.Chrome.* rw,
 
   # Cache files
   owner @{HOME}/.cache/ rw,
@@ -159,6 +159,8 @@
   deny /opt/google/chrome/libwidevinecdm.so mr,
   deny /opt/google/chrome/libwidevinecdmadapter.so mr,
 
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /var/lib/dbus/machine-id r,
   deny /etc/machine-id r,
 

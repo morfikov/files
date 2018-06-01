@@ -163,6 +163,8 @@
   deny /opt/google/chrome/libwidevinecdm.so mr,
   deny /opt/google/chrome/libwidevinecdmadapter.so mr,
 
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /var/lib/dbus/machine-id r,
   deny /etc/machine-id r,
 

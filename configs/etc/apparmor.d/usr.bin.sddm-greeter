@@ -36,6 +36,7 @@
   owner /var/lib/sddm/.cache/** rw,
   owner /var/lib/sddm/.cache/icon-cache.kcache mrwk,
   owner /var/lib/sddm/.cache/plasma_theme_default_v*.kcache mrwk,
+   link /var/lib/sddm/.cache/qt_compose_cache_little_endian_* -> /var/lib/sddm/.cache/#[0-9]*,
   owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.jsc mrw,
    link /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.jsc.* -> /var/lib/sddm/.cache/sddm-greeter/qmlcache/#[0-9]*,
   owner /var/lib/sddm/.cache/sddm-greeter/qmlcache/[a-f0-9]*.qmlc mrw,
@@ -72,11 +73,14 @@
   owner /run/sddm/* rw,
 
   /{usr/,}lib/@{multiarch}/ld-*.so mr,
+
   owner @{PROC}/@{pid}/mounts r,
+        @{PROC}/sys/kernel/core_pattern r,
 
-  /var/lib/dbus/machine-id r,
-
-  /proc/sys/kernel/core_pattern r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # Nameservice
   /etc/nsswitch.conf r,

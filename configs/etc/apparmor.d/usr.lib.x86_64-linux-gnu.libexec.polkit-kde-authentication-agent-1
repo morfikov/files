@@ -20,7 +20,7 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/wayland>
 
-  signal (send) set=(term) peer=/usr/lib/polkit-1/polkit-agent-helper-1,
+  signal (send) set=(term) peer=/{usr/,}lib/polkit-1/polkit-agent-helper-1,
 
   signal (receive) set=(hup) peer=/usr/bin/xinit,
 
@@ -36,16 +36,18 @@
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/cgroup r,
   @{PROC}/@{pid}/fd/ r,
+  @{PROC}/sys/kernel/core_pattern r,
 
-  /var/lib/dbus/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
+  deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # KDE5 abstraction
   owner @{HOME}/.Xauthority r,
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
   owner @{HOME}/.cache/qt_compose_cache_little_endian_* rw,
   /dev/tty r,
-
-  @{PROC}/sys/kernel/core_pattern r,
 
   owner /tmp/#[0-9]* rw,
   owner /tmp/polkit-kde-authentication-agent-1.* rw,

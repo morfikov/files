@@ -98,7 +98,7 @@
   # Display WiFi network status, i.e:
   # ESSID, AP's MAC, bitrate, signal strength, IP address and down/up speed
   @{PROC}/@{pid}/net/dev r,
-  # Display IPv6 address of a interface
+  # Display IPv6 address of an interface
   @{PROC}/@{pid}/net/if_inet6 r,
 
   # Display the number of active TCP/TCP6 connections

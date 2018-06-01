@@ -76,8 +76,10 @@
   /etc/gai.conf r,
   /etc/passwd r,
 
-  deny /etc/machine-id r,
+  # This ID uniquely identifies the host. It should be considered "confidential", and must not be
+  # exposed in untrusted environments, in particular on the network.
   deny /var/lib/dbus/machine-id r,
+  deny /etc/machine-id r,
 
   # If the following rule is denied, an error will be returned, but the app works fine though:
   #  MESA-LOADER: failed to retrieve device information
@@ -97,17 +99,8 @@
   owner /tmp/xauth-[0-9]*-_[0-9] rw,
 
   # Launch external apps
-  /usr/bin/python*  rPUx,
   /usr/bin/exo-open rPUx,
   /usr/bin/xdg-open rPUx,
-  /usr/bin/xdg-mime rPUx,
-  /usr/bin/smplayer rPUx,
-  /usr/bin/vlc      rPUx,
-  /usr/bin/mpv      rPUx,
-  /usr/bin/geany    rPUx,
-  /usr/bin/okular   rPUx,
-  /usr/bin/spacefm  rPUx,
-  /usr/bin/viewnior rPUx,
 
   # Silencer
   deny /home/ rw,
