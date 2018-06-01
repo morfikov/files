@@ -1,0 +1,36 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/bin/ntfs-3g flags=(complain) {
+  #include <abstractions/base>
+
+  # Needed in order to mount ntfs disks
+  capability setgid,
+  capability setuid,
+  capability sys_admin,
+
+  /bin/ntfs-3g mr,
+
+  owner @{PROC}/@{pid}/mounts r,
+        @{PROC}/@{pids}/mountinfo r,
+        @{PROC}/swaps r,
+
+  /sys/devices/virtual/block/**/name r,
+
+  /dev/sd?? rwk,
+  /dev/fuse rw,
+
+  # Allow to mount ntfs disks under only the /media/$user/ dir
+  mount fstype=fuseblk /dev/sd?? -> /media/*/*/,
+
+}
