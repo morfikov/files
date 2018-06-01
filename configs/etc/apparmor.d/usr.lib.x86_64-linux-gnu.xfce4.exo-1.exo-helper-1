@@ -1,0 +1,100 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/{usr/,}lib/@{multiarch}/xfce4/exo-1/exo-helper-1 flags=(complain) {
+  #include <abstractions/base>
+
+  # These are needed when there's no default application set in the ~/.config/xfce4/helpers.rc
+  #include <abstractions/gtk>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+
+  /{usr/,}lib/@{multiarch}/xfce4/exo-1/exo-helper-1 mr,
+
+  # To be able to launch and choose apps
+       / r,
+  deny /bin/ r,
+  deny /bin/[a-z0-9]* rx,
+  deny /sbin/ r,
+  deny /sbin/[a-z0-9]* rx,
+       /usr/ r,
+       /usr/bin/ r,
+       /usr/bin/[a-z0-9]* rPUx,
+  deny /usr/sbin/ r,
+  deny /usr/sbin/[a-z0-9]* rx,
+  deny /usr/local/ r,
+  deny /usr/local/bin/ r,
+  deny /usr/local/bin/[a-z0-9]* rx,
+  deny /usr/local/sbin/ r,
+  deny /usr/local/bin/[a-z0-9]* rx,
+
+  # Non-standard exec names and paths
+  deny /usr/bin/\[ rx,
+       /usr/lib/ r,
+       /usr/lib/firefox/ r,
+       /usr/lib/firefox/firefox* rPUx,
+       /opt/ r,
+       /opt/google/ r,
+       /opt/google/chrome/ r,
+       /opt/google/chrome/google-chrome rPUx,
+
+  /usr/share/ r,
+  /usr/share/xfce4/ r,
+  /usr/share/xfce4/helpers/ r,
+  /usr/share/xfce4/helpers/*.desktop r,
+  /usr/local/share/ r,
+  owner @{HOME}/.local/share/ r,
+  owner @{HOME}/.local/share/xfce4/ r,
+  owner @{HOME}/.local/share/xfce4/helpers/ r,
+
+  /etc/xdg/xfce4/helpers.rc r,
+  owner @{HOME}/.config/xfce4/helpers.rc rw,
+  owner @{HOME}/.config/xfce4/helpers.rc.@{pid}.tmp rw,
+  owner @{HOME}/.local/share/xfce4/helpers/*.desktop rw,
+  owner @{HOME}/.local/share/xfce4/helpers/*.desktop.@{pid}.tmp rw,
+
+  owner @{HOME}/.config/mimeapps.list rw,
+  owner @{HOME}/.config/mimeapps.list.@{pid}.tmp rw,
+
+  # Some missing icons
+  /usr/share/firefox/browser/chrome/icons/**.png r,
+
+       owner @{PROC}/@{pid}/fd/ r,
+  deny owner @{PROC}/@{pid}/mountinfo r,
+  deny owner @{PROC}/@{pid}/mounts r,
+
+  deny /etc/fstab r,
+
+  /usr/share/glib-2.0/schemas/gschemas.compiled r,
+
+  # Dconf
+  #include <abstractions/dconf>
+  /{var/,}run/user/[0-9]*/dconf/user rw,
+  owner @{HOME}/.config/dconf/user r,
+
+  # Nameservice
+  deny /etc/nsswitch.conf r,
+  deny /etc/passwd r,
+
+  owner @{HOME}/.Xauthority r,
+
+  # What's this for?
+  /usr/share/dput/execute-dcut r,
+  /usr/share/dput/execute-dput r,
+  /usr/share/python/pyversions.py r,
+  /usr/share/python3/py3versions.py r,
+  /usr/share/lintian/frontend/dplint r,
+  /usr/share/command-not-found/command-not-found r,
+  /usr/share/pkg-config-crosswrapper r,
+
+}

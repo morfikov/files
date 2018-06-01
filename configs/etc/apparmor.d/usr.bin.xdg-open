@@ -1,0 +1,25 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/xdg-open flags=(complain) {
+  #include <abstractions/base>
+
+  /bin/dash rix,
+  /usr/bin/xdg-open r,
+
+  /usr/bin/exo-open rPUx,
+
+  # file_inherit
+  owner /media/** rw,
+
+}

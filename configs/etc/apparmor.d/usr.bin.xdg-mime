@@ -1,0 +1,35 @@
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2018 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+
+/usr/bin/xdg-mime flags=(complain) {
+  #include <abstractions/base>
+
+  /bin/dash rix,
+  /usr/bin/xdg-mime r,
+
+  /usr/bin/gawk rix,
+  /usr/bin/cut rix,
+  /usr/bin/basename rix,
+  /bin/grep rix,
+  /bin/which rix,
+  /bin/readlink rix,
+  /bin/mv rix,
+
+  /usr/share/applications/ r,
+  /usr/share/applications/*.desktop r,
+  owner @{HOME}/.local/share/applications/ r,
+
+  owner @{HOME}/.config/mimeapps.list rw,
+  owner @{HOME}/.config/mimeapps.list.new rw,
+
+}
