@@ -142,6 +142,7 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin flags=(comp
   /usr/lib{,32,64}/jvm/                         r,
   /usr/lib{,32,64}/jvm/**                       r,
   /usr/lib{,32,64}/jvm/**/jre/bin/java          mix,
+  /usr/lib{,32,64}/jvm/**/bin/java              mix,
   /usr/lib/libreoffice/**                        rw,
   /usr/lib/libreoffice/**.so                     m,
   /usr/lib/libreoffice/program/soffice.bin       mix,
@@ -190,5 +191,6 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin flags=(comp
    /usr/bin/gpgsm rm,
 
     owner @{HOME}/.gnupg/* r,
+    owner @{HOME}/.gnupg/random_seed rk,
   }
 }

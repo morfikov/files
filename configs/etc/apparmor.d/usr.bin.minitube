@@ -78,7 +78,10 @@
 
   deny /dev/tty r,
 
+  # Needed or sometimes there's no way to pause a video
   owner /{var/,}run/user/[0-9]*/#[0-9]* rw,
+  owner /{var/,}run/user/[0-9]*/Minitube*.slave-socket rw,
+   link /{var/,}run/user/[0-9]*/Minitube*.slave-socket -> /{var/,}run/user/[0-9]*/#[0-9]*,
 
   deny owner @{PROC}/@{pid}/cmdline r,
 
@@ -111,7 +114,6 @@
   /etc/xdg/menus/ r,
   owner @{HOME}/.config/menus/ r,
   owner @{HOME}/.config/menus/applications-merged/ r,
-  owner /{var/,}/run/user/[0-9]*/Minitube*.slave-socket rw,
   /etc/xdg/accept-languages.codes r,
 
   # Snapshot

@@ -16,7 +16,7 @@
 
   /usr/bin/exo-open mr,
 
-  /usr/lib/x86_64-linux-gnu/xfce4/exo-1/exo-helper-1 rPUx,
+  /{usr/,}lib/@{multiarch}/xfce4/exo-1/exo-helper-1 rPUx,
 
   # To be able to launch and choose apps
        / r,
